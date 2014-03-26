@@ -4,7 +4,7 @@
     Author     : santi_000
     --%>
 
-    <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Tipo_Usuario" import="Controlador.Contr_Consultar" import="Java.Util.ArrayList"%>
+    <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Tipo_Usuario" import="Controlador.Contr_Consultar" import="java.util.ArrayList"%>
     <%
     String mensaje = "";
     Contr_Consultar usu = new Contr_Consultar();
@@ -70,8 +70,11 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 			<li><a href="index1.html">Trigger Event</a></li>
 		</ul>
 	</div><!-- /container -->
-	<div class="container" style="margin-top: 5%;">
+	<div class="container">
 		<div class="row clearfix">
+                    <br/>
+                    <br/>
+                    <br/>
 			<div class="col-md-12">
 				<div class="form-group">
 					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro Usuario

@@ -2,51 +2,51 @@
     Document   : index
     Created on : 06-mar-2014, 14:58:41
     Author     : ADSI
---%>
+    --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Usuarios" %>
+    <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Usuarios" %>
 
-<%
+    <%
     String mensaje = "";
     if(session.getAttribute("Mensaje") != null)
-    {
-        mensaje= (String)session.getAttribute("Mensaje");
-    }
-    String Nombre = (String)session.getAttribute("Nombre");
-    String Rol = (String)session.getAttribute("Rol");
-%>
-<!DOCTYPE html>
-<html lang="en" class="no-js">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>Trigger Event</title>
-  <meta name="description" content="Eventos musicales" />
-  <meta name="keywords" content="Eventos, musical, Trigger Event" />
-  <meta name="author" content="Sanser Soft" />
-  <link rel="shortcut icon" href="../favicon.ico">
-  <link rel="stylesheet" type="text/css" href="Libs/Bootstrap/css/bootstrap-theme.min.css" />
-  <link rel="stylesheet" type="text/css" href="Libs/Bootstrap/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="Libs/Customs/css/Default.css" />
-  <link rel="stylesheet" type="text/css" href="Libs/Customs/css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="Libs/Customs/css/demo.css" />
-  <link rel="stylesheet" type="text/css" href="Libs/Customs/css/component.css" />
-  <link rel="stylesheet" type="text/css" href="Libs/Customs/css/style.css" />
-  <link rel="stylesheet" type="text/css" href="Libs/Customs/css/guidely.css" />
-  <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
-  <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
-  <script src="Libs/Customs/js/modernizr.custom.js"></script>
-</head>
-<body>
-  <div class="container">
-    <ul id="gn-menu" class="gn-menu-main">
-      <li class="gn-trigger">
-        <a class="gn-icon gn-icon-menu">
-          <span>Menu</span>
-        </a>
-        <nav class="gn-menu-wrapper">
-          <div class="gn-scroller">
+      {
+    mensaje= (String)session.getAttribute("Mensaje");
+  }
+  String Nombre = (String)session.getAttribute("Nombre");
+  String Rol = (String)session.getAttribute("Rol");
+  %>
+  <!DOCTYPE html>
+  <html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Trigger Event</title>
+    <meta name="description" content="Eventos musicales" />
+    <meta name="keywords" content="Eventos, musical, Trigger Event" />
+    <meta name="author" content="Sanser Soft" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="Libs/Bootstrap/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="Libs/Bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="Libs/Customs/css/Default.css" />
+    <link rel="stylesheet" type="text/css" href="Libs/Customs/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="Libs/Customs/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="Libs/Customs/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="Libs/Customs/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="Libs/Customs/css/guidely.css" />
+    <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
+    <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
+    <script src="Libs/Customs/js/modernizr.custom.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <ul id="gn-menu" class="gn-menu-main">
+        <li class="gn-trigger">
+          <a class="gn-icon gn-icon-menu">
+            <span>Menu</span>
+          </a>
+          <nav class="gn-menu-wrapper">
+            <div class="gn-scroller">
              <ul class="gn-menu">
               <li class="gn-search-item">
                 <a href="index.jsp" class="gn-icon gn-icon-download">
@@ -99,6 +99,9 @@
     </ul>
   </div><!-- /container -->
   <div id="body" class="container" style="width: 100%;">
+    <br/>
+    <br/>
+    <br/>
     <div class="row">
       <%if(Rol == null){%>
       <div class="col-md-4">
@@ -112,7 +115,7 @@
         <img id="imagen" class="img-responsive" src="Libs/Customs/images/logoteblanco.png">
       </div>
       <div class="col-md-4">
-          
+        
         <div class="panel panel-default">
           <div class="panel-heading">
             <span class="glyphicon glyphicon-lock"></span> Login
@@ -289,48 +292,48 @@
       <div class="col-md-2">
       </div>
     </div>
-      <div class="modal fade" id="modal-container-Olvide" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title" id="myModalLabel">
-                                Olvid&eacute; la contrase&ntilde;a.
-                            </h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
-                            <div class="row">
-                                <div class="col-md-offset-4 col-md-4">
-                                    <div class="form-group">
-                                        <label for="Email" class="col-sm-3 control-label" >
-                                        Email
-                                    </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-offset-2 col-md-8">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="inputEmail3" name="correo" placeholder="Email" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-offset-4 col-md-4">
-                                    
-                                        <button type="submit" name="recucontrasenia" class="btn btn-primary btn-block" >
-                                            Enviar Contrase&ntilde;a
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    <div class="modal fade" id="modal-container-Olvide" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel">
+              Olvid&eacute; la contrase&ntilde;a.
+            </h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+              <div class="row">
+                <div class="col-md-offset-4 col-md-4">
+                  <div class="form-group">
+                    <label for="Email" class="col-sm-3 control-label" >
+                      Email
+                    </label>
+                  </div>
                 </div>
-            </div>
+              </div>
+              <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                  <div class="form-group">
+                    <input type="email" class="form-control" id="inputEmail3" name="correo" placeholder="Email" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-md-offset-4 col-md-4">
+                    
+                    <button type="submit" name="recucontrasenia" class="btn btn-primary btn-block" >
+                      Enviar Contrase&ntilde;a
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
+    </div>
   </div>
   <div class="container" style="width: 100%; margin-top: 2%;">
     <div class="row clearfix">
@@ -343,47 +346,47 @@
   <script src="Libs/Customs/js/classie.js"></script>
   <script src="Libs/Customs/js/gnmenu.js"></script>
   <script>
-      new gnMenu( document.getElementById( 'gn-menu' ) );
+  new gnMenu( document.getElementById( 'gn-menu' ) );
   </script>
   <!--Pines Notify -->
   <script type="text/javascript" src="Libs/Customs/js/alertify.js"></script>
   <%if(mensaje.equals("LoginCorrecto")){%>
   <script type="text/javascript">
-      $(document).ready(function(){
-          alertify.success("Te has logueado correctamente, bienvenido/a.");
-      });
+  $(document).ready(function(){
+    alertify.success("Te has logueado correctamente, bienvenido/a.");
+  });
   </script>
   <%}%>
   <%if(mensaje.equals("LoginInCorrecto")){%>
   <script type="text/javascript">
-      $(document).ready(function(){
-          alertify.error("El correo/contraseña es incorrecta. Inténtelo de nuevo.");
-      });
+  $(document).ready(function(){
+    alertify.error("El correo/contraseña es incorrecta. Inténtelo de nuevo.");
+  });
   </script>
   <%}%>
   <%if(mensaje.equals("RecuDio")){%>
-    <script type="text/javascript">
-         $(document).ready(function(){
-            alertify.success("Verifica tu correo, te hemos enviado tu contraseña.");
-         });
-     </script>
-    <%}%>
-    <%if(mensaje.equals("RecuNoDio")){%>
-    <script type="text/javascript">
-         $(document).ready(function(){
-            alertify.error("Ocurrió un problema inesperado al tratar de enviar su contraseña, por favor inténtelo de nuevo.");
-         });
-     </script>
-     <%}%>
-    <%if(mensaje.equals("ErrorCorre")){%>
-    <script type="text/javascript">
-         $(document).ready(function(){
-            alertify.error("El correo es incorrecto, verifiquelo e inténtelo de nuevo.");
-         });
-     </script>
-     <%}
+  <script type="text/javascript">
+  $(document).ready(function(){
+    alertify.success("Verifica tu correo, te hemos enviado tu contraseña.");
+  });
+  </script>
+  <%}%>
+  <%if(mensaje.equals("RecuNoDio")){%>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    alertify.error("Ocurrió un problema inesperado al tratar de enviar su contraseña, por favor inténtelo de nuevo.");
+  });
+  </script>
+  <%}%>
+  <%if(mensaje.equals("ErrorCorre")){%>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    alertify.error("El correo es incorrecto, verifiquelo e inténtelo de nuevo.");
+  });
+  </script>
+  <%}
   session.setAttribute("Mensaje", "");%>
-    <script src="Libs/Customs/js/guidely.min.js"></script>
+  <script src="Libs/Customs/js/guidely.min.js"></script>
   <script>
 
   $(function () {

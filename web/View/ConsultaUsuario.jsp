@@ -299,7 +299,7 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 	<footer>
 		<p>&copy; 2013 Trigger Event, Inc.</p>
 	</footer>
-        </div>
+    </div>
 
 
 

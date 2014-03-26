@@ -112,7 +112,11 @@ String Direccion = (String) session.getAttribute("Direccion");
 			<%}%>
 		</ul>
 	</div><!-- /container -->
-	<div class="container" style="margin-top: 5%;">
+        
+	<div class="container">
+                <br/>
+                <br/>
+                <br/>
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">

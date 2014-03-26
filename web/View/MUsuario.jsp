@@ -104,7 +104,12 @@ String[] DatosUsuario = usu.BuscarDatosUsuario(codigoUsuario);
                             <li class="pull-right"><a href="Salir.jsp">Cerrar Sesi&oacute;n</a></li>
                         <%}%>
 		</ul>
-		
+		</div><!-- /container -->
+                <div class="container">
+                    <br/>
+                    <br/>
+                    <br/>
+                    
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
@@ -256,13 +261,13 @@ String[] DatosUsuario = usu.BuscarDatosUsuario(codigoUsuario);
 		<div class="container marketing">
 			<hr class="featurette-divider">
 		</div>
-	</div><!-- /container -->
+	
 
 	<!-- FOOTER -->
 	<footer>
 		<p>&copy; 2013 Trigger Event, Inc.</p>
 	</footer>
-
+        </div>
 
 
 

@@ -106,6 +106,9 @@ String Rol = (String)session.getAttribute("Rol");
 		</ul>
 	</div><!-- /container -->
 	<div id="body" class="container" style="width: 100%;">
+            <br/>
+            <br/>
+            <br/>
 		<div class="row">
 			<%if(Rol == null){%>        
 			<div class="col-md-4">
