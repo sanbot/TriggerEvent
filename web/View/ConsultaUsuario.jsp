@@ -143,7 +143,7 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
                   <td><%=usulista.getTipo_Documento()%></td>
                   <td><%=usulista.getNombre()%></td>
                   <td><%=usulista.getEstado()%></td>
-                  <td><center><a href="MUsuario.jsp?<%=usulista.getCodigo()%>"><i class="glyphicon glyphicon-edit"></center></td>
+                  <td><center><a href="MUsuario.jsp?Codigo=<%=usulista.getCodigo()%>"><i class="glyphicon glyphicon-edit"></center></td>
                   <td><center><a href="#"><i class="glyphicon glyphicon-remove"></i></a></center></td>
                   <td>Ver más</td>
                 </tr>

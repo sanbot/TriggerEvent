@@ -20,6 +20,16 @@ mensaje = (String)session.getAttribute("Mensaje");
 }
 String Nombre = (String)session.getAttribute("Nombre");
 String Rol = (String)session.getAttribute("Rol");
+if(request.getParameter("Codigo")!= null)
+{
+    String codigoUsuario = request.getParameter("Codigo");
+}
+else
+{
+    response.sendRedirect("ConsultaUsuario.jsp");
+}
+
+ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +110,7 @@ String Rol = (String)session.getAttribute("Rol");
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<br/>
-				<h1 class="Center">Registro y Consulta de Usuarios</h1>
+				<h1 class="Center">Modificar Usuario</h1>
 			</div>
 		</div>
 		<div class="row">
