@@ -98,6 +98,9 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 			<li>
 				<a href="index.html">Trigger Event</a>
 			</li>
+                        <%if(Rol!=null){%>
+                            <li class="pull-right"><a href="Salir.jsp">Cerrar Sesi&oacute;n</a></li>
+                        <%}%>
 		</ul>
 		
 		<div class="row clearfix">
