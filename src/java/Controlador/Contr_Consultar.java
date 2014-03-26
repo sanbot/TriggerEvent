@@ -13,10 +13,18 @@ import java.util.ArrayList;
  * @author santi
  */
 public class Contr_Consultar {
+    Usuario usu = new Usuario();
     public ArrayList<Usuario> BuscarDatosUsuariosTodos()
     {
-        Usuario usu = new Usuario();
+        
         ArrayList<Usuario> Datos = usu.BuscarDatosUsuarioTodos();
+                
+        return Datos;
+    }
+    
+    public String[] BuscarDatosUsuario(String Codigo)
+    {
+        String[] Datos = usu.getDatosUsuario(Codigo);
                 
         return Datos;
     }

@@ -168,6 +168,51 @@ public class Usuario {
         return false;
     }
       
+    
+    public String[] getDatosUsuario(String Codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select u.Codigo codigo, u.Codigo_Tipo CodigoTipo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,u.Nombre nombre, u.Telefono telefono,"
+                 + " u.No_Celular Celular, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
+                   "From  tb_usuario u"
+                + " Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo \n" +
+                    "Where u.Codigo = ?";
+        String[] Usuario = new String[11];
+        try{
+            
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, Codigo);
+            rs=pr.executeQuery();
+            while(rs.next()){
+                    Usuario[0] = rs.getString("Codigo");
+                    Usuario[1] = rs.getString("CodigoTipo");
+                    Usuario[2] = rs.getString("Tipo");
+                    Usuario[3] = rs.getString("Tipo_Documento");
+                    Usuario[4] = rs.getString("Documento");
+                    Usuario[5] = rs.getString("Nombre");
+                    Usuario[6] = rs.getString("Telefono");
+                    Usuario[7] = rs.getString("Celular");
+                    Usuario[8] = rs.getString("Correo");
+                    Usuario[9] = rs.getString("Direccion");
+                    Usuario[10] = rs.getString("Estado");
+                    
+            }
+            return Usuario;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+                    ex.getMessage();
+            }
+        }
+        return null;
+    }
+    
     public boolean getrecordarnumero(String correo){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;

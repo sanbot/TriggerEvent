@@ -10,7 +10,7 @@ Created on : 11/03/2014, 08:28:24 AM
 Author     : santi_000
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar" import="Modelo.*" import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar" import="Modelo.Tipo_Usuario" import="java.util.ArrayList"%>
 <%
 Contr_Consultar usu = new Contr_Consultar();
 String mensaje = "";
@@ -20,9 +20,10 @@ mensaje = (String)session.getAttribute("Mensaje");
 }
 String Nombre = (String)session.getAttribute("Nombre");
 String Rol = (String)session.getAttribute("Rol");
+String codigoUsuario = "";
 if(request.getParameter("Codigo")!= null)
 {
-    String codigoUsuario = request.getParameter("Codigo");
+    codigoUsuario = request.getParameter("Codigo");
 }
 else
 {
@@ -30,6 +31,7 @@ else
 }
 
 ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
+String[] DatosUsuario = usu.BuscarDatosUsuario(codigoUsuario);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,33 +124,23 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
 
 					<div class="row">
+                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label for="Codigo">Codigo</label>
+                                                                <input name="Codigo" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=DatosUsuario[0]%>" readonly/>
+							</div>
+						</div>
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Nombre">Nombre</label>
-								<input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true"/>
+								<input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=DatosUsuario[5]%>"/>
 							</div>
 						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Nombre">Celular</label>
-								<input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" />
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Nombre">Correo</label>
-								<input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" />
-							</div>
-						</div>
-					</div>
-					<div class="row">
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Tipo">Tipo Usuario</label>
-								<select name="Tipo_Usuario" id="Tipos" class="form-control" data-required="true">
+								<select name="Tipo" id="Tipos" class="form-control" data-required="true">
+                                                                        <option value="<%=DatosUsuario[1]%>"><%=DatosUsuario[2]%></option>
 									<%for(Tipo_Usuario Tusulista : ListaTipoUsuario){%>
 
 									<option value="<%=Tusulista.getCodigo()%>"><%=Tusulista.getTipo_Usuario()%></option>
@@ -156,11 +148,15 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 								</select>
 							</div>
 						</div>
+						
+					</div>
+					<div class="row">
 
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
-								<label for="Imagen">Tipo Documento</label>
+								<label for="Tipo_Documento">Tipo Documento</label>
 								<select name="Tipo_Documento" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                        <option value="<%=DatosUsuario[3]%>"><%=DatosUsuario[3]%></option>
 									<option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>
 									<option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
 									<option value="Cédula de Extranjería<">C&eacute;dula de Extranjer&iacute;a</option>
@@ -170,60 +166,77 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 								</select>
 							</div>
 						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
 							<div class="form-group">
 								<label  for="Nombre">N&uacute;mero de Documento</label>
-								<input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
+                                                                <input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=DatosUsuario[4]%>"/>
 							</div>
 						</div>
-
-					</div>
-					<div class="row">
-						<div class=" col-xs-offset-2 col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
 							<div class="form-group">
 								<label for="Telefono">Tel&eacute;fono</label>
-								<input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true">
+                                                                <input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=DatosUsuario[6]%>">
 							</div> 
 						</div>
+						
 
+						
+
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label for="Nombre">Celular</label>
+                                                                <input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=DatosUsuario[7]%>" />
+							</div>
+						</div>
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label for="Nombre">Correo</label>
+                                                                <input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=DatosUsuario[8]%>"/>
+							</div>
+						</div>
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
 							<div class="form-group">
 								<label for="Direccion">Direcci&oacute;n</label>
 								<div class="form-group">
-									<input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true">
+                                                                    <input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true" value="<%=DatosUsuario[9]%>">
 								</div>
 							</div>
 
 						</div>
-
 					</div>
+                                        
+                                        <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+							<div class="form-group">
+								<label for="Estado">Estado</label>
+								<div class="form-group">
+                                                                    <select name="Estado" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                        <option value="<%=DatosUsuario[10]%>"><%=DatosUsuario[10]%></option>
+									<option value="Aprobado">Aprobado</option>
+									<option value="Desaprobado">Desaprobado</option>
+								</select>
+								</div>
+							</div>
+
+						</div> 
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+                                        </div>
 
 					<div class="row">
-						<div class="col-md-offset-2 col-md-4">
-							<div class="form-group">
-								<label for="Password">Contrase&ntilde;a</label>
-								<input name="Password" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="REPassword">Repita la Contrase&ntilde;a</label>
-								<input name="REPassword" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
-							</div>
-						</div>
-					</div>
-					<div class="row">
 						<div class="col-md-4">
 
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 
-								<button name="RegistrarTodoUsuario" type="submit" class="btn btn-block defecto" id="RegistrarUsuario">Registrar</button>
+								<button name="RegistrarTodoUsuario" type="submit" class="btn btn-block defecto" id="ModificarUsuarioTodos">Modificar</button>
 
 							</div>
 						</div>
