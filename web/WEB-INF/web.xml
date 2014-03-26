@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>Contr_Usuarios</servlet-name>
+        <servlet-class>Controlador.Contr_Usuarios</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contr_Contacto</servlet-name>
+        <servlet-class>Controlador.Contr_Contacto</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Contr_Usuarios</servlet-name>
+        <url-pattern>/Contr_Usuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contr_Contacto</servlet-name>
+        <url-pattern>/Contr_Contacto</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>
+            404
+        </error-code>
+        <location>
+            /View/index.jsp?men=$.pnotify({title: 'Trigger Event', text: 'La página a la que está tratando de llegar no ha sido encontrada, verifíquelo e inténtelo de nuevo.', type: 'error', nonblock: true, nonblock_opacity: .2, icon: 'picon picon-logo' });
+        </location>
+    </error-page>
+     <error-page>
+        <error-code>
+            500
+        </error-code>
+        <location>
+            /View/index.jsp?men=$.pnotify({title: 'Trigger Event', text: 'Ocurrió un error inesperado en el sistema, espere unos segundos e inténtelo de nuevo.', type: 'error', nonblock: true, nonblock_opacity: .2, icon: 'picon picon-logo' });
+        </location>
+    </error-page>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

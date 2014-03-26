@@ -1,0 +1,83 @@
+
+#body { 
+  background: url(../images/Concierto.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#imagen{
+  margin-top: 50%;
+  margin-left: 20%;
+}
+#imagen1{
+  margin-top: 50%;
+  margin-left: 10%;
+}
+.defecto{
+  color: #fff;
+  background-color: #1F5DAA;
+}
+.defecto:hover{
+  color: #fff;
+}
+.Justify{
+  text-align: justify;
+  color: white;
+  font-size: 18px
+}
+.Center{
+  text-align: center;
+}
+.panel-default {
+opacity: 0.9;
+margin-top:50%;
+margin-bottom: 45%;
+opacity: 0.8;
+background: rgba(51, 44, 44, 0.86);
+}
+.form-group.last { margin-bottom:0px; }
+
+
+/*Parsley*/
+
+.parsley-error-list
+{
+
+  padding-left: 0 !important;
+}
+input.parsley-error, textarea.parsley-error, select.parsley-error{
+      color: #000 !important;
+      background-color: #F2DEDE !important;
+      border: 1px solid #EED3D7 !important;
+    }
+
+    input.parsley-success, textarea.parsley-success, select.parsley-success {
+      color: #000 !important;
+      background-color: #fff !important;
+      border: 1px solid #46FF5C !important;
+    }
+p
+{
+text-align:justify;
+text-justify:inter-word;
+}
+/* Flexible iFrame */
+
+.Flexible-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.Flexible-container iframe,   
+.Flexible-container object,  
+.Flexible-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

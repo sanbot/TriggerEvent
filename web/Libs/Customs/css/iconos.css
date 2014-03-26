@@ -1,0 +1,61 @@
+@font-face {
+  font-family: 'icomoon';
+  src:url('fonts/icomoon.eot?pakndn');
+  src:url('fonts/icomoon.eot?#iefixpakndn') format('embedded-opentype'),
+    url('fonts/icomoon.woff?pakndn') format('woff'),
+    url('fonts/icomoon.ttf?pakndn') format('truetype'),
+    url('fonts/icomoon.svg?pakndn#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.icon-home:before {
+	content: "\e600";
+}
+.icon-mobile:before {
+	content: "\e601";
+}
+.icon-calendar:before {
+	content: "\e602";
+}
+.icon-globe:before {
+	content: "\e603";
+}
+.icon-android:before {
+	content: "\e604";
+}
+.icon-checkbox-checked:before {
+	content: "\e605";
+}
+.icon-checkmark:before {
+	content: "\e606";
+}
+.icon-checkmark2:before {
+	content: "\e607";
+}
+.icon-close:before {
+	content: "\e608";
+}
+.icon-music:before {
+	content: "\e609";
+}
+.icon-music2:before {
+	content: "\e60a";
+}
+.icon-user:before {
+	content: "\e60b";
+}
+.icon-calendar2:before {
+	content: "\e60c";
+}
+.icon-star:before {
+	content: "\e60d";
+}
+.icon-note:before {
+	content: "\e60e";
+}
+.icon-news:before {
+	content: "\e60f";
+}
+.icon-pen:before {
+	content: "\e610";
+}
