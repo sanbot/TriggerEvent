@@ -236,7 +236,7 @@ String[] DatosUsuario = usu.BuscarDatosUsuario(codigoUsuario);
 						<div class="col-md-4">
 							<div class="form-group">
 
-								<button name="RegistrarTodoUsuario" type="submit" class="btn btn-block defecto" id="ModificarUsuarioTodos">Modificar</button>
+								<button name="ModificarUsuarioTodos" type="submit" class="btn btn-block defecto" id="ModificarUsuarioTodos">Modificar</button>
 
 							</div>
 						</div>

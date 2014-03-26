@@ -245,27 +245,13 @@ public class Contr_Usuarios extends HttpServlet {
                 b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado);
                 if(b)
                 {
-                    script ="$.pnotify({\n" +
-"				title: 'Trigger Event',\n" +
-"				text: 'Sus datos han sido modificados correctamente.',\n" +
-"				type: 'success',\n" +
-"				nonblock: true,\n" +
-"				nonblock_opacity: .2,\n" +
-"				icon: 'picon picon-logo'\n" +
-"			});";
-                    url="View/CUsuario.jsp?men=" + script ;
+                    session.setAttribute("Mensaje" , "MDio");
+                    url="View/ConsultaUsuario.jsp";
                     response.sendRedirect(url);
                 }else
                 {
-                    script ="$.pnotify({\n" +
-"				title: 'Trigger Event',\n" +
-"				text: 'Ocurrió un problema inesperado al tratar de modificar sus datos, por favor, inténtelo de nuevo.',\n" +
-"				type: 'error',\n" +
-"				nonblock: true,\n" +
-"				nonblock_opacity: .2,\n" +
-"				icon: 'picon picon-logo'\n" +
-"			});";
-                    url="View/MUsuario.jsp?men=" + script ;
+                    session.setAttribute("Mensaje" , "MNODio");
+                    url="View/MUsuario.jsp?Codigo="+Codigo;
                     response.sendRedirect(url);
                 }
             }

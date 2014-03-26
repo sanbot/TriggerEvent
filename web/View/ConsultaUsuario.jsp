@@ -97,6 +97,10 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 			<%}%>
 		</ul>
 	</div><!-- /container -->
+        <br/>
+        <br/>
+        <br/>
+        <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12">
 			<div class="form-group">
@@ -124,6 +128,7 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane" id="panel-Consultar">
+                                                    <br/>
 							<div class="table-responsive">
 								<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 									<thead>
@@ -131,11 +136,12 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 											<th>C&Oacute;DIGO</th>
 											<th>TIPO USUARIO</th>
 											<th>TIPO DOCUMENTO</th>
+                                                                                        <th>NÚMERO DOCUMENTO</th>
 											<th>NOMBRE</th>
 											<th>ESTADO</th>
-											<th>MODIFICAR</th>
-											<th>Desactivar</th>
-											<th>Ver M&aacute;s</th>
+											<th></th>
+											<th></th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -144,11 +150,12 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 											<td><%=usulista.getCodigo()%></td>
 											<td><%=usulista.getTipo()%></td>
 											<td><%=usulista.getTipo_Documento()%></td>
+                                                                                        <td><%=usulista.getNo_Documento()%></td>
 											<td><%=usulista.getNombre()%></td>
 											<td><%=usulista.getEstado()%></td>
-											<td><center><a href="MUsuario.jsp?Codigo=<%=usulista.getCodigo()%>"><i class="glyphicon glyphicon-edit"></center></td>
-											<td><center><a href="#"><i class="glyphicon glyphicon-remove"></i></a></center></td>
-											<td>Ver más</td>
+                                                                                        <td><center><a href="MUsuario.jsp?Codigo=<%=usulista.getCodigo()%>"><span class="glyphicon glyphicon-edit"></span></center></td>
+											<td><center><a href="MUsuario.jsp?Codigo=<%=usulista.getCodigo()%>"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                                                                        <td><center><a href="#"><span class="glyphicon glyphicon-log-in"></span><center></td>
 										</tr>
 										<%}%>
 									</tbody>
@@ -292,7 +299,7 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 	<footer>
 		<p>&copy; 2013 Trigger Event, Inc.</p>
 	</footer>
-
+        </div>
 
 
 
@@ -354,6 +361,20 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
     <script type="text/javascript">
     $(document).ready(function(){
     	alertify.error("El código de verificación no coincide con el enviado, por favor inténtelo de nuevo.");
+    });
+    </script>
+    <%}%>
+    <%if(mensaje.equals("MDio")){%>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	alertify.success("Sus datos han sido modificados correctamente.");
+    });
+    </script>
+    <%}%>
+    <%if(mensaje.equals("MNODio")){%>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	alertify.error("Ocurrió un problema inesperado al tratar de modificar sus datos, por favor, inténtelo de nuevo.");
     });
     </script>
     <%}%>
