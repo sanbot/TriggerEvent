@@ -4,26 +4,26 @@
     Author     : santi_000
     --%>
 
-    <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Tipo_Usuario" import="Controlador.Contr_Consultar" import="java.util.ArrayList"%>
-    <%
-    String mensaje = "";
-    Contr_Consultar usu = new Contr_Consultar();
-    if(session.getAttribute("Mensaje") != null)
-    	{
-    mensaje = (String)session.getAttribute("Mensaje");
+    <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+    <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>    
+<%
+if(!Rol.equals(""))
+{
+    response.sendRedirect("index.jsp");
 }
+Contr_Consultar usu = new Contr_Consultar();
 String nombre = "";
 String Correo = "";
 String Celular = "";
 String CodVer = "";
 if(session.getAttribute("Registrar_Nombre")!=null)
-	{
+{
 nombre = (String)session.getAttribute("Registrar_Nombre");
 Correo = (String) session.getAttribute("Registrar_Correo");
 Celular = (String) session.getAttribute("Registrar_Celular");
 CodVer = (String) session.getAttribute("Registrar_CodVer");
 }
-ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
+String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,9 +72,9 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 	</div><!-- /container -->
 	<div class="container">
 		<div class="row clearfix">
-                    <br/>
-                    <br/>
-                    <br/>
+			<br/>
+			<br/>
+			<br/>
 			<div class="col-md-12">
 				<div class="form-group">
 					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro Usuario
@@ -143,10 +143,13 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 							<div class="form-group">
 								<label for="Tipo">Tipo Usuario</label>
 								<select name="Tipo_Usuario" id="Tipos" class="form-control" data-required="true">
-									<%for(Tipo_Usuario Tusulista : ListaTipoUsuario){ if(Tusulista.getTipo_Usuario()!= "Administrador"){%>
-									
-									<option value="<%=Tusulista.getCodigo()%>"><%=Tusulista.getTipo_Usuario()%></option>
-									<%}}%>
+									<%
+                                                                        for(String[] Row : ListaTipoUsuario){
+                                                                                if(!Row[1].equals("Administrador")){%>
+                                                                                    <option value="<%=Row[0]%>"><%=Row[1]%></option>
+                                                                                <%}
+                                                                            
+                                                                        }%>
 								</select>
 							</div>
 						</div>
@@ -274,49 +277,22 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
     </script>
     
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-    <%if(mensaje.equals("CodigoEnviado")){%>
     <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.success("Verifica tu correo, te hemos enviado el código de verificación.");
-    });
+        $(document).ready(function(){
+        <%if(session.getAttribute("Mensaje") != null && !mensaje.equals(""))
+        {
+        if(session.getAttribute("TipoMensaje").equals("Dio"))
+            {%>
+                alertify.success("<%=mensaje%>");
+            <%}
+        else if(session.getAttribute("TipoMensaje").equals("NODio"))
+            {%>
+                alertify.error("<%=mensaje%>");
+            <%}
+        }%>
+        });
     </script>
-    <%}%>
-    <%if(mensaje.equals("CodigoNoEnviado")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.error("Ocurrió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
-    });
-    </script>
-    <%} %>
-    <%if(mensaje.equals("RegistroDio")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.success("Los datos del usuario han sido registrados correctamente.");
-    });
-    </script>
-    <%}%>
-    <%if(mensaje.equals("RegistroNoDio")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.error("Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
-    });
-    </script>
-    <%}%>
-    <%if(mensaje.equals("ErrorCodigo")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.error("El código de verificación no coincide con el enviado, por favor inténtelo de nuevo.");
-    });
-    </script>
-    <%}%>
-    <%if(mensaje.equals("ErroPass")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.error("Las Contraseñas no coinciden.");
-    });
-    </script>
-    <%}
-    session.setAttribute("Mensaje", "");%>
+    <%session.setAttribute("Mensaje", "");%>
 </body>
 </html>
 

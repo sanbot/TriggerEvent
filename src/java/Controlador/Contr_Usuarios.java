@@ -45,7 +45,8 @@ public class Contr_Usuarios extends HttpServlet {
                     b = usu.getlogin(correo,Contrasenia);
                     if(b)
                     {
-                        session.setAttribute("Mensaje","LoginCorrecto");
+                        session.setAttribute("Mensaje","Te has logueado correctamente, bienvenido/a.");
+                        session.setAttribute("TipoMensaje", "Dio");
                         
                         Codigo = usu.getCodigo();
                         Tipo_Documento = usu.getTipo_Documento();
@@ -54,9 +55,10 @@ public class Contr_Usuarios extends HttpServlet {
                         Telefono = usu.getTelefono();
                         Direccion = usu.getDireccion();
                         celular = usu.getCelular();
+                        Rol = usu.getTipo();
                         
                         session.setAttribute("Codigo", Codigo);
-                        session.setAttribute("Rol", "Administrador");
+                        session.setAttribute("Rol", Rol);
                         session.setAttribute("Tipo_Documento", Tipo_Documento);
                         session.setAttribute("No_Documento", No_Documento);
                         session.setAttribute("Nombre", Nombre);
@@ -69,7 +71,8 @@ public class Contr_Usuarios extends HttpServlet {
                         response.sendRedirect(url);
                     }
                     else{
-                         session.setAttribute("Mensaje","LoginInCorrecto");
+                         session.setAttribute("Mensaje","El correo/contraseña es incorrecta. Inténtelo de nuevo.");
+                         session.setAttribute("TipoMensaje", "NODio");
                     url="View/index.jsp" ;
                     response.sendRedirect(url);
                     }
@@ -83,11 +86,12 @@ public class Contr_Usuarios extends HttpServlet {
                 celular=request.getParameter("Celular");
                 correo=request.getParameter("Correo");
                 Direccion=request.getParameter("Direccion");
+                Rol = request.getParameter("TipoUsuario");
                 
                 b = usu.actualizardatos(Codigo, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion);
                 if(b)
                 {
-                    session.setAttribute("Rol", "Administrador");
+                    session.setAttribute("Rol", Rol);
                     session.setAttribute("Tipo_Documento", Tipo_Documento);
                     session.setAttribute("No_Documento", No_Documento);
                     session.setAttribute("Nombre", Nombre);
@@ -96,12 +100,14 @@ public class Contr_Usuarios extends HttpServlet {
                     session.setAttribute("Correo", correo);
                     session.setAttribute("Direccion", Direccion);
                     
-                    session.setAttribute("Mensaje" , "PerfilModificado");
+                    session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente.");
+                    session.setAttribute("TipoMensaje" , "PerfilModificado");
                     url="View/Perfil.jsp";
                     response.sendRedirect(url);
                 }else
                 {
-                     session.setAttribute("Mensaje" ,"PerfilNoModificado");
+                    session.setAttribute("Mensaje" ,"Ocurrió un problema inesperado al tratar de modificar sus datos, por favor, inténtelo de nuevo.");
+                    session.setAttribute("TipoMensaje" ,"NODio");
                     url="View/ModificarPerfil.jsp";
                     response.sendRedirect(url);
                 }
@@ -119,12 +125,14 @@ public class Contr_Usuarios extends HttpServlet {
                         session.setAttribute("Registrar_Correo", correo);
                         session.setAttribute("Registrar_CodigoVer", CodVer);
                         
-                        session.setAttribute("Mensaje", "CodigoEnviado");
+                        session.setAttribute("Mensaje", "Verifica tu correo, te hemos enviado el código de verificación.");
+                        session.setAttribute("TipoMensaje", "Dio");
                         url="View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
                     }else
                     {
-                        session.setAttribute("Mensaje" ,"CodigoNoEnviado");
+                        session.setAttribute("Mensaje" ,"Ocurrió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
+                        session.setAttribute("TipoMensaje" ,"NODio");
                         url="View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
                     }
@@ -138,12 +146,14 @@ public class Contr_Usuarios extends HttpServlet {
                 b = msm.EnviarCodVer(correo, celular, Nombre, CodVer);
                 if (b)
                     {
-                        session.setAttribute("Mensaje" ,"CodigoEnviado");
+                        session.setAttribute("Mensaje" ,"Verifica tu correo, te hemos enviado el código de verificación.");
+                        session.setAttribute("TipoMensaje" ,"Dio");
                         url="View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
                     }else
                     {
-                        session.setAttribute("Mensaje" ,"CodigoNoEnviado");
+                        session.setAttribute("Mensaje" ,"currió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
+                        session.setAttribute("TipoMensaje" ,"NODio");
                         url="View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
                     }
@@ -184,17 +194,20 @@ public class Contr_Usuarios extends HttpServlet {
                             session.setAttribute("Registrar_Correo", null);
                             session.setAttribute("Registrar_CodigoVer", null);
 
-                            session.setAttribute("Mensaje","RegistroDio");
+                            session.setAttribute("Mensaje","Los datos del usuario han sido registrados correctamente.");
+                            session.setAttribute("TipoMensaje","Dio");
                             url="View/RegistrarUsuario.jsp" ;
                             response.sendRedirect(url);
                         }else{
-                            session.setAttribute("Mensaje","RegistroNoDio");
+                            session.setAttribute("Mensaje","Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
+                            session.setAttribute("TipoMensaje","NODio");
                             url="View/RegistrarUsuario.jsp";
                             response.sendRedirect(url);
                         }
                     }
                     else{
-                        session.setAttribute("Mensaje","ErrorCodigo");
+                        session.setAttribute("Mensaje","El código de verificación no coincide con el enviado, por favor inténtelo de nuevo.");
+                        session.setAttribute("TipoMensaje", "NODio");
                         url="View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
                     }
@@ -202,6 +215,7 @@ public class Contr_Usuarios extends HttpServlet {
                 else
                 {
                     session.setAttribute("Mensaje","ErrorPass");
+                    session.setAttribute("TipoMensaje","NODio");
                     url="View/RegistrarUsuario.jsp";
                     response.sendRedirect(url);
                 }
@@ -216,17 +230,21 @@ public class Contr_Usuarios extends HttpServlet {
                     boolean c = msm.recordarcontrasenia(correo, contra,Nombre );
                     if (c)
                     {
-                        session.setAttribute("Mensaje","RecuDio");
+                        session.setAttribute("Mensaje","Verifica tu correo, te hemos enviado tu contraseña.");
+                        session.setAttribute("TipoMensaje", "Dio");
                         url="View/index.jsp";
                         response.sendRedirect(url);
                     }else
                     {
-                        session.setAttribute("Mensaje","RecuNoDio");
+                        session.setAttribute("Mensaje","Ocurrió un problema inesperado al tratar de enviar su contraseña, por favor inténtelo de nuevo.");
+                        session.setAttribute("TipoMensaje", "NODio");
                         url="View/index.jsp";
                         response.sendRedirect(url);
                     }
                 }else{
-                    session.setAttribute("Mensaje" , "ErrorCorre");
+                    session.setAttribute("Mensaje" , "El correo es incorrecto, verifiquelo e inténtelo de nuevo.");
+                    session.setAttribute("TipoMensaje", "NODio");
+                    
                     url="View/index.jsp";
                     response.sendRedirect(url);
                 }
@@ -245,12 +263,14 @@ public class Contr_Usuarios extends HttpServlet {
                 b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado);
                 if(b)
                 {
-                    session.setAttribute("Mensaje" , "MDio");
+                    session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente.");
+                    session.setAttribute("TipoMensaje" , "Dio");
                     url="View/ConsultaUsuario.jsp";
                     response.sendRedirect(url);
                 }else
                 {
-                    session.setAttribute("Mensaje" , "MNODio");
+                    session.setAttribute("Mensaje" , "Ocurrió un problema inesperado al tratar de modificar sus datos, por favor, inténtelo de nuevo.");
+                    session.setAttribute("TipoMensaje" , "NODio");
                     url="View/MUsuario.jsp?Codigo="+Codigo;
                     response.sendRedirect(url);
                 }
@@ -279,18 +299,21 @@ public class Contr_Usuarios extends HttpServlet {
                             session.setAttribute("Registrar_Correo", null);
                             session.setAttribute("Registrar_CodigoVer", null);
 
-                            session.setAttribute("Mensaje","RegistroDio");
+                            session.setAttribute("Mensaje","Los datos del usuario han sido registrados correctamente.");
+                            session.setAttribute("TipoMensaje","Dio");
                             url="View/ConsultaUsuario.jsp" ;
                             response.sendRedirect(url);
                         }else{
-                            session.setAttribute("Mensaje","RegistroNoDio");
+                            session.setAttribute("Mensaje","Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
+                            session.setAttribute("TipoMensaje","NODio");
                             url="View/ConsultaUsuario.jsp";
                             response.sendRedirect(url);
                         }
                 }
                 else
                 {
-                    session.setAttribute("Mensaje","ErrorPass");
+                    session.setAttribute("Mensaje","Las contraseñas no coinciden.");
+                    session.setAttribute("TipoMensaje","NODio");
                     url="View/ConsultaUsuario.jsp";
                     response.sendRedirect(url);
                 }

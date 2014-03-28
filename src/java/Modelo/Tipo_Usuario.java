@@ -47,25 +47,32 @@ public class Tipo_Usuario {
     public void setTipo_Usuario(String Tipo_Usuario) {
         this.Tipo_Usuario = Tipo_Usuario;
     }
-    public ArrayList<Tipo_Usuario> BuscarDatosTipoUsuarioTodos(){
+    public String[][] BuscarDatosTipoUsuarioTodos(){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
         String sql="Select * "+
                    "From  TB_TIPO_USUARIO";
-        ArrayList<Tipo_Usuario> TUsuario = new ArrayList();
+        
         try{
             pr=conn.prepareStatement(sql);
             rs=pr.executeQuery();
-            
-            while(rs.next()){
-                Tipo_Usuario usu = new Tipo_Usuario();
-                usu.setCodigo(rs.getString("Codigo"));
-                usu.setTipo_Usuario(rs.getString("Tipo"));
-                usu.setDescripcion(rs.getString("Descripcion"));
-                TUsuario.add(usu);
+            int rows = 0;
+             while(rs.next()){
+                rows ++;
             }
-            return TUsuario;
+            rs.beforeFirst();
+            String [][] Datos = new String[rows][2];
+            rows = 0;
+            while(rs.next()){
+                
+                Datos[rows][0] = rs.getString("Codigo");
+                Datos[rows][1] = rs.getString("Tipo");
+                
+                
+                rows++;
+            }
+            return Datos;
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{

@@ -1,0 +1,44 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div class="container">
+		<ul id="gn-menu" class="gn-menu-main">
+			<li class="gn-trigger">
+				<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+				<nav class="gn-menu-wrapper">
+					<div class="gn-scroller">
+						<ul class="gn-menu">
+							<li class="gn-search-item">
+								<a href="index.html" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
+							</li>
+							<li>
+								<a href="Perfil.jsp" class="gn-icon gn-icon-earth">
+									<div class="negro"><%=Nombre%></div>
+								</a>
+							</li>
+							<li>
+								<a href="ConsultaUsuario.jsp" class="gn-icon gn-icon-earth">
+									<div class="negro">Registrar y Consultar Usuario</div>
+								</a>
+							</li>
+							<li>
+								<a class="gn-icon gn-icon-earth"><div class="negro">Qui&eacute;nes Somos</div></a>
+							</li>
+							<li>
+								<a class="gn-icon gn-icon-photoshop"><div class="negro">Mapa del Sitio</div></a>
+							</li>
+							<li>
+								<a class="gn-icon gn-icon-cog"><div class="negro">Ayuda en l&iacute;nea</div></a>
+							</li>
+							<li>
+								<a class="gn-icon gn-icon-help"><div class="negro">Cont&aacute;ctenos</div></a>
+							</li>
+						</ul>
+					</div><!-- /gn-scroller -->
+				</nav>
+			</li>
+			<li>
+				<a href="index.html">Trigger Event</a>
+			</li>
+			<li class="pull-right"><a href="Salir.jsp">Cerrar Sesi&oacute;n</a></li>
+		</ul>
+	</div><!-- /container -->

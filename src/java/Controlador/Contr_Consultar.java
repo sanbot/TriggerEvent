@@ -13,26 +13,37 @@ import java.util.ArrayList;
  * @author santi
  */
 public class Contr_Consultar {
-    Usuario usu = new Usuario();
-    public ArrayList<Usuario> BuscarDatosUsuariosTodos()
+    
+    public String[][] BuscarDatosUsuariosTodos()
     {
-        
-        ArrayList<Usuario> Datos = usu.BuscarDatosUsuarioTodos();
+        Usuario usu = new Usuario();
+        String[][] Datos = usu.BuscarDatosUsuarioTodos();
                 
         return Datos;
     }
     
     public String[] BuscarDatosUsuario(String Codigo)
     {
+        Usuario usu = new Usuario();
         String[] Datos = usu.getDatosUsuario(Codigo);
                 
         return Datos;
     }
-    public ArrayList<Tipo_Usuario> BuscarDatosTipoUsuariosTodos()
+    public String[][] BuscarDatosTipoUsuariosTodos()
     {
         Tipo_Usuario Tusu = new Tipo_Usuario();
-        ArrayList<Tipo_Usuario> Datos = Tusu.BuscarDatosTipoUsuarioTodos();
+        String[][] Datos = Tusu.BuscarDatosTipoUsuarioTodos();
                 
         return Datos;
+    }
+    public boolean setAprobarUsaurio(String Codigo)
+    {
+        Usuario usu = new Usuario();
+        return usu.setaprobarUsaurio(Codigo);
+    }
+    public boolean setDesaprobarUsaurio(String Codigo)
+    {
+        Usuario usu = new Usuario();
+        return usu.setdesaprobarUsaurio(Codigo);
     }
 }

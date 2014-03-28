@@ -7,7 +7,7 @@ package Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.Random;
 
 /**
@@ -28,6 +28,15 @@ public class Usuario {
     String Telefono;
     String Direccion;
     String Contrasenia;
+    String Mensaje;
+
+    public String getMensaje() {
+        return Mensaje;
+    }
+
+    public void setMensaje(String Mensaje) {
+        this.Mensaje = Mensaje;
+    }
 
     public String getContrasenia() {
         return Contrasenia;
@@ -127,10 +136,10 @@ public class Usuario {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="Select Codigo codigo, Codigo_Tipo Tipo, Tipo_Documento tipo_documento, No_Documento documento ,Nombre nombre, Telefono telefono,"
-                 + " No_Celular Celular, Correo Correo,Direccion direccion, Estado Estado\n" +
-                    "From  tb_usuario\n" +
-                    "Where Correo = ? AND Contrasenia = ?";
+        String sql="Select u.Codigo codigo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,Nombre nombre, Telefono telefono,"
+                 + " u.No_Celular Celular, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
+                    "From  tb_usuario u Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo \n" +
+                    "Where u.Correo = ? AND u.Contrasenia = ?";
         try{
             
             pr=conn.prepareStatement(sql);
@@ -279,6 +288,54 @@ public class Usuario {
         return false;
     }
     
+    public boolean setdesaprobarUsaurio(String Codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE TB_USUARIO SET Estado = 'Desaprobado' ";
+                sql += "WHERE Codigo=?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, Codigo);
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(Exception ex){
+            System.out.printf(ex.toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return false;
+    }
+    
+    public boolean setaprobarUsaurio(String Codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE TB_USUARIO SET Estado = 'Aprobado' ";
+                sql += "WHERE Codigo=?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, Codigo);
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(Exception ex){
+            System.out.printf(ex.toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return false;
+    }
+    
     public String CodVer(){
         String cadenaAleatoria = "";
         long milis = new java.util.GregorianCalendar().getTimeInMillis();
@@ -352,8 +409,14 @@ public class Usuario {
             if(pr.executeUpdate()==1){
                 return true;
             }
-        }catch(Exception ex){
-            System.out.print(ex.getMessage());
+        }catch(SQLException ex){
+            if(ex.toString().indexOf("UNIQUE")>0)
+            {
+                if(ex.toString().indexOf(Celular)>0)
+                {
+                    this.setMensaje("Celular");
+                }
+            }
         }finally{
             try{
                 pr.close();
@@ -364,7 +427,7 @@ public class Usuario {
         }
         return false;
     }
-    public ArrayList<Usuario> BuscarDatosUsuarioTodos(){
+    public String[][] BuscarDatosUsuarioTodos(){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
@@ -372,11 +435,19 @@ public class Usuario {
                     "FROM  `tb_usuario` u\n" +
                     "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo\n" +
                     "LIMIT 0 , 30";
-        ArrayList<Usuario> Usuario = new ArrayList();
+        
         try{
             pr=conn.prepareStatement(sql);
             rs=pr.executeQuery();
             
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            String [][] Datos = new String[rows][10];
+            rs.beforeFirst();
+            rows = 0;
             while(rs.next()){
                 Usuario usu = new Usuario();
                 usu.setCodigo(rs.getString("Codigo"));
@@ -389,9 +460,21 @@ public class Usuario {
                 usu.setCorreo(rs.getString("Correo"));
                 usu.setDireccion(rs.getString("Direccion"));
                 usu.setEstado(rs.getString("Estado"));
-                Usuario.add(usu);
+                Datos[rows][0] = usu.getCodigo();
+                Datos[rows][1] = usu.getTipo();
+                Datos[rows][2] = usu.getTipo_Documento();
+                Datos[rows][3] = usu.getNo_Documento();
+                Datos[rows][4] = usu.getNombre();
+                Datos[rows][5] = usu.getTelefono();
+                Datos[rows][6] = usu.getCelular();
+                Datos[rows][7] = usu.getCelular();
+                Datos[rows][8] = usu.getCorreo();
+                Datos[rows][9] = usu.getEstado();
+                
+                rows++;
+                
             }
-            return Usuario;
+            return Datos;
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{

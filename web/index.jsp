@@ -6,15 +6,7 @@
 
     <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Usuarios" %>
 
-    <%
-    String mensaje = "";
-    if(session.getAttribute("Mensaje") != null)
-      {
-    mensaje= (String)session.getAttribute("Mensaje");
-  }
-  String Nombre = (String)session.getAttribute("Nombre");
-  String Rol = (String)session.getAttribute("Rol");
-  %>
+    <%@include file="WEB-INF/jspf/VariablesIniciales.jspf" %>
   <!DOCTYPE html>
   <html lang="en" class="no-js">
   <head>
@@ -39,71 +31,25 @@
     <script src="Libs/Customs/js/modernizr.custom.js"></script>
   </head>
   <body>
-    <div class="container">
-      <ul id="gn-menu" class="gn-menu-main">
-        <li class="gn-trigger">
-          <a class="gn-icon gn-icon-menu">
-            <span>Menu</span>
-          </a>
-          <nav class="gn-menu-wrapper">
-            <div class="gn-scroller">
-             <ul class="gn-menu">
-              <li class="gn-search-item">
-                <a href="index.jsp" class="gn-icon gn-icon-download">
-                  <div class="negro">Inicio</div>
-                </a>
-              </li>
-              <%if(Rol!=null){%>
-              <li>
-                <a href="View/Perfil.jsp" class="gn-icon gn-icon-earth">
-                  <div class="negro"><%=Nombre%></div>
-                </a>
-              </li>
-              <%}%>
-              <li>
-                <a href="Nosotros.jsp" class="gn-icon gn-icon-earth">
-                  <div class="negro">
-                    Qui&eacute;nes Somos
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="M_Sitio.jsp" class="gn-icon gn-icon-photoshop">
-                  <div class="negro">
-                    Mapa del Sitio
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="gn-icon gn-icon-cog">
-                  <div class="negro">
-                    Ayuda en l&iacute;nea
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="Contactenos.jsp" class="gn-icon gn-icon-help">
-                  <div class="negro">
-                    Cont&aacute;ctenos
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div><!-- /gn-scroller -->
-        </nav>
-      </li>
-      <li><a href="index.jsp">Trigger Event</a></li>
-      <%if(Rol!=null){%>
-      <li class="pull-right"><a href="View/Salir.jsp">Cerrar Sesi&oacute;n</a></li>
-      <%}%>
-    </ul>
-  </div><!-- /container -->
+    <%
+        if(Rol.equals("Administrador"))
+        {%>
+        <%@include file="WEB-INF/jspf/MenuAdministrador.jspf" %>
+        <%
+        }else if(Rol.equals("Cliente"))
+        {%>
+        <%@include file="WEB-INF/jspf/MenuCliente.jspf" %>
+        <%}else if(Rol.equals("Empresa")){%>
+        <%@include file="WEB-INF/jspf/MenuEmpresa.jspf" %>
+        <%}else if(Rol.equals("")){%>
+        <%@include file="WEB-INF/jspf/Menu.jspf" %>
+        <%}%>
   <div id="body" class="container" style="width: 100%;">
     <br/>
     <br/>
     <br/>
     <div class="row">
-      <%if(Rol == null){%>
+        <%if(Rol.equals("")){%>
       <div class="col-md-4">
         <label id="imagen1" class="control-label Justify">
           EVENTOS AL ALCANCE DE TU MANO
@@ -350,42 +296,22 @@
   </script>
   <!--Pines Notify -->
   <script type="text/javascript" src="Libs/Customs/js/alertify.js"></script>
-  <%if(mensaje.equals("LoginCorrecto")){%>
   <script type="text/javascript">
-  $(document).ready(function(){
-    alertify.success("Te has logueado correctamente, bienvenido/a.");
-  });
-  </script>
-  <%}%>
-  <%if(mensaje.equals("LoginInCorrecto")){%>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    alertify.error("El correo/contraseña es incorrecta. Inténtelo de nuevo.");
-  });
-  </script>
-  <%}%>
-  <%if(mensaje.equals("RecuDio")){%>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    alertify.success("Verifica tu correo, te hemos enviado tu contraseña.");
-  });
-  </script>
-  <%}%>
-  <%if(mensaje.equals("RecuNoDio")){%>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    alertify.error("Ocurrió un problema inesperado al tratar de enviar su contraseña, por favor inténtelo de nuevo.");
-  });
-  </script>
-  <%}%>
-  <%if(mensaje.equals("ErrorCorre")){%>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    alertify.error("El correo es incorrecto, verifiquelo e inténtelo de nuevo.");
-  });
-  </script>
-  <%}
-  session.setAttribute("Mensaje", "");%>
+        $(document).ready(function(){
+        <%if(session.getAttribute("Mensaje") != null && !mensaje.equals(""))
+        {
+        if(session.getAttribute("TipoMensaje").equals("Dio"))
+            {%>
+                alertify.success("<%=mensaje%>");
+            <%}
+        else if(session.getAttribute("TipoMensaje").equals("NODio"))
+            {%>
+                alertify.error("<%=mensaje%>");
+            <%}
+        }%>
+        });
+    </script>
+    <%session.setAttribute("Mensaje", "");%>
   <script src="Libs/Customs/js/guidely.min.js"></script>
   <script>
 

@@ -1,0 +1,9 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+if(session.getAttribute("Rol").equals(""))
+{
+    response.sendRedirect("index.jsp");
+    
+}
+%>

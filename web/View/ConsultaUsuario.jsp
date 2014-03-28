@@ -10,19 +10,21 @@ Created on : 11/03/2014, 08:28:24 AM
 Author     : santi_000
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar" import="Modelo.*" import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String mensaje = "";
-if(session.getAttribute("Mensaje") != null)
-	{
-mensaje = (String)session.getAttribute("Mensaje");
+String[][] ListaUsuario = usu.BuscarDatosUsuariosTodos();
+String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
+if(session.getAttribute("TipoMensaje").equals("Aprobar"))
+{
+    session.setAttribute("TipoMensaje", "Dio");
 }
-String Nombre = (String)session.getAttribute("Nombre");
-String Rol = (String)session.getAttribute("Rol");
-
-ArrayList<Usuario> ListaUsuario = usu.BuscarDatosUsuariosTodos();
-ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
+else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
+{
+    session.setAttribute("TipoMensaje", "NODio");
+}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,54 +51,7 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 
 </head>
 <body>
-	<div class="container">
-		<ul id="gn-menu" class="gn-menu-main">
-			<li class="gn-trigger">
-				<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
-				<nav class="gn-menu-wrapper">
-					<div class="gn-scroller">
-						<ul class="gn-menu">
-							<li class="gn-search-item">
-								<a href="index.html" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
-							</li>
-							<%if(Rol!=null){%>
-							<li>
-								<a href="Perfil.jsp" class="gn-icon gn-icon-earth">
-									<div class="negro"><%=Nombre%></div>
-								</a>
-							</li>
-							<%}%>
-							<%if(Rol =="Administrador"){%>
-							<li>
-								<a href="ConsultaUsuario.jsp" class="gn-icon gn-icon-earth">
-									<div class="negro">Registrar y Consultar Usuario</div>
-								</a>
-							</li>
-							<%}%>
-							<li>
-								<a class="gn-icon gn-icon-earth"><div class="negro">Qui&eacute;nes Somos</div></a>
-							</li>
-							<li>
-								<a class="gn-icon gn-icon-photoshop"><div class="negro">Mapa del Sitio</div></a>
-							</li>
-							<li>
-								<a class="gn-icon gn-icon-cog"><div class="negro">Ayuda en l&iacute;nea</div></a>
-							</li>
-							<li>
-								<a class="gn-icon gn-icon-help"><div class="negro">Cont&aacute;ctenos</div></a>
-							</li>
-						</ul>
-					</div><!-- /gn-scroller -->
-				</nav>
-			</li>
-			<li>
-				<a href="index.html">Trigger Event</a>
-			</li>
-			<%if(Rol!=null){%>
-			<li class="pull-right"><a href="Salir.jsp">Cerrar Sesi&oacute;n</a></li>
-			<%}%>
-		</ul>
-	</div><!-- /container -->
+        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
         <br/>
         <br/>
         <br/>
@@ -119,15 +74,15 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 			<div class="col-md-12">
 				<div class="tabbable" id="tabs-158836">
 					<ul class="nav nav-tabs">
-						<li>
+						<li class="active">
 							<a href="#panel-Consultar" data-toggle="tab">Consultar</a>
 						</li>
-						<li class="active">
+						<li >
 							<a href="#panel-Registro" data-toggle="tab">Registro</a>
 						</li>
 					</ul>
 					<div class="tab-content">
-						<div class="tab-pane" id="panel-Consultar">
+						<div class="tab-pane active" id="panel-Consultar">
                                                     <br/>
 							<div class="table-responsive">
 								<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
@@ -140,29 +95,31 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 											<th>NOMBRE</th>
 											<th>ESTADO</th>
 											<th></th>
+                                                                                        <th></th>
 											<th></th>
 											<th></th>
 										</tr>
 									</thead>
 									<tbody>
-										<%for(Usuario usulista : ListaUsuario){%>
+										<%for(String[] Row : ListaUsuario){%>
 										<tr>
-											<td><%=usulista.getCodigo()%></td>
-											<td><%=usulista.getTipo()%></td>
-											<td><%=usulista.getTipo_Documento()%></td>
-                                                                                        <td><%=usulista.getNo_Documento()%></td>
-											<td><%=usulista.getNombre()%></td>
-											<td><%=usulista.getEstado()%></td>
-                                                                                        <td><center><a href="MUsuario.jsp?Codigo=<%=usulista.getCodigo()%>"><span class="glyphicon glyphicon-edit"></span></center></td>
-											<td><center><a href="MUsuario.jsp?Codigo=<%=usulista.getCodigo()%>"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                                                                        <td><center><a href="#"><span class="glyphicon glyphicon-log-in"></span><center></td>
+											<td><%=Row[0]%></td>
+											<td><%=Row[1]%></td>
+											<td><%=Row[2]%></td>
+                                                                                        <td><%=Row[3]%></td>
+											<td><%=Row[4]%></td>
+											<td><%=Row[9]%></td>
+                                                                                        <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-edit"></span></center></td>
+											<td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                                                                        <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
+                                                                                        <td><center><a href="CUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span><center></td>
 										</tr>
 										<%}%>
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<div class="tab-pane active" id="panel-Registro">
+						<div class="tab-pane" id="panel-Registro">
 
 							<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
 
@@ -196,10 +153,9 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 										<div class="form-group">
 											<label for="Tipo">Tipo Usuario</label>
 											<select name="Tipo_Usuario" id="Tipos" class="form-control" data-required="true">
-												<%for(Tipo_Usuario Tusulista : ListaTipoUsuario){%>
-												
-												<option value="<%=Tusulista.getCodigo()%>"><%=Tusulista.getTipo_Usuario()%></option>
-												<%}%>
+												<%for(String[] Row : ListaTipoUsuario){%>
+                                                                                                <option value="<%=Row[0]%>"><%=Row[1]%></option>
+                                                                                                <%}%>
 											</select>
 										</div>
 									</div>
@@ -343,49 +299,22 @@ ArrayList<Tipo_Usuario> ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
             });
     });
     </script>
-    <%if(mensaje.equals("RegistroDio")){%>
     <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.success("Los datos del usuario han sido registrados correctamente.");
-    });
+        $(document).ready(function(){
+        <%if(session.getAttribute("Mensaje") != null && !mensaje.equals(""))
+        {
+        if(session.getAttribute("TipoMensaje").equals("Dio"))
+            {%>
+                alertify.success("<%=mensaje%>");
+            <%}
+        else if(session.getAttribute("TipoMensaje").equals("NODio"))
+            {%>
+                alertify.error("<%=mensaje%>");
+            <%}
+        }%>
+        });
     </script>
-    <%}%>
-    <%if(mensaje.equals("RegistroNoDio")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.error("Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
-    });
-    </script>
-    <%}%>
-    <%if(mensaje.equals("ErrorCodigo")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.error("El código de verificación no coincide con el enviado, por favor inténtelo de nuevo.");
-    });
-    </script>
-    <%}%>
-    <%if(mensaje.equals("MDio")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.success("Sus datos han sido modificados correctamente.");
-    });
-    </script>
-    <%}%>
-    <%if(mensaje.equals("MNODio")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.error("Ocurrió un problema inesperado al tratar de modificar sus datos, por favor, inténtelo de nuevo.");
-    });
-    </script>
-    <%}%>
-    <%if(mensaje.equals("ErroPass")){%>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    	alertify.error("Las Contraseñas no coinciden.");
-    });
-    </script>
-    <%}
-    session.setAttribute("Mensaje", "");%>
+    <%session.setAttribute("Mensaje", "");%>
 </body>
 </html>
 

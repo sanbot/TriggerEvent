@@ -5,18 +5,9 @@
     --%>
 
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+    <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
     <%
-    String mensaje = "";
-    if(session.getAttribute("Mensaje") != null)
-    	{
-    mensaje = (String)session.getAttribute("Mensaje");
-}
-if(session.getAttribute("Rol") == null)
-	{
-response.sendRedirect("index.jsp");
-}
-String Nombre = (String)session.getAttribute("Nombre");
-String Rol = (String)session.getAttribute("Rol");
 String Tipo = (String)  session.getAttribute("Tipo_Documento");
 String Documento = (String)session.getAttribute("No_Documento");
 String Telefono = (String) session.getAttribute("Telefono");
@@ -48,71 +39,17 @@ String Direccion = (String) session.getAttribute("Direccion");
 	
 </head>
 <body>
-	<div class="container">
-		<ul id="gn-menu" class="gn-menu-main">
-			<li class="gn-trigger">
-				<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
-				<nav class="gn-menu-wrapper">
-					<div class="gn-scroller">
-						<ul class="gn-menu">
-							<li class="gn-search-item">
-								<a href="index.jsp" class="gn-icon gn-icon-download">
-									<div class="negro">Inicio</div>
-								</a>
-							</li>
-							<%if(Rol!=null){%>
-							<li>
-								<a href="Perfil.jsp" class="gn-icon gn-icon-earth">
-									<div class="negro"><%=Nombre%></div>
-								</a>
-							</li>
-							<%}%>
-							<%if(Rol =="Administrador"){%>
-							<li>
-								<a href="ConsultaUsuario.jsp" class="gn-icon gn-icon-earth">
-									<div class="negro">Registrar y Consultar Usuario</div>
-								</a>
-							</li>
-							<%}%>
-							<%}%>
-							<li>
-								<a href="Nosotros.jsp" class="gn-icon gn-icon-earth">
-									<div class="negro">
-										Qui&eacute;nes Somos
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="M_Sitio.jsp" class="gn-icon gn-icon-photoshop">
-									<div class="negro">
-										Mapa del Sitio
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="#" class="gn-icon gn-icon-cog">
-									<div class="negro">
-										Ayuda en l&iacute;nea
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="Contactenos.jsp" class="gn-icon gn-icon-help">
-									<div class="negro">
-										Cont&aacute;ctenos
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div><!-- /gn-scroller -->
-				</nav>
-			</li>
-			<li><a href="index.jsp">Trigger Event</a></li>
-			<%if(Rol!=null){%>
-			<li class="pull-right"><a href="Salir.jsp">Cerrar Sesi&oacute;n</a></li>
-			<%}%>
-		</ul>
-	</div><!-- /container -->
+	<%
+        if(Rol.equals("Administrador"))
+        {%>
+        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+        <%
+        }else if(Rol.equals("Cliente"))
+        {%>
+        <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
+        <%}else if(Rol.equals("Empresa")){%>
+        <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
+        <%}%>
 	<div class="container" style="margin-top: 5%;">
 		<div class="row clearfix">
 			<div class="col-md-12">
@@ -244,14 +181,21 @@ String Direccion = (String) session.getAttribute("Direccion");
       <script>
       new gnMenu( document.getElementById( 'gn-menu' ) );
       </script>
-      <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-      <%if(mensaje.equals("PerfilModificado")){%>
       <script type="text/javascript">
-      $(document).ready(function(){
-      	alertify.success("Sus datos han sido modificados correctamente.");
-      });
-      </script>
-      <%} 
-      session.setAttribute("Mensaje", "");%>
+        $(document).ready(function(){
+        <%if(session.getAttribute("Mensaje") != null && !mensaje.equals(""))
+        {
+        if(session.getAttribute("TipoMensaje").equals("Dio"))
+            {%>
+                alertify.success("<%=mensaje%>");
+            <%}
+        else if(session.getAttribute("TipoMensaje").equals("NODio"))
+            {%>
+                alertify.error("<%=mensaje%>");
+            <%}
+        }%>
+        });
+    </script>
+      <%session.setAttribute("Mensaje", "");%>
   </body>
   </html>
