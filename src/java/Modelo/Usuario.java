@@ -410,13 +410,21 @@ public class Usuario {
                 return true;
             }
         }catch(SQLException ex){
-            if(ex.toString().indexOf("UNIQUE")>0)
+            if(ex.toString().indexOf("Duplicate")>0)
             {
+                if(ex.toString().indexOf("No_Documento")>0)
+                {
+                    this.setMensaje("Ya existe una cuenta registrada con este número de documento.");
+                }
                 if(ex.toString().indexOf(Celular)>0)
                 {
-                    this.setMensaje("Celular");
+                    this.setMensaje("Ya existe una cuenta registrada con este celular.");
                 }
             }
+            
+                
+            
+            return false;
         }finally{
             try{
                 pr.close();
@@ -425,6 +433,7 @@ public class Usuario {
 
             }
         }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
         return false;
     }
     public String[][] BuscarDatosUsuarioTodos(){

@@ -199,7 +199,7 @@ public class Contr_Usuarios extends HttpServlet {
                             url="View/RegistrarUsuario.jsp" ;
                             response.sendRedirect(url);
                         }else{
-                            session.setAttribute("Mensaje","Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
+                            session.setAttribute("Mensaje",usu.getMensaje());
                             session.setAttribute("TipoMensaje","NODio");
                             url="View/RegistrarUsuario.jsp";
                             response.sendRedirect(url);
@@ -304,8 +304,8 @@ public class Contr_Usuarios extends HttpServlet {
                             url="View/ConsultaUsuario.jsp" ;
                             response.sendRedirect(url);
                         }else{
-                            session.setAttribute("Mensaje","Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
                             session.setAttribute("TipoMensaje","NODio");
+                            session.setAttribute("Mensaje",usu.getMensaje());
                             url="View/ConsultaUsuario.jsp";
                             response.sendRedirect(url);
                         }
