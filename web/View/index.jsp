@@ -331,21 +331,7 @@
 
 		</script>
                 
-    <script type="text/javascript">
-        $(document).ready(function(){
-        <%if(session.getAttribute("Mensaje") != null && !mensaje.equals(""))
-        {
-        if(session.getAttribute("TipoMensaje").equals("Dio"))
-            {%>
-                alertify.success("<%=mensaje%>");
-            <%}
-        else if(session.getAttribute("TipoMensaje").equals("NODio"))
-            {%>
-                alertify.error("<%=mensaje%>");
-            <%}
-        }%>
-        });
-    </script>
+    <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
 	</body>
 	</html>
