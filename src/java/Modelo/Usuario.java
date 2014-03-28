@@ -177,6 +177,46 @@ public class Usuario {
         return false;
     }
       
+    public boolean getDatosParaEstado(String Codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Tipo_Documento tipo_documento, No_Documento documento ,Nombre nombre, Telefono telefono,"
+                 + " No_Celular Celular, Correo Correo, Direccion direccion \n" +
+                    "From  tb_usuario \n" +
+                    "Where Codigo = ? ";
+        try{
+            
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, Codigo);
+            rs=pr.executeQuery();
+            while(rs.next()){
+                
+                this.setTipo_Documento(rs.getString("tipo_documento"));
+                this.setNo_Documento(rs.getString("documento"));
+                this.setNombre(rs.getString("nombre"));
+                this.setTelefono(rs.getString("telefono"));
+                this.setCelular(rs.getString("Celular"));
+                this.setCorreo("Correo");
+                this.setDireccion(rs.getString("direccion"));
+                
+                
+                return true;
+               
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+                    ex.getMessage();
+            }
+        }
+        return false;
+    }
     
     public String[] getDatosUsuario(String Codigo){
         Connection conn = conexion.conectar();

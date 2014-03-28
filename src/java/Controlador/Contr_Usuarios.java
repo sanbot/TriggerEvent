@@ -263,6 +263,7 @@ public class Contr_Usuarios extends HttpServlet {
                 b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado);
                 if(b)
                 {
+                    
                     session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente.");
                     session.setAttribute("TipoMensaje" , "Dio");
                     url="View/ConsultaUsuario.jsp";

@@ -5,6 +5,7 @@
 package Controlador;
 
 import Modelo.Usuario;
+import Modelo.Mensajeria;
 import Modelo.Tipo_Usuario;
 import java.util.ArrayList;
 
@@ -39,11 +40,45 @@ public class Contr_Consultar {
     public boolean setAprobarUsaurio(String Codigo)
     {
         Usuario usu = new Usuario();
-        return usu.setaprobarUsaurio(Codigo);
+        Mensajeria msm = new Mensajeria();
+        boolean b = usu.setaprobarUsaurio(Codigo);
+        if(b)
+        {
+            boolean p = usu.getDatosParaEstado(Codigo);
+            if(p)
+            {
+                String Tipo_Documento = usu.getTipo_Documento();
+                String No_Documento = usu.getNo_Documento();
+                String Nombre = usu.getNombre();
+                String Telefono = usu.getTelefono();
+                String Direccion = usu.getDireccion();
+                String celular = usu.getCelular();
+                String correo = usu.getCorreo();
+                b = msm.setMensajeModificarAprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
+            }
+        }
+        return b;
     }
     public boolean setDesaprobarUsaurio(String Codigo)
     {
         Usuario usu = new Usuario();
-        return usu.setdesaprobarUsaurio(Codigo);
+        Mensajeria msm = new Mensajeria();
+        boolean b = usu.setdesaprobarUsaurio(Codigo);
+        if(b)
+        {
+            boolean p = usu.getDatosParaEstado(Codigo);
+            if(p)
+            {
+                String Tipo_Documento = usu.getTipo_Documento();
+                String No_Documento = usu.getNo_Documento();
+                String Nombre = usu.getNombre();
+                String Telefono = usu.getTelefono();
+                String Direccion = usu.getDireccion();
+                String celular = usu.getCelular();
+                String correo = usu.getCorreo();
+                b = msm.setMensajeModificarDesaprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
+            }
+        }
+        return b;
     }
 }
