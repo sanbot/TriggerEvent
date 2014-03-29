@@ -71,7 +71,7 @@ public class Contr_Usuarios extends HttpServlet {
                         response.sendRedirect(url);
                     }
                     else{
-                         session.setAttribute("Mensaje","El correo/contraseña es incorrecta. Inténtelo de nuevo.");
+                         session.setAttribute("Mensaje",usu.getMensaje());
                          session.setAttribute("TipoMensaje", "NODio");
                     url="View/index.jsp" ;
                     response.sendRedirect(url);

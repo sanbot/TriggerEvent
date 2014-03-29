@@ -162,6 +162,11 @@ public class Usuario {
                 if(this.getCorreo().equals(correo) && this.getEstado().equals("Aprobado")){
                     return true;
                 }
+                if(!this.getEstado().equals("Aprobado"))
+                {
+                    this.setMensaje("Lo sentimos, no hemos podido conectar tu cuenta al aplicativo ya que esta desaprobada.");
+                    return false;
+                }
             }
         }catch(Exception ex){
             ex.printStackTrace();
@@ -174,6 +179,7 @@ public class Usuario {
                     ex.getMessage();
             }
         }
+        this.setMensaje("El correo/contraseña es incorrecta. Inténtelo de nuevo.");
         return false;
     }
       

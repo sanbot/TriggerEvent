@@ -16,34 +16,18 @@ if(request.getParameter("Codigo")!= null)
     if(request.getParameter("Aprobar")!=null)
     {
         boolean b;
-        if(request.getParameter("Aprobar").equals("true"))
+        b = usu.setCambiarEstadoUsaurio(codigoUsuario, request.getParameter("Aprobar").toString());
+        if(b)
         {
-             b = usu.setAprobarUsaurio(codigoUsuario);
-            if(b)
-            {
-                session.setAttribute("TipoMensaje","Aprobar");
-                session.setAttribute("Mensaje", "El usuario ha sido aprobado satisfactoriamente.");
-            }
-            else
-            {
-                session.setAttribute("TipoMensaje","AprobarNO");
-                session.setAttribute("Mensaje", "Ocurrió un error al tratar de aprobar el usuario, por favor intentelo de nuevo.");
-            }
+            session.setAttribute("TipoMensaje","Aprobar");
+            session.setAttribute("Mensaje", usu.getMensaje());
         }
-        else if(request.getParameter("Aprobar").equals("false"))
+        else
         {
-            b = usu.setDesaprobarUsaurio(codigoUsuario);
-            if(b)
-            {
-                session.setAttribute("TipoMensaje", "Aprobar");
-                session.setAttribute("Mensaje", "El usuario ha sido desaprobado existosamente.");
-            }
-            else
-            {
-                session.setAttribute("TipoMensaje", "AprobarNO");
-                session.setAttribute("Mensaje", "Ocurrió un error al tratar de desactivar el usuario, por favor intentelo de nuevo.");
-            }
+            session.setAttribute("TipoMensaje","AprobarNO");
+            session.setAttribute("Mensaje", usu.getMensaje());
         }
+        
         response.sendRedirect("ConsultaUsuario.jsp");
     }
 }
