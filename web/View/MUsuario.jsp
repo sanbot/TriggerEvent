@@ -202,8 +202,6 @@ if(DatosUsuario[0] == null)
 								<div class="form-group">
                                                                     <select name="Estado" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                                                         <option value="<%=DatosUsuario[10]%>"><%=DatosUsuario[10]%></option>
-									<option value="Aprobado">Aprobado</option>
-									<option value="Desaprobado">Desaprobado</option>
 								</select>
 								</div>
 							</div>

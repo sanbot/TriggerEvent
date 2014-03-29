@@ -31,19 +31,7 @@
     <script src="Libs/Customs/js/modernizr.custom.js"></script>
   </head>
   <body>
-    <%
-        if(Rol.equals("Administrador"))
-        {%>
-        <%@include file="WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <%
-        }else if(Rol.equals("Cliente"))
-        {%>
-        <%@include file="WEB-INF/jspf/MenuCliente.jspf" %>
-        <%}else if(Rol.equals("Empresa")){%>
-        <%@include file="WEB-INF/jspf/MenuEmpresa.jspf" %>
-        <%}else if(Rol.equals("")){%>
-        <%@include file="WEB-INF/jspf/Menu.jspf" %>
-        <%}%>
+      <% if(!Rol.equals("")){response.sendRedirect("View/index.jsp");}%>
   <div id="body" class="container" style="width: 100%;">
     <br/>
     <br/>

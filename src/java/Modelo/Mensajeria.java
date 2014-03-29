@@ -246,7 +246,7 @@ public class Mensajeria {
             MimeMessage message = new MimeMessage(sess);  
             message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));  
-            message.setSubject("Código de verificación Trigger Event");  
+            message.setSubject("Aprobación de la cuenta en Trigger Event");  
             message.setContent(msgBody,"text/html");  
             Transport t = sess.getTransport("smtp");  
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
@@ -350,7 +350,7 @@ public class Mensajeria {
             MimeMessage message = new MimeMessage(sess);  
             message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));  
-            message.setSubject("Código de verificación Trigger Event");  
+            message.setSubject("Desaprobacion de la cuenta Trigger Event");  
             message.setContent(msgBody,"text/html");  
             Transport t = sess.getTransport("smtp");  
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  

@@ -28,7 +28,7 @@ public class cone {
      String Sergio = "jdbc:sqlserver://SERGIO-PC\\SQLEXPRESS:1433;databaseName=Trigger_Event;user=sa;password=123456789";
      */
      String MYSQL = "jdbc:mysql://localhost:3306/trigger_event?zeroDateTimeBehavior=convertToNull";
-     conn = DriverManager.getConnection(MYSQL, "root", "");
+     conn = DriverManager.getConnection(MYSQL, "root", "0000");
      
    }
       catch (ClassNotFoundException ex)// problemas con sql o bd, usuario,contraseña

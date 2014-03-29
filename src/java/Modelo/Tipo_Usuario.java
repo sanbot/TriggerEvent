@@ -52,7 +52,7 @@ public class Tipo_Usuario {
         PreparedStatement pr=null;
         ResultSet rs=null;
         String sql="Select * "+
-                   "From  TB_TIPO_USUARIO";
+                   "From  tb_tipo_usuario";
         
         try{
             pr=conn.prepareStatement(sql);

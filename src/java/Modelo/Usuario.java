@@ -181,7 +181,7 @@ public class Usuario {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="Tipo_Documento tipo_documento, No_Documento documento ,Nombre nombre, Telefono telefono,"
+        String sql="Select Tipo_Documento tipo_documento, No_Documento documento ,Nombre nombre, Telefono telefono,"
                  + " No_Celular Celular, Correo Correo, Direccion direccion \n" +
                     "From  tb_usuario \n" +
                     "Where Codigo = ? ";
@@ -197,7 +197,7 @@ public class Usuario {
                 this.setNombre(rs.getString("nombre"));
                 this.setTelefono(rs.getString("telefono"));
                 this.setCelular(rs.getString("Celular"));
-                this.setCorreo("Correo");
+                this.setCorreo(rs.getString("Correo"));
                 this.setDireccion(rs.getString("direccion"));
                 
                 
@@ -267,7 +267,7 @@ public class Usuario {
         PreparedStatement pr=null;
         ResultSet rs=null;
         String sql="Select Nombre Nombre, Contrasenia Contrasenia\n" +
-                    "From  TB_USUARIO\n" +
+                    "From  tb_usuario\n" +
                     "Where Correo = ?";
         try{
             
@@ -300,7 +300,7 @@ public class Usuario {
     public boolean actualizardatos(String Codigo, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
-        String sql="UPDATE TB_USUARIO SET Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Correo= ? , Direccion = ? ";
+        String sql="UPDATE tb_usuario SET Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Correo= ? , Direccion = ? ";
                 sql += "WHERE Codigo=?";
         try{
             pr=conn.prepareStatement(sql);
@@ -331,7 +331,7 @@ public class Usuario {
     public boolean setdesaprobarUsaurio(String Codigo){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
-        String sql="UPDATE TB_USUARIO SET Estado = 'Desaprobado' ";
+        String sql="UPDATE tb_usuario SET Estado = 'Desaprobado' ";
                 sql += "WHERE Codigo=?";
         try{
             pr=conn.prepareStatement(sql);
@@ -355,7 +355,7 @@ public class Usuario {
     public boolean setaprobarUsaurio(String Codigo){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
-        String sql="UPDATE TB_USUARIO SET Estado = 'Aprobado' ";
+        String sql="UPDATE tb_usuario SET Estado = 'Aprobado' ";
                 sql += "WHERE Codigo=?";
         try{
             pr=conn.prepareStatement(sql);
@@ -396,7 +396,7 @@ public class Usuario {
         PreparedStatement pr=null;
         ResultSet rs=null;
         String sql="Select * "+
-                   "From  TB_USUARIO";
+                   "From  tb_usuario";
         try{
             pr=conn.prepareStatement(sql);
             rs=pr.executeQuery();
@@ -428,7 +428,7 @@ public class Usuario {
         int numerocodigo = this.CantidadRegistroUsuario();
         Codi+=numerocodigo;
         PreparedStatement pr=null;
-        String sql="INSERT INTO TB_USUARIO (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Correo, Direccion, Estado)";
+        String sql="INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Correo, Direccion, Estado)";
         sql+="VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try{
             
@@ -541,7 +541,7 @@ public class Usuario {
     public boolean actualizardatosUsuario(String Codigo, String Nombre, String Rol, String Tipo_Documento, String No_Documento, String Telefono, String celular, String correo, String Direccion, String Estado) {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
-        String sql="UPDATE TB_USUARIO SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Correo= ? , Direccion = ?, Estado = ? ";
+        String sql="UPDATE tb_usuario SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Correo= ? , Direccion = ?, Estado = ? ";
                 sql += "WHERE Codigo=?";
         try{
             pr=conn.prepareStatement(sql);
