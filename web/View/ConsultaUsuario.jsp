@@ -89,10 +89,10 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 									<thead>
 										<tr>
 											<th>C&Oacute;DIGO</th>
+											<th>NOMBRE</th>
 											<th>TIPO USUARIO</th>
 											<th>TIPO DOCUMENTO</th>
                                                                                         <th>NÚMERO DOCUMENTO</th>
-											<th>NOMBRE</th>
 											<th>ESTADO</th>
 											<th></th>
                                                                                         <th></th>
@@ -104,10 +104,10 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 										<%for(String[] Row : ListaUsuario){%>
 										<tr>
 											<td><%=Row[0]%></td>
+											<td><%=Row[4]%></td>
 											<td><%=Row[1]%></td>
 											<td><%=Row[2]%></td>
                                                                                         <td><%=Row[3]%></td>
-											<td><%=Row[4]%></td>
 											<td><%=Row[9]%></td>
                                                                                         <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-edit"></span></center></td>
 											<td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>

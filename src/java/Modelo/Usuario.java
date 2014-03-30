@@ -429,11 +429,34 @@ public class Usuario {
     
     public boolean ingresarUsuario(String Rol, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Password){
         Connection conn = conexion.conectar();
-        String Est = "Aprobado";
+        String Est = "";
+        String preconsulta = "Select Tipo From tb_tipo_usuario Where Codigo = ?";
+        PreparedStatement pr=null;
+        ResultSet rs = null;
+        try{
+            
+            pr=conn.prepareStatement(preconsulta);
+            pr.setString(1, Rol);
+            rs=pr.executeQuery();
+            
+            while (rs.next())
+            {
+                if(!rs.getString("Tipo").equals("Empresa"))
+                {
+                    Est= "Aprobado";
+                }
+                else
+                {
+                    Est = "Pendiente";
+                }
+            }
+        }catch(SQLException ex){
+            return false;
+        }
         String Codi = "USU";
         int numerocodigo = this.CantidadRegistroUsuario();
         Codi+=numerocodigo;
-        PreparedStatement pr=null;
+        pr=null;
         String sql="INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Correo, Direccion, Estado)";
         sql+="VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try{
