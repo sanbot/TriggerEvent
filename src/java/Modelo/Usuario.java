@@ -162,9 +162,14 @@ public class Usuario {
                 if(this.getCorreo().equals(correo) && this.getEstado().equals("Aprobado")){
                     return true;
                 }
-                if(!this.getEstado().equals("Aprobado"))
+                if(this.getEstado().equals("Desaprobado"))
                 {
-                    this.setMensaje("Lo sentimos, no hemos podido conectar tu cuenta al aplicativo ya que esta desaprobada.");
+                    this.setMensaje("Lo sentimos, no hemos podido conectar tu cuenta al aplicativo, ya que está desaprobada.");
+                    return false;
+                }
+                else if(this.getEstado().equals("Pendiente"))
+                {
+                    this.setMensaje("Lo sentimos, no hemos podido conectar tu cuenta al aplicativo, ya que está pendiente por aprobación.");
                     return false;
                 }
             }
