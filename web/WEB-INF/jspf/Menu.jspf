@@ -14,7 +14,10 @@
 								<a class="gn-icon gn-icon-earth"><div class="negro">Qui&eacute;nes Somos</div></a>
 							</li>
 							<li>
-								<a class="gn-icon gn-icon-photoshop"><div class="negro">Mapa del Sitio</div></a>
+								<a>
+                                                                    <span class="glyphicon glyphicon-list-alt glyphiconuno"></span>
+                                                                    <div class="negro">Mapa del Sitio</div>
+                                                                </a>
 							</li>
 							<li>
 								<a class="gn-icon gn-icon-cog"><div class="negro">Ayuda en l&iacute;nea</div></a>
