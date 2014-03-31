@@ -8,7 +8,7 @@ package Controlador;
 
 import Modelo.Ciudad;
 import java.io.IOException;
-import java.io.PrintWriter;
+import Modelo.Departamento;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +60,7 @@ public class Contr_Ciudad extends HttpServlet {
             Codigo = request.getParameter("Codigo");
             Nombre = request.getParameter("Nombre");
             Departamento = request.getParameter("Departamento");
-                
+            
             boolean b = ciu.actualizardatosCiudad(Codigo, Nombre, Departamento);
             if(b){
 

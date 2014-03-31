@@ -178,27 +178,28 @@ public class Ciudad {
     
     public boolean actualizardatosCiudad(String codigo, String nombre, String departamento){
         Connection conn = conexion.conectar();
-        PreparedStatement pr=null;
-        String sql="UPDATE tb_ciudad SET Nombre = ?, Codigo_Departamento = ? ";
-                sql += "WHERE Codigo = ?";
+        PreparedStatement prs=null;
+        String sql="UPDATE `tb_ciudad` SET `Nombre` = '"+nombre +"', `Codigo_Departamento` = '"+departamento+"' WHERE `Codigo` = '"+codigo+"'";
         try{
-            pr=conn.prepareStatement(sql);
-            pr.setString(1, codigo);
-            pr.setString(2, nombre);
-            pr.setString(3, departamento);
-            if(pr.executeUpdate()==1){
+            //prs=conn.prepareStatement(sql);
+            //prs.setString(1, codigo);
+            //prs.setString(2, nombre);
+            //prs.setString(3, departamento);
+            //int i = prs.executeUpdate();
+            if(prs.executeUpdate()==1){
                 return true;
             }
         }catch(Exception ex){
             System.out.printf(ex.toString());
         }finally{
             try{
-                pr.close();
+                prs.close();
                 conn.close();
             }catch(Exception ex){
 
             }
         }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la ciudad, por favor, inténtelo de nuevo.");
         return false;
     }
 }
