@@ -8,6 +8,7 @@ import Modelo.Usuario;
 import Modelo.Mensajeria;
 import Modelo.Tipo_Usuario;
 import Modelo.Departamento;
+import Modelo.Ciudad;
 
 /**
  *
@@ -132,4 +133,11 @@ public class Contr_Consultar {
         return Datos;
     }
     
+    public String[][] BuscarDatosCuidadTodos()
+    {
+        Ciudad ciu = new Ciudad();
+        String[][] Datos = ciu.BuscarDatosCiudadTodos();
+                
+        return Datos;
+    }
 }

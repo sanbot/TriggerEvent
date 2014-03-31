@@ -12,6 +12,10 @@
         <servlet-name>Contr_Departamento</servlet-name>
         <servlet-class>Controlador.Contr_Departamento</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Contr_Ciudad</servlet-name>
+        <servlet-class>Controlador.Contr_Ciudad</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Contr_Usuarios</servlet-name>
         <url-pattern>/Contr_Usuarios</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>Contr_Departamento</servlet-name>
         <url-pattern>/Contr_Departamento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contr_Ciudad</servlet-name>
+        <url-pattern>/Contr_Ciudad</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

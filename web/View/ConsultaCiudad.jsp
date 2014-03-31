@@ -10,6 +10,7 @@ Author     : ADSI
 <%
 Contr_Consultar usu = new Contr_Consultar();
 String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
+String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,14 +45,14 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Departamento
+					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Ciudad
 				</div>
 			</div>
 		</div>
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<br/>
-				<h1 class="Center">Registro y Consulta de Departamentos</h1>
+				<h1 class="Center">Registro y Consulta de Ciudades</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -73,17 +74,19 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 							<tr>
 								<th>C&Oacute;DIGO</th>
 								<th>NOMBRE</th>
+                                                                <th>DEPARTAMENTO</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<%for(String[] Row : ListaDepartamento){%>
+							<%if(ListaCiudad != null) {for(String[] Row : ListaCiudad){%>
 							<tr>
 								<td><%=Row[0]%></td>
 								<td><%=Row[1]%></td>
-								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
+                                                                <td><%=Row[3]%></td>
+								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-depid="<%=Row[2]%>" data-dep="<%=Row[3]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
 							</tr>
-							<%}%>
+							<%}}%>
 						</tbody>
 					</table>
 				</div>			</div>
@@ -92,7 +95,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 				</div>
 			</div>
 			<div class="row">
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Departamento">
+				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Ciudad">
 					<div class="col-md-12">
 						<div class="modal fade" id="modal-container-Registrar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -109,14 +112,28 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 											<div class="col-md-8">
 												<div class="form-group">
 													<label for="Nombre">Nombre</label>
-													<input id="NombreDepartamento" name="Nombre" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true">
+													<input id="NombreCiudad" name="Nombre" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true">
+												</div>
+											</div>
+											<div class="col-md-2"></div>
+										</div>
+                                                                                <div class="row">
+											<div class="col-md-2"></div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<label for="Departamento">Departamento</label>
+                                                                                                        <select name="Departamento" id="Tipos" class="form-control" data-required="true">
+                                                                                                                <%for(String[] Row : ListaDepartamento){%>
+                                                                                                                <option value="<%=Row[0]%>"><%=Row[1]%></option>
+                                                                                                                <%}%>
+                                                                                                        </select>
 												</div>
 											</div>
 											<div class="col-md-2"></div>
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button name="RegistrarDepartamento" type="submit" class="btn btn-primary">Registrar</button> 
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button name="RegistrarCiudad" type="submit" class="btn btn-primary">Registrar</button> 
 									</div>
 								</div>
 								
@@ -127,7 +144,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 				</form>
 			</div>
                         <div class="row">
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Departamento">
+				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Ciudad">
 					<div class="col-md-12">
 						<div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -159,10 +176,24 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 											</div>
 											<div class="col-md-2"></div>
 										</div>
+                                                                                <div class="row">
+											<div class="col-md-2"></div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<label for="Departamento">Departamento</label>
+                                                                                                        <select name="Departamento" id="ConDepartamento" class="form-control" data-required="true">
+                                                                                                                <%for(String[] Row : ListaDepartamento){%>
+                                                                                                                <option value="<%=Row[0]%>"><%=Row[1]%></option>
+                                                                                                                <%}%>
+                                                                                                        </select>
+												</div>
+											</div>
+											<div class="col-md-2"></div>
+										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                <button name="ModificarDepartamento" type="submit" class="btn btn-primary">Modificar</button>
+										<button id="Cerrar" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                <button name="ModificarCiudad" type="submit" class="btn btn-primary">Modificar</button>
 									</div>
 								</div>
 								
@@ -198,19 +229,17 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
     <script>
     	new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
-    <script>
-    $(document).ready(function () {
-        $(".modal-Modifica").click(function(){
-        var Id = $(this).data('id');
-        var Name = $(this).data('nombre');
-        $(".modal-body #ConCodigo").val( Id );
-        $(".modal-body #ConNombre").val( Name );
-        });
-    });
-    </script>
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
+                $(".modal-Modifica").click(function(){
+                var Id = $(this).data('id');
+                var Name = $(this).data('nombre');
+                var DepId = $(this).data('depid');
+                $(".modal-body #ConCodigo").val( Id );
+                $(".modal-body #ConNombre").val( Name );
+                $('#ConDepartamento [value='+DepId+']').prop('selected', true);
+                });
     		$('#table1').dataTable({
     			"sPaginationType": "bs_normal"
                 // "sPaginationType": "bs_four_button"
@@ -233,4 +262,5 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
     <%session.setAttribute("Mensaje", "");%>
 </body>
 </html>
+
 
