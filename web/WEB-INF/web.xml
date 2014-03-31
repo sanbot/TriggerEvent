@@ -8,6 +8,10 @@
         <servlet-name>Contr_Contacto</servlet-name>
         <servlet-class>Controlador.Contr_Contacto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Contr_Departamento</servlet-name>
+        <servlet-class>Controlador.Contr_Departamento</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Contr_Usuarios</servlet-name>
         <url-pattern>/Contr_Usuarios</url-pattern>
@@ -24,7 +28,7 @@
             /View/index.jsp?men=$.pnotify({title: 'Trigger Event', text: 'La página a la que está tratando de llegar no ha sido encontrada, verifíquelo e inténtelo de nuevo.', type: 'error', nonblock: true, nonblock_opacity: .2, icon: 'picon picon-logo' });
         </location>
     </error-page>
-     <error-page>
+    <error-page>
         <error-code>
             500
         </error-code>
@@ -32,6 +36,10 @@
             /View/index.jsp?men=$.pnotify({title: 'Trigger Event', text: 'Ocurrió un error inesperado en el sistema, espere unos segundos e inténtelo de nuevo.', type: 'error', nonblock: true, nonblock_opacity: .2, icon: 'picon picon-logo' });
         </location>
     </error-page>
+    <servlet-mapping>
+        <servlet-name>Contr_Departamento</servlet-name>
+        <url-pattern>/Contr_Departamento</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

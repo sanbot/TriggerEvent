@@ -9,8 +9,7 @@ Author     : ADSI
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaUsuario = usu.BuscarDatosUsuariosTodos();
-String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
+String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 if(session.getAttribute("TipoMensaje").equals("Aprobar"))
 	{
 session.setAttribute("TipoMensaje", "Dio");
@@ -53,7 +52,7 @@ session.setAttribute("TipoMensaje", "NODio");
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Usuario
+					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Departamento
 				</div>
 			</div>
 		</div>
@@ -86,11 +85,11 @@ session.setAttribute("TipoMensaje", "NODio");
 							</tr>
 						</thead>
 						<tbody>
-							<%for(String[] Row : ListaUsuario){%>
+							<%for(String[] Row : ListaDepartamento){%>
 							<tr>
 								<td><%=Row[0]%></td>
-								<td><%=Row[4]%></td>
-								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[4]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
+								<td><%=Row[1]%></td>
+								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
 							</tr>
 							<%}%>
 						</tbody>
@@ -101,7 +100,7 @@ session.setAttribute("TipoMensaje", "NODio");
 				</div>
 			</div>
 			<div class="row">
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Departamento">
 					<div class="col-md-12">
 						<div class="modal fade" id="modal-container-Registrar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -136,7 +135,7 @@ session.setAttribute("TipoMensaje", "NODio");
 				</form>
 			</div>
                         <div class="row">
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Departamento">
 					<div class="col-md-12">
 						<div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">

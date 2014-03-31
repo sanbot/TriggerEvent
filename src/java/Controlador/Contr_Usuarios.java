@@ -35,7 +35,7 @@ public class Contr_Usuarios extends HttpServlet {
         Mensajeria msm = new Mensajeria();
         String script, Nombre, Codigo, Tipo_Documento,Estado, No_Documento, Telefono, Direccion, correo , celular, url, CodVer, CodigoVerificacion;
         String Password, REPassword, Rol, Contrasenia;
-        HttpSession session = request.getSession(true);;
+        HttpSession session = request.getSession(true);
  
         boolean b = false;
             if(request.getParameter("login")!= null)

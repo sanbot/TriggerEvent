@@ -7,6 +7,7 @@ package Controlador;
 import Modelo.Usuario;
 import Modelo.Mensajeria;
 import Modelo.Tipo_Usuario;
+import Modelo.Departamento;
 
 /**
  *
@@ -122,6 +123,13 @@ public class Contr_Consultar {
             this.setMensaje("");
         }
         return b;
+    }
+    public String[][] BuscarDatosDepartamentoTodos()
+    {
+        Departamento dep = new Departamento();
+        String[][] Datos = dep.BuscarDatosDepartamentoTodos();
+                
+        return Datos;
     }
     
 }

@@ -11,13 +11,19 @@
 								<a href="index.html" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
 							</li>
 							<li>
-								<a href="Perfil.jsp" class="gn-icon gn-icon-earth">
+								<a href="Perfil.jsp">
+                                                                        <span class="glyphicon glyphicon-user glyphiconuno"></span>
 									<div class="negro"><%=Nombre%></div>
 								</a>
 							</li>
 							<li>
 								<a href="ConsultaUsuario.jsp" class="gn-icon gn-icon-earth">
 									<div class="negro">Registrar y Consultar Usuario</div>
+								</a>
+							</li>
+                                                        <li>
+								<a href="ConsultaDepartamento.jsp" class="gn-icon gn-icon-earth">
+									<div class="negro">Registrar Departamentos</div>
 								</a>
 							</li>
 							<li>
