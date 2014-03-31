@@ -181,7 +181,7 @@ public class Ciudad {
         PreparedStatement prs=null;
         String sql="UPDATE `tb_ciudad` SET `Nombre` = '"+nombre +"', `Codigo_Departamento` = '"+departamento+"' WHERE `Codigo` = '"+codigo+"'";
         try{
-            //prs=conn.prepareStatement(sql);
+            prs=conn.prepareStatement(sql);
             //prs.setString(1, codigo);
             //prs.setString(2, nombre);
             //prs.setString(3, departamento);

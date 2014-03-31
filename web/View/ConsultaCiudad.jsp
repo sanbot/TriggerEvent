@@ -181,7 +181,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 											<div class="col-md-8">
 												<div class="form-group">
 													<label for="Departamento">Departamento</label>
-                                                                                                        <select name="Departamento" id="ConDepartamento" class="form-control" data-required="true" readonly>
+                                                                                                        <select name="Departamento" id="ConDepartamento" class="form-control" data-required="true" >
                                                                                                                 <%for(String[] Row : ListaDepartamento){%>
                                                                                                                 <option value="<%=Row[0]%>"><%=Row[1]%></option>
                                                                                                                 <%}%>
