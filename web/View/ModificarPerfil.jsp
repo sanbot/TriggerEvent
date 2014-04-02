@@ -107,14 +107,14 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Celular">Celular</label>
-								<input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=DatosUsuario[7]%>"/>
+								<input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=DatosUsuario[7]%>" readonly/>
 							</div>
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Correo">Correo</label>
-								<input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=DatosUsuario[8]%>"/>
+								<input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=DatosUsuario[8]%>" readonly/>
 							</div>
 						</div>
 
