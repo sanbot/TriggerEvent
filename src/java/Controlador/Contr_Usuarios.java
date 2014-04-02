@@ -102,10 +102,10 @@ public class Contr_Usuarios extends HttpServlet {
                     session.setAttribute("Celular", celular);
                     session.setAttribute("Correo", correo);
                     session.setAttribute("Direccion", Direccion);
-                    session.setAttribute("Ciudad", Ciudad);
+                    session.setAttribute("Ciudad", usu.getCiudad());
                     
                     session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente.");
-                    session.setAttribute("TipoMensaje" , "PerfilModificado");
+                    session.setAttribute("TipoMensaje" , "Dio");
                     url="View/Perfil.jsp";
                     response.sendRedirect(url);
                 }else

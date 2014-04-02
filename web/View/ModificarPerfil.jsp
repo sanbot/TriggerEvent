@@ -4,17 +4,15 @@
     Author     : Sanser
     --%>
 
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
     <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
     <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
     <%
-String Tipo = (String)  session.getAttribute("Tipo_Documento");
-String Documento = (String)session.getAttribute("No_Documento");
-String Telefono = (String) session.getAttribute("Telefono");
-String Celular = (String) session.getAttribute("Celular");
-String Correo = (String) session.getAttribute("Correo");
-String Direccion = (String) session.getAttribute("Direccion");
-String Ciudad = (String) session.getAttribute("Ciudad");
+String Codigo = (String)  session.getAttribute("Codigo");
+Contr_Consultar usu = new Contr_Consultar();
+String[] DatosUsuario = usu.BuscarDatosUsuario(Codigo);
+String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
+String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +68,7 @@ String Ciudad = (String) session.getAttribute("Ciudad");
 
 				<h1 class="Center">Mi perfil</h1>
 				
-				<form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Usuarios">
+				<form id="search" data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Usuarios">
 
 					<div class="row">
 
@@ -84,7 +82,7 @@ String Ciudad = (String) session.getAttribute("Ciudad");
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Tipo_Documento">Tipo Documento</label>
-								<input name="Tipo_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=Tipo%>" readonly/>
+								<input name="Tipo_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=DatosUsuario[3]%>" readonly/>
 							</div>
 						</div>
 
@@ -92,7 +90,7 @@ String Ciudad = (String) session.getAttribute("Ciudad");
 
 							<div class="form-group">
 								<label for="Numero_Documento">N&uacute;mero de Documento</label>
-								<input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=Documento%>" readonly/> 
+								<input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=DatosUsuario[4]%>" readonly/> 
 							</div>
 						</div>
 
@@ -109,14 +107,14 @@ String Ciudad = (String) session.getAttribute("Ciudad");
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Celular">Celular</label>
-								<input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=Celular%>"/>
+								<input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=DatosUsuario[7]%>"/>
 							</div>
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Correo">Correo</label>
-								<input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=Correo%>"/>
+								<input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=DatosUsuario[8]%>"/>
 							</div>
 						</div>
 
@@ -125,31 +123,49 @@ String Ciudad = (String) session.getAttribute("Ciudad");
 					<div class="row">
                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
-							<div class="form-group">
-								<label for="Ciudad">Ciudad/label>
-								<input name="Ciudad" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=Ciudad%>"/>
-							</div> 
-						</div>
+                                                        <div class="form-group">
+
+                                                                <label for="Departamento">Departamento</label>
+                                                                <select id="departamento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                </select>
+                                                        </div>
+
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+                                                        <div class="form-group">
+                                                                <label for="Ciudad">Ciudad</label>
+                                                                <select id="ciudad" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                    <option value='<%=DatosUsuario[13]%>'><%=DatosUsuario[11]%></option>
+                                                                </select>
+                                                        </div>
+
+                                                </div>
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
 							<div class="form-group">
 								<label for="Tipo">Tel&eacute;fono</label>
-								<input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=Telefono%>"/>
+								<input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=DatosUsuario[6]%>"/>
 							</div> 
 						</div>
 
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-							<div class="form-group">
-								<label for="Imagen">Direcci&oacute;n</label>
-								<div class="form-group">
-									<input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true" value="<%=Direccion%>"/>
-								</div>
-							</div>
-
-						</div>
+						
 
 					</div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+                                                <div class="form-group">
+                                                        <label for="Imagen">Direcci&oacute;n</label>
+                                                        <div class="form-group">
+                                                                <input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true" value="<%=DatosUsuario[9]%>"/>
+                                                        </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+                                        </div>
 					<div class="row">
 						<div class="col-md-offset-4 col-md-4">
 							<button type="submit" name="ModificarPerfil" class="btn btn-primary btn-block">Guardar</button>
@@ -185,6 +201,61 @@ String Ciudad = (String) session.getAttribute("Ciudad");
       <script src="../Libs/Customs/js/Parsley.js"></script>    
       <script src="../Libs/Customs/js/classie.js"></script>
       <script src="../Libs/Customs/js/gnmenu.js"></script>
+      <script>
+        (function($) {
+
+            $.fn.changeType = function(){
+                var data;
+            data = [
+            <%
+                for(String[] Row :ListaCiudad)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
+                    ];
+            var datadep = [
+            <%
+                for(String[] Row :ListaDepartamento)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":""}
+                    ];
+                    var options_departments;
+                    <%
+                    for(String[] Row: ListaDepartamento)
+                    {
+                        if(Row[0].equals(DatosUsuario[12]))
+                        {
+                            %>options_departments = "<option value='<%=Row[0]%>'><%=Row[1]%></option>"; <%
+                        }
+                    }
+                    %>
+                    
+                    $.each(datadep, function(i,d){
+                            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+                    });
+                    $("select#departamento", this).html(options_departments);
+                    $("select#departamento", this).change(function(){
+                    var index = $(this).val();
+                    var options = "";
+                    $.each(data, function(i,c){
+                        if(c.codigo_departamento === index)
+                        {
+                            options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
+                        }
+                    });
+                    $("select#ciudad").html(options);
+		});
+};
+})(jQuery);
+$(document).ready(function(){$("form#search").changeType();});
+    </script>
       <script>
       new gnMenu( document.getElementById( 'gn-menu' ) );
       </script>

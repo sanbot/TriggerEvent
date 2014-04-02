@@ -14,6 +14,7 @@ String Telefono = (String) session.getAttribute("Telefono");
 String Celular = (String) session.getAttribute("Celular");
 String Correo = (String) session.getAttribute("Correo");
 String Direccion = (String) session.getAttribute("Direccion");
+String Ciudad = (String) session.getAttribute("Ciudad");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,6 +95,7 @@ String Direccion = (String) session.getAttribute("Direccion");
 					</div>
 
 					<div class="row">
+                                            
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Nombre">Nombre</label>
@@ -122,8 +124,13 @@ String Direccion = (String) session.getAttribute("Direccion");
 				<form data-validate="parsley" role="form">
 
 					<div class="row">
-
-						<div class="col-xs-offset-3 col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label for="Ciudad">Ciudad</label>
+								<input type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=Ciudad%>" readonly/>
+							</div>
+						</div>
+						<div class=" col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
 							<div class="form-group">
 								<label for="Tipo">Tel&eacute;fono</label>
@@ -181,6 +188,7 @@ String Direccion = (String) session.getAttribute("Direccion");
       <script>
       new gnMenu( document.getElementById( 'gn-menu' ) );
       </script>
+      <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
       <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
       <%session.setAttribute("Mensaje", "");%>
   </body>

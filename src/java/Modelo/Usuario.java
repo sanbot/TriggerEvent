@@ -328,6 +328,7 @@ public class Usuario {
         PreparedStatement pr=null;
         String sql="UPDATE tb_usuario SET Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?  , Correo= ? , Direccion = ? ";
                 sql += "WHERE Codigo=?";
+        ResultSet rs= null;
         try{
             pr=conn.prepareStatement(sql);
             pr.setString(1, Tipo_Documento);
@@ -339,7 +340,17 @@ public class Usuario {
             pr.setString(7, Correo);
             pr.setString(8, Direccion);
             pr.setString(9, Codigo);
-            if(pr.executeUpdate()==1){
+            int i = pr.executeUpdate();
+            
+            if(i==1){
+                pr=conn.prepareStatement("Select Nombre From tb_ciudad Where Codigo = ?");
+                pr.setString(1, Ciudad);
+                rs=pr.executeQuery();
+
+                while (rs.next())
+                {
+                    this.setCiudad(rs.getString("Nombre"));
+                }
                 return true;
             }
         }catch(Exception ex){

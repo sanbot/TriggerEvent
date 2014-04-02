@@ -295,7 +295,7 @@ if(DatosUsuario[0] == null)
                     <%
                     for(String[] Row: ListaDepartamento)
                     {
-                        if(Row[0] == DatosUsuario[12])
+                        if(Row[0].equals(DatosUsuario[12]))
                         {
                             %>options_departments = "<option value='<%=Row[0]%>'><%=Row[1]%></option>"; <%
                         }
