@@ -29,6 +29,15 @@ public class Usuario {
     String Direccion;
     String Contrasenia;
     String Mensaje;
+    String Ciudad;
+
+    public String getCiudad() {
+        return Ciudad;
+    }
+
+    public void setCiudad(String Ciudad) {
+        this.Ciudad = Ciudad;
+    }
 
     public String getMensaje() {
         return Mensaje;
@@ -136,9 +145,10 @@ public class Usuario {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="Select u.Codigo codigo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,Nombre nombre, Telefono telefono,"
-                 + " u.No_Celular Celular, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
-                    "From  tb_usuario u Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo \n" +
+        String sql="Select u.Codigo codigo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,u.Nombre nombre, u.Telefono telefono,"
+                 + " u.No_Celular Celular, c.Nombre NombreCiudad , u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
+                    "From  tb_usuario u Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo "
+                  + " Join tb_ciudad c on c.Codigo = u.Codigo_Ciudad \n" +
                     "Where u.Correo = ? AND u.Contrasenia = ?";
         try{
             
@@ -155,6 +165,7 @@ public class Usuario {
                 this.setNombre(rs.getString("Nombre"));
                 this.setTelefono(rs.getString("telefono"));
                 this.setCelular(rs.getString("Celular"));
+                this.setCiudad(rs.getString("NombreCiudad"));
                 this.setCorreo(correo);
                 this.setDireccion(rs.getString("direccion"));
                 this.setEstado(rs.getString("Estado"));
@@ -234,11 +245,12 @@ public class Usuario {
         PreparedStatement pr=null;
         ResultSet rs=null;
         String sql="Select u.Codigo codigo, u.Codigo_Tipo CodigoTipo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,u.Nombre nombre, u.Telefono telefono,"
-                 + " u.No_Celular Celular, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
+                 + " u.No_Celular Celular, u.codigo_ciudad CodCiudad, c.nombre NombreCiudad, c.Codigo_Departamento DepCiudad, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
                    "From  tb_usuario u"
-                + " Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo \n" +
+                + " Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo "
+                + " Join tb_ciudad c on c.codigo = u.codigo_ciudad \n" +
                     "Where u.Codigo = ?";
-        String[] Usuario = new String[11];
+        String[] Usuario = new String[14];
         try{
             
             pr=conn.prepareStatement(sql);
@@ -256,6 +268,9 @@ public class Usuario {
                     Usuario[8] = rs.getString("Correo");
                     Usuario[9] = rs.getString("Direccion");
                     Usuario[10] = rs.getString("Estado");
+                    Usuario[11] = rs.getString("NombreCiudad");
+                    Usuario[12] = rs.getString("DepCiudad");
+                    Usuario[13] = rs.getString("CodCiudad");
                     
             }
             return Usuario;
@@ -273,7 +288,7 @@ public class Usuario {
         return null;
     }
     
-    public boolean getrecordarnumero(String correo){
+    public boolean getrecordarContrasenia(String correo){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
@@ -308,10 +323,10 @@ public class Usuario {
         return false;
     }
     
-    public boolean actualizardatos(String Codigo, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion){
+    public boolean actualizardatos(String Codigo, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Ciudad){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
-        String sql="UPDATE tb_usuario SET Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Correo= ? , Direccion = ? ";
+        String sql="UPDATE tb_usuario SET Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?  , Correo= ? , Direccion = ? ";
                 sql += "WHERE Codigo=?";
         try{
             pr=conn.prepareStatement(sql);
@@ -320,9 +335,10 @@ public class Usuario {
             pr.setString(3, Nombre);
             pr.setString(4, Telefono);
             pr.setString(5, Celular);
-            pr.setString(6, Correo);
-            pr.setString(7, Direccion);
-            pr.setString(8, Codigo);
+            pr.setString(6, Ciudad);
+            pr.setString(7, Correo);
+            pr.setString(8, Direccion);
+            pr.setString(9, Codigo);
             if(pr.executeUpdate()==1){
                 return true;
             }
@@ -432,7 +448,7 @@ public class Usuario {
         return 0;
     }
     
-    public boolean ingresarUsuario(String Rol, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Password){
+    public boolean ingresarUsuario(String Rol, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Password, String Ciudad){
         Connection conn = conexion.conectar();
         String Est = "";
         String preconsulta = "Select Tipo From tb_tipo_usuario Where Codigo = ?";
@@ -462,8 +478,8 @@ public class Usuario {
         int numerocodigo = this.CantidadRegistroUsuario();
         Codi+=numerocodigo;
         pr=null;
-        String sql="INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Correo, Direccion, Estado)";
-        sql+="VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql="INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Codigo_Ciudad, Correo, Direccion, Estado)";
+        sql+="VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
             
             pr=conn.prepareStatement(sql);
@@ -475,9 +491,10 @@ public class Usuario {
             pr.setString(6, Password);
             pr.setString(7, Telefono);
             pr.setString(8, Celular);
-            pr.setString(9, Correo);
-            pr.setString(10, Direccion);
-            pr.setString(11, Est);
+            pr.setString(9, Ciudad);
+            pr.setString(10, Correo);
+            pr.setString(11, Direccion);
+            pr.setString(12, Est);
             
             
             if(pr.executeUpdate()==1){
@@ -514,10 +531,10 @@ public class Usuario {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="SELECT u.Codigo, tu.Tipo, u.Tipo_Documento, u.No_Documento, u.Nombre, u.Contrasenia, u.Telefono, u.No_Celular, u.Correo, u.Direccion, u.Estado\n" +
+        String sql="SELECT u.Codigo, tu.Tipo, u.Tipo_Documento, u.No_Documento, u.Nombre, u.Contrasenia, u.Telefono, u.No_Celular, c.Nombre Ciudad, u.Correo, u.Direccion, u.Estado\n" +
                     "FROM  `tb_usuario` u\n" +
-                    "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo\n" +
-                    "LIMIT 0 , 30";
+                    "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo "
+                + "Join tb_ciudad c on c.codigo = u.codigo_ciudad";
         
         try{
             pr=conn.prepareStatement(sql);
@@ -528,7 +545,7 @@ public class Usuario {
             {
                 rows ++;
             }
-            String [][] Datos = new String[rows][10];
+            String [][] Datos = new String[rows][11];
             rs.beforeFirst();
             rows = 0;
             while(rs.next()){
@@ -540,6 +557,7 @@ public class Usuario {
                 usu.setNombre(rs.getString("Nombre"));
                 usu.setTelefono(rs.getString("Telefono"));
                 usu.setCelular(rs.getString("No_Celular"));
+                usu.setCiudad(rs.getString("Ciudad"));
                 usu.setCorreo(rs.getString("Correo"));
                 usu.setDireccion(rs.getString("Direccion"));
                 usu.setEstado(rs.getString("Estado"));
@@ -550,10 +568,11 @@ public class Usuario {
                 Datos[rows][4] = usu.getNombre();
                 Datos[rows][5] = usu.getTelefono();
                 Datos[rows][6] = usu.getCelular();
-                Datos[rows][7] = usu.getCelular();
-                Datos[rows][8] = usu.getCorreo();
-                Datos[rows][9] = usu.getEstado();
-                
+                Datos[rows][7] = usu.getCiudad();
+                Datos[rows][8] = usu.getCelular();
+                Datos[rows][9] = usu.getCorreo();
+                Datos[rows][10] = usu.getEstado();
+               
                 rows++;
                 
             }
@@ -572,10 +591,10 @@ public class Usuario {
         return null;
     }
 
-    public boolean actualizardatosUsuario(String Codigo, String Nombre, String Rol, String Tipo_Documento, String No_Documento, String Telefono, String celular, String correo, String Direccion, String Estado) {
+    public boolean actualizardatosUsuario(String Codigo, String Nombre, String Rol, String Tipo_Documento, String No_Documento, String Telefono, String celular, String correo, String Direccion, String Estado, String Ciudad) {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
-        String sql="UPDATE tb_usuario SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Correo= ? , Direccion = ?, Estado = ? ";
+        String sql="UPDATE tb_usuario SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?, Correo= ? , Direccion = ?, Estado = ? ";
                 sql += "WHERE Codigo=?";
         try{
             pr=conn.prepareStatement(sql);
@@ -585,10 +604,11 @@ public class Usuario {
             pr.setString(4, Nombre);
             pr.setString(5, Telefono);
             pr.setString(6, celular);
-            pr.setString(7, correo);
-            pr.setString(8, Direccion);
-            pr.setString(9, Estado);
-            pr.setString(10, Codigo);
+            pr.setString(7, Ciudad);
+            pr.setString(8, correo);
+            pr.setString(9, Direccion);
+            pr.setString(10, Estado);
+            pr.setString(11, Codigo);
             if(pr.executeUpdate()==1){
                 return true;
             }

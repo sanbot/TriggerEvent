@@ -33,7 +33,7 @@ public class Contr_Usuarios extends HttpServlet {
             throws ServletException, IOException {
         Usuario usu = new Usuario();
         Mensajeria msm = new Mensajeria();
-        String script, Nombre, Codigo, Tipo_Documento,Estado, No_Documento, Telefono, Direccion, correo , celular, url, CodVer, CodigoVerificacion;
+        String script, Nombre, Codigo, Tipo_Documento,Estado, No_Documento, Telefono, Direccion, correo , celular, url, CodVer, CodigoVerificacion, Ciudad;
         String Password, REPassword, Rol, Contrasenia;
         HttpSession session = request.getSession(true);
  
@@ -56,6 +56,7 @@ public class Contr_Usuarios extends HttpServlet {
                         Direccion = usu.getDireccion();
                         celular = usu.getCelular();
                         Rol = usu.getTipo();
+                        Ciudad = usu.getCiudad();
                         
                         session.setAttribute("Codigo", Codigo);
                         session.setAttribute("Rol", Rol);
@@ -66,6 +67,7 @@ public class Contr_Usuarios extends HttpServlet {
                         session.setAttribute("Celular", celular);
                         session.setAttribute("Correo", correo);
                         session.setAttribute("Direccion", Direccion);
+                        session.setAttribute("Ciudad", Ciudad);
                         
                         url="View/index.jsp";
                         response.sendRedirect(url);
@@ -87,8 +89,9 @@ public class Contr_Usuarios extends HttpServlet {
                 correo=request.getParameter("Correo");
                 Direccion=request.getParameter("Direccion");
                 Rol = request.getParameter("TipoUsuario");
+                Ciudad = request.getParameter("Ciudad");
                 
-                b = usu.actualizardatos(Codigo, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion);
+                b = usu.actualizardatos(Codigo, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Ciudad);
                 if(b)
                 {
                     session.setAttribute("Rol", Rol);
@@ -99,6 +102,7 @@ public class Contr_Usuarios extends HttpServlet {
                     session.setAttribute("Celular", celular);
                     session.setAttribute("Correo", correo);
                     session.setAttribute("Direccion", Direccion);
+                    session.setAttribute("Ciudad", Ciudad);
                     
                     session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente.");
                     session.setAttribute("TipoMensaje" , "PerfilModificado");
@@ -182,12 +186,13 @@ public class Contr_Usuarios extends HttpServlet {
                 Direccion = request.getParameter("Direccion");
                 Password = request.getParameter("Password");
                 REPassword = request.getParameter("REPassword");
+                Ciudad = request.getParameter("Ciudad");
                 
                 if(Password.equals(REPassword))
                 {
                     if(CodVer.equals(CodigoVerificacion))
                     {
-                        b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password);
+                        b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
                         if(b){
                             session.setAttribute("Registrar_Nombre", null);
                             session.setAttribute("Registrar_Celular", null);
@@ -222,7 +227,7 @@ public class Contr_Usuarios extends HttpServlet {
             }
             else if(request.getParameter("recucontrasenia")!= null){
                 correo = request.getParameter("correo");
-                b = usu.getrecordarnumero(correo);
+                b = usu.getrecordarContrasenia(correo);
                 if(b)
                 {
                     String contra = usu.getContrasenia();
@@ -259,8 +264,9 @@ public class Contr_Usuarios extends HttpServlet {
                 correo=request.getParameter("Correo");
                 Direccion=request.getParameter("Direccion");
                 Estado =request.getParameter("Estado");
+                Ciudad = request.getParameter("Ciudad");
                 
-                b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado);
+                b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado, Ciudad);
                 if(b)
                 {
                     
@@ -290,10 +296,11 @@ public class Contr_Usuarios extends HttpServlet {
                 Direccion = request.getParameter("Direccion");
                 Password = request.getParameter("Password");
                 REPassword = request.getParameter("REPassword");
+                Ciudad = request.getParameter("Ciudad");
                 
                 if(Password.equals(REPassword))
                 {
-                        b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password);
+                        b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
                         if(b){
                             session.setAttribute("Registrar_Nombre", null);
                             session.setAttribute("Registrar_Celular", null);

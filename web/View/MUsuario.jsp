@@ -38,6 +38,8 @@ else
 
 String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 String[] DatosUsuario = usu.BuscarDatosUsuario(codigoUsuario);
+String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
+String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 if(DatosUsuario[0] == null)
 {
     response.sendRedirect("ConsultaUsuario.jsp");
@@ -89,7 +91,7 @@ if(DatosUsuario[0] == null)
 		<div class="row">
 			<div class="col-md-12">
 
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+				<form id="search" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
 
 					<div class="row">
                                                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -162,7 +164,7 @@ if(DatosUsuario[0] == null)
                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Nombre">Correo</label>
-                                                                <input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=DatosUsuario[8]%>"/>
+                                                                <input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=DatosUsuario[8]%>" readonly/>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -178,20 +180,37 @@ if(DatosUsuario[0] == null)
 					</div>
                                         
                                         <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
-                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
-							<div class="form-group">
-								<label for="Estado">Estado</label>
-								<div class="form-group">
-                                                                    <select name="Estado" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-                                                                        <option value="<%=DatosUsuario[10]%>"><%=DatosUsuario[10]%></option>
-								</select>
-								</div>
-							</div>
+                                                                <div class="form-group">
+                                                                    
+                                                                        <label for="Departamento">Departamento</label>
+                                                                        <select id="departamento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                        </select>
+                                                                </div>
 
-						</div> 
-                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+                                                                <div class="form-group">
+                                                                        <label for="Ciudad">Ciudad</label>
+                                                                        <select id="ciudad" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                            <option value='<%=DatosUsuario[13]%>'><%=DatosUsuario[11]%></option>
+                                                                        </select>
+                                                                </div>
+
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                            <div class="form-group">
+                                                                    <label for="Estado">Estado</label>
+                                                                    <div class="form-group">
+                                                                        <select name="Estado" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                            <option value="<%=DatosUsuario[10]%>"><%=DatosUsuario[10]%></option>
+                                                                    </select>
+                                                                    </div>
+                                                            </div>
+
+                                                        </div>
                                         </div>
 
 					<div class="row">
@@ -247,7 +266,61 @@ if(DatosUsuario[0] == null)
     <script>
     new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
-    
+    <script>
+        (function($) {
+
+            $.fn.changeType = function(){
+                var data;
+            data = [
+            <%
+                for(String[] Row :ListaCiudad)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
+                    ];
+            var datadep = [
+            <%
+                for(String[] Row :ListaDepartamento)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":""}
+                    ];
+                    var options_departments;
+                    <%
+                    for(String[] Row: ListaDepartamento)
+                    {
+                        if(Row[0] == DatosUsuario[12])
+                        {
+                            %>options_departments = "<option value='<%=Row[0]%>'><%=Row[1]%></option>"; <%
+                        }
+                    }
+                    %>
+                    
+                    $.each(datadep, function(i,d){
+                            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+                    });
+                    $("select#departamento", this).html(options_departments);
+                    $("select#departamento", this).change(function(){
+                    var index = $(this).val();
+                    var options = "";
+                    $.each(data, function(i,c){
+                        if(c.codigo_departamento === index)
+                        {
+                            options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
+                        }
+                    });
+                    $("select#ciudad").html(options);
+		});
+};
+})(jQuery);
+$(document).ready(function(){$("form#search").changeType();});
+    </script>
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     

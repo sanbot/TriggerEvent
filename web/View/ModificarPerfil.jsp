@@ -14,6 +14,7 @@ String Telefono = (String) session.getAttribute("Telefono");
 String Celular = (String) session.getAttribute("Celular");
 String Correo = (String) session.getAttribute("Correo");
 String Direccion = (String) session.getAttribute("Direccion");
+String Ciudad = (String) session.getAttribute("Ciudad");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,8 +123,14 @@ String Direccion = (String) session.getAttribute("Direccion");
 					</div>
 
 					<div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
-						<div class="col-xs-offset-3 col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label for="Ciudad">Ciudad/label>
+								<input name="Ciudad" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=Ciudad%>"/>
+							</div> 
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
 							<div class="form-group">
 								<label for="Tipo">Tel&eacute;fono</label>

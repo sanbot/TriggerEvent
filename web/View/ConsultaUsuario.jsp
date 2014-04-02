@@ -17,6 +17,8 @@ Author     : santi_000
 Contr_Consultar usu = new Contr_Consultar();
 String[][] ListaUsuario = usu.BuscarDatosUsuariosTodos();
 String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
+String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
+String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 if(session.getAttribute("TipoMensaje").equals("Aprobar"))
 {
     session.setAttribute("TipoMensaje", "Dio");
@@ -108,7 +110,7 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 											<td><%=Row[1]%></td>
 											<td><%=Row[2]%></td>
                                                                                         <td><%=Row[3]%></td>
-											<td><%=Row[9]%></td>
+											<td><%=Row[10]%></td>
                                                                                         <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-edit"></span></center></td>
 											<td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
                                                                                         <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
@@ -121,7 +123,7 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 						</div>
 						<div class="tab-pane" id="panel-Registro">
 
-							<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+							<form id="search" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
 
 
 
@@ -184,7 +186,7 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 
 								</div>
 								<div class="row">
-									<div class=" col-xs-offset-2 col-xs-12 col-sm-12 col-md-4 col-lg-4">
+									<div class=" col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
 										<div class="form-group">
 											<label for="Telefono">Tel&eacute;fono</label>
@@ -195,18 +197,25 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 									<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
 										<div class="form-group">
-											<label for="Direccion">Direcci&oacute;n</label>
-											<div class="form-group">
-												<input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true">
-											</div>
+											<label for="Departamento">Departamento</label>
+											<select id="departamento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+											</select>
 										</div>
 
 									</div>
+                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
+										<div class="form-group">
+											<label for="Ciudad">Ciudad</label>
+											<select id="ciudad" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+											</select>
+										</div>
+
+									</div>
 								</div>
 
 								<div class="row">
-									<div class="col-md-offset-2 col-md-4">
+									<div class="col-md-4">
 										<div class="form-group">
 											<label for="Password">Contrase&ntilde;a</label>
 											<input name="Password" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
@@ -217,6 +226,16 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 											<label for="REPassword">Repita la Contrase&ntilde;a</label>
 											<input name="REPassword" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
 										</div>
+									</div>
+                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+										<div class="form-group">
+											<label for="Direccion">Direcci&oacute;n</label>
+											<div class="form-group">
+												<input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true">
+											</div>
+										</div>
+
 									</div>
 								</div>
 								<div class="row">
@@ -279,8 +298,53 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
     </script>
     
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
+    <script>
+        (function($) {
+
+            $.fn.changeType = function(){
+                var data;
+            data = [
+            <%
+                for(String[] Row :ListaCiudad)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
+                    ];
+            var datadep = [
+            <%
+                for(String[] Row :ListaDepartamento)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":""}
+                    ];
+                    var options_departments = "<option value=''></option>";
+                    $.each(datadep, function(i,d){
+                            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+                    });
+                    $("select#departamento", this).html(options_departments);
+                    $("select#departamento", this).change(function(){
+                    var index = $(this).val();
+                    var options = '';
+                    $.each(data, function(i,c){
+                        if(c.codigo_departamento === index)
+                        {
+                            options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
+                        }
+                    });
+                    $("select#ciudad").html(options);
+		});
+};
+})(jQuery);
+    </script>
     <script type="text/javascript">
     $(document).ready(function() {
+        $("form#search").changeType();
     	$('#table1').dataTable({
     		"sPaginationType": "bs_normal"
                 // "sPaginationType": "bs_four_button"
