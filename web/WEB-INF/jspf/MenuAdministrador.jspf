@@ -25,7 +25,13 @@
                                                         <li>
                                                                 <a href="ConsultaDepartamento.jsp">
                                                                         <span class="glyphicon glyphicon-pencil glyphiconuno"></span>
-									<div class="negro">Registrar Departamentos</div>
+									<div class="negro">Registrar Departamento</div>
+								</a>
+							</li>
+                                                        <li>
+                                                                <a href="ConsultaDepartamento.jsp">
+                                                                        <span class="glyphicon glyphicon-pencil glyphiconuno"></span>
+									<div class="negro">Registrar Ciudad</div>
 								</a>
 							</li>
 							<li>

@@ -24,6 +24,8 @@ Celular = (String) session.getAttribute("Registrar_Celular");
 CodVer = (String) session.getAttribute("Registrar_CodVer");
 }
 String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
+String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
+String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,7 +138,7 @@ String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 
 				</form>
 
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+				<form id="search" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
 					<div class="row">
 
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -209,8 +211,30 @@ String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 
 					</div>
 					
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+                                                    <div class="form-group">
+                                                            <label for="Departamento">Departamento</label>
+                                                            <select id="departamento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                            </select>
+                                                    </div>
+
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+                                                    <div class="form-group">
+                                                            <label for="Ciudad">Ciudad</label>
+                                                            <select id="ciudad" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                            </select>
+                                                    </div>
+
+                                            </div>
+                                        </div>
 					<div class="row">
-						<div class="col-md-offset-2 col-md-4">
+                                                <div class="col-md-2"></div>
+						<div class="col-md-4">
 							<div class="form-group">
 								<label for="Password">Contrase&ntilde;a</label>
 								<input name="Password" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
@@ -272,6 +296,58 @@ String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
     <script src="../Libs/Customs/js/Parsley.js"></script>    
     <script src="../Libs/Customs/js/classie.js"></script>
     <script src="../Libs/Customs/js/gnmenu.js"></script>
+    <script>
+    new gnMenu( document.getElementById( 'gn-menu' ) );
+    </script>
+    
+    <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
+    <script>
+        (function($) {
+
+            $.fn.changeType = function(){
+                var data;
+            data = [
+            <%
+                for(String[] Row :ListaCiudad)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
+                    ];
+            var datadep = [
+            <%
+                for(String[] Row :ListaDepartamento)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":""}
+                    ];
+                    var options_departments = "<option value=''></option>";
+                    $.each(datadep, function(i,d){
+                            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+                    });
+                    $("select#departamento", this).html(options_departments);
+                    $("select#departamento", this).change(function(){
+                    var index = $(this).val();
+                    var options = '';
+                    $.each(data, function(i,c){
+                        if(c.codigo_departamento === index)
+                        {
+                            options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
+                        }
+                    });
+                    $("select#ciudad").html(options);
+		});
+    };
+    })(jQuery);
+    $(document).ready(function() {
+        $("form#search").changeType();
+    });
+    </script>
     <script>
     new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
