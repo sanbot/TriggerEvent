@@ -16,6 +16,18 @@
         <servlet-name>Contr_Ciudad</servlet-name>
         <servlet-class>Controlador.Contr_Ciudad</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Contr_Seleccion</servlet-name>
+        <servlet-class>Controlador.Contr_Seleccion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contr_CreacionImg</servlet-name>
+        <servlet-class>Controlador.Contr_CreacionImg</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contr_ImgSeleccion</servlet-name>
+        <servlet-class>Controlador.Contr_ImgSeleccion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Contr_Usuarios</servlet-name>
         <url-pattern>/Contr_Usuarios</url-pattern>
@@ -47,6 +59,18 @@
     <servlet-mapping>
         <servlet-name>Contr_Ciudad</servlet-name>
         <url-pattern>/Contr_Ciudad</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contr_Seleccion</servlet-name>
+        <url-pattern>/Contr_Seleccion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contr_CreacionImg</servlet-name>
+        <url-pattern>/Contr_CreacionImg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contr_ImgSeleccion</servlet-name>
+        <url-pattern>/Contr_ImgSeleccion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

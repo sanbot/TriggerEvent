@@ -92,7 +92,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 				</div>
 			</div>
 			<div class="row">
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Seleccion">
+                            <form data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
 					<div class="col-md-12">
 						<div class="modal fade" id="modal-container-Registrar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -134,7 +134,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
                                                                                     <div class="col-md-8">
                                                                                         <div class="form-group">
                                                                                             <label for="Tipo">Tipo</label>
-                                                                                            <input type="file" name="imagen" dara-required="true"/>
+                                                                                            <input id="archivo" type="file" name="Imagen" data-required="true" accept="image/*"/>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-md-2"></div>
@@ -236,6 +236,9 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
+            $('input[type=file]').change(function () {
+                console.log(this.files[0].mozFullPath);
+            });
     		$('#table1').dataTable({
     			"sPaginationType": "bs_normal"
                 // "sPaginationType": "bs_four_button"

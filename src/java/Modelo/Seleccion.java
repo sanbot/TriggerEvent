@@ -6,14 +6,15 @@
 
 package Modelo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.File;
 
 /**
  *
@@ -85,6 +86,8 @@ public class Seleccion {
         String sql="INSERT INTO tb_seleccion (Codigo, Imagen, Nombre, Tipo)";
         sql+="VALUES(?,?,?,?)";
         FileInputStream is= null;
+        
+        
         try {
             is = new FileInputStream(imagen);
         } catch (FileNotFoundException ex) {
