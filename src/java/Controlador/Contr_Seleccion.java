@@ -74,9 +74,14 @@ public class Contr_Seleccion extends HttpServlet {
                     }
                     else if(name.equals("RegistrarSeleccion"))
                     {
+                        File img = new File(sel.getImagen());
                         b = sel.setRegistrarSeleccion(sel.getNombre(), sel.getTipo(), sel.getImagen());
                         if(b)
                         {
+                            if(!img.delete())
+                            {
+                                String sda = "no";
+                            }
                             session.setAttribute("Mensaje","Los datos del departamento han sido registrados correctamente.");
                             session.setAttribute("TipoMensaje","Dio");
                             url="View/ConsultaSeleccion.jsp" ;
@@ -84,8 +89,12 @@ public class Contr_Seleccion extends HttpServlet {
                         }
                         else
                         {
+                            if(!img.delete())
+                            {
+                                String sda = "no";
+                            }
                             session.setAttribute("Mensaje",sel.getMensaje());
-                            session.setAttribute("TipoMensaje","Dio");
+                            session.setAttribute("TipoMensaje","NODio");
                             url="View/ConsultaSeleccion.jsp" ;
                             response.sendRedirect(url);
                         }
@@ -100,7 +109,7 @@ public class Contr_Seleccion extends HttpServlet {
                     boolean isInMemory = item.isInMemory();
                     long sizeInBytes = item.getSize();
                     File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                   sel.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
+                    sel.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
                     /*y lo escribimos en el servido*/
                     item.write(archivo_server);
                 }

@@ -74,12 +74,10 @@ public class Seleccion {
     }
     
     public boolean setRegistrarSeleccion (String nombre, String tipo, String imagen)
-            
     {
         Connection conn = conexion.conectar();
-        String Est = "";
         PreparedStatement pr=null;
-        String codigo = "CIU";
+        String codigo = "SEL";
         int numerocodigo = this.CantidadRegistroCiudad();
         codigo+=numerocodigo;
         pr=null;
