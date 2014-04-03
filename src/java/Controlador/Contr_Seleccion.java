@@ -42,11 +42,11 @@ public class Contr_Seleccion extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         PrintWriter out = response.getWriter();
-        Seleccion sel = new Seleccion();
         
         boolean b;
         try
         {
+            Seleccion sel = new Seleccion();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
         /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
@@ -66,32 +66,28 @@ public class Contr_Seleccion extends HttpServlet {
                     String name = item.getFieldName();
                     if(name.equals("Nombre"))
                     {
-                        Nombre = item.getString();
+                        sel.setNombre(item.getString());
                     }
                     else if(name.equals("Tipo"))
                     {
-                        Tipo = item.getString();
+                        sel.setTipo(item.getString());
                     }
-                    else
+                    else if(name.equals("RegistrarSeleccion"))
                     {
-                        Peti = item.getString();
-                        if(Peti.equals("Registrar"))
+                        b = sel.setRegistrarSeleccion(sel.getNombre(), sel.getTipo(), sel.getImagen());
+                        if(b)
                         {
-                            b = sel.setRegistrarSeleccion(Nombre, Tipo, Imagen);
-                            if(b)
-                            {
-                                session.setAttribute("Mensaje","Los datos del departamento han sido registrados correctamente.");
-                                session.setAttribute("TipoMensaje","Dio");
-                                url="View/ConsultaSeleccion.jsp" ;
-                                response.sendRedirect(url);
-                            }
-                            else
-                            {
-                                session.setAttribute("Mensaje",sel.getMensaje());
-                                session.setAttribute("TipoMensaje","Dio");
-                                url="View/ConsultaSeleccion.jsp" ;
-                                response.sendRedirect(url);
-                            }
+                            session.setAttribute("Mensaje","Los datos del departamento han sido registrados correctamente.");
+                            session.setAttribute("TipoMensaje","Dio");
+                            url="View/ConsultaSeleccion.jsp" ;
+                            response.sendRedirect(url);
+                        }
+                        else
+                        {
+                            session.setAttribute("Mensaje",sel.getMensaje());
+                            session.setAttribute("TipoMensaje","Dio");
+                            url="View/ConsultaSeleccion.jsp" ;
+                            response.sendRedirect(url);
                         }
                     }
                    
@@ -104,7 +100,7 @@ public class Contr_Seleccion extends HttpServlet {
                     boolean isInMemory = item.isInMemory();
                     long sizeInBytes = item.getSize();
                     File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                    Imagen = "/media/santiago/Santiago/IMGTE/"+item.getName();
+                   sel.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
                     /*y lo escribimos en el servido*/
                     item.write(archivo_server);
                 }
