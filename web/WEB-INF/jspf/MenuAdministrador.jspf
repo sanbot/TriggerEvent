@@ -35,7 +35,7 @@
 								</a>
 							</li>
                                                         <li>
-                                                                <a href="ConsultaDepartamento.jsp">
+                                                                <a href="ConsultaCiudad.jsp">
                                                                         <span class="glyphicon glyphicon-pencil glyphiconuno"></span>
 									<div class="negro">Registrar Ciudad</div>
 								</a>

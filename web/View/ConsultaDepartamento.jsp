@@ -116,7 +116,8 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button name="RegistrarDepartamento" type="submit" class="btn btn-primary">Registrar</button> 
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                <button name="RegistrarDepartamento" type="submit" class="btn btn-primary">Registrar</button> 
 									</div>
 								</div>
 								
@@ -161,7 +162,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                 <button name="ModificarDepartamento" type="submit" class="btn btn-primary">Modificar</button>
 									</div>
 								</div>

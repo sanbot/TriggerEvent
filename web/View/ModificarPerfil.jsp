@@ -66,7 +66,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 		<div class="row clearfix">
 			<div class="col-md-12">
 
-				<h1 class="Center">Mi perfil</h1>
+				<h1 class="Center">Modificar perfil</h1>
 				
 				<form id="search" data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Usuarios">
 

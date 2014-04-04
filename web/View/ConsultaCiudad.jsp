@@ -133,7 +133,8 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button name="RegistrarCiudad" type="submit" class="btn btn-primary">Registrar</button> 
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                <button name="RegistrarCiudad" type="submit" class="btn btn-primary">Registrar</button> 
 									</div>
 								</div>
 								
@@ -192,7 +193,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button id="Cerrar" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button id="Cerrar" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                 <button name="ModificarCiudad" type="submit" class="btn btn-primary">Modificar</button>
 									</div>
 								</div>
