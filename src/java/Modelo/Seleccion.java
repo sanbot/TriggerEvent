@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.io.File;
+import java.sql.Blob;
 
 /**
  *
@@ -145,5 +145,76 @@ public class Seleccion {
             }
         }
         return 0;
+    }
+    
+    public String[][] getDatosSeleccion(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select * "+
+                   "From  tb_seleccion";
+        String [][] Datos = null;
+        try{
+            pr=conn.prepareStatement(sql);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            while(rs.next()){
+                
+                i++;
+            }
+            Datos = new String[i][3];
+            rs.beforeFirst();
+            i = 0;
+            while(rs.next()){
+                Datos[i][0] = rs.getString("Codigo");
+                Datos[i][1] = rs.getString("Nombre");
+                Datos[i][2] = rs.getString("Tipo");
+                i++;
+             }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
+    public Blob getImagenSeleccion(String codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Imagen "+
+                   "From  tb_seleccion Where Codigo = ?";
+        Blob Datos = null;
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            rs=pr.executeQuery();
+            
+            while(rs.next())
+            {
+                Datos = rs.getBlob("Imagen");
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
     }
 }

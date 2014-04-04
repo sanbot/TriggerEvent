@@ -6,6 +6,10 @@
   -o-background-size: cover;
   background-size: cover;
 }
+.imgseleccion{
+    width: 100px;
+    height: 40px;
+}
 #imagen{
   margin-top: 50%;
   margin-left: 20%;

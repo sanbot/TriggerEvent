@@ -4,12 +4,13 @@ Created on : 18-mar-2014, 14:17:00
 Author     : ADSI
 --%>
 
+<%@page import="java.io.OutputStream"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
+String[][] ListaSeleccion = usu.BuscarDatosSelccion();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,17 +74,25 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 							<tr>
 								<th>C&Oacute;DIGO</th>
 								<th>NOMBRE</th>
+                                                                <th>TIPO</th>
+                                                                <th>IMAGEN</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<%for(String[] Row : ListaDepartamento){%>
+							<%
+                                                        int i = 0;
+                                                        for(String[] Row : ListaSeleccion){%>
 							<tr>
 								<td><%=Row[0]%></td>
 								<td><%=Row[1]%></td>
+                                                                <td><%=Row[2]%></td>
+                                                                <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
 								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
 							</tr>
-							<%}%>
+							<%
+                                                        i++;
+                                                        }%>
 						</tbody>
 					</table>
 				</div>			</div>

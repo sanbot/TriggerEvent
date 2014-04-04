@@ -9,6 +9,8 @@ import Modelo.Mensajeria;
 import Modelo.Tipo_Usuario;
 import Modelo.Departamento;
 import Modelo.Ciudad;
+import Modelo.Seleccion;
+import java.sql.Blob;
 
 /**
  *
@@ -138,6 +140,18 @@ public class Contr_Consultar {
         Ciudad ciu = new Ciudad();
         String[][] Datos = ciu.BuscarDatosCiudadTodos();
                 
+        return Datos;
+    }
+    public String[][] BuscarDatosSelccion()
+    {
+        Seleccion sel = new Seleccion();
+        String Datos[][] = sel.getDatosSeleccion();
+        return Datos;
+    }
+    public Blob BuscarImagenes(String Codigo)
+    {
+        Seleccion sel = new Seleccion();
+        Blob Datos = sel.getImagenSeleccion(Codigo);
         return Datos;
     }
 }
