@@ -142,7 +142,7 @@ public class Contr_Consultar {
                 
         return Datos;
     }
-    public String[][] BuscarDatosSelccion()
+    public String[][] BuscarDatosSeleccion()
     {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getDatosSeleccion();

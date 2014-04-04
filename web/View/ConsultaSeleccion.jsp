@@ -10,7 +10,7 @@ Author     : ADSI
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaSeleccion = usu.BuscarDatosSelccion();
+String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
 %>
 <!DOCTYPE html>
 <html lang="en">

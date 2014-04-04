@@ -303,44 +303,44 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 
             $.fn.changeType = function(){
                 var data;
-            data = [
-            <%
-                for(String[] Row :ListaCiudad)
-                {%>
-                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
-                    
-                <%}
-            %>
+                    data = [
+                    <%
+                        for(String[] Row :ListaCiudad)
+                        {%>
+                            {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
+
+                        <%}
+                    %>
                     {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
                     ];
-            var datadep = [
-            <%
-                for(String[] Row :ListaDepartamento)
-                {%>
-                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
-                    
-                <%}
-            %>
+                var datadep = [
+                    <%
+                        for(String[] Row :ListaDepartamento)
+                        {%>
+                            {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
+
+                        <%}
+                    %>
                     {"codigo":"", "nombre":""}
                     ];
-                    var options_departments = "<option value=''></option>";
-                    $.each(datadep, function(i,d){
-                            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
-                    });
-                    $("select#departamento", this).html(options_departments);
-                    $("select#departamento", this).change(function(){
-                    var index = $(this).val();
-                    var options = '';
-                    $.each(data, function(i,c){
+                var options_departments = "<option value=''></option>";
+                $.each(datadep, function(i,d){
+                        options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+                });
+                $("select#departamento", this).html(options_departments);
+                $("select#departamento", this).change(function(){
+                var index = $(this).val();
+                var options = '';
+                $.each(data, function(i,c){
                         if(c.codigo_departamento === index)
                         {
                             options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
                         }
                     });
                     $("select#ciudad").html(options);
-		});
-};
-})(jQuery);
+                });
+        };
+        })(jQuery);
     </script>
     <script type="text/javascript">
     $(document).ready(function() {

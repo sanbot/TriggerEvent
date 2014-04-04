@@ -75,7 +75,7 @@ public class Departamento {
             {
                 if(ex.toString().indexOf("Nombre")>0)
                 {
-                    this.setMensaje("Ya existe una departamento registrado con este nombre.");
+                    this.setMensaje("Ya existe un departamento registrado con este nombre.");
                 }
             }
             

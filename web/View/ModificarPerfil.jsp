@@ -100,7 +100,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 							<div class="form-group">
 								<label for="Nombre">Nombre</label>
-								<input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=Nombre%>"/>
+                                                                <input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=Nombre%>" readonly/>
 							</div>
 						</div>
 
@@ -126,7 +126,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                                                         <div class="form-group">
 
                                                                 <label for="Departamento">Departamento</label>
-                                                                <select id="departamento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                <select id="departamentoperfil" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                                                 </select>
                                                         </div>
 
@@ -135,7 +135,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 
                                                         <div class="form-group">
                                                                 <label for="Ciudad">Ciudad</label>
-                                                                <select id="ciudad" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                                                <select id="ciudadperfil" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                                                     <option value='<%=DatosUsuario[13]%>'><%=DatosUsuario[11]%></option>
                                                                 </select>
                                                         </div>
@@ -206,55 +206,58 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 
             $.fn.changeType = function(){
                 var data;
-            data = [
-            <%
-                for(String[] Row :ListaCiudad)
-                {%>
-                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
-                    
-                <%}
-            %>
+                data = [
+                    <%
+                        for(String[] Row :ListaCiudad)
+                        {%>
+                            {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
+
+                        <%}
+                    %>
                     {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
                     ];
-            var datadep = [
-            <%
-                for(String[] Row :ListaDepartamento)
-                {%>
-                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
-                    
-                <%}
-            %>
+                var datadep = [
+                    <%
+                        for(String[] Row :ListaDepartamento)
+                        {%>
+                            {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
+
+                        <%}
+                    %>
                     {"codigo":"", "nombre":""}
                     ];
-                    var options_departments;
-                    <%
-                    for(String[] Row: ListaDepartamento)
+                var options_departments = "";
+
+
+                $.each(datadep, function(i,d){
+                        options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+                });
+                $("select#departamentoperfil", this).html(options_departments);
+                $('#departamentoperfil [value=<%=DatosUsuario[12]%>]').prop('selected', true);
+                
+                var option = "";
+                $.each(data, function(i,da){
+                    if(da.codigo_departamento === "<%=DatosUsuario[12]%>")
                     {
-                        if(Row[0].equals(DatosUsuario[12]))
-                        {
-                            %>options_departments = "<option value='<%=Row[0]%>'><%=Row[1]%></option>"; <%
-                        }
+                        option += '<option value="' + da.codigo + '">' + da.nombre + '<\/option>';
                     }
-                    %>
-                    
-                    $.each(datadep, function(i,d){
-                            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
-                    });
-                    $("select#departamento", this).html(options_departments);
-                    $("select#departamento", this).change(function(){
+                });
+                $("select#ciudadperfil").html(option);
+
+                $("select#departamentoperfil", this).change(function(){
                     var index = $(this).val();
                     var options = "";
-                    $.each(data, function(i,c){
-                        if(c.codigo_departamento === index)
+                    $.each(data, function(i,da){
+                        if(da.codigo_departamento === index)
                         {
-                            options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
+                            options += '<option value="' + da.codigo + '">' + da.nombre + '<\/option>';
                         }
                     });
-                    $("select#ciudad").html(options);
-		});
-};
-})(jQuery);
-$(document).ready(function(){$("form#search").changeType();});
+                    $("select#ciudadperfil").html(options);
+                });
+            };
+        })(jQuery);
+        $(document).ready(function(){$("form#search").changeType();});
     </script>
       <script>
       new gnMenu( document.getElementById( 'gn-menu' ) );

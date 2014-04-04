@@ -270,56 +270,59 @@ if(DatosUsuario[0] == null)
         (function($) {
 
             $.fn.changeType = function(){
-                var data;
-            data = [
-            <%
-                for(String[] Row :ListaCiudad)
-                {%>
-                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
-                    
-                <%}
-            %>
+                var dato;
+                dato = [
+                    <%
+                        for(String[] Row :ListaCiudad)
+                        {%>
+                            {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
+
+                        <%}
+                    %>
                     {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
                     ];
-            var datadep = [
-            <%
-                for(String[] Row :ListaDepartamento)
-                {%>
-                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
-                    
-                <%}
-            %>
+                var datodep = [
+                    <%
+                        for(String[] Row :ListaDepartamento)
+                        {%>
+                            {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
+
+                        <%}
+                    %>
                     {"codigo":"", "nombre":""}
                     ];
-                    var options_departments;
-                    <%
-                    for(String[] Row: ListaDepartamento)
+                var options_departments = "";
+
+
+                $.each(datodep, function(i,d){
+                        options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+                });
+                $("select#departamento", this).html(options_departments);
+                $('#departamento [value=<%=DatosUsuario[12]%>]').prop('selected', true);
+                
+                var option = "";
+                $.each(dato, function(i,da){
+                    if(da.codigo_departamento === "<%=DatosUsuario[12]%>")
                     {
-                        if(Row[0].equals(DatosUsuario[12]))
-                        {
-                            %>options_departments = "<option value='<%=Row[0]%>'><%=Row[1]%></option>"; <%
-                        }
+                        option += '<option value="' + da.codigo + '">' + da.nombre + '<\/option>';
                     }
-                    %>
-                    
-                    $.each(datadep, function(i,d){
-                            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
-                    });
-                    $("select#departamento", this).html(options_departments);
-                    $("select#departamento", this).change(function(){
+                });
+                $("select#ciudad").html(option);
+
+                $("select#departamento", this).change(function(){
                     var index = $(this).val();
                     var options = "";
-                    $.each(data, function(i,c){
-                        if(c.codigo_departamento === index)
+                    $.each(dato, function(i,da){
+                        if(da.codigo_departamento === index)
                         {
-                            options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
+                            options += '<option value="' + da.codigo + '">' + da.nombre + '<\/option>';
                         }
                     });
                     $("select#ciudad").html(options);
-		});
-};
-})(jQuery);
-$(document).ready(function(){$("form#search").changeType();});
+                });
+            };
+        })(jQuery);
+        $(document).ready(function(){$("form#search").changeType();});
     </script>
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

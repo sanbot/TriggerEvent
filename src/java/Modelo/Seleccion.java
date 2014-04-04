@@ -112,7 +112,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos de la ciudad, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos de la selección, por favor, inténtelo de nuevo.");
         return false;
     }
     
@@ -239,7 +239,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos del departamento, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
         return false;
     }
     
@@ -274,7 +274,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos del departamento, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
         return false;
     }
 }
