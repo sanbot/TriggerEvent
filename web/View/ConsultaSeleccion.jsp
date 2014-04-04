@@ -52,14 +52,14 @@ String[][] ListaSeleccion = usu.BuscarDatosSelccion();
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<br/>
-				<h1 class="Center">Registro y Consulta de Departamentos</h1>
+				<h1 class="Center">Registro y Consulta de Selcci&oacute;n</h1>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
 			</div>
 			<div class="col-md-4">
-				<a id="modal-Registrar" href="#modal-container-Registrar" role="button" class="btn btn-block btn-default" data-toggle="modal">Registrar</a>
+				<a id="modal-Registrar" href="#modal-container-Registrar" role="button" class="btn btn-block btn-primary" data-toggle="modal">Registrar</a>
 			</div>
 			<div class="col-md-4">
 			</div>
@@ -72,10 +72,10 @@ String[][] ListaSeleccion = usu.BuscarDatosSelccion();
 					<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>C&Oacute;DIGO</th>
-								<th>NOMBRE</th>
-                                                                <th>TIPO</th>
-                                                                <th>IMAGEN</th>
+								<th>C&oacute;digo</th>
+								<th>Nombre</th>
+                                                                <th>Tipo</th>
+                                                                <th>Imagen</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -88,7 +88,7 @@ String[][] ListaSeleccion = usu.BuscarDatosSelccion();
 								<td><%=Row[1]%></td>
                                                                 <td><%=Row[2]%></td>
                                                                 <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
-								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
+								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-tipo="<%=Row[2]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
 							</tr>
 							<%
                                                         i++;
@@ -142,7 +142,7 @@ String[][] ListaSeleccion = usu.BuscarDatosSelccion();
                                                                                     <div class="col-md-2"></div>
                                                                                     <div class="col-md-8">
                                                                                         <div class="form-group">
-                                                                                            <label for="Tipo">Tipo</label>
+                                                                                            <label for="Imagen">Imagen</label>
                                                                                             <input id="archivo" type="file" name="Imagen" data-required="true" accept="image/*"/>
                                                                                         </div>
                                                                                     </div>
@@ -150,7 +150,8 @@ String[][] ListaSeleccion = usu.BuscarDatosSelccion();
                                                                                 </div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button><button name="RegistrarSeleccion" type="submit" class="btn btn-primary">Registrar</button> 
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                <button name="RegistrarSeleccion" type="submit" class="btn btn-primary">Registrar</button> 
 									</div>
 								</div>
 								
@@ -161,7 +162,7 @@ String[][] ListaSeleccion = usu.BuscarDatosSelccion();
 				</form>
 			</div>
                         <div class="row">
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Departamento">
+				<form data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
 					<div class="col-md-12">
 						<div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -173,30 +174,67 @@ String[][] ListaSeleccion = usu.BuscarDatosSelccion();
 										</h4>
 									</div>
 									<div class="modal-body">
-										<div class="row">
-											<div class="col-md-2"></div>
-											<div class="col-md-8">
-												<div class="form-group">
-                                                                                                        <label for="Codigo">C&oacute;digo</label>
-													<input id="ConCodigo" name="Codigo" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true"readonly>
-												</div>
-											</div>
-											<div class="col-md-2"></div>
-										</div>
                                                                                 <div class="row">
 											<div class="col-md-2"></div>
 											<div class="col-md-8">
 												<div class="form-group">
-													<label for="Nombre">Nombre</label>
-													<input id="ConNombre" name="Nombre" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true">
+													<label for="Codigo">Codigo</label>
+													<input id="CodigoSeleccion" name="Codigo" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true" readonly>
 												</div>
 											</div>
-											<div class="col-md-2"></div>
+                                                                                        <div class="col-md-2">
+                                                                                            
+                                                                                        </div>
 										</div>
+										<div class="row">
+											<div class="col-md-2"></div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<label for="Nombre">Nombre</label>
+													<input id="NombreSeleccion" name="Nombre" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true">
+												</div>
+											</div>
+                                                                                        <div class="col-md-2">
+                                                                                            
+                                                                                        </div>
+										</div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2"></div>
+                                                                                    <div class="col-md-8">
+                                                                                        <div class="form-group">
+                                                                                            <label for="Tipo">Tipo</label>
+                                                                                            <select name="Tipo" id="TipoSeleccion" class="form-control" data-required="true">
+                                                                                                <option value="Gusto">Gusto</option>
+                                                                                                <option value="Ambiente">Ambiente</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-2"></div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                        <div class="col-md-2"></div>
+                                                                                        <div class="col-md-8">
+                                                                                            <div class="form-group">
+                                                                                                <label for="Imagen">Imagen</label>
+                                                                                                <input id="archivo" type="file" name="Imagen" data-required="true" accept="image/*"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-2"></div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                        <div class="col-md-2"></div>
+                                                                                        <div class="col-md-8">
+                                                                                            <div class="form-group">
+                                                                                                <label for="ImagenActual">Imagen Actual</label>
+                                                                                                <img id="ImgActual" class="img-responsive imgseleccion" src="">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-2"></div>
+                                                                                </div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                <button name="ModificarDepartamento" type="submit" class="btn btn-primary">Modificar</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                <button name="ModificarSeleccion" type="submit" class="btn btn-primary">Modificar</button>
 									</div>
 								</div>
 								
@@ -237,17 +275,18 @@ String[][] ListaSeleccion = usu.BuscarDatosSelccion();
         $(".modal-Modifica").click(function(){
         var Id = $(this).data('id');
         var Name = $(this).data('nombre');
-        $(".modal-body #ConCodigo").val( Id );
-        $(".modal-body #ConNombre").val( Name );
+        var Tipo = $(this).data('tipo');
+        $(".modal-body #CodigoSeleccion").val( Id );
+        $(".modal-body #NombreSeleccion").val( Name );
+        $(".modal-body #TipoSeleccion").val( Tipo );
+        $(".modal-body #ImgActual").attr("src","Imagen.jsp?Codigo="+Id);
         });
     });
     </script>
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
-            $('input[type=file]').change(function () {
-                console.log(this.files[0].mozFullPath);
-            });
+            
     		$('#table1').dataTable({
     			"sPaginationType": "bs_normal"
                 // "sPaginationType": "bs_four_button"

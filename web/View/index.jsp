@@ -40,7 +40,7 @@
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
         <%}else if(Rol.equals("Empresa")){%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
-        <%}else if(Rol.equals("")){%>
+        <%}else if(Rol.equals("") || Rol.equals(null)){%>
         <%@include file="../WEB-INF/jspf/Menu.jspf" %>
         <%}%>
 	<div id="body" class="container" style="width: 100%;">

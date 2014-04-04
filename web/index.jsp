@@ -31,7 +31,11 @@
     <script src="Libs/Customs/js/modernizr.custom.js"></script>
   </head>
   <body>
-      <% if(!Rol.equals("")){response.sendRedirect("View/index.jsp");}%>
+      <% if(!Rol.equals("")){
+          response.sendRedirect("View/index.jsp");
+        }else{%>
+        <%@include file="WEB-INF/jspf/MenuIndex.jspf" %>
+        <%}%>
   <div id="body" class="container" style="width: 100%;">
     <br/>
     <br/>

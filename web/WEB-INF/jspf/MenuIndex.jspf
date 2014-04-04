@@ -8,7 +8,7 @@
 					<div class="gn-scroller">
 						<ul class="gn-menu">
 							<li class="gn-search-item">
-								<a href="index.jsp" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
+								<a href="View/index.jsp" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
 							</li>
 							<li>
 								<a class="gn-icon gn-icon-earth"><div class="negro">Qui&eacute;nes Somos</div></a>
@@ -30,7 +30,7 @@
 				</nav>
 			</li>
 			<li>
-				<a href="index.jsp">Trigger Event</a>
+                            <a href="View/index.jsp">Trigger Event</a>
 			</li>
 		</ul>
 	</div><!-- /container -->

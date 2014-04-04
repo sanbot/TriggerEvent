@@ -8,7 +8,7 @@
 					<div class="gn-scroller">
 						<ul class="gn-menu">
 							<li class="gn-search-item">
-								<a href="index.html" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
+								<a href="index.jsp" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
 							</li>
 							<li>
 								<a href="Perfil.jsp">
@@ -20,6 +20,12 @@
                                                                 <a href="ConsultaUsuario.jsp">
                                                                         <span class="glyphicon glyphicon-pencil glyphiconuno"></span>
 									<div class="negro">Registrar y Consultar Usuario</div>
+								</a>
+							</li>
+                                                        <li>
+                                                                <a href="ConsultaSeleccion.jsp">
+                                                                        <span class="glyphicon glyphicon-pencil glyphiconuno"></span>
+									<div class="negro">Registrar y Consultar Seleccion</div>
 								</a>
 							</li>
                                                         <li>
@@ -54,7 +60,7 @@
 				</nav>
 			</li>
 			<li>
-				<a href="index.html">Trigger Event</a>
+				<a href="index.jsp">Trigger Event</a>
 			</li>
 			<li class="pull-right"><a href="Salir.jsp">Cerrar Sesi&oacute;n</a></li>
 		</ul>

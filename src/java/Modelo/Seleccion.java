@@ -85,7 +85,6 @@ public class Seleccion {
         sql+="VALUES(?,?,?,?)";
         FileInputStream is= null;
         
-        
         try {
             is = new FileInputStream(imagen);
         } catch (FileNotFoundException ex) {
@@ -216,5 +215,66 @@ public class Seleccion {
             }
         }
         return null;
+    }
+    public boolean actualizardatosSeleccion(String codigo, String nombre, String tipo) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE tb_seleccion SET Nombre = ?, Tipo = ? ";
+                sql += "WHERE Codigo = ?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, nombre);
+            pr.setString(2, tipo);
+            pr.setString(3, codigo);
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(Exception ex){
+            System.out.printf(ex.toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos del departamento, por favor, inténtelo de nuevo.");
+        return false;
+    }
+    
+    public boolean actualizardatosSeleccion(String codigo, String nombre, String tipo, String imagen) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE tb_seleccion SET Nombre = ?, Tipo = ?, Imagen = ? ";
+                sql += "WHERE Codigo = ?";
+        FileInputStream is= null;
+        
+        try {
+            is = new FileInputStream(imagen);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Seleccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, nombre);
+            pr.setString(2, tipo);
+            pr.setBlob(3, is);
+            pr.setString(4, codigo);
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(Exception ex){
+            System.out.printf(ex.toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos del departamento, por favor, inténtelo de nuevo.");
+        return false;
     }
 }

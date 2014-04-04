@@ -59,7 +59,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 			<div class="col-md-4">
 			</div>
 			<div class="col-md-4">
-				<a id="modal-Registrar" href="#modal-container-Registrar" role="button" class="btn btn-block btn-default" data-toggle="modal">Registrar</a>
+				<a id="modal-Registrar" href="#modal-container-Registrar" role="button" class="btn btn-block btn-primary" data-toggle="modal">Registrar</a>
 			</div>
 			<div class="col-md-4">
 			</div>

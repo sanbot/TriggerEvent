@@ -64,7 +64,11 @@ public class Contr_Seleccion extends HttpServlet {
                     //Plain request parameters will come here. 
                     
                     String name = item.getFieldName();
-                    if(name.equals("Nombre"))
+                    if(name.equals("Codigo"))
+                    {
+                        sel.setCodigo(item.getString());
+                    }
+                    else if(name.equals("Nombre"))
                     {
                         sel.setNombre(item.getString());
                     }
@@ -82,7 +86,7 @@ public class Contr_Seleccion extends HttpServlet {
                             {
                                 String sda = "no";
                             }
-                            session.setAttribute("Mensaje","Los datos del departamento han sido registrados correctamente.");
+                            session.setAttribute("Mensaje","Los datos de la seleccion han sido registrados correctamente.");
                             session.setAttribute("TipoMensaje","Dio");
                             url="View/ConsultaSeleccion.jsp" ;
                             response.sendRedirect(url);
@@ -98,22 +102,70 @@ public class Contr_Seleccion extends HttpServlet {
                             url="View/ConsultaSeleccion.jsp" ;
                             response.sendRedirect(url);
                         }
+                    }else if(name.equals("ModificarSeleccion"))
+                    {
+                        if(sel.getImagen().equals(""))
+                        {
+                            File img = new File(sel.getImagen());
+                            b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo());
+                            if(b)
+                            {
+                                img.delete();
+                                session.setAttribute("Mensaje", "Los datos de la seleccion han sido modificados correctamente.");
+                                session.setAttribute("TipoMensaje","Dio");
+                                url="View/ConsultaSeleccion.jsp" ;
+                                response.sendRedirect(url);
+                            }
+                            else
+                            {
+                                img.delete();
+                                session.setAttribute("Mensaje", sel.getMensaje());
+                                session.setAttribute("TipoMensaje","NODio");
+                                url="View/ConsultaSeleccion.jsp" ;
+                                response.sendRedirect(url);
+                            }
+                        }
+                        else
+                        {
+                            b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getImagen());
+                            if(b)
+                            {
+                                session.setAttribute("Mensaje", "Los datos de la seleccion han sido modificados correctamente.");
+                                session.setAttribute("TipoMensaje","Dio");
+                                url="View/ConsultaSeleccion.jsp" ;
+                                response.sendRedirect(url);
+                            }
+                            else
+                            {
+                                session.setAttribute("Mensaje", sel.getMensaje());
+                                session.setAttribute("TipoMensaje","NODio");
+                                url="View/ConsultaSeleccion.jsp" ;
+                                response.sendRedirect(url);
+                            }
+                        }
                     }
                    
                 } else {
-                    //uploaded files will come here.
-                    FileItem file = item;
-                    String fieldName = item.getFieldName();
-                    String fileName = item.getName();
-                    String contentType = item.getContentType();
-                    boolean isInMemory = item.isInMemory();
-                    long sizeInBytes = item.getSize();
-                    File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                    sel.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
-                    //File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-                    //sel.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-                    /*y lo escribimos en el servido*/
-                    item.write(archivo_server);
+                    if(!item.getName().equals(""))
+                    {
+                        //uploaded files will come here.
+                        FileItem file = item;
+                        String fieldName = item.getFieldName();
+                        String fileName = item.getName();
+                        String contentType = item.getContentType();
+                        boolean isInMemory = item.isInMemory();
+                        long sizeInBytes = item.getSize();
+                        File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        sel.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        //File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        //sel.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        /*y lo escribimos en el servido*/
+                        item.write(archivo_server);
+                    }
+                    else
+                    {
+                        sel.setImagen("");
+                    }
                 }
             }
             
