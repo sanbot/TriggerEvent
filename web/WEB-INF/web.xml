@@ -41,7 +41,7 @@
             404
         </error-code>
         <location>
-            /View/index.jsp?men=$.pnotify({title: 'Trigger Event', text: 'La página a la que está tratando de llegar no ha sido encontrada, verifíquelo e inténtelo de nuevo.', type: 'error', nonblock: true, nonblock_opacity: .2, icon: 'picon picon-logo' });
+            /View/ErrorServidor.jsp?Error=404
         </location>
     </error-page>
     <error-page>
@@ -49,7 +49,7 @@
             500
         </error-code>
         <location>
-            /View/index.jsp?men=$.pnotify({title: 'Trigger Event', text: 'Ocurrió un error inesperado en el sistema, espere unos segundos e inténtelo de nuevo.', type: 'error', nonblock: true, nonblock_opacity: .2, icon: 'picon picon-logo' });
+            /View/index.jspErrorServidor.jsp?Error=500
         </location>
     </error-page>
     <servlet-mapping>
