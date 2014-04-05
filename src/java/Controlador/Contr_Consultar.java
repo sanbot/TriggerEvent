@@ -167,4 +167,35 @@ public class Contr_Consultar {
         String Datos[][] = sel.getMisGustos(Codigo);
         return Datos;
     }
+    
+    public boolean AddRemoveGustos(String Codigo, String CodigoUsuario, String Accion)
+    {
+        Seleccion sel = new Seleccion();
+        boolean b ;
+        if(Accion.equals("Nuevo"))
+        {
+            b = sel.AddGusto(Codigo, CodigoUsuario);
+            if(b)
+            {
+               this.setMensaje("Se agrego el gusto satisfactoriamente.");
+            }
+            else
+            {
+                this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
+            }
+        }
+        else
+        {
+            b = sel.RemoveGusto(Codigo, CodigoUsuario);
+            if(b)
+            {
+                this.setMensaje("Se quito el gusto de tus gustos existosamente.");
+            }
+            else
+            {
+                this.setMensaje("Ocurrió un error al tratar de remover este gusto de tus gustos, por favor inténtelo nuevamente.");
+            }
+        }
+        return b;
+    }
 }

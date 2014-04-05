@@ -11,7 +11,7 @@ Author     : ADSI
 <%
 String Codigo = (String) session.getAttribute("Codigo");
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaGustos = usu.getMisGustos(Codigo);
+String[][] ListaGustosNuevos  = usu.getGustosNuevos(Codigo);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,67 +57,57 @@ String[][] ListaGustos = usu.getMisGustos(Codigo);
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Mis gustos
-				</div>
-			</div>
-		</div>
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<br/>
-				<h1 class="Center">Mis Gustos</h1>
-			</div>
-		</div>
-                <div class="row">
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-4">
-				<a href="RegistrarGustos.jsp" class="btn btn-block btn-primary" >Agregar Gustos</a>
-			</div>
-			<div class="col-md-4">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				
-                                <br/>
-                                <div class="table-responsive">
-                                        <table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-                                                <thead>
-                                                        <tr>
-                                                                <th>C&oacute;digo</th>
-                                                                <th>Nombre</th>
-                                                                <th>Tipo</th>
-                                                                <th>Imagen</th>
-                                                                <th></th>
-                                                        </tr>
-                                                </thead>
-                                                <tbody>
-                                                        <%
-                                                        for(String[] Row : ListaGustos){%>
-                                                        <tr>
-                                                                <td><%=Row[0]%></td>
-                                                                <td><%=Row[1]%></td>
-                                                                <td><%=Row[2]%></td>
-                                                                <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
-                                                                <td><center><a href="ModificarGustos.jsp?Codigo=<%=Row[0]%>&Accion=Quitar"><span class="glyphicon glyphicon-remove"></span><center></td>
-                                                        </tr>
-                                                        <%
-                                                        }%>
-                                                </tbody>
-                                        </table>
-                                </div>
-				
-                        </div>
-				<div class="container marketing">
-					<hr class="featurette-divider">
-				</div>
-			</div>
-			
-			<!-- FOOTER -->
-			<footer>
-				<p>&copy; 2013 Trigger Event, Inc.</p>
-			</footer>
-		</div>
+                    <a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="MisGustos.jsp">Mis gustos</a><span class="glyphicon glyphicon-share-alt">Agregar Gustos
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+         <div class="col-md-12">
+            <br/>
+            <h1 class="Center">Agregar Gustos</h1>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-md-12">
+      <br/>
+      <div class="table-responsive">
+        <table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>C&oacute;digo</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Imagen</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                for(String[] Row : ListaGustosNuevos){%>
+                <tr>
+                    <td><%=Row[0]%></td>
+                    <td><%=Row[1]%></td>
+                    <td><%=Row[2]%></td>
+                    <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
+                    <td><center><a href="ModificarGustos.jsp?Codigo=<%=Row[0]%>&Accion=Nuevo"><span class="glyphicon glyphicon-ok"></span><center></td>
+                </tr>
+                <%
+            }%>
+        </tbody>
+    </table>
+</div>
+
+</div>
+<div class="container marketing">
+   <hr class="featurette-divider">
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2013 Trigger Event, Inc.</p>
+</footer>
+</div>
 
 
 
@@ -159,10 +149,10 @@ String[][] ListaGustos = usu.getMisGustos(Codigo);
                 var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
                 length_sel.addClass('form-control input-sm');
             });
-    	});
-    </script>
-    <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
-    <%session.setAttribute("Mensaje", "");%>
+        });
+</script>
+<%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
+<%session.setAttribute("Mensaje", "");%>
 </body>
 </html>
 

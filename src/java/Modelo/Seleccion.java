@@ -78,7 +78,7 @@ public class Seleccion {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         String codigo = "SEL";
-        int numerocodigo = this.CantidadRegistroCiudad();
+        int numerocodigo = this.CantidadRegistroSeleccion();
         codigo+=numerocodigo;
         pr=null;
         String sql="INSERT INTO tb_seleccion (Codigo, Imagen, Nombre, Tipo)";
@@ -123,7 +123,7 @@ public class Seleccion {
         return false;
     }
     
-    public int CantidadRegistroCiudad(){
+    public int CantidadRegistroSeleccion(){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
@@ -305,7 +305,7 @@ public class Seleccion {
         ResultSet rs=null;
         String sql="Select Codigo, Nombre, Tipo, Imagen "+
                    "From  tb_seleccion "
-                +  "Where Codigo NOT IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ?)";
+                +  "Where Codigo NOT IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ? And Estado = 'Activo')";
         String [][] Datos = null;
         try{
             pr=conn.prepareStatement(sql);
@@ -347,7 +347,8 @@ public class Seleccion {
         ResultSet rs=null;
         String sql="Select Codigo, Nombre, Tipo, Imagen "+
                    "From  tb_seleccion "
-                +  "Where Codigo IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ?)";
+                +  "Where Codigo IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ?"
+                + " And Estado = 'Activo')";
         String [][] Datos = null;
         try{
             pr=conn.prepareStatement(sql);
@@ -381,5 +382,132 @@ public class Seleccion {
             }
         }
         return null;
+    }
+    
+    public boolean AddGusto(String codigoSeleccion, String CodigoUsuario) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs = null;
+        String codigo = "GUS";
+        codigo+= this.CantidadGustos();
+        String sqlc = "Select Codigo From tb_seleccion_usuario Where Id_Seleccion = ? and Id_Usuario = ? ";
+        String sqli="Insert Into tb_seleccion_usuario (Codigo, Id_Seleccion, Id_Usuario, Estado)"
+                + " Values (?,?,?,?)";
+        String sqlu = "UPDATE tb_seleccion_usuario SET Estado = 'Activo' Where Codigo = ?";
+        
+        try{
+            pr = conn.prepareStatement(sqlc);
+            pr.setString(1, codigoSeleccion);
+            pr.setString(2, CodigoUsuario);
+            rs = pr.executeQuery();
+            if(rs.next())
+            {
+                pr=conn.prepareStatement(sqlu);
+                pr.setString(1, rs.getString("Codigo"));
+                if(pr.executeUpdate()==1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                pr=conn.prepareStatement(sqli);
+                pr.setString(1, codigo);
+                pr.setString(2, codigoSeleccion);
+                pr.setString(3, CodigoUsuario);
+                pr.setString(4, "Activo");
+                if(pr.executeUpdate()==1)
+                {
+                    return true;
+                }
+            }
+            
+        }catch(Exception ex){
+            if(ex.toString().indexOf("Duplicate")>0)
+            {
+                if(ex.toString().indexOf("UK_Id_Seleccion_Id_Usuario")>0)
+                {
+                    this.setMensaje("Ya existe este gusto registrado.");
+                    return false;
+                }
+            }
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        return false;
+    }
+    
+    public boolean RemoveGusto(String codigoSeleccion, String CodigoUsuario) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs = null;
+        String codigo = "GUS";
+        codigo+= this.CantidadGustos();
+        String sqlc = "Select Codigo From tb_seleccion_usuario Where Id_Seleccion = ? and Id_Usuario = ? ";
+        String sqlu = "UPDATE tb_seleccion_usuario SET Estado = 'Desactivo' Where Codigo = ?";
+        
+        try{
+            pr = conn.prepareStatement(sqlc);
+            pr.setString(1, codigoSeleccion);
+            pr.setString(2, CodigoUsuario);
+            rs = pr.executeQuery();
+            if(rs.next())
+            {
+                pr=conn.prepareStatement(sqlu);
+                pr.setString(1, rs.getString("Codigo"));
+                if(pr.executeUpdate()==1)
+                {
+                    return true;
+                }
+            }
+            
+        }catch(Exception ex){
+            System.out.print(ex.toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        return false;
+    }
+    
+    public int CantidadGustos(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select * "+
+                   "From  tb_seleccion_usuario";
+        try{
+            pr=conn.prepareStatement(sql);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            while(rs.next()){
+                
+                i++;
+            }
+            return i+1;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return 0;
     }
 }
