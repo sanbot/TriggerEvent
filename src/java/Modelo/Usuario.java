@@ -601,6 +601,71 @@ public class Usuario {
         }
         return null;
     }
+    
+    public String[][] BuscarDatosUsuarioPendientes(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT u.Codigo, tu.Tipo, u.Tipo_Documento, u.No_Documento, u.Nombre, u.Contrasenia, u.Telefono, u.No_Celular, c.Nombre Ciudad, u.Correo, u.Direccion, u.Estado\n" +
+                    "FROM  `tb_usuario` u\n" +
+                    "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo "
+                 + " Join tb_ciudad c on c.codigo = u.codigo_ciudad"
+                 + " Where u.Estado = 'Pendiente'";
+        
+        try{
+            pr=conn.prepareStatement(sql);
+            rs=pr.executeQuery();
+            
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            String [][] Datos = new String[rows][11];
+            rs.beforeFirst();
+            rows = 0;
+            while(rs.next()){
+                Usuario usu = new Usuario();
+                usu.setCodigo(rs.getString("Codigo"));
+                usu.setTipo(rs.getString("Tipo"));
+                usu.setTipo_Documento(rs.getString("Tipo_Documento"));
+                usu.setNo_Documento(rs.getString("No_Documento"));
+                usu.setNombre(rs.getString("Nombre"));
+                usu.setTelefono(rs.getString("Telefono"));
+                usu.setCelular(rs.getString("No_Celular"));
+                usu.setCiudad(rs.getString("Ciudad"));
+                usu.setCorreo(rs.getString("Correo"));
+                usu.setDireccion(rs.getString("Direccion"));
+                usu.setEstado(rs.getString("Estado"));
+                Datos[rows][0] = usu.getCodigo();
+                Datos[rows][1] = usu.getTipo();
+                Datos[rows][2] = usu.getTipo_Documento();
+                Datos[rows][3] = usu.getNo_Documento();
+                Datos[rows][4] = usu.getNombre();
+                Datos[rows][5] = usu.getTelefono();
+                Datos[rows][6] = usu.getCelular();
+                Datos[rows][7] = usu.getCiudad();
+                Datos[rows][8] = usu.getCelular();
+                Datos[rows][9] = usu.getCorreo();
+                Datos[rows][10] = usu.getEstado();
+               
+                rows++;
+                
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
 
     public boolean actualizardatosUsuario(String Codigo, String Nombre, String Rol, String Tipo_Documento, String No_Documento, String Telefono, String celular, String correo, String Direccion, String Estado, String Ciudad) {
         Connection conn = conexion.conectar();
@@ -634,5 +699,33 @@ public class Usuario {
             }
         }
         return false;
+    }
+    
+    public String getCantidadPendientes(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Count(Codigo) Cantidad "+
+                   "From  tb_usuario Where Estado = 'Pendiente'";
+        try{
+            pr=conn.prepareStatement(sql);
+            rs=pr.executeQuery();
+            
+            if(rs.next())
+            {
+                return rs.getString("Cantidad");
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
     }
 }

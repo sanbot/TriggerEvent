@@ -19,6 +19,7 @@ String[][] ListaUsuario = usu.BuscarDatosUsuariosTodos();
 String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
+String Cantidad = usu.getCantidadPendientes();
 if(session.getAttribute("TipoMensaje").equals("Aprobar"))
 {
     session.setAttribute("TipoMensaje", "Dio");
@@ -71,6 +72,18 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 			<h1 class="Center">Registro y Consulta de Usuarios</h1>
 		</div>
 	</div>
+        <%if(Cantidad!= null)
+        {%>
+            <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <a href="CUsuariosPendientes.jsp"class="btn btn-block btn-primary">Consultar Empresas Pendientes <span class="badge pull-right"><%=Cantidad%></span></a>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+            </div>
+        <%}%>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="col-md-12">

@@ -38,6 +38,14 @@ public class Contr_Consultar {
         return Datos;
     }
     
+    public String[][] BuscarDatosUsuariosPendientes()
+    {
+        Usuario usu = new Usuario();
+        String[][] Datos = usu.BuscarDatosUsuarioPendientes();
+                
+        return Datos;
+    }
+    
     public String[] BuscarDatosUsuario(String Codigo)
     {
         Usuario usu = new Usuario();
@@ -197,5 +205,12 @@ public class Contr_Consultar {
             }
         }
         return b;
+    }
+    
+    public String getCantidadPendientes()
+    {
+        Usuario usu = new Usuario();
+        String Dato = usu.getCantidadPendientes();
+        return Dato;
     }
 }
