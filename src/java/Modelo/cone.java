@@ -17,30 +17,25 @@ public class cone {
   
   public Connection conectar() {
    
-      // CONEXION A BD
+     // CONEXION A LA BASE DE DATOS
     
     try {
-                        //SQL SERVER JUNTO KON EL DRIVER
-     Class.forName("com.mysql.jdbc.Driver");
-     //DriverManager.getConnection(server,user,password);
-         //llamar driver en libreria para establecer conexion
-    /* String Santiago = "jdbc:sqlserver://SANTI-PC\\SANTIAGO:1433;databaseName=Trigger_Event;user=sa;password=12345678";
-     String Sergio = "jdbc:sqlserver://SERGIO-PC\\SQLEXPRESS:1433;databaseName=Trigger_Event;user=sa;password=123456789";
-     */
-     String MYSQL = "jdbc:mysql://localhost:3306/trigger_event?zeroDateTimeBehavior=convertToNull";
-     conn = DriverManager.getConnection(MYSQL, "root", "");
-     
-   }
-      catch (ClassNotFoundException ex)// problemas con sql o bd, usuario,contraseña
-      {
-       System.out.println("Error: " + ex.getMessage());
-       
-     }
-     catch (SQLException ex)
-     {
-      System.out.println("Error: " + ex.getMessage());
+        //MYSQL Con el driver
+        Class.forName("com.mysql.jdbc.Driver");
+        //String de conexion con mySQL
+        String MYSQL = "jdbc:mysql://localhost:3306/trigger_event?zeroDateTimeBehavior=convertToNull";
+        //Conexion usuario y contraseña
+        conn = DriverManager.getConnection(MYSQL, "root", "0000");
+        
+    }
+    catch (ClassNotFoundException ex)// problemas con sql o bd, usuario,contraseña
+    {
+        System.out.println("Error: " + ex.getMessage());   
+    }
+    catch (SQLException ex)
+    {
+        System.out.println("Error: " + ex.getMessage());
     }
     return conn;
-    
   }
 }

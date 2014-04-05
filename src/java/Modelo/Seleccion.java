@@ -103,7 +103,14 @@ public class Seleccion {
                 return true;
             }
         }catch(SQLException ex){
-            System.out.print(ex.toString());
+            if(ex.toString().indexOf("Duplicate")>0)
+            {
+                if(ex.toString().indexOf("Nombre")>0)
+                {
+                    this.setMensaje("Ya hay un ambiente o gusto con este nombre.");
+                    return false;
+                }
+            }
         }finally{
             try{
                 pr.close();
@@ -230,7 +237,14 @@ public class Seleccion {
                 return true;
             }
         }catch(Exception ex){
-            System.out.printf(ex.toString());
+            if(ex.toString().indexOf("Duplicate")>0)
+            {
+                if(ex.toString().indexOf("Nombre")>0)
+                {
+                    this.setMensaje("Ya hay un ambiente o gusto con este nombre.");
+                    return false;
+                }
+            }
         }finally{
             try{
                 pr.close();
@@ -265,7 +279,14 @@ public class Seleccion {
                 return true;
             }
         }catch(Exception ex){
-            System.out.printf(ex.toString());
+            if(ex.toString().indexOf("Duplicate")>0)
+            {
+                if(ex.toString().indexOf("Nombre")>0)
+                {
+                    this.setMensaje("Ya hay un ambiente o gusto con este nombre.");
+                    return false;
+                }
+            }
         }finally{
             try{
                 pr.close();

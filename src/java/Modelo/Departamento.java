@@ -78,9 +78,6 @@ public class Departamento {
                     this.setMensaje("Ya existe un departamento registrado con este nombre.");
                 }
             }
-            
-                
-            
             return false;
         }finally{
             try{
@@ -181,7 +178,14 @@ public class Departamento {
                 return true;
             }
         }catch(Exception ex){
-            System.out.printf(ex.toString());
+            if(ex.toString().indexOf("Duplicate")>0)
+            {
+                if(ex.toString().indexOf("Nombre")>0)
+                {
+                    this.setMensaje("Ya existe un departamento registrado con este nombre.");
+                }
+            }
+            return false;
         }finally{
             try{
                 pr.close();
