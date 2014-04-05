@@ -298,4 +298,88 @@ public class Seleccion {
         this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
         return false;
     }
+    
+    public String[][] getGustosNuevos(String codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Codigo, Nombre, Tipo, Imagen "+
+                   "From  tb_seleccion "
+                +  "Where Codigo NOT IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ?)";
+        String [][] Datos = null;
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            while(rs.next()){
+                
+                i++;
+            }
+            Datos = new String[i][3];
+            rs.beforeFirst();
+            i = 0;
+            while(rs.next()){
+                Datos[i][0] = rs.getString("Codigo");
+                Datos[i][1] = rs.getString("Nombre");
+                Datos[i][2] = rs.getString("Tipo");
+                i++;
+             }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
+    public String[][] getMisGustos (String codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Codigo, Nombre, Tipo, Imagen "+
+                   "From  tb_seleccion "
+                +  "Where Codigo IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ?)";
+        String [][] Datos = null;
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            while(rs.next()){
+                
+                i++;
+            }
+            Datos = new String[i][3];
+            rs.beforeFirst();
+            i = 0;
+            while(rs.next()){
+                Datos[i][0] = rs.getString("Codigo");
+                Datos[i][1] = rs.getString("Nombre");
+                Datos[i][2] = rs.getString("Tipo");
+                i++;
+             }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
 }

@@ -154,4 +154,17 @@ public class Contr_Consultar {
         Blob Datos = sel.getImagenSeleccion(Codigo);
         return Datos;
     }
+    
+    public String[][] getGustosNuevos(String Codigo)
+    {
+        Seleccion sel = new Seleccion();
+        String Datos[][] = sel.getGustosNuevos(Codigo);
+        return Datos;
+    }
+    public String[][] getMisGustos(String Codigo)
+    {
+        Seleccion sel = new Seleccion();
+        String Datos[][] = sel.getMisGustos(Codigo);
+        return Datos;
+    }
 }
