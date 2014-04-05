@@ -308,6 +308,7 @@ if(DatosUsuario[0] == null)
                     }
                 });
                 $("select#ciudad").html(option);
+                $('#ciudad [value=<%=DatosUsuario[13]%>]').prop('selected', true);
 
                 $("select#departamento", this).change(function(){
                     var index = $(this).val();

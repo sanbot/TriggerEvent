@@ -243,6 +243,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                     }
                 });
                 $("select#ciudadperfil").html(option);
+                $('#ciudadperfil [value=<%=DatosUsuario[13]%>]').prop('selected', true);
 
                 $("select#departamentoperfil", this).change(function(){
                     var index = $(this).val();

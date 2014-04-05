@@ -5,7 +5,7 @@
     --%>
 
     <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Usuarios" %>
-
+<%response.sendRedirect("View/index.jsp");%>
     <%@include file="WEB-INF/jspf/VariablesIniciales.jspf" %>
   <!DOCTYPE html>
   <html lang="en" class="no-js">
