@@ -45,7 +45,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Ciudad
+					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Ciudad
 				</div>
 			</div>
 		</div>

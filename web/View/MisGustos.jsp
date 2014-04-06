@@ -57,7 +57,7 @@ String[][] ListaGustos = usu.getMisGustos(Codigo);
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Mis gustos
+					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Mis gustos
 				</div>
 			</div>
 		</div>

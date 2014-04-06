@@ -69,7 +69,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 					</div><!-- /gn-scroller -->
 				</nav>
 			</li>
-			<li><a href="index1.html">Trigger Event</a></li>
+			<li><a href="index.jsp">Trigger Event</a></li>
 		</ul>
 	</div><!-- /container -->
 	<div class="container">

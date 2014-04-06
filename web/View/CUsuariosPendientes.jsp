@@ -50,7 +50,7 @@ String[][] ListaUsuario = usu.BuscarDatosUsuariosPendientes();
 	<div class="row clearfix">
 		<div class="col-md-12">
 			<div class="form-group">
-                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="ConsultaUsuario.jsp"> Registro y Consulta de Usuario</a><span class="glyphicon glyphicon-share-alt"></span>
+                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="ConsultaUsuario.jsp"> Registro y Consulta de Usuario</a><span class="glyphicon glyphicon-share-alt"></span> Consulta de usuarios pendientes
 			</div>
 		</div>
 	</div>

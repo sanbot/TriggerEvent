@@ -44,7 +44,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Departamento
+					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Departamento
 				</div>
 			</div>
 		</div>

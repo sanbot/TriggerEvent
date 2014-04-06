@@ -45,7 +45,7 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Selecci&oacute;n
+					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Selecci&oacute;n
 				</div>
 			</div>
 		</div>
