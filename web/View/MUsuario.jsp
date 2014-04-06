@@ -13,23 +13,6 @@ String codigoUsuario = "";
 if(request.getParameter("Codigo")!= null)
 {
     codigoUsuario = request.getParameter("Codigo");
-    if(request.getParameter("Aprobar")!=null)
-    {
-        boolean b;
-        b = usu.setCambiarEstadoUsaurio(codigoUsuario, request.getParameter("Aprobar").toString());
-        if(b)
-        {
-            session.setAttribute("TipoMensaje","Aprobar");
-            session.setAttribute("Mensaje", usu.getMensaje());
-        }
-        else
-        {
-            session.setAttribute("TipoMensaje","AprobarNO");
-            session.setAttribute("Mensaje", usu.getMensaje());
-        }
-        
-        response.sendRedirect("ConsultaUsuario.jsp");
-    }
 }
 else
 {
