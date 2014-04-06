@@ -194,7 +194,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
     <script src="../Libs/Customs/js/Parsley.js"></script>    
     <script src="../Libs/Customs/js/classie.js"></script>
     <script src="../Libs/Customs/js/gnmenu.js"></script>
-    <script type="text/javascript" src="../Libs/Customs/DataTables/js/jquery.dataTables.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="../Libs/Customs/DataTables/js/jquery.dataTables.js" charset="UTF-8"></script>
     <script type="text/javascript" src="../Libs/Customs/DataTables/js/datatables.js" charset="UTF-8"></script>
     <script>
     	new gnMenu( document.getElementById( 'gn-menu' ) );

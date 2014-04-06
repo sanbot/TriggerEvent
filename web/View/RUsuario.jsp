@@ -1,10 +1,4 @@
 <%-- 
-Document   : ConsultaUsuario
-Created on : 18-mar-2014, 14:17:00
-Author     : ADSI
---%>
-
-<%-- 
 Document   : RegistrarUsuario
 Created on : 11/03/2014, 08:28:24 AM
 Author     : santi_000

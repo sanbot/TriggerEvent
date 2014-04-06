@@ -2165,8 +2165,8 @@
 		
 		var sSearchStr = oSettings.oLanguage.sSearch;
 		sSearchStr = (sSearchStr.indexOf('_INPUT_') !== -1) ?
-		  sSearchStr.replace('_INPUT_', '<input type="search" placeholder="Buscar" />') :
-		  sSearchStr==="" ? '<input type="search" placeholder="Buscar" />' : sSearchStr+' <input type="search" placeholder="Buscar" />';
+		  sSearchStr.replace('_INPUT_', '<input type="text" placeholder="Buscar" />') :
+		  sSearchStr==="" ? '<input type="text" placeholder="Buscar" />' : sSearchStr+' <input type="text" placeholder="Buscar" />';
 		
 		var nFilter = document.createElement( 'div' );
 		nFilter.className = oSettings.oClasses.sFilter;
@@ -2176,7 +2176,7 @@
 			nFilter.id = oSettings.sTableId+'_filter';
 		}
 		
-		var jqFilter = $('input[type="search"]', nFilter);
+		var jqFilter = $('input[type="text"]', nFilter);
 	
 		// Store a reference to the input element, so other input elements could be
 		// added to the filter wrapper if needed (submit button for example)
