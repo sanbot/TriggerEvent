@@ -89,8 +89,8 @@ String[][] ListaUsuario = usu.BuscarDatosUsuariosPendientes();
                                                         <td><%=Row[3]%></td>
                                                         <td><%=Row[10]%></td>
                                                         <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-edit"></span></center></td>
-                                                        <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                                        <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
+                                                        <td><center><a href="ModificarUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                                        <td><center><a href="ModificarUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
                                                         <td><center><a href="CUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span><center></td>
                                                 </tr>
                                                 <%}%>

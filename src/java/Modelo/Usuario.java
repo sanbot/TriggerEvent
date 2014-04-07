@@ -458,10 +458,10 @@ public class Usuario {
         }
         return 0;
     }
-    
-    public boolean ingresarUsuario(String Rol, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Password, String Ciudad){
+    public String getEstadoUsuario(String Rol)
+    {
         Connection conn = conexion.conectar();
-        String Est = "";
+        String Est ="";
         String preconsulta = "Select Tipo From tb_tipo_usuario Where Codigo = ?";
         PreparedStatement pr=null;
         ResultSet rs = null;
@@ -483,12 +483,25 @@ public class Usuario {
                 }
             }
         }catch(SQLException ex){
-            return false;
+            return null;
         }
+        finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return Est;
+    }
+    public boolean ingresarUsuario(String Rol, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Password, String Ciudad){
+        Connection conn = conexion.conectar();
+        String Est = this.getEstadoUsuario(Rol);
         String Codi = "USU";
         int numerocodigo = this.CantidadRegistroUsuario();
         Codi+=numerocodigo;
-        pr=null;
+        PreparedStatement pr=null;
         String sql="INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Codigo_Ciudad, Correo, Direccion, Estado)";
         sql+="VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
@@ -586,6 +599,51 @@ public class Usuario {
                
                 rows++;
                 
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
+    public String[][] BuscarDatosEmpresa(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT u.Codigo, u.Nombre \n" +
+                    "FROM  `tb_usuario` u\n" +
+                    "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo And tu.Tipo = 'Empresa' " +
+                    "Where u.Estado = 'Aprobado'";
+        
+        try{
+            pr=conn.prepareStatement(sql);
+            rs=pr.executeQuery();
+            
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            String [][] Datos = new String[rows][2];
+            rs.beforeFirst();
+            rows = 0;
+            while(rs.next()){
+                Usuario usu = new Usuario();
+                usu.setCodigo(rs.getString("Codigo"));
+                usu.setNombre(rs.getString("Nombre"));
+                Datos[rows][0] = usu.getCodigo();
+                Datos[rows][1] = usu.getNombre();
+               
+                rows++;
             }
             return Datos;
         }catch(Exception ex){

@@ -4,8 +4,17 @@ Created on : 11/03/2014, 08:28:24 AM
 Author     : santi_000
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%
+    String Codigo = (String) session.getAttribute("Codigo");
+    String [][]ListaEmpresa = null;
+    if(Rol.equals("Administrador"))
+    {
+        Contr_Consultar usu = new Contr_Consultar();
+        ListaEmpresa = usu.BuscarDatosEmpresa();
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,8 +65,22 @@ Author     : santi_000
                 <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                 <div class="form-group">
-                                        <label for="Creador">Creador del evento</label>
-                                        <input name="Creador" type="text" class="form-control" id="CreadorEvento" data-rangelength="[3,30]" data-notblank="true" data-required="true" value="<%=Nombre%>" readonly/>
+                                    <label for="Creador">Creador del evento</label>
+                                    <%if(Rol.equals("Empresa"))
+                                    {%>
+                                        <select name="Creador" tabindex="1" data-placeholder="" class="form-control" data-required="true" >
+                                                <option value="<%=Codigo%>"><%=Nombre%></option>
+                                        </select>
+                                    <%}
+                                    else if(Rol.equals("Administrador"))
+                                    {
+                                        for(String Row[] : ListaEmpresa)
+                                        {%>
+                                            <select name="Creador" tabindex="1" data-placeholder="" class="form-control" data-required="true" >
+                                                <option value="<%=Row[0]%>"><%=Row[1]%></option>
+                                            </select>
+                                        <%}
+                                    }%>
                                 </div>
                         </div>
 
@@ -119,16 +142,15 @@ Author     : santi_000
                         </div>
                 </div>
         </form>
-		</div>
+		
 		<div class="container marketing">
 			<hr class="featurette-divider">
 		</div>
-	</div>
 	<!-- FOOTER -->
 	<footer>
 		<p>&copy; 2013 Trigger Event, Inc.</p>
 	</footer>
-    </div>
+ </div>
 
 
 

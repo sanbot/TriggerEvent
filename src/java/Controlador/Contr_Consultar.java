@@ -60,6 +60,15 @@ public class Contr_Consultar {
                 
         return Datos;
     }
+    
+    public String[][] BuscarDatosEmpresa()
+    {
+        Usuario usu = new Usuario();
+        String[][] Datos = usu.BuscarDatosEmpresa();
+                
+        return Datos;
+    }
+    
     public boolean setCambiarEstadoUsaurio(String Codigo, String Estado)
     {
         Usuario usu = new Usuario();
