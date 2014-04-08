@@ -58,7 +58,7 @@ Author     : santi_000
 			<h1 class="Center">Registro de Eventos</h1>
 		</div>
 	</div>
-        <form id="search" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+        <form id="search" data-validate="parsley" enctype="multipart/form-data" method="post" action="/TriggerEvent/Contr_Evento">
 
 
 
@@ -130,8 +130,8 @@ Author     : santi_000
                         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 
                                 <div class="form-group">
-                                        <label for="Descripcion">Descripcion</label>
-                                        <textarea id="DescripcionEvento" name="Descripcion" data-placeholder="" class="form-control" data-required="true" data-rangelength="[8,150]" rows="4"></textarea>
+                                        <label for="Descripcion">Descripci&oacute;n</label>
+                                        <textarea id="DescripcionEvento" name="Descripcion" class="form-control" data-rangelength="[8,150]" rows="4"></textarea>
                                 </div>
 
                         </div>
@@ -171,7 +171,6 @@ Author     : santi_000
     <!--Bootstrap-->
     <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
     <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
-    <script src="../Libs/Bootstrap/js/holder.js"></script>
     <!--Parsley-->
     <script src="../Libs/Customs/js/Parsley.js"></script>    
     <script src="../Libs/Customs/js/classie.js"></script>
