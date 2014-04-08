@@ -7,7 +7,7 @@ Author     : santi_000
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%
-    String Codigo = (String) session.getAttribute("Codigo");
+    String Codigo = (String) session.getAttribute("No_Documento");
     String [][]ListaEmpresa = null;
     if(Rol.equals("Administrador"))
     {
@@ -184,12 +184,12 @@ Author     : santi_000
     </script>
     
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-    <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
-    <%session.setAttribute("Mensaje", "");%>
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker();
         });
     </script>
+    <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
+    <%session.setAttribute("Mensaje", "");%>
 </body>
 </html>

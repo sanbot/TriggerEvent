@@ -6,6 +6,12 @@
 
 package Modelo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +32,7 @@ public class Evento {
     String Creador;
     String Rango;
     Date FechaDate;
+    cone conexion = new cone();
 
     public Date getFechaDate() {
         return FechaDate;
@@ -121,5 +128,89 @@ public class Evento {
             return true;
         }
         return false;
+    }
+    
+    public boolean setRegistrarEvento(String imagen, String nombre, Date fecha, String descripcion, String rango, String creador)
+    {
+        Connection conn = conexion.conectar();
+        String Est = "Pendiente";
+        PreparedStatement pr=null;
+        String codigo = "EVE";
+        int numerocodigo = this.CantidadRegistroEvento();
+        codigo+=numerocodigo;
+        pr=null;
+        String sql="INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Estado)";
+        sql+="VALUES(?,?,?,?,?,?,?,?)";
+        
+        FileInputStream is= null;
+        
+        try {
+            is = new FileInputStream(imagen);
+        } catch (FileNotFoundException ex) {
+            this.setMensaje(ex.getMessage().toString());
+        }
+        
+        try{
+            java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            pr.setBlob(2, is);
+            pr.setString(3, nombre);
+            pr.setDate(4, sqlDate);
+            pr.setString(5, descripcion);
+            pr.setString(6, rango);
+            pr.setString(7, creador);
+            pr.setString(8, Est);
+            
+            
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(SQLException ex){
+            if(ex.toString().indexOf("Duplicate")>0)
+            {
+                
+            }
+            return false;
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos del evento, por favor, inténtelo de nuevo.");
+        return false;
+    }
+    
+    public int CantidadRegistroEvento(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select * "+
+                   "From  tb_evento";
+        try{
+            pr=conn.prepareStatement(sql);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            while(rs.next()){
+                
+                i++;
+            }
+            return i+1;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return 0;
     }
 }

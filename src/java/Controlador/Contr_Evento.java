@@ -96,27 +96,37 @@ public class Contr_Evento extends HttpServlet {
                             {
                                 if(!eve.getImagen().equals(""))
                                 {
-                                    
+                                    b = eve.setRegistrarEvento(eve.getImagen(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador());
+                                    if(b)
+                                    {
+                                        session.setAttribute("Mensaje", "Se ha registrado el evento satisfactoriamente.");
+                                        session.setAttribute("TipoMensaje", "Dio");
+                                    }
+                                    else
+                                    {
+                                        session.setAttribute("Mensaje", eve.getMensaje());
+                                        session.setAttribute("TipoMensaje", "NODio");
+                                    }
                                 }
                                 else
                                 {
                                     session.setAttribute("Mensaje", "Por favor, Seleccione una imagen e inténtelo de nuevo");
-                                    session.setAttribute("TipoMensaje", "NODIO");
+                                    session.setAttribute("TipoMensaje", "NODio");
                                 }
                                 
                             }
                             else
                             {
                                 session.setAttribute("Mensaje", "Ocurrió un error, no se puede registrar un evento que inicie antes de dos días");
-                                session.setAttribute("TipoMensaje", "NODIO");
+                                session.setAttribute("TipoMensaje", "NODio");
                             }
                         }
                         else
                         {
                             session.setAttribute("Mensaje", "No se pudo convertir el formato de fecha a Date");
-                            session.setAttribute("TipoMensaje", "NODIO");
+                            session.setAttribute("TipoMensaje", "NODio");
                         }
-                        response.sendRedirect("RegistrarEvento.jsp");
+                        response.sendRedirect("View/RegistrarEvento.jsp");
                     }
                    
                 } else {
