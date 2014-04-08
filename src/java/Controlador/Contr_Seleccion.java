@@ -78,29 +78,37 @@ public class Contr_Seleccion extends HttpServlet {
                     }
                     else if(name.equals("RegistrarSeleccion"))
                     {
-                        File img = new File(sel.getImagen());
-                        b = sel.setRegistrarSeleccion(sel.getNombre(), sel.getTipo(), sel.getImagen());
-                        if(b)
+                        if(!sel.getImagen().equals(""))
                         {
-                            if(!img.delete())
+                            File img = new File(sel.getImagen());
+                            b = sel.setRegistrarSeleccion(sel.getNombre(), sel.getTipo(), sel.getImagen());
+                            if(b)
                             {
-                                String sda = "no";
+                                if(!img.delete())
+                                {
+                                    String sda = "no";
+                                }
+                                session.setAttribute("Mensaje","Los datos de la selección han sido registrados correctamente.");
+                                session.setAttribute("TipoMensaje","Dio");
+                                url="View/ConsultaSeleccion.jsp" ;
+                                response.sendRedirect(url);
                             }
-                            session.setAttribute("Mensaje","Los datos de la selección han sido registrados correctamente.");
-                            session.setAttribute("TipoMensaje","Dio");
-                            url="View/ConsultaSeleccion.jsp" ;
-                            response.sendRedirect(url);
+                            else
+                            {
+                                if(!img.delete())
+                                {
+                                    String sda = "no";
+                                }
+                                session.setAttribute("Mensaje",sel.getMensaje());
+                                session.setAttribute("TipoMensaje","NODio");
+                                url="View/ConsultaSeleccion.jsp" ;
+                                response.sendRedirect(url);
+                            }
                         }
                         else
                         {
-                            if(!img.delete())
-                            {
-                                String sda = "no";
-                            }
-                            session.setAttribute("Mensaje",sel.getMensaje());
+                            session.setAttribute("Mensaje","Por favor, Seleccione una imagen e inténtelo de nuevo");
                             session.setAttribute("TipoMensaje","NODio");
-                            url="View/ConsultaSeleccion.jsp" ;
-                            response.sendRedirect(url);
                         }
                     }else if(name.equals("ModificarSeleccion"))
                     {

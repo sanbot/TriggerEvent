@@ -6,7 +6,7 @@
 
 package Controlador;
 
-import Modelo.Seleccion;
+import Modelo.Evento;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,7 +50,7 @@ public class Contr_Evento extends HttpServlet {
         boolean b;
         try
         {
-            Seleccion sel = new Seleccion();
+            Evento eve = new Evento();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
         /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
@@ -68,85 +68,55 @@ public class Contr_Evento extends HttpServlet {
                     //Plain request parameters will come here. 
                     
                     String name = item.getFieldName();
-                    if(name.equals("Codigo"))
+                    if(name.equals("Creador"))
                     {
-                        sel.setCodigo(item.getString());
+                        eve.setCreador(item.getString());
                     }
-                    else if(name.equals("Creador"))
+                    else if(name.equals("Nombre"))
                     {
-                        sel.setNombre(item.getString());
+                        eve.setNombre(item.getString());
                     }
-                    else if(name.equals("Tipo"))
+                    else if(name.equals("Rango"))
                     {
-                        sel.setTipo(item.getString());
+                        eve.setRango(item.getString());
                     }
-                    else if(name.equals("RegistrarSeleccion"))
+                    else if(name.equals("Fecha"))
                     {
-                        File img = new File(sel.getImagen());
-                        b = sel.setRegistrarSeleccion(sel.getNombre(), sel.getTipo(), sel.getImagen());
-                        if(b)
-                        {
-                            if(!img.delete())
-                            {
-                                String sda = "no";
-                            }
-                            session.setAttribute("Mensaje","Los datos de la selección han sido registrados correctamente.");
-                            session.setAttribute("TipoMensaje","Dio");
-                            url="View/ConsultaSeleccion.jsp" ;
-                            response.sendRedirect(url);
-                        }
-                        else
-                        {
-                            if(!img.delete())
-                            {
-                                String sda = "no";
-                            }
-                            session.setAttribute("Mensaje",sel.getMensaje());
-                            session.setAttribute("TipoMensaje","NODio");
-                            url="View/ConsultaSeleccion.jsp" ;
-                            response.sendRedirect(url);
-                        }
-                    }else if(name.equals("ModificarSeleccion"))
+                        eve.setFecha(item.getString());
+                    }
+                    else if(name.equals("Descripcion"))
                     {
-                        if(sel.getImagen().equals(""))
+                        eve.setDescipcion(item.getString());
+                    }
+                    else if(name.equals("RegistrarEvento"))
+                    {
+                        if(eve.ConvertirFecha(eve.getFecha()))
                         {
-                            File img = new File(sel.getImagen());
-                            b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo());
-                            if(b)
+                            if(eve.ValidarDosDiasFecha(eve.getFechaDate()))
                             {
-                                img.delete();
-                                session.setAttribute("Mensaje", "Los datos de la selección han sido modificados correctamente.");
-                                session.setAttribute("TipoMensaje","Dio");
-                                url="View/ConsultaSeleccion.jsp" ;
-                                response.sendRedirect(url);
+                                if(!eve.getImagen().equals(""))
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    session.setAttribute("Mensaje", "Por favor, Seleccione una imagen e inténtelo de nuevo");
+                                    session.setAttribute("TipoMensaje", "NODIO");
+                                }
+                                
                             }
                             else
                             {
-                                img.delete();
-                                session.setAttribute("Mensaje", sel.getMensaje());
-                                session.setAttribute("TipoMensaje","NODio");
-                                url="View/ConsultaSeleccion.jsp" ;
-                                response.sendRedirect(url);
+                                session.setAttribute("Mensaje", "Ocurrió un error, no se puede registrar un evento que inicie antes de dos días");
+                                session.setAttribute("TipoMensaje", "NODIO");
                             }
                         }
                         else
                         {
-                            b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getImagen());
-                            if(b)
-                            {
-                                session.setAttribute("Mensaje", "Los datos de la selección han sido modificados correctamente.");
-                                session.setAttribute("TipoMensaje","Dio");
-                                url="View/ConsultaSeleccion.jsp" ;
-                                response.sendRedirect(url);
-                            }
-                            else
-                            {
-                                session.setAttribute("Mensaje", sel.getMensaje());
-                                session.setAttribute("TipoMensaje","NODio");
-                                url="View/ConsultaSeleccion.jsp" ;
-                                response.sendRedirect(url);
-                            }
+                            session.setAttribute("Mensaje", "No se pudo convertir el formato de fecha a Date");
+                            session.setAttribute("TipoMensaje", "NODIO");
                         }
+                        response.sendRedirect("RegistrarEvento.jsp");
                     }
                    
                 } else {
@@ -159,16 +129,16 @@ public class Contr_Evento extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        sel.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        //File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-                        //sel.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        //File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        //eve.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        eve.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
                         /*y lo escribimos en el servido*/
                         item.write(archivo_server);
                     }
                     else
                     {
-                        sel.setImagen("");
+                        eve.setImagen("");
                     }
                 }
             }
