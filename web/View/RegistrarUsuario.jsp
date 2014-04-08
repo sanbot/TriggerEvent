@@ -7,7 +7,7 @@
     <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
     <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>    
 <%
-if(!Rol.equals(""))
+if(!Rol.equals("") && !Rol.equals(null))
 {
     response.sendRedirect("index.jsp");
 }
@@ -51,27 +51,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 	
 </head>
 <body>
-	<div class="container">
-		<ul id="gn-menu" class="gn-menu-main">
-			<li class="gn-trigger">
-				<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
-				<nav class="gn-menu-wrapper">
-					<div class="gn-scroller">
-						<ul class="gn-menu">
-							<li class="gn-search-item">
-								<a href="index1.html" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
-							</li>
-							<li><a class="gn-icon gn-icon-earth"><div class="negro">Qui&eacute;nes Somos</div></a></li>
-							<li><a class="gn-icon gn-icon-photoshop"><div class="negro">Mapa del Sitio</div></a></li>
-							<li><a class="gn-icon gn-icon-cog"><div class="negro">Ayuda en l&iacute;nea</div></a></li>
-							<li><a class="gn-icon gn-icon-help"><div class="negro">Cont&aacute;ctenos</div></a></li>
-						</ul>
-					</div><!-- /gn-scroller -->
-				</nav>
-			</li>
-			<li><a href="index.jsp">Trigger Event</a></li>
-		</ul>
-	</div><!-- /container -->
+    <%@include file="../WEB-INF/jspf/Menu.jspf" %>
 	<div class="container">
 		<div class="row clearfix">
 			<br/>
@@ -79,7 +59,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 			<br/>
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="index1.html">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro Usuario
+					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro Usuario
 				</div>
 			</div>
 		</div>
@@ -237,13 +217,13 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="Password">Contrase&ntilde;a</label>
-								<input name="Password" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
+								<input name="Password" class="form-control" type="password" data-notblank="true" data-type="contrasenia" data-rangelength="[6,30]" data-required="true">
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="REPassword">Repita la Contrase&ntilde;a</label>
-								<input name="REPassword" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
+								<input name="REPassword" class="form-control" type="password" data-notblank="true" data-type="contrasenia" data-rangelength="[6,30]" data-required="true">
 							</div>
 						</div>
 					</div>

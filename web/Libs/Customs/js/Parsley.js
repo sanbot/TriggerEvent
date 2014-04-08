@@ -34,6 +34,7 @@
         , alphanum:   "Este campo debe ser alfanumérico."
         , phone:      "Debe ingresar un número telefónico valido."
         , cellphone:  "Debe ingresar un número celular valido."
+        , contrasenia:  "Debe ingresar una contraseña valida, debe contener una letra mayúscula, minúscula y un número."
       }
       , notnull:        "Este campo no debe estar nulo."
       , notblank:       "Este campo no debe estar vacio."
@@ -96,6 +97,9 @@
         switch ( type ) {
           case 'number':
           regExp = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/;
+          break;
+          case 'contrasenia': 
+              regExp = /(?=^.{6,30}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
           break;
           case 'digits':
           regExp = /^\d+$/;

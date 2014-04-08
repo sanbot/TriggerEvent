@@ -34,7 +34,7 @@ Author     : santi_000
 	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />
 	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
 	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
-	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
+        <link type="text/css" rel="stylesheet" href="../Libs/Customs/DatePicker/css/bootstrap-datetimepicker.css">
 
 	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
 
@@ -94,13 +94,13 @@ Author     : santi_000
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                 <div class="form-group">
                                         <label for="Rango">Rango</label>
-                                        <input name="Rango" type="text" class="form-control" id="RangoEvento" placeholder="100000 -- 2000000" data-required="true" data-notblank="true" data-rangelength="[10,20]" />
+                                        <input name="Rango" type="text" class="form-control" id="RangoEvento" placeholder="10000-2000000" data-required="true" data-notblank="true" data-rangelength="[13,13]" />
                                 </div>
                         </div>
                 </div>
                 <div class="row">
 
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -110,6 +110,15 @@ Author     : santi_000
                                 </div>
                         </div>
 
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <label for="Fecha">Fecha</label>
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' name="Fecha" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" data-rangelength="[18,19]" readonly/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                         </div>
 
@@ -167,8 +176,10 @@ Author     : santi_000
     <script src="../Libs/Customs/js/Parsley.js"></script>    
     <script src="../Libs/Customs/js/classie.js"></script>
     <script src="../Libs/Customs/js/gnmenu.js"></script>
-    <script type="text/javascript" src="../Libs/Customs/DataTables/js/jquery.dataTables.min.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="../Libs/Customs/DataTables/js/datatables.js" charset="UTF-8"></script>
+    <script src="../Libs/Customs/DatePicker/js/moment.min.js"></script>
+    <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.es.js.js"></script>
+    
+    <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.js"></script>
     <script>
     new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
@@ -176,5 +187,10 @@ Author     : santi_000
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+    </script>
 </body>
 </html>

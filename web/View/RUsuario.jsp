@@ -160,13 +160,13 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
                         <div class="col-md-4">
                                 <div class="form-group">
                                         <label for="Password">Contrase&ntilde;a</label>
-                                        <input name="Password" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
+                                        <input name="Password" class="form-control" type="password" data-type="contrasenia" data-notblank="true" data-rangelength="[6,30]" data-required="true">
                                 </div>
                         </div>
                         <div class="col-md-4">
                                 <div class="form-group">
                                         <label for="REPassword">Repita la Contrase&ntilde;a</label>
-                                        <input name="REPassword" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true">
+                                        <input name="REPassword" class="form-control" type="password" data-type="contrasenia" data-notblank="true" data-rangelength="[6,30]" data-required="true">
                                 </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
