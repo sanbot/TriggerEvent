@@ -10,6 +10,7 @@ import Modelo.Tipo_Usuario;
 import Modelo.Departamento;
 import Modelo.Ciudad;
 import Modelo.Seleccion;
+import Modelo.Evento;
 import java.sql.Blob;
 
 /**
@@ -171,6 +172,12 @@ public class Contr_Consultar {
         Blob Datos = sel.getImagenSeleccion(Codigo);
         return Datos;
     }
+    public Blob BuscarImagenesEvento(String Codigo)
+    {
+        Evento eve = new Evento();
+        Blob Datos = eve.getImagenEvento(Codigo);
+        return Datos;
+    }
     
     public String[][] getGustosNuevos(String Codigo)
     {
@@ -221,5 +228,18 @@ public class Contr_Consultar {
         Usuario usu = new Usuario();
         String Dato = usu.getCantidadPendientes();
         return Dato;
+    }
+    public int getCantidadEventosPendientes()
+    {
+        Evento eve = new Evento();
+        int Dato = eve.CantidadEventoPendiente();
+        return Dato;
+    }
+    
+    public String[][] getBuscarDatosPrincipalesEvento()
+    {
+        Evento eve = new Evento();
+        String [][]Datos = eve.BuscarDatosPrincipalesEventos();
+        return Datos;
     }
 }

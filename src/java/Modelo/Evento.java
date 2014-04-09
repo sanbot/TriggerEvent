@@ -8,6 +8,7 @@ package Modelo;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -187,9 +188,9 @@ public class Evento {
                 return true;
             }
         }catch(SQLException ex){
-            if(ex.toString().indexOf("Duplicate")>0)
+            if(ex.toString().indexOf("uk_nombre_codigociudad_fecha")>0)
             {
-                
+                this.setMensaje("No se puede registrar este evento ya que existe un evento con el mismo nombre, la misma fecha y en la misma ciudad");
             }
             return false;
         }finally{
@@ -232,5 +233,124 @@ public class Evento {
             }
         }
         return 0;
+    }
+    
+    public int CantidadEventoPendiente(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Count(Codigo) "+
+                   "From  tb_evento"
+                + " Where Estado = 'Pendiente'";
+        try{
+            pr=conn.prepareStatement(sql);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            while(rs.next()){
+                
+                i++;
+            }
+            return i;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return 0;
+    }
+    
+    public String[][] BuscarDatosPrincipalesEventos(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad \n" +
+                    "FROM  `tb_evento` e \n"+
+                    "JOIN tb_usuario u on u.No_Documento = e.NIT \n"+
+                    "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"+
+                    "Where e.Estado = 'Aprobado' AND "
+                  + "Fecha >= ?";
+        
+        try{
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            pr=conn.prepareStatement(sql);
+            pr.setTimestamp(1, sqlDate);
+            rs=pr.executeQuery();
+            
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            String [][] Datos = new String[rows][5];
+            rs.beforeFirst();
+            rows = 0;
+            while(rs.next()){
+                Evento eve = new Evento();
+                eve.setCodigo(rs.getString("Codigo"));
+                eve.setNombre(rs.getString("Nombre"));
+                eve.setFecha(rs.getString("Fecha"));
+                eve.setCreador(rs.getString("NombreEmpresa"));
+                eve.setCiudad(rs.getString("NombreCiudad"));
+                Datos[rows][0] = eve.getCodigo();
+                Datos[rows][1] = eve.getNombre();
+                Datos[rows][2] = eve.getFecha();
+                Datos[rows][3] = eve.getCreador();
+                Datos[rows][4] = eve.getCiudad();
+                
+                rows++;
+                
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
+    public Blob getImagenEvento(String codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Imagen "+
+                   "From  tb_evento Where Codigo = ?";
+        Blob Datos = null;
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            rs=pr.executeQuery();
+            
+            while(rs.next())
+            {
+                Datos = rs.getBlob("Imagen");
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
     }
 }

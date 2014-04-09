@@ -6,6 +6,7 @@ Author     : santi_000
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%@include file="../WEB-INF/jspf/ValidacionAdministradorEmpresa.jspf" %>
 <%
     Contr_Consultar usu = new Contr_Consultar();
     String Codigo = (String) session.getAttribute("No_Documento");
