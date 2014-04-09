@@ -76,14 +76,14 @@ Author     : santi_000
                                         </select>
                                     <%}
                                     else if(Rol.equals("Administrador"))
-                                    {
-                                        for(String Row[] : ListaEmpresa)
+                                    {%>
+                                    <select name="Creador" tabindex="1" data-placeholder="" class="form-control" data-required="true" >
+                                        <%for(String Row[] : ListaEmpresa)
                                         {%>
-                                            <select name="Creador" tabindex="1" data-placeholder="" class="form-control" data-required="true" >
-                                                <option value="<%=Row[0]%>"><%=Row[1]%></option>
-                                            </select>
+                                            <option value="<%=Row[0]%>"><%=Row[1]%></option>
                                         <%}
-                                    }%>
+                                        %></select>
+                                    <%}%>
                                 </div>
                         </div>
 
