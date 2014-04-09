@@ -45,7 +45,6 @@ public class Contr_Evento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        PrintWriter out = response.getWriter();
         
         boolean b;
         try
@@ -88,6 +87,14 @@ public class Contr_Evento extends HttpServlet {
                     {
                         eve.setDescipcion(item.getString());
                     }
+                    else if(name.equals("Ciudad"))
+                    {
+                        eve.setCiudad(item.getString());
+                    }
+                    else if(name.equals("Direccion"))
+                    {
+                        eve.setDireccion(item.getString());
+                    }
                     else if(name.equals("RegistrarEvento"))
                     {
                         if(eve.ConvertirFecha(eve.getFecha()))
@@ -96,7 +103,7 @@ public class Contr_Evento extends HttpServlet {
                             {
                                 if(!eve.getImagen().equals(""))
                                 {
-                                    b = eve.setRegistrarEvento(eve.getImagen(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador());
+                                    b = eve.setRegistrarEvento(eve.getImagen(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador(), eve.getCiudad(), eve.getDireccion());
                                     if(b)
                                     {
                                         session.setAttribute("Mensaje", "Se ha registrado el evento satisfactoriamente.");
@@ -139,10 +146,10 @@ public class Contr_Evento extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        //File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        //eve.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-                        eve.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        eve.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        //File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        //eve.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
                         /*y lo escribimos en el servido*/
                         item.write(archivo_server);
                     }

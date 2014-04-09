@@ -619,7 +619,7 @@ public class Usuario {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="SELECT u.Codigo, u.Nombre \n" +
+        String sql="SELECT u.No_Documento, u.Nombre \n" +
                     "FROM  `tb_usuario` u\n" +
                     "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo And tu.Tipo = 'Empresa' " +
                     "Where u.Estado = 'Aprobado'";
@@ -638,7 +638,7 @@ public class Usuario {
             rows = 0;
             while(rs.next()){
                 Usuario usu = new Usuario();
-                usu.setCodigo(rs.getString("Codigo"));
+                usu.setCodigo(rs.getString("No_Documento"));
                 usu.setNombre(rs.getString("Nombre"));
                 Datos[rows][0] = usu.getCodigo();
                 Datos[rows][1] = usu.getNombre();

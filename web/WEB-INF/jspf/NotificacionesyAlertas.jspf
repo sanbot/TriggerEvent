@@ -2,6 +2,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <script type="text/javascript">
     $(document).ready(function(){
+        
     <%if(session.getAttribute("Mensaje") != null && !mensaje.equals(""))
     {
     if(session.getAttribute("TipoMensaje").equals("Dio"))
@@ -10,6 +11,7 @@
         <%}
     else if(session.getAttribute("TipoMensaje").equals("NODio"))
         {%>
+            alertify.set({ delay: 10000 });
             alertify.error("<%=mensaje%>");
         <%}
     }%>

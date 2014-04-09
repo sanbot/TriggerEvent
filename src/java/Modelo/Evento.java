@@ -33,6 +33,24 @@ public class Evento {
     String Rango;
     Date FechaDate;
     cone conexion = new cone();
+    String Direccion;
+    String Ciudad;
+
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String Direccion) {
+        this.Direccion = Direccion;
+    }
+
+    public String getCiudad() {
+        return Ciudad;
+    }
+
+    public void setCiudad(String Ciudad) {
+        this.Ciudad = Ciudad;
+    }
 
     public Date getFechaDate() {
         return FechaDate;
@@ -130,7 +148,7 @@ public class Evento {
         return false;
     }
     
-    public boolean setRegistrarEvento(String imagen, String nombre, Date fecha, String descripcion, String rango, String creador)
+    public boolean setRegistrarEvento(String imagen, String nombre, Date fecha, String descripcion, String rango, String creador, String ciudad, String direccion)
     {
         Connection conn = conexion.conectar();
         String Est = "Pendiente";
@@ -139,8 +157,8 @@ public class Evento {
         int numerocodigo = this.CantidadRegistroEvento();
         codigo+=numerocodigo;
         pr=null;
-        String sql="INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Estado)";
-        sql+="VALUES(?,?,?,?,?,?,?,?)";
+        String sql="INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Codigo_Ciudad, Direccion, Estado)";
+        sql+="VALUES(?,?,?,?,?,?,?,?,?,?)";
         
         FileInputStream is= null;
         
@@ -151,16 +169,18 @@ public class Evento {
         }
         
         try{
-            java.sql.Date sqlDate = new java.sql.Date(fecha.getTime());
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
             pr=conn.prepareStatement(sql);
             pr.setString(1, codigo);
             pr.setBlob(2, is);
             pr.setString(3, nombre);
-            pr.setDate(4, sqlDate);
+            pr.setTimestamp(4, sqlDate);
             pr.setString(5, descripcion);
             pr.setString(6, rango);
             pr.setString(7, creador);
-            pr.setString(8, Est);
+            pr.setString(8, ciudad);
+            pr.setString(9, direccion);
+            pr.setString(10, Est);
             
             
             if(pr.executeUpdate()==1){

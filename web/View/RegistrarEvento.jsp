@@ -7,13 +7,15 @@ Author     : santi_000
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%
+    Contr_Consultar usu = new Contr_Consultar();
     String Codigo = (String) session.getAttribute("No_Documento");
     String [][]ListaEmpresa = null;
     if(Rol.equals("Administrador"))
     {
-        Contr_Consultar usu = new Contr_Consultar();
         ListaEmpresa = usu.BuscarDatosEmpresa();
     }
+    String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
+    String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,6 +101,34 @@ Author     : santi_000
                         </div>
                 </div>
                 <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+                        <div class="form-group">
+                                <label for="Departamento">Departamento</label>
+                                <select id="departamentoevento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                </select>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+                        <div class="form-group">
+                                <label for="Ciudad">Ciudad</label>
+                                <select id="ciudadevento" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                </select>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+                        <div class="form-group">
+                                <label for="Direccion">Direcci&oacute;n</label>
+                                <input name="Direccion" class="form-control" data-required="true" data-notblank="true" data-rangelength="[8,100]"/>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
 
                         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                         </div>
@@ -182,7 +212,53 @@ Author     : santi_000
     <script>
     new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
-    
+    <script>
+        (function($) {
+
+            $.fn.changeType = function(){
+                var data;
+            data = [
+            <%
+                for(String[] Row :ListaCiudad)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
+                    ];
+            var datadep = [
+            <%
+                for(String[] Row :ListaDepartamento)
+                {%>
+                    {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
+                    
+                <%}
+            %>
+                    {"codigo":"", "nombre":""}
+                    ];
+                    var options_departments = "<option value=''></option>";
+                    $.each(datadep, function(i,d){
+                            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+                    });
+                    $("select#departamentoevento", this).html(options_departments);
+                    $("select#departamentoevento", this).change(function(){
+                    var index = $(this).val();
+                    var options = '';
+                    $.each(data, function(i,c){
+                        if(c.codigo_departamento === index)
+                        {
+                            options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
+                        }
+                    });
+                    $("select#ciudadevento").html(options);
+		});
+    };
+    })(jQuery);
+    $(document).ready(function() {
+        $("form#search").changeType();
+    });
+    </script>
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
         $(function () {
