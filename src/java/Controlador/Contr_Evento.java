@@ -9,7 +9,6 @@ package Controlador;
 import Modelo.Evento;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -108,17 +107,20 @@ public class Contr_Evento extends HttpServlet {
                                     {
                                         session.setAttribute("Mensaje", "Se ha registrado el evento satisfactoriamente.");
                                         session.setAttribute("TipoMensaje", "Dio");
+                                        response.sendRedirect("View/RClasificacionEvento.jsp?CodigoEvento="+eve.getCodigo());
                                     }
                                     else
                                     {
                                         session.setAttribute("Mensaje", eve.getMensaje());
                                         session.setAttribute("TipoMensaje", "NODio");
+                                        response.sendRedirect("View/RegistrarEvento.jsp");
                                     }
                                 }
                                 else
                                 {
                                     session.setAttribute("Mensaje", "Por favor, Seleccione una imagen e inténtelo de nuevo");
                                     session.setAttribute("TipoMensaje", "NODio");
+                                    response.sendRedirect("View/RegistrarEvento.jsp");
                                 }
                                 
                             }
@@ -126,14 +128,16 @@ public class Contr_Evento extends HttpServlet {
                             {
                                 session.setAttribute("Mensaje", "Ocurrió un error, no se puede registrar un evento que inicie antes de dos días");
                                 session.setAttribute("TipoMensaje", "NODio");
+                                response.sendRedirect("View/RegistrarEvento.jsp");
                             }
                         }
                         else
                         {
                             session.setAttribute("Mensaje", "No se pudo convertir el formato de fecha a Date");
                             session.setAttribute("TipoMensaje", "NODio");
+                            response.sendRedirect("View/RegistrarEvento.jsp");
                         }
-                        response.sendRedirect("View/RegistrarEvento.jsp");
+                        
                     }
                    
                 } else {
@@ -146,10 +150,10 @@ public class Contr_Evento extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        eve.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        //File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-                        //eve.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        //File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        //eve.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        eve.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
                         /*y lo escribimos en el servido*/
                         item.write(archivo_server);
                     }

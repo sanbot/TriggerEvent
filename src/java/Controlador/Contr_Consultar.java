@@ -185,6 +185,12 @@ public class Contr_Consultar {
         String Datos[][] = sel.getGustosNuevos(Codigo);
         return Datos;
     }
+    public String[][] getClasifiacionNuevos(String Codigo)
+    {
+        Seleccion sel = new Seleccion();
+        String Datos[][] = sel.getClasificacionNuevos(Codigo);
+        return Datos;
+    }
     public String[][] getMisGustos(String Codigo)
     {
         Seleccion sel = new Seleccion();
@@ -238,6 +244,44 @@ public class Contr_Consultar {
         if(Accion.equals("Aprobar"))
         {
             b = sel.AprobarSeleccion(CodigoSeleccion);
+            if(b)
+            {
+                this.setMensaje("Se aprobó el gusto/ambiente satisfactoriamente.");
+            }
+            else
+            {
+                this.setMensaje(sel.getMensaje());
+            }
+        }
+        else
+        {
+            b = sel.CantidadUsoAmbienteGusto(CodigoSeleccion);
+            if(b)
+            {
+                b = sel.DesaprobarSeleccion(CodigoSeleccion);
+                if(b)
+                {
+                    this.setMensaje("El gusto o ambiente ha sido desaprobado satisfactoriamente");
+                }
+                else
+                {
+                    this.setMensaje(sel.getMensaje());
+                }
+            }else
+            {
+                this.setMensaje("No se puede desaprobar, porque hay usuarios o eventos usando este ambiente o gusto.");
+            }
+        }
+        return b;
+    }
+    
+    public boolean AddClasificacionEvento(String CodigoSeleccion, String Accion, String CodigoEvento)
+    {
+        Seleccion sel = new Seleccion();
+        boolean b ;
+        if(Accion.equals("Nuevo"))
+        {
+            b = sel.AddClasificacionEvento(CodigoSeleccion, CodigoEvento);
             if(b)
             {
                 this.setMensaje("Se aprobó el gusto/ambiente satisfactoriamente.");

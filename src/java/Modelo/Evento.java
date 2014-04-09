@@ -151,12 +151,14 @@ public class Evento {
     
     public boolean setRegistrarEvento(String imagen, String nombre, Date fecha, String descripcion, String rango, String creador, String ciudad, String direccion)
     {
-        Connection conn = conexion.conectar();
-        String Est = "Pendiente";
+        
+        String Est = "Incompleto";
         PreparedStatement pr=null;
         String codigo = "EVE";
         int numerocodigo = this.CantidadRegistroEvento();
         codigo+=numerocodigo;
+        Connection conn = conexion.conectar();
+        this.setCodigo(codigo);
         pr=null;
         String sql="INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Codigo_Ciudad, Direccion, Estado)";
         sql+="VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -239,7 +241,7 @@ public class Evento {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="Select Count(Codigo) "+
+        String sql="Select Count(Codigo) Cantidad "+
                    "From  tb_evento"
                 + " Where Estado = 'Pendiente'";
         try{
@@ -247,9 +249,9 @@ public class Evento {
             rs=pr.executeQuery();
             
             int i = 0;
-            while(rs.next()){
+            if(rs.next()){
                 
-                i++;
+                i = Integer.parseInt(rs.getString("Cantidad"));
             }
             return i;
         }catch(Exception ex){
@@ -410,4 +412,5 @@ public class Evento {
         }
         return null;
     }
+    
 }

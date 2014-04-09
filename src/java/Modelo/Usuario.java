@@ -496,11 +496,12 @@ public class Usuario {
         return Est;
     }
     public boolean ingresarUsuario(String Rol, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Password, String Ciudad){
-        Connection conn = conexion.conectar();
+       
         String Est = this.getEstadoUsuario(Rol);
         String Codi = "USU";
         int numerocodigo = this.CantidadRegistroUsuario();
         Codi+=numerocodigo;
+        Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         String sql="INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Codigo_Ciudad, Correo, Direccion, Estado)";
         sql+="VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";

@@ -61,6 +61,7 @@
 			<div class="col-md-12">
 				<div class="form-group">
                                     <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span> Clasificaci&oacute;n Evento
+                                </div>
                 </div>
             </div>
         </div>
@@ -68,7 +69,7 @@
          <div class="col-md-12">
             <br/>
             <h1 class="Center">Clasificar Evento</h1>
-            <h6 class="Center">Seleccione al menos un gusto y un ambiente para ser enviado como pendiente al administrador</h6>
+            <h5 class="Center">Seleccione al menos un gusto y un ambiente para completar el registro</h5>
         </div>
     </div>
     <div class="row">

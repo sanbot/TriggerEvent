@@ -404,6 +404,48 @@ public class Seleccion {
         }
         return null;
     }
+    public String[][] getClasificacionNuevos(String codigo){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Codigo, Nombre, Tipo, Imagen "+
+                   "From  tb_seleccion "
+                +  "Where Codigo NOT IN (select Id_Seleccion From tb_seleccion_evento Where Id_Evento = ? And Estado = 'Activo')"
+                +  "AND Estado = 'Aprobado'";
+        String [][] Datos = null;
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            while(rs.next()){
+                
+                i++;
+            }
+            Datos = new String[i][3];
+            rs.beforeFirst();
+            i = 0;
+            while(rs.next()){
+                Datos[i][0] = rs.getString("Codigo");
+                Datos[i][1] = rs.getString("Nombre");
+                Datos[i][2] = rs.getString("Tipo");
+                i++;
+             }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
     
     public String[][] getMisGustos (String codigo){
         Connection conn = conexion.conectar();
@@ -673,5 +715,88 @@ public class Seleccion {
         }
         this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
         return false;
+    }
+    
+    public boolean AddClasificacionEvento(String codigoSeleccion, String codigoEvento)
+    {
+        String codigo = "CLA"+this.CantidadRegistroEventoSeleccion();
+        
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs = null;
+        String Est = "Activo";
+        
+        String sqli="Insert into tb_seleccion_evento (Codigo, Id_Seleccion , Id_Evento , Estado) ";
+                sqli += "VALUES (?,?,?,?)";
+        String sqlc = "Select Codigo From tb_seleccion_Evento Where Id_Seleccion = ? and Id_Evento = ? ";
+        String sqlu = "UPDATE tb_seleccion_evento SET Estado = 'Activo' Where Codigo = ?";
+        try{
+            pr = conn.prepareStatement(sqlc);
+            pr.setString(1, codigoSeleccion);
+            pr.setString(2, codigoEvento);
+            rs = pr.executeQuery();
+            if(rs.next())
+            {
+                pr=conn.prepareStatement(sqlu);
+                pr.setString(1, rs.getString("Codigo"));
+                if(pr.executeUpdate()==1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                pr=conn.prepareStatement(sqli);
+                pr.setString(1, codigo);
+                pr.setString(2, codigoSeleccion);
+                pr.setString(3, codigoEvento);
+                pr.setString(4, Est);
+                if(pr.executeUpdate()==1)
+                {
+                    return true;
+                }
+            }
+        }catch(Exception ex){
+            this.setMensaje(ex.getMessage().toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        return false;
+    }
+    
+    public int CantidadRegistroEventoSeleccion(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Count(Codigo) Cantidad "+
+                   "From  tb_seleccion_Evento";
+        try{
+            pr=conn.prepareStatement(sql);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            if(rs.next()){
+                
+                i = Integer.parseInt(rs.getString("Cantidad"));
+            }
+            return i+1;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return 0;
     }
 }
