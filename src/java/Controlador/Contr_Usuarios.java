@@ -325,6 +325,39 @@ public class Contr_Usuarios extends HttpServlet {
                     url="View/ConsultaUsuario.jsp";
                     response.sendRedirect(url);
                 }
+            }else if (request.getParameter("CambiarContrasenia")!= null)
+            {
+                Codigo = (String ) session.getAttribute("Codigo");
+                String Contr = request.getParameter("ContraseniaActual");
+                String ContrNueva = request.getParameter("ContraseniaNueva");
+                String ContrReContra = request.getParameter("ContraseniaRepetir");
+                if(ContrNueva.equals(ContrReContra))
+                {
+                    if(usu.getConfirmarContrasenia(Codigo, Contr))
+                    {
+                        if(usu.setCambioContrasenia(Codigo, ContrNueva))
+                        {
+                            session.setAttribute("Mensaje", "La contraseña ha sido modificada exitosamente.");
+                            session.setAttribute("TipoMensaje", "Dio");
+                        }else
+                        {
+                            //session.setAttribute("Mensaje", usu.getMensaje());
+                            session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de modificar la contrasenia, por favor inténtelo de nuevo.");
+                            session.setAttribute("TipoMensaje", "NODio");
+                        }
+                    }
+                    else
+                    {
+                        session.setAttribute("Mensaje", "La contraseña actual no es correcta, por favor verifque e inténtelo de nuevo.");
+                        session.setAttribute("TipoMensaje", "NODio");
+                    }
+                }
+                else
+                {
+                    session.setAttribute("Mensaje", "Error al tratar de modificar la contraseña, las contraseñas no coinciden");
+                    session.setAttribute("TipoMensaje", "NODio");
+                }
+                response.sendRedirect("View/Perfil.jsp");
             }
             else{
             url="View/login.jsp";

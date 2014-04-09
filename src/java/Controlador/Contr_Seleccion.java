@@ -76,6 +76,10 @@ public class Contr_Seleccion extends HttpServlet {
                     {
                         sel.setTipo(item.getString());
                     }
+                    else if(name.equals("Estado"))
+                    {
+                        sel.setEstado(item.getString());
+                    }
                     else if(name.equals("RegistrarSeleccion"))
                     {
                         if(!sel.getImagen().equals(""))
@@ -115,7 +119,7 @@ public class Contr_Seleccion extends HttpServlet {
                         if(sel.getImagen().equals(""))
                         {
                             File img = new File(sel.getImagen());
-                            b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo());
+                            b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getEstado());
                             if(b)
                             {
                                 img.delete();
@@ -135,7 +139,7 @@ public class Contr_Seleccion extends HttpServlet {
                         }
                         else
                         {
-                            b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getImagen());
+                            b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getImagen(), sel.getEstado());
                             if(b)
                             {
                                 session.setAttribute("Mensaje", "Los datos de la selección han sido modificados correctamente.");

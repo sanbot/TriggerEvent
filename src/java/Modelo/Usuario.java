@@ -786,4 +786,62 @@ public class Usuario {
         }
         return null;
     }
+    
+    public boolean getConfirmarContrasenia(String codigo, String contra){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select Contrasenia "+
+                   "From  tb_usuario Where Codigo = ?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            rs=pr.executeQuery();
+            
+            if(rs.next())
+            {
+                if(contra.equals(rs.getString("Contrasenia")))
+                {
+                    return true;
+                }
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return false;
+    }
+    public boolean setCambioContrasenia(String codigo, String contra){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE tb_usuario SET Contrasenia = ? "+
+                   "Where Codigo = ?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, contra);
+            pr.setString(2, codigo);
+            
+            if(pr.executeUpdate()==1)
+            {
+                return true;
+            }
+        }catch(Exception ex){
+            this.setMensaje(ex.toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return false;
+    }
 }

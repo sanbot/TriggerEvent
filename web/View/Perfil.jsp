@@ -152,12 +152,88 @@ String Ciudad = (String) session.getAttribute("Ciudad");
 					</div>
 					<div class="row">
 						<div class="col-md-offset-4 col-md-4">
+                                                    <div class="form-group">
 							<a href="ModificarPerfil.jsp" class="btn btn-primary btn-block">Modificar Perfil</a>
+                                                    </div>
 						</div>
 					</div>
-				</div>
+				
 
 			</form>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <a id="modal-Modificar" href="#modal-container-Modificar" role="button" class="btn btn-block btn-primary" data-toggle="modal">Cambiar contrase&ntilde;a</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                        </div>
+                        <div class="row">
+				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+					<div class="col-md-12">
+						<div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h4 class="modal-title" id="myModalLabel">
+                                                                                    <center>Cambiar Contraseña</center>
+										</h4>
+									</div>
+									<div class="modal-body">
+                                                                                <div class="row">
+											<div class="col-md-2"></div>
+											<div class="col-md-8">
+												<div class="form-group">
+                                                                                                    <label for="ContraseniaActual">Contrase&ntilde;a actual</label>
+													<input id="ContraseniaActual" name="ContraseniaActual" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
+												</div>
+											</div>
+                                                                                        <div class="col-md-2">
+                                                                                            
+                                                                                        </div>
+										</div>
+										<div class="row">
+											<div class="col-md-2"></div>
+											<div class="col-md-8">
+												<div class="form-group">
+                                                                                                    <label for="ContraseniaNueva">Contrase&ntilde;a nueva</label>
+													<input id="ContraseniaNueva" name="ContraseniaNueva" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
+												</div>
+											</div>
+                                                                                        <div class="col-md-2">
+                                                                                            
+                                                                                        </div>
+										</div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2"></div>
+                                                                                    <div class="col-md-8">
+                                                                                        <div class="form-group">
+                                                                                            <div class="form-group">
+                                                                                                <label for="ContraseniaRepetir">Repetir contrase&ntilde;a nueva</label>
+                                                                                                    <input id="ContraseniaRepetir" name="ContraseniaRepetir" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-2"></div>
+                                                                                </div>
+                                                                            
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                <button name="CambiarContrasenia" type="submit" class="btn btn-primary">Cambiar</button>
+									</div>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+				</form>
+			</div>
 			<div class="container marketing">
 				<hr class="featurette-divider">
 			</div>

@@ -92,7 +92,7 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
                                                                 <td><%=Row[2]%></td>
                                                                 <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
                                                                 <td><%=Row[3]%></td>
-								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-tipo="<%=Row[2]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
+								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-tipo="<%=Row[2]%>" data-estado="<%=Row[3]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
                                                                 <td><center><a href="ModificarSeleccion.jsp?Codigo=<%=Row[0]%>&Accion=Desaprobar"><span class="glyphicon glyphicon-remove"></span></a></center></td>
                                                                 <td><center><a href="ModificarSeleccion.jsp?Codigo=<%=Row[0]%>&Accion=Aprobar"><span class="glyphicon glyphicon-ok"></span></a></center></td>
 							</tr>
@@ -143,7 +143,7 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-md-2"></div>
-                                                                                </div>
+                                                                            </div>
                                                                             <div class="row">
                                                                                     <div class="col-md-2"></div>
                                                                                     <div class="col-md-8">
@@ -217,6 +217,19 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
                                                                                     </div>
                                                                                     <div class="col-md-2"></div>
                                                                                 </div>
+                                                                            <div class="row">
+                                                                                    <div class="col-md-2"></div>
+                                                                                    <div class="col-md-8">
+                                                                                        <div class="form-group">
+                                                                                            <label for="Estado">Estado</label>
+                                                                                            <select name="Estado" id="EstadoSeleccion" class="form-control" data-required="true">
+                                                                                                <option value="Aprobado">Aprobado</option>
+                                                                                                <option value="Desaprobado">Desaprobado</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-2"></div>
+                                                                            </div>
                                                                                 <div class="row">
                                                                                         <div class="col-md-2"></div>
                                                                                         <div class="col-md-8">
@@ -282,10 +295,12 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
         var Id = $(this).data('id');
         var Name = $(this).data('nombre');
         var Tipo = $(this).data('tipo');
+        var Estado = $(this).data('estado');
         $(".modal-body #CodigoSeleccion").val( Id );
         $(".modal-body #NombreSeleccion").val( Name );
         $(".modal-body #TipoSeleccion").val( Tipo );
         $(".modal-body #ImgActual").attr("src","Imagen.jsp?Codigo="+Id);
+        $('#EstadoSeleccion [value='+ Estado +']').prop('selected', true);
         });
     });
     </script>

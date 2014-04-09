@@ -26,6 +26,15 @@ public class Seleccion {
     String Nombre;
     String Tipo;
     String Imagen;
+    String Estado;
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
 
     public String getCodigo() {
         return Codigo;
@@ -275,16 +284,17 @@ public class Seleccion {
         }
         return null;
     }
-    public boolean actualizardatosSeleccion(String codigo, String nombre, String tipo) {
+    public boolean actualizardatosSeleccion(String codigo, String nombre, String tipo, String estado) {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
-        String sql="UPDATE tb_seleccion SET Nombre = ?, Tipo = ? ";
+        String sql="UPDATE tb_seleccion SET Nombre = ?, Tipo = ?, Estado = ? ";
                 sql += "WHERE Codigo = ?";
         try{
             pr=conn.prepareStatement(sql);
             pr.setString(1, nombre);
             pr.setString(2, tipo);
-            pr.setString(3, codigo);
+            pr.setString(3, estado);
+            pr.setString(4, codigo);
             if(pr.executeUpdate()==1){
                 return true;
             }
@@ -309,7 +319,7 @@ public class Seleccion {
         return false;
     }
     
-    public boolean actualizardatosSeleccion(String codigo, String nombre, String tipo, String imagen) {
+    public boolean actualizardatosSeleccion(String codigo, String nombre, String tipo, String imagen, String estado) {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         String sql="UPDATE tb_seleccion SET Nombre = ?, Tipo = ?, Imagen = ? ";
@@ -326,7 +336,8 @@ public class Seleccion {
             pr.setString(1, nombre);
             pr.setString(2, tipo);
             pr.setBlob(3, is);
-            pr.setString(4, codigo);
+            pr.setString(4, estado);
+            pr.setString(5, codigo);
             if(pr.executeUpdate()==1){
                 return true;
             }
