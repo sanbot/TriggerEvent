@@ -6,7 +6,7 @@ Author     : ADSI
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
-<%@include file="../WEB-INF/jspf/ValidacionAdministradorEmpresa.jspf" %>
+<%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
 String[][] ListaEventos = usu.getBuscarDatosPrincipalesEvento();
@@ -37,7 +37,17 @@ int Cantidad = usu.getCantidadEventosPendientes();
 
 </head>
 <body>
-	<%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+	<%
+        if(Rol.equals("Administrador"))
+        {%>
+        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+        <%
+        }else if(Rol.equals("Cliente"))
+        {%>
+        <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
+        <%}else if(Rol.equals("Empresa")){%>
+        <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
+        <%}%>
 	<br/>
 	<br/>
 	<br/>
@@ -55,13 +65,15 @@ int Cantidad = usu.getCantidadEventosPendientes();
 				<h1 class="Center">Eventos</h1>
 			</div>
 		</div>
-                <%if(!Rol.equals("Administrador") && !Rol.equals("Empresa"))
+                <%if(Rol.equals("Administrador") || Rol.equals("Empresa"))
                 {%>
 		<div class="row">
 			<div class="col-md-4">
 			</div>
 			<div class="col-md-4">
+                            <div class="form-group">
 				<a href="RegistrarEvento.jsp" role="button" class="btn btn-block btn-primary">Registrar Evento</a>
+                            </div>
 			</div>
 			<div class="col-md-4">
 			</div>
@@ -73,7 +85,9 @@ int Cantidad = usu.getCantidadEventosPendientes();
 			<div class="col-md-4">
 			</div>
 			<div class="col-md-4">
+                            <div class="form-group">
 				<a href="RegistrarEvento.jsp" role="button" class="btn btn-block btn-primary">Consultar eventos pendientes <span class="badge pull-right"><%=Cantidad%></span></a>
+                            </div>
 			</div>
 			<div class="col-md-4">
 			</div>

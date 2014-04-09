@@ -23,6 +23,12 @@
 								</a>
 							</li>
                                                         <li>
+								<a href="ConsultaEvento.jsp">
+                                                                        <span class="glyphicon glyphicon-music glyphiconuno"></span>
+									<div class="negro">Eventos</div>
+								</a>
+							</li>
+                                                        <li>
 								<a href="RegistrarEvento.jsp">
                                                                         <span class="glyphicon glyphicon-glass glyphiconuno"></span>
 									<div class="negro">Registrar Evento</div>

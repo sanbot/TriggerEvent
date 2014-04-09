@@ -22,7 +22,12 @@
 									<div class="negro">Mis Gustos</div>
 								</a>
 							</li>
-                                                        
+                                                        <li>
+								<a href="ConsultaEvento.jsp">
+                                                                        <span class="glyphicon glyphicon-music glyphiconuno"></span>
+									<div class="negro">Eventos</div>
+								</a>
+							</li>
 							<li>
 								<a class="gn-icon gn-icon-earth"><div class="negro">Qui&eacute;nes Somos</div></a>
 							</li>

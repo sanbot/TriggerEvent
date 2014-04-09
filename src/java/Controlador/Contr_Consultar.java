@@ -242,4 +242,10 @@ public class Contr_Consultar {
         String [][]Datos = eve.BuscarDatosPrincipalesEventos();
         return Datos;
     }
+    public String[][] getBuscarDatosPrincipalesEventoPendiente()
+    {
+        Evento eve = new Evento();
+        String [][]Datos = eve.BuscarDatosPrincipalesEventosPendientes();
+        return Datos;
+    }
 }

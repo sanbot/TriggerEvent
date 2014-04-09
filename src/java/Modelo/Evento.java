@@ -323,6 +323,63 @@ public class Evento {
         return null;
     }
     
+    public String[][] BuscarDatosPrincipalesEventosPendientes(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad \n" +
+                    "FROM  `tb_evento` e \n"+
+                    "JOIN tb_usuario u on u.No_Documento = e.NIT \n"+
+                    "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"+
+                    "Where e.Estado = 'Pendiente' AND "
+                  + "Fecha >= ?";
+        
+        try{
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            pr=conn.prepareStatement(sql);
+            pr.setTimestamp(1, sqlDate);
+            rs=pr.executeQuery();
+            
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            String [][] Datos = new String[rows][5];
+            rs.beforeFirst();
+            rows = 0;
+            while(rs.next()){
+                Evento eve = new Evento();
+                eve.setCodigo(rs.getString("Codigo"));
+                eve.setNombre(rs.getString("Nombre"));
+                eve.setFecha(rs.getString("Fecha"));
+                eve.setCreador(rs.getString("NombreEmpresa"));
+                eve.setCiudad(rs.getString("NombreCiudad"));
+                Datos[rows][0] = eve.getCodigo();
+                Datos[rows][1] = eve.getNombre();
+                Datos[rows][2] = eve.getFecha();
+                Datos[rows][3] = eve.getCreador();
+                Datos[rows][4] = eve.getCiudad();
+                
+                rows++;
+                
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
     public Blob getImagenEvento(String codigo){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
