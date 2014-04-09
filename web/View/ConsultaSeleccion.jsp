@@ -76,7 +76,10 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
 								<th>Nombre</th>
                                                                 <th>Tipo</th>
                                                                 <th>Imagen</th>
+                                                                <th>Estado</th>
 								<th></th>
+                                                                <th></th>
+                                                                <th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -88,7 +91,10 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
 								<td><%=Row[1]%></td>
                                                                 <td><%=Row[2]%></td>
                                                                 <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
+                                                                <td><%=Row[3]%></td>
 								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-tipo="<%=Row[2]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
+                                                                <td><center><a href="ModificarSeleccion.jsp?Codigo=<%=Row[0]%>&Accion=Desaprobar"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                                                <td><center><a href="ModificarSeleccion.jsp?Codigo=<%=Row[0]%>&Accion=Aprobar"><span class="glyphicon glyphicon-ok"></span></a></center></td>
 							</tr>
 							<%
                                                         i++;

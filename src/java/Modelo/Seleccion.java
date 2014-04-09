@@ -77,12 +77,13 @@ public class Seleccion {
     {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
+        String estado = "Aprobado";
         String codigo = "SEL";
         int numerocodigo = this.CantidadRegistroSeleccion();
         codigo+=numerocodigo;
         pr=null;
-        String sql="INSERT INTO tb_seleccion (Codigo, Imagen, Nombre, Tipo)";
-        sql+="VALUES(?,?,?,?)";
+        String sql="INSERT INTO tb_seleccion (Codigo, Imagen, Nombre, Tipo, Estado)";
+        sql+="VALUES(?,?,?,?, ?)";
         FileInputStream is= null;
         
         try {
@@ -97,6 +98,7 @@ public class Seleccion {
             pr.setBlob(2, is);
             pr.setString(3, nombre);
             pr.setString(4, tipo);
+            pr.setString(5, estado);
             
             
             if(pr.executeUpdate()==1){
@@ -127,16 +129,16 @@ public class Seleccion {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="Select * "+
+        String sql="Select Count(Codigo) Cantidad "+
                    "From  tb_seleccion";
         try{
             pr=conn.prepareStatement(sql);
             rs=pr.executeQuery();
             
             int i = 0;
-            while(rs.next()){
+            if(rs.next()){
                 
-                i++;
+                i = Integer.parseInt(rs.getString("Cantidad"));
             }
             return i+1;
         }catch(Exception ex){
@@ -152,12 +154,61 @@ public class Seleccion {
         }
         return 0;
     }
+    //con este metodo se sabe cuantas personas usan el gusto o ambiente para poder eliminarlo
+    public boolean CantidadUsoAmbienteGusto(String codigoSeleccion){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sqluno="Select Count(Codigo) Cantidad "+
+                   "From  tb_seleccion_usuario "
+                 + "Where Estado = 'Activo'"
+                + " AND Id_Seleccion = ? ";
+        String sqldos="Select Count(Codigo) Cantidad "+
+                   "From  tb_seleccion_evento Where Estado = 'Activo'"
+                + " AND ID_Seleccion = ?";
+        try{
+            pr=conn.prepareStatement(sqluno);
+            pr.setString(1, codigoSeleccion);
+            rs=pr.executeQuery();
+            
+            int uno = 0;
+            if(rs.next()){
+                
+                uno = Integer.parseInt(rs.getString("Cantidad"));
+            }
+            pr=conn.prepareStatement(sqldos);
+            pr.setString(1, codigoSeleccion);
+            rs=pr.executeQuery();
+            
+            int dos = 0;
+            if(rs.next()){
+                
+                dos = Integer.parseInt(rs.getString("Cantidad"));
+            }
+            if(uno == 0 && dos ==0)
+            {
+                return true;
+            }
+            return false;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return false;
+    }
     
     public String[][] getDatosSeleccion(){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="Select * "+
+        String sql="Select Codigo, Nombre, Tipo, Estado "+
                    "From  tb_seleccion";
         String [][] Datos = null;
         try{
@@ -169,13 +220,14 @@ public class Seleccion {
                 
                 i++;
             }
-            Datos = new String[i][3];
+            Datos = new String[i][4];
             rs.beforeFirst();
             i = 0;
             while(rs.next()){
                 Datos[i][0] = rs.getString("Codigo");
                 Datos[i][1] = rs.getString("Nombre");
                 Datos[i][2] = rs.getString("Tipo");
+                Datos[i][3] = rs.getString("Estado");
                 i++;
              }
             return Datos;
@@ -305,7 +357,8 @@ public class Seleccion {
         ResultSet rs=null;
         String sql="Select Codigo, Nombre, Tipo, Imagen "+
                    "From  tb_seleccion "
-                +  "Where Codigo NOT IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ? And Estado = 'Activo')";
+                +  "Where Codigo NOT IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ? And Estado = 'Activo')"
+                +  "AND Estado = 'Aprobado'";
         String [][] Datos = null;
         try{
             pr=conn.prepareStatement(sql);
@@ -345,7 +398,7 @@ public class Seleccion {
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="Select Codigo, Nombre, Tipo, Imagen "+
+        String sql="Select Codigo, Nombre, Tipo "+
                    "From  tb_seleccion "
                 +  "Where Codigo IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ?"
                 + " And Estado = 'Activo')";
@@ -509,5 +562,105 @@ public class Seleccion {
             }
         }
         return 0;
+    }
+    
+    public boolean CantidadGustosAmbientesPreRemove(String codigoSeleccion, String codigoUsuario){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql = "SELECT Count(su.Codigo) Cantidad FROM `tb_seleccion_usuario` su "
+                + "JOIN tb_seleccion s on s.Codigo = su.Id_Seleccion "
+                + "AND s.Tipo = (Select Tipo From tb_seleccion Where Codigo = ?) "
+                + "WHERE Id_Usuario = ?";
+        String consulta = "Select Tipo From tb_seleccion Where Codigo = ?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigoSeleccion);
+            pr.setString(2, codigoUsuario);
+            rs=pr.executeQuery();
+            
+            int i = 0;
+            if(rs.next())
+            {
+                i = Integer.parseInt(rs.getString("Cantidad"));
+            }
+            if(i>1)
+            {                
+                return true;
+            }
+            else
+            {
+                pr=conn.prepareStatement(consulta);
+                pr.setString(1, codigoSeleccion);
+                rs=pr.executeQuery();
+                if(rs.next()){
+                    this.setMensaje("No se puede eliminar este "+rs.getString("Tipo")+", porque es el único que tienes registrado.");
+                }else
+                {
+                    this.setMensaje("Ocurrió un error inesperado, por favor inténtelo más tarde.");
+                }
+                return false;
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return false;
+    }
+    
+    public boolean DesaprobarSeleccion(String codigoSeleccion) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE tb_seleccion SET Estado = 'Desaprobado' ";
+                sql += "WHERE Codigo = ?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigoSeleccion);
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(Exception ex){
+            this.setMensaje(ex.getMessage().toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        return false;
+    }
+    public boolean AprobarSeleccion(String codigoSeleccion) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE tb_seleccion SET Estado = 'Aprobado' ";
+                sql += "WHERE Codigo = ?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigoSeleccion);
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(Exception ex){
+            this.setMensaje(ex.getMessage().toString());
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        return false;
     }
 }

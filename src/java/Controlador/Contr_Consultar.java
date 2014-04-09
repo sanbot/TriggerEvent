@@ -210,14 +210,60 @@ public class Contr_Consultar {
         }
         else
         {
-            b = sel.RemoveGusto(Codigo, CodigoUsuario);
+            b = sel.CantidadGustosAmbientesPreRemove(Codigo, CodigoUsuario);
             if(b)
             {
-                this.setMensaje("Se quito el gusto de tus gustos existosamente.");
+                b = sel.RemoveGusto(Codigo, CodigoUsuario);
+                if(b)
+                {
+                    this.setMensaje("Se quito el gusto de tus gustos existosamente.");
+                }
+                else
+                {
+                    this.setMensaje("Ocurrió un error al tratar de remover este gusto de tus gustos, por favor inténtelo nuevamente.");
+                }
             }
             else
             {
-                this.setMensaje("Ocurrió un error al tratar de remover este gusto de tus gustos, por favor inténtelo nuevamente.");
+                this.setMensaje(sel.getMensaje());
+            }
+        }
+        return b;
+    }
+    
+    public boolean AprobarDesaprobarSeleccion(String CodigoSeleccion, String Accion)
+    {
+        Seleccion sel = new Seleccion();
+        boolean b ;
+        if(Accion.equals("Aprobar"))
+        {
+            b = sel.AprobarSeleccion(CodigoSeleccion);
+            if(b)
+            {
+                this.setMensaje("Se aprobó el gusto/ambiente satisfactoriamente.");
+            }
+            else
+            {
+                this.setMensaje(sel.getMensaje());
+            }
+        }
+        else
+        {
+            b = sel.CantidadUsoAmbienteGusto(CodigoSeleccion);
+            if(b)
+            {
+                b = sel.DesaprobarSeleccion(CodigoSeleccion);
+                if(b)
+                {
+                    this.setMensaje("El gusto o ambiente ha sido desaprobado satisfactoriamente");
+                }
+                else
+                {
+                    this.setMensaje(sel.getMensaje());
+                }
+            }else
+            {
+                this.setMensaje("No se puede desaprobar, porque hay usuarios o eventos usando este ambiente o gusto.");
             }
         }
         return b;
