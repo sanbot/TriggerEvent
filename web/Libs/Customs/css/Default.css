@@ -10,6 +10,11 @@
     width: 100px;
     height: 40px;
 }
+
+.imgevento{
+    width: 280px;
+    height: 60px;
+}
 #imagen{
   margin-top: 50%;
   margin-left: 20%;

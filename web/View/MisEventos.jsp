@@ -133,7 +133,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                                                 <td><%=Row[3]%></td>
                                                                 <td><%=Row[4]%></td>
                                                                 <td><%=Row[5]%></td>
-                                                                <td><center><a href="ConsultaEventoTodo.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
+                                                                <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
 							</tr>
 							<%}%>
 						</tbody>

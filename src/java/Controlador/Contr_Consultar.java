@@ -339,6 +339,13 @@ public class Contr_Consultar {
         return Datos;
     }
     
+    public String[] getBuscarDatosDetalladosEvento(String CodigoEvento)
+    {
+        Evento eve = new Evento();
+        String []Datos = eve.BuscarDatosDetalladosEventos(CodigoEvento);
+        return Datos;
+    }
+    
     public String[][] getBuscarDatosMisEventos(String nit)
     {
         Evento eve = new Evento();

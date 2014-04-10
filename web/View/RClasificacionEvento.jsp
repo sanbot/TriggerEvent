@@ -66,50 +66,62 @@
                 </div>
             </div>
         </div>
-        <div class="row clearfix">
-         <div class="col-md-12">
-            <br/>
-            <h1 class="Center">Clasificar Evento</h1>
-            <%if(!b)
-            {%>
-            <h5 class="Center">Seleccione al menos un gusto y un ambiente para completar el registro</h5>
-            <%}%>
+        <div class="container">
+            <div class="row clearfix">
+             <div class="col-md-12">
+                <br/>
+                <h1 class="Center">Clasificar Evento</h1>
+                <%if(!b)
+                {%>
+                <h5 class="Center">Seleccione al menos un gusto y un ambiente para completar el registro</h5>
+                <%}%>
+            </div>
         </div>
+        <div class="row">
+         <div class="col-md-12">
+          <br/>
+          <div class="table-responsive">
+            <table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>C&oacute;digo</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Imagen</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                    for(String[] Row : ListaGustosNuevos){%>
+                    <tr>
+                        <td><%=Row[0]%></td>
+                        <td><%=Row[1]%></td>
+                        <td><%=Row[2]%></td>
+                        <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
+                        <td><center><a href="ClasificarEvento.jsp?CodigoSeleccion=<%=Row[0]%>&Accion=Nuevo&CodigoEvento=<%=Codigo%>"><span class="glyphicon glyphicon-ok"></span><center></td>
+                    </tr>
+                    <%
+                }%>
+            </tbody>
+        </table>
     </div>
-    <div class="row">
-     <div class="col-md-12">
-      <br/>
-      <div class="table-responsive">
-        <table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>C&oacute;digo</th>
-                    <th>Nombre</th>
-                    <th>Tipo</th>
-                    <th>Imagen</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                for(String[] Row : ListaGustosNuevos){%>
-                <tr>
-                    <td><%=Row[0]%></td>
-                    <td><%=Row[1]%></td>
-                    <td><%=Row[2]%></td>
-                    <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
-                    <td><center><a href="ClasificarEvento.jsp?CodigoSeleccion=<%=Row[0]%>&Accion=Nuevo&CodigoEvento=<%=Codigo%>"><span class="glyphicon glyphicon-ok"></span><center></td>
-                </tr>
-                <%
-            }%>
-        </tbody>
-    </table>
-</div>
 
-</div>
-<div class="container marketing">
-   <hr class="featurette-divider">
-</div>
+    </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <%if(b)
+                    {%>
+                        <a href="ConsultaEvento.jsp" class="btn btn-block btn-primary">Finalizar</a>
+                    <%}%>
+                </div>
+            </div>
+    <div class="container marketing">
+       <hr class="featurette-divider">
+    </div>
 </div>
 
 <!-- FOOTER -->
