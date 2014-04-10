@@ -12,7 +12,7 @@
         String CodigoSeleccion = (String) request.getParameter("CodigoSeleccion");
         String CodigoEvento = (String) request.getParameter("CodigoEvento");
         String Accion = (String) request.getParameter("Accion");
-        if(!Accion.equals("Nuevo") && ! Accion.equals("Quitar"))
+        if(!Accion.equals("Nuevo"))
         {
             response.sendRedirect("RClasificacionEvento.jsp?CodigoEvento="+CodigoEvento);
         }

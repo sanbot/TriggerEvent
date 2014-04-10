@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    /*
     //esta pagina solo organiza el mensaje y redirecciona al index en el cual se mostrará el mensaje de error
     if(request.getParameter("Error")!= null)
     {
@@ -32,5 +33,5 @@
     {
         //en caso de no tener contenido el error redireccionamos al index.jsp simplemente
         response.sendRedirect("index.jsp");
-    }
+    }*/
 %>

@@ -20,6 +20,10 @@ Author     : santi_000
     {
         Codigo = request.getParameter("CodigoEvento");
     }
+    else
+    {
+        response.sendRedirect("ConsultarEventos");
+    }
     String Datos[] = usu.getBuscarDatosDetalladosEvento(Codigo);
 %>
 <!DOCTYPE html>
