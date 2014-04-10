@@ -15,6 +15,7 @@
     String Codigo = request.getParameter("CodigoEvento");
     Contr_Consultar usu = new Contr_Consultar();
     String[][] ListaGustosNuevos  = usu.getClasifiacionNuevos(Codigo);
+    boolean b = usu.getComprobacionRegistroEvento(Codigo);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +70,10 @@
          <div class="col-md-12">
             <br/>
             <h1 class="Center">Clasificar Evento</h1>
+            <%if(!b)
+            {%>
             <h5 class="Center">Seleccione al menos un gusto y un ambiente para completar el registro</h5>
+            <%}%>
         </div>
     </div>
     <div class="row">

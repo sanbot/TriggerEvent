@@ -9,7 +9,8 @@ Author     : ADSI
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaEventos = usu.getBuscarDatosPrincipalesEvento();
+String nit = (String) session.getAttribute("No_Documento");
+String[][] ListaEventos = usu.getBuscarDatosMisEventos(nit);
 int Cantidad = usu.getCantidadEventosPendientes();
 %>
 <!DOCTYPE html>
@@ -92,6 +93,17 @@ int Cantidad = usu.getCantidadEventosPendientes();
 			<div class="col-md-4">
 			</div>
 		</div>
+                <div class="row">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4">
+                            <div class="form-group">
+				<a href="RegistrarEvento.jsp" role="button" class="btn btn-block btn-primary">Registrar Evento</a>
+                            </div>
+			</div>
+			<div class="col-md-4">
+			</div>
+		</div>
                 <%}%>
 		<div class="row">
 			<div class="col-md-12">
@@ -107,6 +119,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                                                 <th>FECHA</th>
                                                                 <th>CREADOR</th>
                                                                 <th>CIUDAD</th>
+                                                                <th>ESTADO</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -119,6 +132,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                                                 <td><%=Row[2]%></td>
                                                                 <td><%=Row[3]%></td>
                                                                 <td><%=Row[4]%></td>
+                                                                <td><%=Row[5]%></td>
                                                                 <td><center><a href="ConsultaEventoTodo.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
 							</tr>
 							<%}%>
@@ -191,4 +205,5 @@ int Cantidad = usu.getCantidadEventosPendientes();
     <%session.setAttribute("Mensaje", "");%>
 </body>
 </html>
+
 

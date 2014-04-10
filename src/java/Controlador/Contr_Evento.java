@@ -150,10 +150,10 @@ public class Contr_Evento extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        //File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        //eve.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-                        eve.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        eve.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
+                        //File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
+                        //eve.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
                         /*y lo escribimos en el servido*/
                         item.write(archivo_server);
                     }

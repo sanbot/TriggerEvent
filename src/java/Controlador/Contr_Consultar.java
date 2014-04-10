@@ -285,6 +285,11 @@ public class Contr_Consultar {
             if(b)
             {
                 this.setMensaje("Se aprobó el gusto/ambiente satisfactoriamente.");
+                if(sel.ComprobarRegistroCompletoUSuario(CodigoEvento))
+                {
+                    Evento eve = new Evento();
+                    eve.setEstadoPendiente(CodigoEvento);
+                }
             }
             else
             {
@@ -293,6 +298,7 @@ public class Contr_Consultar {
         }
         else
         {
+            //falta por implementar esta parte
             b = sel.CantidadUsoAmbienteGusto(CodigoSeleccion);
             if(b)
             {
@@ -332,10 +338,24 @@ public class Contr_Consultar {
         String [][]Datos = eve.BuscarDatosPrincipalesEventos();
         return Datos;
     }
+    
+    public String[][] getBuscarDatosMisEventos(String nit)
+    {
+        Evento eve = new Evento();
+        String [][]Datos = eve.BuscarDatosMisEventos(nit);
+        return Datos;
+    }
     public String[][] getBuscarDatosPrincipalesEventoPendiente()
     {
         Evento eve = new Evento();
         String [][]Datos = eve.BuscarDatosPrincipalesEventosPendientes();
         return Datos;
+    }
+    public boolean getComprobacionRegistroEvento(String CodigoEvento)
+    {
+        boolean b;
+        Seleccion sel = new Seleccion();
+        b = sel.ComprobarRegistroCompletoUSuario(CodigoEvento);
+        return b;
     }
 }

@@ -36,7 +36,17 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
 
 </head>
 <body>
+        <%
+        if(Rol.equals("Administrador"))
+        {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+        <%
+        }else if(Rol.equals("Cliente"))
+        {%>
+        <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
+        <%}else if(Rol.equals("Empresa")){%>
+        <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
+        <%}%>
         <br/>
         <br/>
         <br/>
@@ -44,7 +54,7 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
 	<div class="row clearfix">
 		<div class="col-md-12">
 			<div class="form-group">
-                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="ConsultaUsuario.jsp"> Eventos</a><span class="glyphicon glyphicon-share-alt"></span> Consulta de eventos pendientes
+                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="ConsultaEvento.jsp"> Eventos</a><span class="glyphicon glyphicon-share-alt"></span> Consulta de eventos pendientes
 			</div>
 		</div>
 	</div>

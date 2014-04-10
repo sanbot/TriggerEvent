@@ -36,6 +36,15 @@ public class Evento {
     cone conexion = new cone();
     String Direccion;
     String Ciudad;
+    String Estado;
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
 
     public String getDireccion() {
         return Direccion;
@@ -325,6 +334,65 @@ public class Evento {
         return null;
     }
     
+    public String[][] BuscarDatosMisEventos(String nit){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, e.Estado \n" +
+                    "FROM  `tb_evento` e \n"+
+                    "JOIN tb_usuario u on u.No_Documento = e.NIT \n"+
+                    "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"+
+                    "Where Fecha >= ? AND NIT = ?";
+        
+        try{
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            pr=conn.prepareStatement(sql);
+            pr.setTimestamp(1, sqlDate);
+            pr.setString(2, nit);
+            rs=pr.executeQuery();
+            
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            String [][] Datos = new String[rows][6];
+            rs.beforeFirst();
+            rows = 0;
+            while(rs.next()){
+                Evento eve = new Evento();
+                eve.setCodigo(rs.getString("Codigo"));
+                eve.setNombre(rs.getString("Nombre"));
+                eve.setFecha(rs.getString("Fecha"));
+                eve.setCreador(rs.getString("NombreEmpresa"));
+                eve.setCiudad(rs.getString("NombreCiudad"));
+                eve.setEstado(rs.getString("Estado"));
+                Datos[rows][0] = eve.getCodigo();
+                Datos[rows][1] = eve.getNombre();
+                Datos[rows][2] = eve.getFecha();
+                Datos[rows][3] = eve.getCreador();
+                Datos[rows][4] = eve.getCiudad();
+                Datos[rows][5] = eve.getEstado();
+                
+                rows++;
+                
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
     public String[][] BuscarDatosPrincipalesEventosPendientes(){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
@@ -413,4 +481,30 @@ public class Evento {
         return null;
     }
     
+    public boolean setEstadoPendiente(String codigoEvento){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE tb_evento SET Estado = 'Pendiente' "+
+                   "Where Codigo = ?";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigoEvento);
+            if(pr.executeUpdate() == 1)
+            {
+                return true;
+            }
+            return false;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurruó un problema al tratar de completar el registro del evento, por favor inténtelo más tarde.");
+        return false;
+    }
 }

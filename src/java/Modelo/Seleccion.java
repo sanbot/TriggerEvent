@@ -728,7 +728,7 @@ public class Seleccion {
         
         String sqli="Insert into tb_seleccion_evento (Codigo, Id_Seleccion , Id_Evento , Estado) ";
                 sqli += "VALUES (?,?,?,?)";
-        String sqlc = "Select Codigo From tb_seleccion_Evento Where Id_Seleccion = ? and Id_Evento = ? ";
+        String sqlc = "Select Codigo From tb_seleccion_evento Where Id_Seleccion = ? and Id_Evento = ? ";
         String sqlu = "UPDATE tb_seleccion_evento SET Estado = 'Activo' Where Codigo = ?";
         try{
             pr = conn.prepareStatement(sqlc);
@@ -757,7 +757,13 @@ public class Seleccion {
                 }
             }
         }catch(Exception ex){
-            this.setMensaje(ex.getMessage().toString());
+            if(ex.toString().indexOf("Duplicate")>0)
+            {
+                if(ex.toString().indexOf("UK_IdSeleccion_IdEvento_SeleccionEvento")>0)
+                {
+                    this.setMensaje("Ya existe un gusto o ambiente registrado en este evento.");
+                }
+            }
         }finally{
             try{
                 pr.close();
@@ -766,7 +772,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar la clasificación del evento, por favor, inténtelo de nuevo.");
         return false;
     }
     
@@ -775,7 +781,7 @@ public class Seleccion {
         PreparedStatement pr=null;
         ResultSet rs=null;
         String sql="Select Count(Codigo) Cantidad "+
-                   "From  tb_seleccion_Evento";
+                   "From  tb_seleccion_evento";
         try{
             pr=conn.prepareStatement(sql);
             rs=pr.executeQuery();
@@ -798,5 +804,57 @@ public class Seleccion {
             }
         }
         return 0;
+    }
+    public boolean ComprobarRegistroCompletoUSuario(String codigoevento){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sqla="Select Count(se.Codigo) Cantidad "+
+                   "From  tb_seleccion_evento se "
+                + "JOIN tb_seleccion s on  se.Id_Seleccion = s.Codigo "
+                + "WHERE se.Id_Evento = ? "
+                + "AND s.Tipo = 'Gusto' "
+                + "AND se.Estado = 'Activo'";
+        String sqlb="Select Count(se.Codigo) Cantidad "+
+                   "From  tb_seleccion_evento se "
+                + "JOIN tb_seleccion s on  se.Id_Seleccion = s.Codigo "
+                + "WHERE se.Id_Evento = ? "
+                + "AND s.Tipo = 'Ambiente' "
+                + "AND se.Estado = 'Activo'";
+        try{
+            pr=conn.prepareStatement(sqla);
+            pr.setString(1, codigoevento);
+            rs=pr.executeQuery();
+            
+            int uno = 0;
+            if(rs.next()){
+                
+                uno = Integer.parseInt(rs.getString("Cantidad"));
+            }
+            
+            pr=conn.prepareStatement(sqlb);
+            pr.setString(1, codigoevento);
+            rs=pr.executeQuery();
+            int dos = 0;
+            if(rs.next())
+            {
+                dos = Integer.parseInt(rs.getString("Cantidad"));
+            }
+            if(uno>=1 && dos>=1)
+            {
+                return true;
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return false;
     }
 }

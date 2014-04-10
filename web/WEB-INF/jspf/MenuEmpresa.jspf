@@ -29,9 +29,9 @@
 								</a>
 							</li>
                                                         <li>
-								<a href="RegistrarEvento.jsp">
+								<a href="MisEventos.jsp">
                                                                         <span class="glyphicon glyphicon-glass glyphiconuno"></span>
-									<div class="negro">Registrar Evento</div>
+									<div class="negro">Mis Eventos</div>
 								</a>
 							</li>
 							<li>
