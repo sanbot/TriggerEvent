@@ -24,22 +24,25 @@
 							</li>
                                                         <li>
 								<a href="ConsultaEvento.jsp">
-                                                                        <span class="glyphicon glyphicon-music glyphiconuno"></span>
+                                                                        <span class="glyphicon glyphicon-glass glyphiconuno"></span>
 									<div class="negro">Eventos</div>
 								</a>
 							</li>
                                                         <li>
 								<a href="MisEventos.jsp">
-                                                                        <span class="glyphicon glyphicon-glass glyphiconuno"></span>
+                                                                        <span class="glyphicon glyphicon-list-alt glyphiconuno"></span>
 									<div class="negro">Mis Eventos</div>
 								</a>
 							</li>
 							<li>
-								<a class="gn-icon gn-icon-earth"><div class="negro">Qui&eacute;nes Somos</div></a>
+                                                            <a href="ConsultaCiudad.jsp">
+                                                                    <span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>
+                                                                    <div class="negro">Qui&eacute;nes Somos</div>
+                                                            </a>
 							</li>
 							<li>
-								<a>
-                                                                    <span class="glyphicon glyphicon-list-alt glyphiconuno"></span>
+                                                                <a>
+                                                                    <span class="glyphicon glyphicon-globe glyphiconuno"></span>
                                                                     <div class="negro">Mapa del Sitio</div>
                                                                 </a>
 							</li>
