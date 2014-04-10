@@ -556,4 +556,30 @@ public class Evento {
         this.setMensaje("Ocurruó un problema al tratar de completar el registro del evento, por favor inténtelo más tarde.");
         return false;
     }
+    
+    public boolean setCambioEstadoEvento(String codigoEvento, String estado) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE tb_evento SET Estado = ? ";
+                sql += "WHERE Codigo = ? ";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, estado);
+            pr.setString(2, codigoEvento);
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(Exception ex){
+            ex.getMessage().toString();
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        return false;
+    }
 }

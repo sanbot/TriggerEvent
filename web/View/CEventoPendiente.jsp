@@ -91,8 +91,8 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
                                                         <td><%=Row[2]%></td>
                                                         <td><%=Row[3]%></td>
                                                         <td><%=Row[4]%></td>
-                                                        <td><center><a href="ModificarEvento.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                                        <td><center><a href="ModificarEvento.jsp?Codigo=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
+                                                        <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                                        <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
                                                         <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
                                                 </tr>
                                                 <%}%>

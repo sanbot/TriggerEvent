@@ -244,6 +244,37 @@ public class Contr_Consultar {
         return b;
     }
     
+    public boolean AprobarDesaprobarEvento(String CodigoEvento, String Aprobar)
+    {
+        Evento eve = new Evento();
+        boolean b ;
+        if(Aprobar.equals("true"))
+        {
+            b = eve.setCambioEstadoEvento(CodigoEvento, "Aprobado");
+            if(b)
+            {
+               this.setMensaje("Se aprobó el evento satisfactoriamente.");
+            }
+            else
+            {
+                this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
+            }
+        }
+        else
+        {
+            b = eve.setCambioEstadoEvento(CodigoEvento, "Desaprobado");
+            if(b)
+            {
+               this.setMensaje("No aprobó el evento satisfactoriamente.");
+            }
+            else
+            {
+                this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
+            }
+        }
+        return b;
+    }
+    
     public boolean AprobarDesaprobarSeleccion(String CodigoSeleccion, String Accion)
     {
         Seleccion sel = new Seleccion();
