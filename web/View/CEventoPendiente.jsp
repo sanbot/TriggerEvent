@@ -71,11 +71,12 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
                                 <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                    <th>IMAGEN</th>
-                                                    <th>NOMBRE</th>
-                                                    <th>FECHA</th>
-                                                    <th>CREADOR</th>
-                                                    <th>CIUDAD</th>
+                                                    <th>Imagen</th>
+                                                    <th>Nombre</th>
+                                                    <th>Fecha</th>
+                                                    <th>Hora</th>
+                                                    <th>Creador</th>
+                                                    <th>Ciudad</th>
                                                     <th></th>
                                                     <th></th>
                                                     <th></th>
@@ -87,6 +88,7 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
                                                         <td><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"/></td>
                                                         <td><%=Row[1]%></td>
                                                         <td><%=Row[2]%></td>
+                                                        <td><%=Row[5]%></td>
                                                         <td><%=Row[3]%></td>
                                                         <td><%=Row[4]%></td>
                                                         <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>

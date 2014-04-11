@@ -113,12 +113,13 @@ int Cantidad = usu.getCantidadEventosPendientes();
 					<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 						<thead>
 							<tr>
-                                                                <th>IMAGEN</th>
-								<th>NOMBRE</th>
-                                                                <th>FECHA</th>
-                                                                <th>CREADOR</th>
-                                                                <th>CIUDAD</th>
-                                                                <th>ESTADO</th>
+                                                                <th>Imagen</th>
+								<th>Nombre</th>
+                                                                <th>Fecha</th>
+                                                                <th>Hora</th>
+                                                                <th>Creador</th>
+                                                                <th>Ciudad</th>
+                                                                <th>Eestado</th>
 								<th></th>
                                                                 <th></th>
 							</tr>
@@ -129,6 +130,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
 								<td><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"/></td>
                                                                 <td><%=Row[1]%></td>
                                                                 <td><%=Row[2]%></td>
+                                                                <td><%=Row[6]%></td>
                                                                 <td><%=Row[3]%></td>
                                                                 <td><%=Row[4]%></td>
                                                                 <td><%=Row[5]%></td>

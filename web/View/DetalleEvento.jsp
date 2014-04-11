@@ -155,8 +155,8 @@ Author     : santi_000
 
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <div class="form-groupr">
-                                <label for="Fecha">Fecha</label>
-                                <input type='text' name="Fecha" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" data-rangelength="[18,19]" readonly value="<%=Datos[8]%>"/>
+                                <label for="Hora">Hora</label>
+                                <input type='text' name="Hora" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" data-rangelength="[6,9]" readonly value="<%=Datos[10]%>"/>
                             </div>
                         </div>
                 </div>

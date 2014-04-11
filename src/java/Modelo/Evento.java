@@ -300,7 +300,7 @@ public class Evento {
             {
                 rows ++;
             }
-            String [][] Datos = new String[rows][5];
+            String [][] Datos = new String[rows][6];
             rs.beforeFirst();
             rows = 0;
             while(rs.next()){
@@ -312,9 +312,10 @@ public class Evento {
                 eve.setCiudad(rs.getString("NombreCiudad"));
                 Datos[rows][0] = eve.getCodigo();
                 Datos[rows][1] = eve.getNombre();
-                Datos[rows][2] = eve.getFecha();
+                Datos[rows][2] = rs.getDate("Fecha").toString();
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
+                Datos[rows][5] = rs.getTime("Fecha").toString();
                 
                 rows++;
                 
@@ -353,7 +354,7 @@ public class Evento {
             pr.setString(2,codigoEvento);
             rs=pr.executeQuery();
             
-            String []Datos = new String[10];
+            String []Datos = new String[11];
             rs.beforeFirst();
             
             while(rs.next()){
@@ -365,8 +366,9 @@ public class Evento {
                 Datos[5] = rs.getString("CodigoCiudad");
                 Datos[6] = rs.getString("NombreCiudad");
                 Datos[7] = rs.getString("Direccion");
-                Datos[8] = rs.getString("Fecha");
+                Datos[8] = rs.getDate("Fecha").toString();
                 Datos[9] = rs.getString("Descripcion");
+                Datos[10] = rs.getTime("Fecha").toString();
             }
             return Datos;
         }catch(Exception ex){
@@ -445,23 +447,23 @@ public class Evento {
             {
                 rows ++;
             }
-            String [][] Datos = new String[rows][6];
+            String [][] Datos = new String[rows][7];
             rs.beforeFirst();
             rows = 0;
             while(rs.next()){
                 Evento eve = new Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
-                eve.setFecha(rs.getString("Fecha"));
                 eve.setCreador(rs.getString("NombreEmpresa"));
                 eve.setCiudad(rs.getString("NombreCiudad"));
                 eve.setEstado(rs.getString("Estado"));
                 Datos[rows][0] = eve.getCodigo();
                 Datos[rows][1] = eve.getNombre();
-                Datos[rows][2] = eve.getFecha();
+                Datos[rows][2] = rs.getDate("Fecha").toString();
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = eve.getEstado();
+                Datos[rows][6] = rs.getTime("Fecha").toString();
                 
                 rows++;
                 
@@ -504,21 +506,21 @@ public class Evento {
             {
                 rows ++;
             }
-            String [][] Datos = new String[rows][5];
+            String [][] Datos = new String[rows][6];
             rs.beforeFirst();
             rows = 0;
             while(rs.next()){
                 Evento eve = new Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
-                eve.setFecha(rs.getString("Fecha"));
                 eve.setCreador(rs.getString("NombreEmpresa"));
                 eve.setCiudad(rs.getString("NombreCiudad"));
                 Datos[rows][0] = eve.getCodigo();
                 Datos[rows][1] = eve.getNombre();
-                Datos[rows][2] = eve.getFecha();
+                Datos[rows][2] = rs.getDate("Fecha").toString();
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
+                Datos[rows][5] = rs.getTime("Fecha").toString();
                 
                 rows++;
                 
