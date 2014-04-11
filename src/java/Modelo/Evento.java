@@ -383,6 +383,45 @@ public class Evento {
         return null;
     }
     
+    public String[] BuscarEventoParaMensaje(String codigoEvento){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT u.Nombre NombreEmpresa, e.Nombre, e.Direccion, e.Fecha, u.Correo \n" +
+                    "FROM  `tb_evento` e \n"+
+                    "JOIN tb_usuario u on u.No_Documento = e.NIT \n"+
+                    "Where e.Codigo = ?";
+        
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1,codigoEvento);
+            rs=pr.executeQuery();
+            
+            String []Datos = new String[5];
+            rs.beforeFirst();
+            
+            while(rs.next()){
+                Datos[0] = rs.getString("NombreEmpresa");
+                Datos[1] = rs.getString("Nombre");
+                Datos[2] = rs.getString("Direccion");
+                Datos[3] = rs.getString("Fecha");
+                Datos[4] = rs.getString("Correo");
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
     public String[][] BuscarDatosMisEventos(String nit){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
