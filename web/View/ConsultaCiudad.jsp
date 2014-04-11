@@ -72,7 +72,6 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 					<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>C&Oacute;DIGO</th>
 								<th>NOMBRE</th>
                                                                 <th>DEPARTAMENTO</th>
 								<th></th>
@@ -81,7 +80,6 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 						<tbody>
 							<%if(ListaCiudad != null) {for(String[] Row : ListaCiudad){%>
 							<tr>
-								<td><%=Row[0]%></td>
 								<td><%=Row[1]%></td>
                                                                 <td><%=Row[3]%></td>
 								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-depid="<%=Row[2]%>" data-dep="<%=Row[3]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>

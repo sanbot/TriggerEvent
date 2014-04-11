@@ -67,7 +67,6 @@ String[][] ListaUsuario = usu.BuscarDatosUsuariosPendientes();
                                 <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
                                         <thead>
                                                 <tr>
-                                                        <th>C&Oacute;DIGO</th>
                                                         <th>NOMBRE</th>
                                                         <th>TIPO USUARIO</th>
                                                         <th>TIPO DOCUMENTO</th>
@@ -82,7 +81,6 @@ String[][] ListaUsuario = usu.BuscarDatosUsuariosPendientes();
                                         <tbody>
                                                 <%for(String[] Row : ListaUsuario){%>
                                                 <tr>
-                                                        <td><%=Row[0]%></td>
                                                         <td><%=Row[4]%></td>
                                                         <td><%=Row[1]%></td>
                                                         <td><%=Row[2]%></td>

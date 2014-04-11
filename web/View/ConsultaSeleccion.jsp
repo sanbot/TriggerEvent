@@ -72,7 +72,6 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
 					<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>C&oacute;digo</th>
 								<th>Nombre</th>
                                                                 <th>Tipo</th>
                                                                 <th>Imagen</th>
@@ -87,7 +86,6 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
                                                         int i = 0;
                                                         for(String[] Row : ListaSeleccion){%>
 							<tr>
-								<td><%=Row[0]%></td>
 								<td><%=Row[1]%></td>
                                                                 <td><%=Row[2]%></td>
                                                                 <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>

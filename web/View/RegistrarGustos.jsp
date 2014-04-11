@@ -74,7 +74,6 @@ String[][] ListaGustosNuevos  = usu.getGustosNuevos(Codigo);
         <table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>C&oacute;digo</th>
                     <th>Nombre</th>
                     <th>Tipo</th>
                     <th>Imagen</th>
@@ -85,7 +84,6 @@ String[][] ListaGustosNuevos  = usu.getGustosNuevos(Codigo);
                 <%
                 for(String[] Row : ListaGustosNuevos){%>
                 <tr>
-                    <td><%=Row[0]%></td>
                     <td><%=Row[1]%></td>
                     <td><%=Row[2]%></td>
                     <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>

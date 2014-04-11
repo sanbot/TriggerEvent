@@ -71,7 +71,6 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 					<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>C&Oacute;DIGO</th>
 								<th>NOMBRE</th>
 								<th></th>
 							</tr>
@@ -79,7 +78,6 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 						<tbody>
 							<%for(String[] Row : ListaDepartamento){%>
 							<tr>
-								<td><%=Row[0]%></td>
 								<td><%=Row[1]%></td>
 								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
 							</tr>

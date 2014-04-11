@@ -113,7 +113,6 @@ int Cantidad = usu.getCantidadEventosPendientes();
 					<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>C&Oacute;DIGO</th>
                                                                 <th>IMAGEN</th>
 								<th>NOMBRE</th>
                                                                 <th>FECHA</th>
@@ -121,12 +120,12 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                                                 <th>CIUDAD</th>
                                                                 <th>ESTADO</th>
 								<th></th>
+                                                                <th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<%for(String[] Row : ListaEventos){%>
 							<tr>
-								<td><%=Row[0]%></td>
 								<td><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"/></td>
                                                                 <td><%=Row[1]%></td>
                                                                 <td><%=Row[2]%></td>
@@ -134,6 +133,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                                                 <td><%=Row[4]%></td>
                                                                 <td><%=Row[5]%></td>
                                                                 <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
+                                                                        <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
 							</tr>
 							<%}%>
 						</tbody>
