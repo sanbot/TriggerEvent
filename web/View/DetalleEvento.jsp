@@ -12,7 +12,7 @@ Author     : santi_000
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
-<%@include file="../WEB-INF/jspf/ValidacionAdministradorEmpresa.jspf" %>
+<%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
     Contr_Consultar usu = new Contr_Consultar();
     String Codigo = "";
@@ -188,7 +188,45 @@ Author     : santi_000
                         </div>
                 </div>
         </form>
-		
+                                
+                        <%if(Rol.equals("Cliente"))
+                        {%>
+                        <div class="row">
+
+                            <legend>CALIFICACIONES</legend>
+
+                            <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
+
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="Imagen">Comentario</label>
+                                        <textarea class="form-control parsley-validated" rows="4" placeholder="Puntúa. Dejar una crítica es opcional" data-notblank="true" data-rangelength="[10,100]" data-required="true"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default pull-right" id="ErrorComentario">Error</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                    <div class="form-group">
+                                        <div class="row lead">
+                                            <label for="Imagen">Puntuaci&oacute;n</label>
+                                            <div id="stars" class="starrr rating" data-rating="3"><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span></div>
+                                            <span id="count" name="Rating">Excelente</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <%}%>
 		<div class="container marketing">
 			<hr class="featurette-divider">
 		</div>
@@ -226,6 +264,7 @@ Author     : santi_000
             $('#datetimepicker1').datetimepicker();
         });
     </script>
+    <script type="text/javascript" src="../Libs/Customs/js/Rating.js" ></script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
 </body>

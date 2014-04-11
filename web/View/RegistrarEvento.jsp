@@ -152,7 +152,7 @@ Author     : santi_000
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                            <label for="Fecha">Fecha</label>
+                            <label for="Fecha">Fecha y hora</label>
                             <div class='input-group date' id='datetimepicker1' data-date-format="MM/DD/YYYY hh:ii">
                                 <input type='text' name="Fecha" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" data-rangelength="[18,19]" readonly/>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>

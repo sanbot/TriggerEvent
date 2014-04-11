@@ -381,6 +381,13 @@ public class Contr_Consultar {
         return Datos;
     }
     
+    public String[][] getBuscarDatosEventosProximos()
+    {
+        Evento eve = new Evento();
+        String [][]Datos = eve.BuscarDatosEventosProximos();
+        return Datos;
+    }
+    
     public String[] getBuscarDatosDetalladosEvento(String CodigoEvento)
     {
         Evento eve = new Evento();

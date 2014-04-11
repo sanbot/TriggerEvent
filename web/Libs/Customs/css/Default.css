@@ -15,6 +15,11 @@
     width: 280px;
     height: 60px;
 }
+.rating{
+    margin: 20px 0;
+    font-size: 24px;
+    color: #1F5DAA;
+}
 #imagen{
   margin-top: 50%;
   margin-left: 20%;

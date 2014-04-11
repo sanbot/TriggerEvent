@@ -4,8 +4,12 @@
     Author     : Sanser
     --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Usuarios" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar" %>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%
+Contr_Consultar usu = new Contr_Consultar();
+String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
+%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -114,8 +118,6 @@
 			</div>
 			<%}%>
 		</div>
-	</div>
-	<div class="container" style="width: 100%; margin-top: 2%;">
 		<div class="row clearfix">
 			<div class="col-md-4 column">
 				<div class="panel panel-primary">
@@ -124,19 +126,11 @@
 							LO M&Aacute;S DESTACADO
 						</h3>
 					</div>
-					<div class="panel-body">
-						Panel content
-					</div>
-					<div class="panel-footer">
-						Panel footer
-					</div>
 				</div>
-			</div>
-			<div class="col-md-4 column">
-				<div class="panel panel-primary">
+                            <div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							GUSTOS M&Aacute;S SELECCIONADOS
+							Evento tal
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -151,7 +145,14 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							AMBIENTES M&Aacute;S SELECCIONADOS
+                                                    LOS M&Aacute;S COMENTADOS
+						</h3>
+					</div>
+				</div>
+                                <div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Evento tal
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -161,6 +162,47 @@
 						Panel footer
 					</div>
 				</div>
+			</div>
+			<div class="col-md-4 column">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+                                                    PR&Oacute;XIMOS EVENTOS
+						</h3>
+					</div>
+				</div>
+                                <%
+                                    for(String[] Row :ListaEventos)
+                                    {%>
+                                        <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                                <%=Row[1]%>
+                                                        </h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="Creador">Creador: <%=Row[3]%></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="Ciudad">Ciudad: <%=Row[4]%></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-footer">
+                                                    <label for="Fecha"><%=Row[2]%></label>
+                                                </div>
+                                        </div>
+                                    <%}
+                                %>
 			</div>
 		</div>
 	</div>
