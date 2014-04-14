@@ -15,16 +15,17 @@ Author     : santi_000
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
     Contr_Consultar usu = new Contr_Consultar();
-    String Codigo = "";
+    String CodigoEvento = "";
+    String CodigoUsuario = (String) session.getAttribute("Codigo");
     if(request.getParameter("CodigoEvento")!=null)
     {
-        Codigo = request.getParameter("CodigoEvento");
+        CodigoEvento = request.getParameter("CodigoEvento");
     }
     else
     {
         response.sendRedirect("ConsultarEventos");
     }
-    String Datos[] = usu.getBuscarDatosDetalladosEvento(Codigo);
+    String Datos[] = usu.getBuscarDatosDetalladosEvento(CodigoEvento);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +87,7 @@ Author     : santi_000
                 <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <div class="form-group">
-                                <img src="ImagenEvento.jsp?Codigo=<%=Codigo%>" class="img-responsive imgevento"/>
+                                <img src="ImagenEvento.jsp?Codigo=<%=CodigoEvento%>" class="img-responsive imgevento"/>
                             </div>
                         </div>
 
@@ -181,7 +182,7 @@ Author     : santi_000
                         </div>
                         <div class="col-md-4">
                                 <div class="form-group">
-                                    <a href="DetalleClasificacionEvento.jsp?CodigoEvento=<%=Codigo%>" class="btn btn-block defecto">Ver clasificaci&oacute;n</a>
+                                    <a href="DetalleClasificacionEvento.jsp?CodigoEvento=<%=CodigoEvento%>" class="btn btn-block defecto">Ver clasificaci&oacute;n</a>
                                 </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -189,44 +190,128 @@ Author     : santi_000
                 </div>
         </form>
                                 
-                        <%if(Rol.equals("Cliente"))
-                        {%>
-                        <div class="row">
+                        <%if(Rol.equals("Cliente") || Rol.equals("Administrador"))
+                        { 
+                            if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario") && usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion"))
+                                {%>
+                                <div class="row">
 
-                            <legend>CALIFICACIONES</legend>
+                                    <legend>CALIFICACIONES</legend>
 
-                            <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
+                                    <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
 
-                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                                <div class="form-group">
 
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <label for="Imagen">Comentario</label>
-                                        <textarea class="form-control parsley-validated" rows="4" placeholder="Puntúa. Dejar una crítica es opcional" data-notblank="true" data-rangelength="[10,100]" data-required="true"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-default pull-right" id="ErrorComentario">Error</button>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
-                                    </div>
-                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="Comentario">Comentario</label>
+                                                    <textarea name="comentario" class="form-control" rows="4" placeholder="Puntúa. Dejar una crítica es opcional" data-notblank="true" data-rangelength="[10,100]"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
+                                                </div>
+                                            </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                                    <div class="form-group">
-                                        <div class="row lead">
-                                            <label for="Imagen">Puntuaci&oacute;n</label>
-                                            <div id="stars" class="starrr rating" data-rating="3"><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span><span class="glyphicon .glyphicon-star-empty glyphicon-star"></span></div>
-                                            <span id="count" name="Rating">Excelente</span>
+                                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                                <div class="form-group">
+                                                    
+                                                    <div class="row lead">
+                                                        <label for="Imagen">Puntuaci&oacute;n</label>
+                                                        <div id="stars" class="starrr rating" data-rating="3">
+                                                        </div>
+                                                        <span id="countname">Regular</span>
+                                                        <input type="hidden" name="Rating" id="count" value="3"/>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                        </div>
-                        <%}%>
+                            <%} else if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")){%>
+                                <div class="row">
+
+                                    <legend>CALIFICACIONES</legend>
+
+                                    <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                                <div class="form-group">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="Comentario">Comentario</label>
+                                                    <textarea name="comentario" class="form-control" rows="4" placeholder="Puntúa. Dejar una crítica es opcional" data-notblank="true" data-rangelength="[10,100]"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            <%}else if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion"))
+                            {%>
+                                <div class="row">
+
+                                    <legend>CALIFICACIONES</legend>
+
+                                    <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <div class="form-group">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <div class="form-group">
+                                                    
+                                                    <div class="row lead">
+                                                        <label for="Imagen">Puntuaci&oacute;n</label>
+                                                        <div id="stars" class="starrr rating" data-rating="3">
+                                                        </div>
+                                                        <span id="countname">Regular</span>
+                                                        <input type="hidden" name="Rating" id="count" value="3"/>
+                                                    </div>
+                                                    <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default" id="Comentario">Enviar crítica</button>
+                                                </div>
+                                                
+                                                    
+                                                
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            <%}
+                        }%>
 		<div class="container marketing">
 			<hr class="featurette-divider">
 		</div>

@@ -106,29 +106,36 @@ $(function() {
 $( document ).ready(function() {
 
   $('#stars').on('starrr:change', function(e, value){
-   if(value==1)
-   {
-     $('#count').html("Pésimo");
-   }
-   else if(value==2)
-   {
-     $('#count').html("Malo");
-   }
-   else if(value==3)
-   {
-     $('#count').html("Regular");
-   }
-   else if(value==4)
-   {
-     $('#count').html("Bueno");
-   }else if(value==5)
-   {
-     $('#count').html("Excelente");
-   }
-   else
-   {
-    $('#count').html("Debes seleccionar una opci&oacute;n");
-  }
+        
+        if(value==1)
+        {
+          $('#countname').html("Pésimo");
+          $('#count').val(value);
+        }
+        else if(value==2)
+        {
+          $('#countname').html("Malo");
+          $('#count').val(value);
+        }
+        else if(value==3)
+        {
+          $('#countname').html("Regular");
+          $('#count').val(value);
+        }
+        else if(value==4)
+        {
+          $('#countname').html("Bueno");
+          $('#count').val(value);
+        }else if(value==5)
+        {
+          $('#countname').html("Excelente");
+          $('#count').val(value);
+        }
+        else
+        {
+         $('#countname').html("Debe seleccionar una opci&oacute;n");
+         $('#count').val(0);
+       }
 });
   
   $('#stars-existing').on('starrr:change', function(e, value){

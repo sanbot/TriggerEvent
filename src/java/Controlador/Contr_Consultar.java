@@ -12,6 +12,7 @@ import Modelo.Ciudad;
 import Modelo.Seleccion;
 import Modelo.Evento;
 import java.sql.Blob;
+import Modelo.Cls_Satisfaccion;
 
 /**
  *
@@ -412,6 +413,14 @@ public class Contr_Consultar {
         boolean b;
         Seleccion sel = new Seleccion();
         b = sel.ComprobarRegistroCompletoUSuario(CodigoEvento);
+        return b;
+    }
+    
+    public boolean getComprobacionCalificacionYComentario(String CodigoEvento, String CodigoUsuario, String Tipo)
+    {
+        boolean b;
+        Cls_Satisfaccion sat = new Cls_Satisfaccion();
+        b = sat.ComprobarCalificacionRegistrada(CodigoEvento, CodigoUsuario, Tipo);
         return b;
     }
 }

@@ -28,6 +28,10 @@
         <servlet-name>Contr_ImgSeleccion</servlet-name>
         <servlet-class>Controlador.Contr_ImgSeleccion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Contr_Satisfaccion</servlet-name>
+        <servlet-class>Controlador.Contr_Satisfaccion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Contr_Usuarios</servlet-name>
         <url-pattern>/Contr_Usuarios</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>Contr_ImgSeleccion</servlet-name>
         <url-pattern>/Contr_ImgSeleccion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contr_Satisfaccion</servlet-name>
+        <url-pattern>/Contr_Satisfaccion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
