@@ -7,12 +7,20 @@
 package Controlador;
 
 import Modelo.Evento;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,7 +58,11 @@ public class Contr_Evento extends HttpServlet {
         {
             Evento eve = new Evento();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
-        /*FileItemFactory es una interfaz para crear FileItem*/
+            String urlsalidaimg;
+            urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
+            //urlsalidaimg = "C:\\Users\\Public\\Pictures\\Sample Pictures\\";
+            
+            /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
             
             /*ServletFileUpload esta clase convierte los input file a FileItem*/
@@ -150,12 +162,23 @@ public class Contr_Evento extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        eve.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
-//                        File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-//                        eve.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-                        /*y lo escribimos en el servido*/
+                        File archivo_server = new File(urlsalidaimg+item.getName());
+                        eve.setImagen(urlsalidaimg+item.getName());
                         item.write(archivo_server);
+                        if(sizeInBytes>1048576 )
+                        {
+                            InputStream inputstream = new FileInputStream(urlsalidaimg+item.getName());
+                            archivo_server.delete();
+                            OutputStream output = new FileOutputStream(urlsalidaimg+item.getName());
+                            BufferedImage src = ImageIO.read(inputstream);
+                            BufferedImage dest = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
+                            Graphics2D g = dest.createGraphics();
+                            AffineTransform at = AffineTransform.getScaleInstance((double)300 / src.getWidth(),
+                                    (double)300 / src.getHeight());
+                            g.drawRenderedImage(src, at);
+                            ImageIO.write(dest, "JPG", output);
+                            output.close();
+                        }
                     }
                     else
                     {

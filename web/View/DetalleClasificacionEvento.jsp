@@ -65,7 +65,7 @@ String[][] ListaClasificacion = usu.getClasificacionEvento(Codigo);
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
-                                    <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="ConsultaEvento.jsp">Eventos</a> <span class="glyphicon glyphicon-share-alt"></span> <a href="DetalleEvento.jso?CodigoEvento=<%=Codigo%>">Detalle Evento</a> <span class="glyphicon glyphicon-share-alt"></span> Clasificaci&oacute;n Evento
+                                    <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="ConsultaEvento.jsp">Eventos</a> <span class="glyphicon glyphicon-share-alt"></span> <a href="DetalleEvento.jsp?CodigoEvento=<%=Codigo%>">Detalle Evento</a> <span class="glyphicon glyphicon-share-alt"></span> Clasificaci&oacute;n Evento
 				</div>
 			</div>
 		</div>

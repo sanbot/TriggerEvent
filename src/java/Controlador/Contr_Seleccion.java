@@ -7,21 +7,25 @@
 package Controlador;
 
 import Modelo.Seleccion;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.servlet.*;
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -48,7 +52,11 @@ public class Contr_Seleccion extends HttpServlet {
         {
             Seleccion sel = new Seleccion();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
-        /*FileItemFactory es una interfaz para crear FileItem*/
+            String urlsalidaimg;
+            urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
+            //urlsalidaimg = "C:\\Users\\Public\\Pictures\\Sample Pictures\\";
+            
+            /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
             
             /*ServletFileUpload esta clase convierte los input file a FileItem*/
@@ -167,12 +175,25 @@ public class Contr_Seleccion extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        File archivo_server = new File("/media/santiago/Santiago/IMGTE/"+item.getName());
-                        sel.setImagen("/media/santiago/Santiago/IMGTE/"+item.getName());
-//                        File archivo_server = new File("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-//                        sel.setImagen("C:\\Users\\Public\\Pictures\\Sample Pictures\\"+item.getName());
-                        /*y lo escribimos en el servido*/
+                        
+                        File archivo_server = new File(urlsalidaimg+item.getName());
+                        sel.setImagen(urlsalidaimg+item.getName());
+                        
                         item.write(archivo_server);
+                        if(sizeInBytes>1048576 )
+                        {
+                            InputStream inputstream = new FileInputStream(urlsalidaimg+item.getName());
+                            archivo_server.delete();
+                            OutputStream output = new FileOutputStream(urlsalidaimg+item.getName());
+                            BufferedImage src = ImageIO.read(inputstream);
+                            BufferedImage dest = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
+                            Graphics2D g = dest.createGraphics();
+                            AffineTransform at = AffineTransform.getScaleInstance((double)300 / src.getWidth(),
+                                    (double)300 / src.getHeight());
+                            g.drawRenderedImage(src, at);
+                            ImageIO.write(dest, "JPG", output);
+                            output.close();
+                        }
                     }
                     else
                     {

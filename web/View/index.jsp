@@ -118,6 +118,9 @@ String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
 			</div>
 			<%}%>
 		</div>
+        </div>
+                <div class="container">
+                    <br/>
 		<div class="row clearfix">
 			<div class="col-md-4 column">
 				<div class="panel panel-primary">
