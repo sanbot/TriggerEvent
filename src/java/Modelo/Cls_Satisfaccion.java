@@ -89,8 +89,10 @@ public class Cls_Satisfaccion {
         codigo+=numerocodigo;
         
         //string para consulta, insert y update
-        String insert = "Insert into tb_satisfaccion (Codigo, Id_Evento, Id_Usuario, Calificacion, Comentario) Values(?,?,?,?,?)";
+        String insert = "Insert into tb_satisfaccion (Codigo, Id_Evento, Id_Usuario, Calificacion, Comentario, Fecha) Values(?,?,?,?,?,?)";
        
+        Date fecha = new Date();
+        java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
         try
         {
             
@@ -103,6 +105,7 @@ public class Cls_Satisfaccion {
             pr.setString(3, codigoUsuario);
             pr.setString(4, Rating);
             pr.setString(5, comentario);
+            pr.setTimestamp(6, sqlDate);
 
             //ejecutamos la sentencia y evaluamos el resultado
             if(pr.executeUpdate()==1)
@@ -238,9 +241,12 @@ public class Cls_Satisfaccion {
         
         //string para consulta, insert y update
         String select = "Select Codigo From tb_satisfaccion where Id_Usuario = ? AND Id_Evento = ?";
-        String insert = "Insert into tb_satisfaccion (Codigo, Id_Evento, Id_Usuario, Comentario) Values(?,?,?,?)";
-        String update = "UPDATE tb_satisfaccion SET Comentario = ? Where Codigo = ?";
+        String insert = "Insert into tb_satisfaccion (Codigo, Id_Evento, Id_Usuario, Comentario, Fecha) Values(?,?,?,?,?)";
+        String update = "UPDATE tb_satisfaccion SET Comentario = ?, Fecha = ? Where Codigo = ?";
        
+        Date fecha = new Date();
+        java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+        
         try
         {
             //preparamos la sentencia
@@ -260,7 +266,8 @@ public class Cls_Satisfaccion {
                 pr = conn.prepareStatement(update);
                 
                 pr.setString(1, comentario);
-                pr.setString(2, rs.getString("Codigo"));
+                pr.setTimestamp(2, sqlDate);
+                pr.setString(3, rs.getString("Codigo"));
                 
                 //ejecutamos la sentencia y evaluamos el resultado
                 if(pr.executeUpdate()==1)
@@ -285,6 +292,7 @@ public class Cls_Satisfaccion {
                 pr.setString(2, codigoEvento);
                 pr.setString(3, codigoUsuario);
                 pr.setString(4, comentario);
+                pr.setTimestamp(5, sqlDate);
                 
                 //ejecutamos la sentencia y evaluamos el resultado
                 if(pr.executeUpdate()==1)

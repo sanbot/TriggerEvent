@@ -166,7 +166,7 @@ String[][] Comentarios = usu.getBuscarComentariosAleatorios();
                                                     </div>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <label for="Calificacion">Calificaci&oacute;n: <%=Row[5]%></label>
+                                                    <label for="Calificacion">Calificaci&oacute;n: <%if(Row[5]==null){%>0<%}else{%><%=Row[5]%><%}%></label>
                                                 </div>
                                         </div>
                                     <%}
