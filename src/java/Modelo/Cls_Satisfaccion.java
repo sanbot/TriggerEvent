@@ -486,4 +486,82 @@ public class Cls_Satisfaccion {
         }
         return null;
     }
+    public String[][] BuscarComentariosEvento(String codigoEvento, int Limite){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT u.Nombre NombreUsuario, (Select Nombre From tb_evento Where Codigo = sa.Id_Evento) NombreEmpresa, sa.Comentario \n" +
+                    "FROM  `tb_satisfaccion` sa \n"+
+                    "JOIN tb_usuario u on u.Codigo = sa.Id_Usuario "+
+                    "Where sa.Comentario IS NOT NULL AND sa.Id_Evento = ? Order by sa.Fecha LIMIT 0,?";
+        
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigoEvento);
+            pr.setInt(2, Limite);
+            rs=pr.executeQuery();
+            
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            String [][] Datos = new String[rows][3];
+            rs.beforeFirst();
+            rows = 0;
+            while(rs.next()){
+                Datos[rows][0] = rs.getString("NombreUsuario");
+                Datos[rows][1] = rs.getString("NombreEmpresa");
+                Datos[rows][2] = rs.getString("Comentario");
+                rows++;
+                
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
+    public int getCantidadComentariosEvento(String codigoEvento, int Limite){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT Count(Codigo) From tb_satisfaccion " +
+                    "Where Comentario IS NOT NULL AND Id_Evento = ? Order by Fecha LIMIT 0,?";
+        
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigoEvento);
+            pr.setInt(2, Limite);
+            
+            rs=pr.executeQuery();
+            
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            return rows;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return 0;
+    }
 }

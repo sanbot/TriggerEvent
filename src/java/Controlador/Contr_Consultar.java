@@ -403,11 +403,25 @@ public class Contr_Consultar {
         return Datos;
     }
     
+    public String[][] getBuscarComentarios(String CodigoEvetno, int Limite)
+    {
+        Cls_Satisfaccion sat = new Cls_Satisfaccion();
+        String [][]Datos = sat.BuscarComentariosEvento(CodigoEvetno, Limite);
+        return Datos;
+    }
+    
     public String[][] getBuscarDatosEventosComentado()
     {
         Evento eve = new Evento();
         String [][]Datos = eve.BuscarDatosEventosComentado();
         return Datos;
+    }
+    
+    public  int getCantidadComentariosEventos(String CodigoEvento, int Limite)
+    {
+        Cls_Satisfaccion sat = new Cls_Satisfaccion();
+        int row = sat.getCantidadComentariosEvento(CodigoEvento, Limite);
+        return row;
     }
     
     public String[] getBuscarDatosDetalladosEvento(String CodigoEvento)
