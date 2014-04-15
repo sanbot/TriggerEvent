@@ -13,6 +13,10 @@
 .hide{
     display: none;
 }
+
+.lista{
+    list-style: none;
+}
 .imgevento{
     width: 280px;
     height: 150px;

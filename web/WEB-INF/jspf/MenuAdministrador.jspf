@@ -65,7 +65,7 @@
                                                             </a>
 							</li>
 							<li>
-                                                                <a>
+                                                                <a href="MapaSitio.jsp">
                                                                     <span class="glyphicon glyphicon-globe glyphiconuno"></span>
                                                                     <div class="negro">Mapa del Sitio</div>
                                                                 </a>
