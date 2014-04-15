@@ -146,7 +146,7 @@
     				<div class="panel-body">
     					<div class="row">
     						<div class="col-md-12">
-    							<img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+                                                    <center><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/></center>
     						</div>
     					</div>
     					<div class="row">
@@ -163,6 +163,11 @@
     						<div class="col-md-12">
     							<label for="Fecha">Fecha: <%=Row[2]%></label>
     						</div>
+    					</div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                    <label for="Hora">Hora: <%=Row[6]%></label>
+                                            </div>
     					</div>
     				</div>
     				<div class="panel-footer">
@@ -193,7 +198,7 @@
     				<div class="panel-body">
     					<div class="row">
     						<div class="col-md-12">
-    							<img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+    							<center><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/></center>
     						</div>
     					</div>
     					<div class="row">
@@ -210,6 +215,11 @@
     						<div class="col-md-12">
     							<label for="Fecha">Fecha: <%=Row[2]%></label>
     						</div>
+    					</div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                    <label for="Hora">Hora: <%=Row[6]%></label>
+                                            </div>
     					</div>
     				</div>
     				<div class="panel-footer">
@@ -240,7 +250,7 @@
     				<div class="panel-body">
     					<div class="row">
     						<div class="col-md-12">
-    							<img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+    							<center><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/></center>
     						</div>
     					</div>
     					<div class="row">
@@ -251,6 +261,11 @@
     					<div class="row">
     						<div class="col-md-12">
     							<label for="Ciudad">Ciudad: <%=Row[4]%></label>
+    						</div>
+    					</div>
+                                        <div class="row">
+    						<div class="col-md-12">
+    							<label for="Hora">Hora: <%=Row[5]%></label>
     						</div>
     					</div>
     				</div>

@@ -31,7 +31,6 @@ int Cantidad = usu.getCantidadEventosPendientes();
 	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />
 	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
 	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
-	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
 
 	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
 
@@ -93,43 +92,101 @@ int Cantidad = usu.getCantidadEventosPendientes();
 			</div>
 		</div>
                 <%}%>
-		<div class="row">
-			<div class="col-md-12">
-				
-				<br/>
-				<div class="table-responsive">
-					<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-						<thead>
-							<tr>
-                                                                <th>Imagen</th>
-								<th>Nombre</th>
-                                                                <th>Fecha</th>
-                                                                <th>Hora</th>
-                                                                <th>Creador</th>
-                                                                <th>Ciudad</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<%for(String[] Row : ListaEventos){%>
-							<tr>
-								<td><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"/></td>
-                                                                <td><%=Row[1]%></td>
-                                                                <td><%=Row[2]%></td>
-                                                                <td><%=Row[5]%></td>
-                                                                <td><%=Row[3]%></td>
-                                                                <td><%=Row[4]%></td>
-                                                                <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
-							</tr>
-							<%}%>
-						</tbody>
-					</table>
-				</div>			</div>
-				<div class="container marketing">
-					<hr class="featurette-divider">
-				</div>
-			</div>
-			
+                <div class="row" >
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                            Eventos
+                                    </h3>
+                            </div>
+    			</div>
+                        <%
+                            int i = 1;
+                            int x = 1;
+                            int field = 1;
+                            int pag = 1;
+                            for(String[] Row : ListaEventos){%>
+                                <%if(i ==1) { %>
+                                <%if(x==1){%><div id="<%=pag%>" class="row paginacion"><%}%>
+                                    <div class="col-md-12"><div class="row">
+                                <%}%>
+                                    <div class="col-md-4">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                            <%=Row[1]%>
+                                                            <a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a>
+                                                    </h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                    <div class="row">
+                                                            <div class="col-md-12">
+                                                                    <center><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/></center>
+                                                            </div>
+                                                    </div>
+                                                    <div class="row">
+                                                            <div class="col-md-12">
+                                                                    <label for="Creador">Creador: <%=Row[3]%></label>
+                                                            </div>
+                                                    </div>
+                                                    <div class="row">
+                                                            <div class="col-md-12">
+                                                                    <label for="Ciudad">Ciudad: <%=Row[4]%></label>
+                                                            </div>
+                                                    </div>
+                                                            <div class="row">
+                                                            <div class="col-md-12">
+                                                                    <label for="Hora">Hora: <%=Row[5]%></label>
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                    <label for="Fecha">Fecha: <%=Row[2]%></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%
+                                    
+                                    if(ListaEventos.length==field){
+                                        if(ListaEventos.length%3 > 0)
+                                        {
+                                            for(int j = 1 ; j<= (3-ListaEventos.length%3);j++)
+                                            {%>
+                                                <div class="col-md-4"></div>
+                                                
+                                            <%}
+                                            %></div></div></div><%
+                                        } 
+                                    }
+                                    field++;
+                                   if(i == 3) { 
+                                        i=0;
+                                        %></div></div><%
+                                        if(x==3){%></div><%
+                                            x=0;
+                                            pag++;
+                                        }
+                                        x++;
+                                        
+                                    }
+                                    i++;
+                                }
+                                
+                                %>
+                                
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="pagination">
+                                <%for(i = 1; i<=pag;i++){%>
+                                <li <%if(i==1){%>class="active"<%}%>><a class="pag"><%=i%></a></li>
+                                <%}%>
+                            </ul>            
+                        </div>
+                        
+                    </div>            
 			<!-- FOOTER -->
 			<footer>
 				<p>&copy; 2013 Trigger Event, Inc.</p>
@@ -151,13 +208,20 @@ int Cantidad = usu.getCantidadEventosPendientes();
     <script src="../Libs/Customs/js/Parsley.js"></script>    
     <script src="../Libs/Customs/js/classie.js"></script>
     <script src="../Libs/Customs/js/gnmenu.js"></script>
-    <script type="text/javascript" src="../Libs/Customs/DataTables/js/jquery.dataTables.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="../Libs/Customs/DataTables/js/datatables.js" charset="UTF-8"></script>
     <script>
     	new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
     <script>
     $(document).ready(function () {
+        $(".paginacion").addClass("hide");
+        $("#1").removeClass("hide");
+        $(".pag").click(function(){
+            $("li.active").removeClass("active");
+            $(this).parent().addClass("active");
+            $(".paginacion").addClass("hide");
+            var idpag = "#"+$(this).text();
+            $(idpag).removeClass("hide");
+        });
         $(".modal-Modifica").click(function(){
         var Id = $(this).data('id');
         var Name = $(this).data('nombre');
@@ -167,26 +231,6 @@ int Cantidad = usu.getCantidadEventosPendientes();
     });
     </script>
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-    <script type="text/javascript">
-    	$(document).ready(function() {
-    		$('#table1').dataTable({
-    			"sPaginationType": "bs_normal"
-                // "sPaginationType": "bs_four_button"
-                // "sPaginationType": "bs_full"
-                // "sPaginationType": "bs_two_button"
-            }); 
-    		$('#table1').each(function(){
-    			var datatable = $(this);
-                // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-                var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-                search_input.attr('placeholder', 'Buscar');
-                search_input.addClass('form-control input-sm');
-                // LENGTH - Inline-Form control
-                var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                length_sel.addClass('form-control input-sm');
-            });
-    	});
-    </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
 </body>

@@ -10,7 +10,9 @@
     width: 100px;
     height: 40px;
 }
-
+.hide{
+    display: none;
+}
 .imgevento{
     width: 280px;
     height: 150px;

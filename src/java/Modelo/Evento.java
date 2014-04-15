@@ -357,7 +357,7 @@ public class Evento {
             {
                 rows ++;
             }
-            String [][] Datos = new String[rows][5];
+            String [][] Datos = new String[rows][6];
             rs.beforeFirst();
             rows = 0;
             while(rs.next()){
@@ -369,9 +369,10 @@ public class Evento {
                 eve.setCiudad(rs.getString("NombreCiudad"));
                 Datos[rows][0] = eve.getCodigo();
                 Datos[rows][1] = eve.getNombre().toUpperCase();
-                Datos[rows][2] = rs.getString("Fecha");
+                Datos[rows][2] = rs.getDate("Fecha").toString();
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
+                Datos[rows][5] = rs.getTime("Fecha").toString();
                 
                 rows++;
                 
@@ -399,7 +400,7 @@ public class Evento {
                     "FROM  `tb_evento` e JOIN tb_usuario u on u.No_Documento = e.NIT \n" +
                     "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n" +
                     "Where e.Estado = 'Aprobado' AND Fecha >= ? \n" +
-                    "Order by Calificacion DESC";
+                    "Order by Calificacion DESC Limit 0,5 ";
         
         try{
             Date fecha = new Date();
@@ -413,7 +414,7 @@ public class Evento {
             {
                 rows ++;
             }
-            String [][] Datos = new String[rows][6];
+            String [][] Datos = new String[rows][7];
             rs.beforeFirst();
             rows = 0;
             while(rs.next()){
@@ -425,10 +426,11 @@ public class Evento {
                 eve.setCiudad(rs.getString("NombreCiudad"));
                 Datos[rows][0] = eve.getCodigo();
                 Datos[rows][1] = eve.getNombre().toUpperCase();
-                Datos[rows][2] = rs.getString("Fecha");
+                Datos[rows][2] = rs.getDate("Fecha").toString();
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = rs.getString("Calificacion");
+                Datos[rows][6] = rs.getTime("Fecha").toString();
                 
                 rows++;
                 
@@ -456,7 +458,7 @@ public class Evento {
                     "FROM  `tb_evento` e JOIN tb_usuario u on u.No_Documento = e.NIT \n" +
                     "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n" +
                     "Where e.Estado = 'Aprobado' AND Fecha >= ? \n" +
-                    "Order by Comentarios DESC";
+                    "Order by Comentarios DESC Limit 0,5 ";
         
         try{
             Date fecha = new Date();
@@ -470,7 +472,7 @@ public class Evento {
             {
                 rows ++;
             }
-            String [][] Datos = new String[rows][6];
+            String [][] Datos = new String[rows][7];
             rs.beforeFirst();
             rows = 0;
             while(rs.next()){
@@ -482,10 +484,11 @@ public class Evento {
                 eve.setCiudad(rs.getString("NombreCiudad"));
                 Datos[rows][0] = eve.getCodigo();
                 Datos[rows][1] = eve.getNombre().toUpperCase();
-                Datos[rows][2] = rs.getString("Fecha");
+                Datos[rows][2] = rs.getTime("Fecha").toString();
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = rs.getString("Comentarios");
+                Datos[rows][6] = rs.getTime("Fecha").toString();
                 
                 rows++;
                 
