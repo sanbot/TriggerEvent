@@ -9,6 +9,8 @@
 <%
 Contr_Consultar usu = new Contr_Consultar();
 String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
+String[][] ListaEventosDestacados = usu.getBuscarDatosEventosDestacados();
+String[][] ListaEventosComentados = usu.getBuscarDatosEventosComentado();
 %>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -130,19 +132,44 @@ String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
 						</h3>
 					</div>
 				</div>
-                            <div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							Evento tal
-						</h3>
-					</div>
-					<div class="panel-body">
-						Panel content
-					</div>
-					<div class="panel-footer">
-						Panel footer
-					</div>
-				</div>
+                                <%
+                                    for(String[] Row : ListaEventosDestacados)
+                                    {%>
+                                        <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                            <%=Row[1]%>
+                                                            <a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a>
+                                                    </h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="Creador">Creador: <%=Row[3]%></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="Ciudad">Ciudad: <%=Row[4]%></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="Fecha">Fecha: <%=Row[2]%></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-footer">
+                                                    <label for="Calificacion">Calificaci&oacute;n: <%=Row[5]%></label>
+                                                </div>
+                                        </div>
+                                    <%}
+                                %>
 			</div>
 			<div class="col-md-4 column">
 				<div class="panel panel-primary">
@@ -152,19 +179,44 @@ String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
 						</h3>
 					</div>
 				</div>
-                                <div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							Evento tal
-						</h3>
-					</div>
-					<div class="panel-body">
-						Panel content
-					</div>
-					<div class="panel-footer">
-						Panel footer
-					</div>
-				</div>
+                                <%
+                                    for(String[] Row : ListaEventosComentados)
+                                    {%>
+                                        <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                            <%=Row[1]%>
+                                                            <a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a>
+                                                    </h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="Creador">Creador: <%=Row[3]%></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="Ciudad">Ciudad: <%=Row[4]%></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label for="Fecha">Fecha: <%=Row[2]%></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-footer">
+                                                    <label for="Calificacion">Comentarios: <%=Row[5]%></label>
+                                                </div>
+                                        </div>
+                                    <%}
+                                %>
 			</div>
 			<div class="col-md-4 column">
 				<div class="panel panel-primary">
@@ -179,11 +231,17 @@ String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
                                     {%>
                                         <div class="panel panel-primary">
                                                 <div class="panel-heading">
-                                                        <h3 class="panel-title">
-                                                                <%=Row[1]%>
-                                                        </h3>
+                                                    <h3 class="panel-title">
+                                                            <%=Row[1]%>
+                                                            <a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a>
+                                                    </h3>
                                                 </div>
                                                 <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+                                                        </div>
+                                                    </div>
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <label for="Creador">Creador: <%=Row[3]%></label>
@@ -194,14 +252,9 @@ String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
                                                             <label for="Ciudad">Ciudad: <%=Row[4]%></label>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <label for="Fecha"><%=Row[2]%></label>
+                                                    <label for="Fecha">Fecha: <%=Row[2]%></label>
                                                 </div>
                                         </div>
                                     <%}

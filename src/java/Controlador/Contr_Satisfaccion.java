@@ -46,7 +46,7 @@ public class Contr_Satisfaccion extends HttpServlet {
             
             
             //evaluamos el contendio de rating
-            if(request.getParameter("RegistrarSatisfaccion")!= null && !request.getParameter("Rating").equals("0") && request.getParameter("comentario")!= null &&!request.getParameter("comentario").equals(""))
+            if((request.getParameter("Rating")!= null && !request.getParameter("Rating").equals("0"))&& (request.getParameter("comentario")!= null &&!request.getParameter("comentario").equals("")))
             {
                 //gudardamos el contenido de rating y comentario
                 Rating = request.getParameter("Rating");
@@ -90,7 +90,7 @@ public class Contr_Satisfaccion extends HttpServlet {
                 //retornamos a la vista
                 response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento="+CodigoEvento);
                 
-            }else if(request.getParameter("comentario")!= null &&!request.getParameter("comentario").equals(""))
+            }else if(request.getParameter("comentario")!= null && !request.getParameter("comentario").equals(""))
             {
                 
                 Comentario = request.getParameter("comentario");

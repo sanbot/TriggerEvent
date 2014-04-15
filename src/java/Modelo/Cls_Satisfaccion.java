@@ -370,13 +370,17 @@ public class Cls_Satisfaccion {
         ResultSet rs = null;
         
         //creamos el string para la consulta
-        String consulta = "Select Codigo From tb_satisfaccion";
-        String consultauno = "Select Count(Codigo) Cantidad From tb_satisfaccion Where "+tipo+ " IS NULL";
+        String consulta = "Select Codigo From tb_satisfaccion Where  Id_Evento = ? AND Id_Usuario = ?";
+        String consultauno = "Select Count(Codigo) Cantidad From tb_satisfaccion Where "+tipo+ " IS NULL AND Id_Evento = ? AND Id_Usuario = ?";
         
         try
         {
             //preparemos la consulta para la ejecucion
             pr = conn.prepareStatement(consulta);
+            
+            //se envian los parametros necesarios
+            pr.setString(1,codigoEvento);
+            pr.setString(2,codigoUsuario);
             
             //ejecutamos la consulta
             rs = pr.executeQuery();
@@ -387,6 +391,10 @@ public class Cls_Satisfaccion {
                //preparemos la consulta para la ejecucion
                 pr = conn.prepareStatement(consultauno);
 
+                //se envian los parametros necesarios
+                pr.setString(1,codigoEvento);
+                pr.setString(2,codigoUsuario);
+                
                 //ejecutamos la consulta
                 rs = pr.executeQuery();
 
