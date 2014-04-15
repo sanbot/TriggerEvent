@@ -396,6 +396,13 @@ public class Contr_Consultar {
         return Datos;
     }
     
+    public String[][] getBuscarComentariosAleatorios()
+    {
+        Cls_Satisfaccion sat = new Cls_Satisfaccion();
+        String [][]Datos = sat.BuscarComentariosAleatorios();
+        return Datos;
+    }
+    
     public String[][] getBuscarDatosEventosComentado()
     {
         Evento eve = new Evento();

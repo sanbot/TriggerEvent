@@ -6,14 +6,11 @@
 
 package Modelo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 
 /**
  *
@@ -432,5 +429,53 @@ public class Cls_Satisfaccion {
         }
         
         return false;
+    }
+    
+    public String[][] BuscarComentariosAleatorios(){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="SELECT u.Nombre NombreUsuario, (Select Nombre From tb_evento Where Codigo = sa.Id_Evento) NombreEmpresa, sa.Comentario \n" +
+                    "FROM  `tb_satisfaccion` sa \n"+
+                    "JOIN tb_usuario u on u.Codigo = sa.Id_Usuario "+
+                    "JOIN tb_evento e on e.Codigo = sa.Id_Evento "+
+                    "Where e.Fecha >= ? AND sa.Comentario IS NOT NULL Order by Rand() LIMIT 0,5";
+        
+        try{
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            pr=conn.prepareStatement(sql);
+            pr.setTimestamp(1, sqlDate);
+            rs=pr.executeQuery();
+            
+            int rows = 0;
+            while(rs.next())
+            {
+                rows ++;
+            }
+            String [][] Datos = new String[rows][3];
+            rs.beforeFirst();
+            rows = 0;
+            while(rs.next()){
+                Evento eve = new Evento();
+                Datos[rows][0] = rs.getString("NombreUsuario");
+                Datos[rows][1] = rs.getString("NombreEmpresa");
+                Datos[rows][2] = rs.getString("Comentario");
+                rows++;
+                
+            }
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
     }
 }

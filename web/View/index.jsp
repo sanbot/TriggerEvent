@@ -11,6 +11,7 @@ Contr_Consultar usu = new Contr_Consultar();
 String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
 String[][] ListaEventosDestacados = usu.getBuscarDatosEventosDestacados();
 String[][] ListaEventosComentados = usu.getBuscarDatosEventosComentado();
+String[][] Comentarios = usu.getBuscarComentariosAleatorios();
 %>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -62,7 +63,7 @@ String[][] ListaEventosComentados = usu.getBuscarDatosEventosComentado();
 					Ahora disponible en Google Play Store.
 				</label>
 			</div>
-			<div class="col-md-4">
+			<div class="col-xs-offset-2 col-sm-offset-3 col-md-offset-0 col-md-4">
 				<img id="imagen" class="img-responsive" src="../Libs/Customs/images/logoteblanco.png">
 			</div>
 			<div class="col-md-4">
@@ -284,50 +285,23 @@ String[][] ListaEventosComentados = usu.getBuscarDatosEventosComentado();
 					<!-- /widget-header -->
 					<div class="widget-content">
 						<ul class="messages_layout">
-							<li class="from_user left"> 
-								<a href="#" class="avatar">
-									<img src="../Libs/Customs/images/message_avatar1.png"/>
-								</a>
+                                                    <%for (String[] Row : Comentarios)
+                                                    {%>
+							<li class="from_user left">
 								<div class="message_wrap"> 
 									<span class="arrow"></span>
 									<div class="info"> 
-										<a class="name">John Smith</a>
+										<span class="name">Usuario: <%=Row[0]%>, Evento: <%=Row[1]%></span>
 									</div>
 									<div class="text"> 
-										As an interesting side note, as a head without a body, I envy the dead. There's one way and only one way to determine if an animal is intelligent. Dissect its brain! Man, I'm sore all over. I feel like I just went ten rounds with mighty Thor. 
+										<%=Row[2]%>
 									</div>
 								</div>
 							</li>
-							<li class="from_user left"> 
-								<a href="#" class="avatar">
-									<img src="../Libs/Customs/images/message_avatar1.png"/>
-								</a>
-								<div class="message_wrap">
-									<span class="arrow"></span>
-									<div class="info"> 
-										<a class="name">Celeste Holm </a>
-									</div>
-									<div class="text"> 
-										And I'd do it again! And perhaps a third time! But that would be it. Are you crazy? I can't swallow that. And I'm his friend Jesus. No, I'm Santa Claus! And from now on you're all named Bender Jr. 
-									</div>
-								</div>
-							</li>
-							<li class="from_user left"> 
-								<a href="#" class="avatar">
-									<img src="../Libs/Customs/images/message_avatar2.png"/></a>
-									<div class="message_wrap"> 
-										<span class="arrow"></span>
-										<div class="info"> 
-											<a class="name">Mark Jobs </a>
-										</div>
-										<div class="text"> 
-											That's the ONLY thing about being a slave. Now, now. Perfectly symmetrical violence never solved anything. Uh, is the puppy mechanical in any way? As an interesting side note, as a head without a body, I envy the dead. 
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<!-- /widget-content --> 
+                                                    <%}%>
+                                                </ul>
+                                            </div>
+                                            <!-- /widget-content --> 
 					</div>
 					<!-- /widget --> 
 				</div>
