@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,6 +31,7 @@ public class Contr_Contacto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String Nombre, Correo, Asunto,Categoria, Ciudad, Comentario, Contenido, script, url;
+        HttpSession session = request.getSession(true);
         Mensajeria msm = new Mensajeria();
         if(request.getParameter("Contactenos")!=null){
             Nombre=request.getParameter("Nombre"); 
@@ -38,31 +40,18 @@ public class Contr_Contacto extends HttpServlet {
             Categoria=request.getParameter("Categoria");
             Ciudad=request.getParameter("Ciudad");
             Comentario=request.getParameter("Comentario");
-            
-            Contenido = "El usuario: "+ Nombre+"\n Con correo: "+ Correo +"\n Con el asunto: \""+ Asunto +"\" clasificado en"
-                    + " la categoria: " +Categoria+"\n De la ciudad de: "+Ciudad+"\n Comentó: \""+Comentario+"\".";
-            boolean b = msm.contactenos(Contenido, Asunto);
+            Contenido = "Nuestro equipo técnico le notifica que el usuario "+Nombre+" de la ciudad de "+Ciudad+" con el correo "+Correo+" envió un(a): "+Categoria+ " con el siguiente asunto "+ Asunto+
+                        "<br/> El/La "+Categoria+" es la siguiente: \""+Comentario+"\".";
+            boolean b = msm.contactenos(Contenido, Asunto, "Administrador");
             if(b){
-                script = "$.pnotify({\n" +
-"				title: 'Trigger Event',\n" +
-"				text: 'Tu correo ha sido enviado satisfactoriamente al administrador, te responderemos lo más pronto posible.',\n" +
-"				type: 'success',\n" +
-"				nonblock: true,\n" +
-"				nonblock_opacity: .2,\n" +
-"				icon: 'picon picon-logo'\n" +
-"			});";
-                        url="View/index.jsp?men=" + script ;
-                        response.sendRedirect(url);
+                session.setAttribute("Mensaje", "Tu correo ha sido enviado satisfactoriamente al administrador, te responderemos lo más pronto posible.");
+                session.setAttribute("TipoMensaje", "Dio");
+                url="View/index.jsp" ;
+                response.sendRedirect(url);
             }else{
-                script = "$.pnotify({\n" +
-"				title: 'Trigger Event',\n" +
-"				text: 'Ocurrió un problema inesperado al tratar de enviar su mensaje, por favor inténtelo de nuevo.',\n" +
-"				type: 'error',\n" +
-"				nonblock: true,\n" +
-"				nonblock_opacity: .2,\n" +
-"				icon: 'picon picon-logo'\n" +
-"			});";
-                url="View/Contactenos.jsp?men=" + script ;
+                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de enviar su mensaje, por favor inténtelo de nuevo.");
+                session.setAttribute("TipoMensaje", "NODio");
+                url="View/index.jsp" ;
                 response.sendRedirect(url);
             }
         }else{

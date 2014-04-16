@@ -68,7 +68,7 @@ Author     : ADSI
                                 <li class="lista"><span class="gn-icon gn-icon-download glyphicondos"></span><strong>Inicio</strong></li>
                                 <ul>
                                         <li class="lista"><a href="index.jsp"><span class="gn-icon gn-icon-download glyphicondos"></span> Inicio</a></li>
-                                        <li class="lista"><a href="Contactenos.html"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
+                                        <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                                 </ul>
                                 <br/>
                                 <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
@@ -88,7 +88,7 @@ Author     : ADSI
                             <li class="lista"><span class="gn-icon gn-icon-download glyphicondos"></span><strong>Inicio</strong></li>
                             <ul>
                                     <li class="lista"><a href="index.jsp"><span class="gn-icon gn-icon-download glyphicondos"></span> Inicio</a></li>
-                                    <li class="lista"><a href="Contactenos.html"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
+                                    <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-user glyphiconuno"></span><strong>Mi perfil</strong></li>
@@ -150,7 +150,7 @@ Author     : ADSI
                             <li class="lista"><span class="gn-icon gn-icon-download glyphicondos"></span><strong>Inicio</strong></li>
                             <ul>
                                     <li class="lista"><a href="index.jsp"><span class="gn-icon gn-icon-download glyphicondos"></span> Inicio</a></li>
-                                    <li class="lista"><a href="Contactenos.html"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
+                                    <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-user glyphiconuno"></span><strong>Mi perfil</strong></li>
@@ -191,7 +191,7 @@ Author     : ADSI
                             <li class="lista"><span class="gn-icon gn-icon-download glyphicondos"></span><strong>Inicio</strong></li>
                             <ul>
                                     <li class="lista"><a href="index.jsp"><span class="gn-icon gn-icon-download glyphicondos"></span> Inicio</a></li>
-                                    <li class="lista"><a href="Contactenos.html"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
+                                    <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-user glyphiconuno"></span><strong>Mi perfil</strong></li>
@@ -254,26 +254,6 @@ Author     : ADSI
     </script>
     
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-    	$('#table1').dataTable({
-    		"sPaginationType": "bs_normal"
-                // "sPaginationType": "bs_four_button"
-                // "sPaginationType": "bs_full"
-                // "sPaginationType": "bs_two_button"
-            }); 
-    	$('#table1').each(function(){
-    		var datatable = $(this);
-                // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-                var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-                search_input.attr('placeholder', 'Buscar');
-                search_input.addClass('form-control input-sm');
-                // LENGTH - Inline-Form control
-                var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                length_sel.addClass('form-control input-sm');
-            });
-    });
-    </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
 </body>

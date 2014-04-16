@@ -430,16 +430,42 @@ public class Mensajeria {
         return false;
     }
     
-    public boolean contactenos(String contenido, String asunto){
+    public boolean contactenos(String contenido, String asunto, String Nombre){
       
+                String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
+                + "<tbody>"
+                + "<tr>"
+                + "<td colspan=\"2\" style=\"color: #1f5daa; font-size: 36px;\"><b>Trigger Event</b></td>"
+                + "</tr>"
+                + "<td>"
+                + "Hola "+Nombre+"."
+                + "</td>"
+                + "<td></td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td colspan=\"2\">"
+                + contenido
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td colspan=\"2\">"
+                + "Atentamente, "
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td colspan=\"2\">"
+                + "Equipo técnico Trigger Event. "
+                + "</td>"
+                + "</tr>"
+                + "</table>";
         try{
             Init();
             
             MimeMessage message = new MimeMessage(sess);  
             message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
             message.addRecipient(Message.RecipientType.TO, new InternetAddress((String) properties.get("mail.smtp.user")));  
-            message.setSubject(asunto);  
-            message.setContent(contenido,"text/html");  
+            message.setSubject(asunto +" -- Trigger Event" );  
+            message.setContent(msgBody,"text/html");  
             Transport t = sess.getTransport("smtp");  
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
             t.sendMessage(message, message.getAllRecipients());  
