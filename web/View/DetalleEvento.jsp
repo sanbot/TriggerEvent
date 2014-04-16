@@ -26,7 +26,7 @@ else
 response.sendRedirect("ConsultarEventos.jsp");
 }
 String Datos[] = usu.getBuscarDatosDetalladosEvento(CodigoEvento);
-int limiteinfe = 2;
+int limiteinfe = 5;
 
 try
 {
