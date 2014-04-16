@@ -417,6 +417,12 @@
     	});
 
     </script>
+    <script>
+        $("#guia").click(function(){
+            localStorage.removeItem("welcome");
+            location.reload();
+        });
+    </script>
     
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
