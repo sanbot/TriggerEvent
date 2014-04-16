@@ -11,7 +11,7 @@
 								<a href="index.jsp" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
 							</li>
 							<li>
-                                                            <a href="ConsultaCiudad.jsp">
+                                                            <a href="Nosotros.jsp">
                                                                     <span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>
                                                                     <div class="negro">Qui&eacute;nes Somos</div>
                                                             </a>
