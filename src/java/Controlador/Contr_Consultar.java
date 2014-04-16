@@ -417,10 +417,10 @@ public class Contr_Consultar {
         return Datos;
     }
     
-    public  int getCantidadComentariosEventos(String CodigoEvento, int Limite)
+    public  int getCantidadComentariosEventos(String CodigoEvento)
     {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        int row = sat.getCantidadComentariosEvento(CodigoEvento, Limite);
+        int row = sat.getCantidadComentariosEvento(CodigoEvento);
         return row;
     }
     

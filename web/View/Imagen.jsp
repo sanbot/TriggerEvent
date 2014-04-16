@@ -6,7 +6,8 @@
 
 <%@page import="java.io.OutputStream"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar" import="java.sql.Blob"%>
-<%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>%>
+<%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <!DOCTYPE html>
 <html>
     <head>

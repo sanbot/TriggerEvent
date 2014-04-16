@@ -57,6 +57,10 @@
 .Center{
   text-align: center;
 }
+/*Link ver mas*/
+.vermascomentarios{
+  text-decoration: none;
+}
 
 /*Panel de bootstrap*/
 .panel-default {

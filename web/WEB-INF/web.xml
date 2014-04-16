@@ -53,7 +53,7 @@
             500
         </error-code>
         <location>
-            /View/index.jspErrorServidor.jsp?Error=500
+            /View/ErrorServidor.jsp?Error=500
         </location>
     </error-page>
     <servlet-mapping>

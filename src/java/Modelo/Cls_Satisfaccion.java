@@ -531,24 +531,23 @@ public class Cls_Satisfaccion {
         return null;
     }
     
-    public int getCantidadComentariosEvento(String codigoEvento, int Limite){
+    public int getCantidadComentariosEvento(String codigoEvento){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
-        String sql="SELECT Count(Codigo) From tb_satisfaccion " +
-                    "Where Comentario IS NOT NULL AND Id_Evento = ? Order by Fecha LIMIT 0,?";
+        String sql="SELECT Count(Codigo) Cantidad From tb_satisfaccion " +
+                    "Where Comentario IS NOT NULL AND Id_Evento = ? Order by Fecha";
         
         try{
             pr=conn.prepareStatement(sql);
             pr.setString(1, codigoEvento);
-            pr.setInt(2, Limite);
             
             rs=pr.executeQuery();
             
             int rows = 0;
-            while(rs.next())
+            if(rs.next())
             {
-                rows ++;
+                rows = rs.getInt("Cantidad");
             }
             return rows;
         }catch(Exception ex){

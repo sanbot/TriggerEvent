@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%@include file="../WEB-INF/jspf/ValidacionAdministradorEmpresa.jspf" %>
 <%
     if(request.getParameter("CodigoSeleccion")!=null && request.getParameter("Accion")!=null && request.getParameter("CodigoEvento") != null)
     {

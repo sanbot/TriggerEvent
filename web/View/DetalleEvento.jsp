@@ -26,7 +26,7 @@ else
 response.sendRedirect("ConsultarEventos.jsp");
 }
 String Datos[] = usu.getBuscarDatosDetalladosEvento(CodigoEvento);
-int limiteinfe = 5;
+int limiteinfe = 2;
 
 try
 {
@@ -359,11 +359,15 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 						</li>
 						<%
                                                 i++;}%>
-                                                <%if(usu.getCantidadComentariosEventos(CodigoEvento, limiteinfe)>Comentarios.length){%>
+                                                <%if(usu.getCantidadComentariosEventos(CodigoEvento)>Comentarios.length){%>
                                                 <li class="from_user left">
 							<div class="message_wrap"> 
+                                                                <span class="arrow"></span>
+								<div class="info"> 
+                                                                    <span class="name">Hay m&aacute;s comentarios de este evento</span>
+								</div>
 								<div class="text"> 
-                                                                    <a href="DetalleEvento.jsp?CodigoEvento=<%=CodigoEvento%>&Limite=<%=limiteinfe+5%>#ComentarioFinal"><span class="name">Ver m&aacute;s comentarios</span></a>
+                                                                    <a href="DetalleEvento.jsp?CodigoEvento=<%=CodigoEvento%>&Limite=<%=limiteinfe+5%>#ComentarioFinal" class="vermascomentarios"><span class="name">Ver m&aacute;s comentarios</span></a>
 								</div>
 							</div>
 						</li>

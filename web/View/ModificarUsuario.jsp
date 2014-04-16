@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@include  file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%@include  file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
     //se instancia la clase controlador consulta de la capa logica
     Contr_Consultar usu = new Contr_Consultar();
@@ -36,7 +38,7 @@
                 session.setAttribute("Mensaje", usu.getMensaje());
             }
             //redireccionamos
-            response.sendRedirect("ConsultaUsuario.jsp");
+            response.sendRedirect("CUsuariosPendientes.jsp");
         }
         else
         {
