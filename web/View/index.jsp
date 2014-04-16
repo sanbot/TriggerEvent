@@ -24,16 +24,9 @@
     	<meta name="keywords" content="Eventos, musical, Trigger Event" />
     	<meta name="author" content="Sanser Soft" />
     	<link rel="shortcut icon" href="../favicon.ico">
-    	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap-theme.min.css" />
-    	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap.min.css" />
-    	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/Default.css" />
-    	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/normalize.css" />
-    	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/demo.css" />
-    	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />
+        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
     	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/style.css" />
     	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/guidely.css" />
-    	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
-    	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
     	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
@@ -354,7 +347,7 @@
     							<div class="form-group">
     								<div class="col-md-offset-4 col-md-4">
     									
-    									<button type="submit" name="recucontrasenia" class="btn btn-primary btn-block" >
+    									<button type="submit" name="recucontrasenia" class="btn defecto btn-block" >
     										Enviar Contrase&ntilde;a
     									</button>
     								</div>

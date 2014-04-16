@@ -22,14 +22,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 	<meta name="keywords" content="Eventos, musical, Trigger Event" />
 	<meta name="author" content="Sanser Soft" />
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap-theme.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/Default.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
+        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
 	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
 
 	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
@@ -58,7 +51,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 			<div class="col-md-4">
 			</div>
 			<div class="col-md-4">
-				<a id="modal-Registrar" href="#modal-container-Registrar" role="button" class="btn btn-block btn-primary" data-toggle="modal">Registrar</a>
+				<a id="modal-Registrar" href="#modal-container-Registrar" role="button" class="btn btn-block defecto" data-toggle="modal">Registrar</a>
 			</div>
 			<div class="col-md-4">
 			</div>
@@ -115,7 +108,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                <button name="RegistrarDepartamento" type="submit" class="btn btn-primary">Registrar</button> 
+                                                                                <button name="RegistrarDepartamento" type="submit" class="btn defecto">Registrar</button> 
 									</div>
 								</div>
 								
@@ -161,7 +154,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                <button name="ModificarDepartamento" type="submit" class="btn btn-primary">Modificar</button>
+                                                                                <button name="ModificarDepartamento" type="submit" class="btn defecto">Modificar</button>
 									</div>
 								</div>
 								

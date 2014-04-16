@@ -24,14 +24,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 	<meta name="keywords" content="Eventos, musical, Trigger Event" />
 	<meta name="author" content="Sanser Soft" />
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap-theme.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/Default.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
+        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
 
 	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
 
@@ -134,7 +127,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                     <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
                         <div class="form-group">
                             <center>
-                                <button type="submit" class="btn btn-primary btn-block" id="Contactenos" name="Contactenos">Enviar</button>
+                                <button type="submit" class="btn defecto btn-block" id="Contactenos" name="Contactenos">Enviar</button>
                             </center>
                         </div>
                     </div>

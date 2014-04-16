@@ -16,7 +16,7 @@ if(request.getParameter("CodigoEvento") != null)
 }
 else
 {
-    response.sendRedirect("ConsultarEventos");
+    response.sendRedirect("ConsultarEventos.jsp");
 }
 Contr_Consultar usu = new Contr_Consultar();
 String[][] ListaClasificacion = usu.getClasificacionEvento(Codigo);
@@ -32,14 +32,7 @@ String[][] ListaClasificacion = usu.getClasificacionEvento(Codigo);
 	<meta name="keywords" content="Eventos, musical, Trigger Event" />
 	<meta name="author" content="Sanser Soft" />
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap-theme.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/Default.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
+        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
 	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
 
 	<script src="../Libs/Customs/js/modernizr.custom.js"></script>

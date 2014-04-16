@@ -37,14 +37,7 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 	<meta name="keywords" content="Eventos, musical, Trigger Event" />
 	<meta name="author" content="Sanser Soft" />
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap-theme.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/Default.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
+        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
 	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
 
 	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
@@ -75,7 +68,7 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-4">
-                        <a href="CUsuariosPendientes.jsp"class="btn btn-block btn-primary">Consultar Empresas Pendientes <span class="badge pull-right"><%=Cantidad%></span></a>
+                        <a href="CUsuariosPendientes.jsp"class="btn btn-block defecto">Consultar Empresas Pendientes <span class="badge pull-right"><%=Cantidad%></span></a>
                     </div>
                     <div class="col-md-4">
                     </div>
@@ -85,7 +78,7 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
                 <div class="col-md-4">
                 </div>
                 <div class="col-md-4">
-                    <a href="RUsuario.jsp"class="btn btn-block btn-primary">Registrar usuario</a>
+                    <a href="RUsuario.jsp"class="btn btn-block defecto">Registrar usuario</a>
                 </div>
                 <div class="col-md-4">
                 </div>

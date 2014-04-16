@@ -1,3 +1,4 @@
+/*Comentarios CSS*/
 .widget {
 	
 	position: relative;
@@ -6,10 +7,10 @@
 	width: auto;
 	
 	margin-bottom: 2em;
-		
+	
 	overflow: hidden;
 }
-	
+
 .widget-header {
 	
 	position: relative;
@@ -26,35 +27,35 @@
 	
 	-webkit-background-clip: padding-box;
 }	
+
+.widget-header h3 {
 	
-	.widget-header h3 {
-		
-		position: relative;
-		bottom: 10px;
-		left: 30px;
-		
-		display: inline-block;
-		margin-right: 3em;
-		
-		font-size: 14px;
-		font-weight: 800;
-		color: #fff;
-		line-height: 18px;
-	}
+	position: relative;
+	bottom: 10px;
+	left: 30px;
 	
-		.widget-header [class^="icon-"], .widget-header [class*=" icon-"] {
-			
-			display: inline-block;
-			margin-left: 13px;
-			margin-right: -2px;
-			
-			font-size: 16px;
-			color: #555;
-			vertical-align: middle;
-			
-			
-			
-		}
+	display: inline-block;
+	margin-right: 3em;
+	
+	font-size: 14px;
+	font-weight: 800;
+	color: #fff;
+	line-height: 18px;
+}
+
+.widget-header [class^="icon-"], .widget-header [class*=" icon-"] {
+	
+	display: inline-block;
+	margin-left: 13px;
+	margin-right: -2px;
+	
+	font-size: 16px;
+	color: #555;
+	vertical-align: middle;
+	
+	
+	
+}
 
 
 
@@ -90,17 +91,17 @@
 /* Widget Content Clearfix */	
 .widget-content:before,
 .widget-content:after {
-    content:"";
-    display:table;
+	content:"";
+	display:table;
 }
 
 .widget-content:after {
-    clear:both;
+	clear:both;
 }
 
 /* For IE 6/7 (trigger hasLayout) */
 .widget-content {
-    zoom:1;
+	zoom:1;
 }
 
 /* Widget Table */

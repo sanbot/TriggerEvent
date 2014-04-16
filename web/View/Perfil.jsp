@@ -27,14 +27,7 @@ String Ciudad = (String) session.getAttribute("Ciudad");
 	<meta name="keywords" content="Eventos, musical, Trigger Event" />
 	<meta name="author" content="Sanser Soft" />
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap-theme.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/Default.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.core.css" />
-	<link rel="stylesheet" type="text/css" href="../Libs/Customs/css/alertify.default.css" />
+        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
 	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
 	<title>Trigger Event</title>
 	
@@ -153,7 +146,7 @@ String Ciudad = (String) session.getAttribute("Ciudad");
 					<div class="row">
 						<div class="col-md-offset-4 col-md-4">
                                                     <div class="form-group">
-							<a href="ModificarPerfil.jsp" class="btn btn-primary btn-block">Modificar Perfil</a>
+							<a href="ModificarPerfil.jsp" class="btn defecto btn-block">Modificar Perfil</a>
                                                     </div>
 						</div>
 					</div>
@@ -166,7 +159,7 @@ String Ciudad = (String) session.getAttribute("Ciudad");
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <a id="modal-Modificar" href="#modal-container-Modificar" role="button" class="btn btn-block btn-primary" data-toggle="modal">Cambiar contrase&ntilde;a</a>
+                                        <a id="modal-Modificar" href="#modal-container-Modificar" role="button" class="btn btn-block defecto" data-toggle="modal">Cambiar contrase&ntilde;a</a>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -224,7 +217,7 @@ String Ciudad = (String) session.getAttribute("Ciudad");
                                                                             
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                <button name="CambiarContrasenia" type="submit" class="btn btn-primary">Cambiar</button>
+                                                                                <button name="CambiarContrasenia" type="submit" class="btn defecto">Cambiar</button>
 									</div>
 								</div>
 								
