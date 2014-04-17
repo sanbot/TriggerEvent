@@ -408,6 +408,13 @@ public class Contr_Consultar {
         String []Datos = eve.BuscarDatosDetalladosEventos(CodigoEvento);
         return Datos;
     }
+    public int[] getCalificacionEvento(String CodigoEvento)
+    {
+        Evento eve = new Evento();
+        int []Datos = eve.getCalificacionEvento(CodigoEvento);
+        return Datos;
+    }
+    
     
     public String[][] getBuscarDatosMisEventos(String nit)
     {

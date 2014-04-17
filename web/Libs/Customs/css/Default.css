@@ -15,6 +15,15 @@
   width: 280px;
   height: 150px;
 }
+/*Color grafico*/
+.graficocolor{
+    width: 15px;
+    height: 15px;
+    display: inline-block;;
+}
+.espacio{
+    padding-right: 10px;
+}
 /*Esconder el div para paginacion*/
 .hide{
   display: none;
@@ -28,6 +37,12 @@
 .rating{
   margin: 20px 0;
   font-size: 24px;
+  color: #1F5DAA;
+}
+
+.ratinggrafico{
+  margin: 20px 0;
+  font-size: 16px;
   color: #1F5DAA;
 }
 #imagen{

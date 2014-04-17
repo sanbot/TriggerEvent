@@ -86,7 +86,7 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
                                                         <td><%=Row[4]%></td>
                                                         <td><center><a class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-creador="<%=Row[3]%>"><span class="glyphicon glyphicon-remove"></span></a></center></td>
                                                         <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
-                                                        <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
+                                                        <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>&Pendiente=true"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
                                                 </tr>
                                                 <%}%>
                                         </tbody>

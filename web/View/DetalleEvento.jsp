@@ -25,7 +25,19 @@ else
 	{
 response.sendRedirect("ConsultarEventos.jsp");
 }
+
+boolean pendiente = false;
+try{
+    if(request.getParameter("Pendiente")!=null)
+    {
+        pendiente = Boolean.parseBoolean((String)request.getParameter("Pendiente"));
+    }
+}catch(Exception ex){
+    response.sendRedirect("ConsultarEventos.jsp");    
+}
+
 String Datos[] = usu.getBuscarDatosDetalladosEvento(CodigoEvento);
+int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
 int limiteinfe = 5;
 
 try
@@ -170,22 +182,46 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 					</div>
 				</div>
 			</div>
+                        <%if(!pendiente){%>
 			<div class="row">
-				<div class=" col-xs-12 col-sm-12 col-md-2 col-lg-2">
-				</div>
-
-				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-
-					<div class="form-group">
+                                <div class=" col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
 						<label for="Descripcion">Descripci&oacute;n</label>
-						<textarea id="DescripcionEvento" name="Descripcion" class="form-control" data-rangelength="[8,150]" rows="4" readonly><%=Datos[9]%></textarea>
+						<textarea id="DescripcionEvento" name="Descripcion" class="form-control" data-rangelength="[8,150]" rows="10" readonly><%=Datos[9]%></textarea>
 					</div>
-
+                                    
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+				<div class=" col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 5</span><div class="graficocolor" style="background: #88B131;"></div>
+                                    <br>
+                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 4</span><div class="graficocolor" style="background: #9C0;"></div>
+                                    <br>
+                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 3</span><div class="graficocolor" style="background: #FFCF02;"></div>
+                                    <br>
+                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 2</span><div class="graficocolor" style="background: #FF9F02;"></div>
+                                    <br>
+                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 1</span><div class="graficocolor" style="background: #FF6F31;"></div>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                    <center><canvas id="myChart" width="280" height="280"></canvas></center>
 				</div>
 			</div>
+                        <%}else{%>
+                        <div class="row">
+                                <div class=" col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				</div>
+                            <div class=" col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="Descripcion">Descripci&oacute;n</label>
+                                    <textarea id="DescripcionEvento" name="Descripcion" class="form-control" data-rangelength="[8,150]" rows="4" readonly><%=Datos[9]%></textarea>
+                                </div>
+                            </div>
 
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				</div>
+			</div>
+                        <%}%>
 			<div class="row">
 				<div class="col-md-4">
 				</div>
@@ -198,8 +234,8 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 				</div>
 			</div>
 		</form>
-		
-		<%if(Rol.equals("Cliente") || Rol.equals("Administrador"))
+		<%if(!pendiente){%>
+		<%if((Rol.equals("Cliente") || Rol.equals("Administrador")) && !pendiente)
 		{ 
 		if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario") && usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion"))
 		{%>
@@ -381,6 +417,7 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 		</div>
 		<div class="col-md-2">
 		</div>
+                <%}%>
 	</div>
 	<div class="container marketing">
 		<hr class="featurette-divider">
@@ -420,6 +457,36 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
     	});
     </script>
     <script type="text/javascript" src="../Libs/Customs/js/Rating.js" ></script>
+    <script type="text/javascript" src="../Libs/Customs/js/graficos.js" ></script>
+    <script>
+        var data = [
+	{
+		value: <%=Calificacion[0]%>,
+		color:"#88B131"
+	},
+	{
+		value : <%=Calificacion[1]%>,
+		color : "#9C0"
+	},
+	{
+		value : <%=Calificacion[2]%>,
+		color : "#FFCF02"
+	},
+	{
+		value : <%=Calificacion[3]%>,
+		color : "#FF0F02"
+	},
+	{
+		value : <%=Calificacion[4]%>,
+		color : "#FF6F31"
+	}
+
+        ];
+        //Get context with jQuery - using jQuery's .get() method.
+        var ctx = $("#myChart").get(0).getContext("2d");
+        //This will get the first returned node in the jQuery collection.
+        var myNewChart = new Chart(ctx).Doughnut(data);
+    </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
 </body>

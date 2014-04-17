@@ -133,7 +133,7 @@
     				<div class="panel-heading">
     					<h3 class="panel-title">
     						<%=Row[1]%>
-    						<a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a>
+                                                <%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a><%}%>
     					</h3>
     				</div>
     				<div class="panel-body">
@@ -185,7 +185,7 @@
     				<div class="panel-heading">
     					<h3 class="panel-title">
     						<%=Row[1]%>
-    						<a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a>
+    						<%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a><%}%>
     					</h3>
     				</div>
     				<div class="panel-body">
@@ -237,7 +237,7 @@
     				<div class="panel-heading">
     					<h3 class="panel-title">
     						<%=Row[1]%>
-    						<a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a>
+    						<%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a><%}%>
     					</h3>
     				</div>
     				<div class="panel-body">

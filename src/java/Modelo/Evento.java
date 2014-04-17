@@ -567,6 +567,85 @@ public class Evento {
         return null;
     }
     
+    public int[] getCalificacionEvento(String codigoEvento){
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sqluno="SELECT Count(Calificacion) Cantidad \n" +
+                    "FROM  `tb_satisfaccion` e \n"+
+                    "Where Calificacion = '5' AND Id_Evento = ?";
+        String sqldos="SELECT Count(Calificacion) Cantidad \n" +
+                    "FROM  `tb_satisfaccion` e \n"+
+                    "Where Calificacion = '4' AND Id_Evento = ?";
+        String sqltres="SELECT Count(Calificacion) Cantidad \n" +
+                    "FROM  `tb_satisfaccion` e \n"+
+                    "Where Calificacion = '3' AND Id_Evento = ?";
+        String sqlcua="SELECT Count(Calificacion) Cantidad \n" +
+                    "FROM  `tb_satisfaccion` e \n"+
+                    "Where Calificacion = '2' AND Id_Evento = ?";
+        String sqlcin="SELECT Count(Calificacion) Cantidad \n" +
+                    "FROM  `tb_satisfaccion` e \n"+
+                    "Where Calificacion = '1' AND Id_Evento = ?";
+        int uno = 0, dos =0, tres= 0, cua = 0, cin=0 ;
+        
+        int []Datos = new int[5];
+        try{
+            pr=conn.prepareStatement(sqluno);
+            pr.setString(1,codigoEvento);
+            
+            rs=pr.executeQuery();
+            if(rs.next()){
+                uno = rs.getInt("Cantidad");
+            }
+            pr=conn.prepareStatement(sqldos);
+            pr.setString(1,codigoEvento);
+            
+            rs=pr.executeQuery();
+            if(rs.next()){
+                dos = rs.getInt("Cantidad");
+            }
+            pr=conn.prepareStatement(sqltres);
+            pr.setString(1,codigoEvento);
+            
+            rs=pr.executeQuery();
+            if(rs.next()){
+                tres = rs.getInt("Cantidad");
+            }
+            pr=conn.prepareStatement(sqlcua);
+            pr.setString(1,codigoEvento);
+            
+            rs=pr.executeQuery();
+            if(rs.next()){
+                cua = rs.getInt("Cantidad");
+            }
+            pr=conn.prepareStatement(sqlcin);
+            pr.setString(1,codigoEvento);
+            
+            rs=pr.executeQuery();
+            if(rs.next()){
+                cin = rs.getInt("Cantidad");
+            }
+            Datos[0] = uno;
+            Datos[1] = dos;
+            Datos[2] = tres;
+            Datos[3] = cua;
+            Datos[4] = cin;
+            
+            return Datos;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                rs.close();
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        return null;
+    }
+    
     public String[] BuscarEventoParaMensaje(String codigoEvento){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
