@@ -120,7 +120,56 @@ public class Mensajeria {
             MimeMessage message = new MimeMessage(sess);  
             message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(Datos[4]));  
-            message.setSubject("Información de evento - Trigger Event");  
+            message.setSubject("Información del evento - Trigger Event");  
+            message.setContent(msgBody,"text/html");  
+            Transport t = sess.getTransport("smtp");  
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
+            t.sendMessage(message, message.getAllRecipients());  
+            t.close(); 
+            return true;
+        }catch (MessagingException me){
+            System.out.print(me.toString());
+        }  
+        return  false;
+    }
+    
+    public boolean EnviarMensajeCambioEstadoEvento(String[]Datos,String Estado, String Motivo){
+        
+        String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
+                + "<tbody>"
+                + "<tr>"
+                + "<td colspan=\"2\" style=\"color: #1f5daa; font-size: 36px;\"><b>Trigger Event</b></td>"
+                + "</tr>"
+                + "<td>"
+                + "Hola "+Datos[0]+"."
+                + "</td>"
+                + "<td></td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td colspan=\"2\">"
+                + "Nuestro equipo t&eacute;cnico le notifica que su evento " +Datos[1] + " el cual fue planeado para la fecha "+Datos[3]+" en la direcci&oacute;n "+Datos[2]+" ha sido " + Estado
+                + "<br/> Mitivo: " + Motivo
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td colspan=\"2\">"
+                + "Atentamente, "
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td colspan=\"2\">"
+                + "Equipo técnico Trigger Event. "
+                + "</td>"
+                + "</tr>"
+                + "</table>";
+
+        try{
+            Init();
+            
+            MimeMessage message = new MimeMessage(sess);  
+            message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(Datos[4]));  
+            message.setSubject("Información del evento - Trigger Event");  
             message.setContent(msgBody,"text/html");  
             Transport t = sess.getTransport("smtp");  
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  

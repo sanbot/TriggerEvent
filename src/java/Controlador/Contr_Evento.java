@@ -7,6 +7,7 @@
 package Controlador;
 
 import Modelo.Evento;
+import Modelo.Mensajeria;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -86,6 +87,10 @@ public class Contr_Evento extends HttpServlet {
                     {
                         eve.setNombre(item.getString());
                     }
+                    else if(name.equals("Codigo"))
+                    {
+                        eve.setCodigo(item.getString());
+                    }
                     else if(name.equals("Rango"))
                     {
                         eve.setRango(item.getString());
@@ -105,6 +110,10 @@ public class Contr_Evento extends HttpServlet {
                     else if(name.equals("Direccion"))
                     {
                         eve.setDireccion(item.getString());
+                    }
+                    else if(name.equals("Motivo"))
+                    {
+                        eve.setMotivo(item.getString());
                     }
                     else if(name.equals("RegistrarEvento"))
                     {
@@ -150,6 +159,30 @@ public class Contr_Evento extends HttpServlet {
                             response.sendRedirect("View/RegistrarEvento.jsp");
                         }
                         
+                    }
+                    else if (name.equals("DesactivarEvento"))
+                    {
+                        if(eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo()))
+                        {
+                            Mensajeria sms = new Mensajeria();
+                            String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
+                            if(sms.EnviarMensajeCambioEstadoEvento(Datos,"Desaprobado", eve.getMotivo()))
+                            {
+                                session.setAttribute("Mensaje","Se desaprobó el evento satisfactoriamente.");
+                                session.setAttribute("TipoMensaje", "Dio");
+                            }
+                            else
+                            {
+                                session.setAttribute("Mensaje","Se desaprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
+                                session.setAttribute("TipoMensaje", "NODio");
+                            }
+                        }
+                        else
+                        {
+                            session.setAttribute("Mensaje","Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
+                            session.setAttribute("TipoMensaje", "NODio");
+                        }
+                        response.sendRedirect("View/CEventoPendiente.jsp");
                     }
                    
                 } else {

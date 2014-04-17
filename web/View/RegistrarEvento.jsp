@@ -100,7 +100,7 @@ Author     : santi_000
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                 <div class="form-group">
                                         <label for="Rango">Rango</label>
-                                        <input name="Rango" type="text" class="form-control" id="RangoEvento" placeholder="10000-2000000" data-required="true" data-notblank="true" data-rangelength="[13,13]" />
+                                        <input name="Rango" type="text" class="form-control" id="RangoEvento" placeholder="10000-2000000" data-required="true" data-notblank="true" data-rangelength="[12,13]" />
                                 </div>
                         </div>
                 </div>

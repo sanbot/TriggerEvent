@@ -84,7 +84,7 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
                                                         <td><%=Row[5]%></td>
                                                         <td><%=Row[3]%></td>
                                                         <td><%=Row[4]%></td>
-                                                        <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                                        <td><center><a class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-creador="<%=Row[3]%>"><span class="glyphicon glyphicon-remove"></span></a></center></td>
                                                         <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
                                                         <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
                                                 </tr>
@@ -93,6 +93,51 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
                                 </table>
                         </div>
 		</div>
+                <div class="row">
+                    <form data-validate="parsley" enctype="multipart/form-data" method="post" action="/TriggerEvent/Contr_Evento">
+                            <div class="col-md-12">
+                                    <div class="modal fade" id="modal-container-Desactivar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                    <h4 class="modal-title" id="myModalLabel">
+                                                                        <center>Desactivar el evento: <span id="NombreEvento"></span></center>
+                                                                    </h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    <div class="row">
+                                                                            <div class="col-md-2"></div>
+                                                                            <div class="col-md-8">
+                                                                                    <div class="form-group">
+                                                                                            <input id="CodigoEvento" name="Codigo" type="hidden" readonly>
+                                                                                    </div>
+                                                                            </div>
+                                                                            <div class="col-md-2"></div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                            <div class="col-md-2"></div>
+                                                                            <div class="col-md-8">
+                                                                                    <div class="form-group">
+                                                                                            <label for="Motivo">Motivo</label>
+                                                                                            <textarea id="Motivo" name="Motivo" class="form-control" data-rangelength="[6,150]" rows="5" data-required="true"></textarea>
+                                                                                    </div>
+                                                                            </div>
+                                                                            <div class="col-md-2"></div>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                    <button name="DesactivarEvento" type="submit" class="btn defecto">Desactivar</button> 
+                                                            </div>
+                                                    </div>
+
+                                            </div>
+
+                                    </div>
+                            </div>
+                    </form>
+                </div>
 		<div class="container marketing">
 			<hr class="featurette-divider">
 		</div>
@@ -127,6 +172,12 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+        $(".modal-desactivarevento").click(function(){
+            var Id = $(this).data('id');
+            var Name = $(this).data('nombre');
+            $(".modal-body #CodigoEvento").val( Id );
+            $(".modal-title #NombreEvento").text( Name );
+        });
     	$('#table1').dataTable({
     		"sPaginationType": "bs_normal"
                 // "sPaginationType": "bs_four_button"

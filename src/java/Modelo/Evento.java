@@ -37,6 +37,15 @@ public class Evento {
     String Direccion;
     String Ciudad;
     String Estado;
+    String Motivo;
+
+    public String getMotivo() {
+        return Motivo;
+    }
+
+    public void setMotivo(String Motivo) {
+        this.Motivo = Motivo;
+    }
 
     public String getEstado() {
         return Estado;
@@ -780,6 +789,33 @@ public class Evento {
             pr=conn.prepareStatement(sql);
             pr.setString(1, estado);
             pr.setString(2, codigoEvento);
+            if(pr.executeUpdate()==1){
+                return true;
+            }
+        }catch(Exception ex){
+            ex.getMessage().toString();
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        return false;
+    }
+    
+    public boolean setDesaprobarEvento(String codigoEvento, String motivo) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        String sql="UPDATE tb_evento SET Motivo = ?, Estado = ? ";
+                sql += "WHERE Codigo = ? ";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, motivo);
+            pr.setString(2, "Desaprobado");
+            pr.setString(3, codigoEvento);
             if(pr.executeUpdate()==1){
                 return true;
             }

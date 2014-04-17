@@ -221,7 +221,8 @@ int Cantidad = usu.getCantidadEventosPendientes();
             if($("li.active").prev().find("a").text()===$("#previo").text())
             {
                 $("#previo").parent("li").addClass("disabled");
-            }else if($("li.active").next().find("a").text()===$("#siguiente").text()){
+            }
+            if($("li.active").next().find("a").text()===$("#siguiente").text()){
                 $("#siguiente").parent("li").addClass("disabled");
             }
         });
@@ -236,7 +237,8 @@ int Cantidad = usu.getCantidadEventosPendientes();
             if($("li.active").prev().find("a").text()===$("#previo").text())
             {
                 $("#previo").parent("li").addClass("disabled");
-            }else if($("li.active").next().find("a").text()===$("#siguiente").text()){
+            }
+            if($("li.active").next().find("a").text()===$("#siguiente").text()){
                 $("#siguiente").parent("li").addClass("disabled");
             }
         });
@@ -251,7 +253,8 @@ int Cantidad = usu.getCantidadEventosPendientes();
             if($("li.active").prev().find("a").text()===$("#previo").text())
             {
                 $("#previo").parent("li").addClass("disabled");
-            }else if($("li.active").next().find("a").text()===$("#siguiente").text()){
+            }
+            if($("li.active").next().find("a").text()===$("#siguiente").text()){
                 $("#siguiente").parent("li").addClass("disabled");
             }
         });

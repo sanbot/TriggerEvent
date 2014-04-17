@@ -245,52 +245,30 @@ public class Contr_Consultar {
         return b;
     }
     
-    public boolean AprobarDesaprobarEvento(String CodigoEvento, String Aprobar)
+    public boolean AprobarDesaprobarEvento(String CodigoEvento)
     {
         Evento eve = new Evento();
         Mensajeria sms = new Mensajeria();
         boolean b ;
-        String [] Datos = eve.BuscarEventoParaMensaje(CodigoEvento);
-        if(Aprobar.equals("true"))
+        
+        b = eve.setCambioEstadoEvento(CodigoEvento, "Aprobado");
+        if(b)
         {
-            b = eve.setCambioEstadoEvento(CodigoEvento, "Aprobado");
-            if(b)
-            {
-               
-               if(sms.EnviarMensajeCambioEstadoEvento(Datos,"Aprobado"))
-               {
-                   this.setMensaje("Se aprobó el evento satisfactoriamente.");
-               }
-               else
-               {
-                   this.setMensaje("Se aprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
-               }
-            }
-            else
-            {
-                this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
-            }
+           String [] Datos = eve.BuscarEventoParaMensaje(CodigoEvento);
+           if(sms.EnviarMensajeCambioEstadoEvento(Datos,"Aprobado"))
+           {
+               this.setMensaje("Se aprobó el evento satisfactoriamente.");
+           }
+           else
+           {
+               this.setMensaje("Se aprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
+           }
         }
         else
         {
-            b = eve.setCambioEstadoEvento(CodigoEvento, "Desaprobado");
-            if(b)
-            {
-               
-               if(sms.EnviarMensajeCambioEstadoEvento(Datos,"Desaprobado"))
-               {
-                   this.setMensaje("No se aprobó el evento satisfactoriamente.");
-               }
-               else
-               {
-                   this.setMensaje("No aprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
-               }
-            }
-            else
-            {
-                this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
-            }
+            this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
         }
+        
         return b;
     }
     

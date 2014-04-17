@@ -13,13 +13,13 @@
         Contr_Consultar sel = new Contr_Consultar();
         String CodigoEvento = request.getParameter("CodigoEvento");
         String Aprobar = request.getParameter("Aprobar");
-        if(!Aprobar.equals("true") && ! Aprobar.equals("false"))
+        if(!Aprobar.equals("true"))
         {
             response.sendRedirect("CEventoPendiente.jsp");
         }
         else
         {
-            boolean b = sel.AprobarDesaprobarEvento(CodigoEvento, Aprobar);
+            boolean b = sel.AprobarDesaprobarEvento(CodigoEvento);
             if(b)
             {
                 session.setAttribute("TipoMensaje", "Dio");
