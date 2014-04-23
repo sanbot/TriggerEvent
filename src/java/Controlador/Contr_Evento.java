@@ -60,8 +60,8 @@ public class Contr_Evento extends HttpServlet {
             Evento eve = new Evento();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
-            urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
-            //urlsalidaimg = "C:\\Users\\Public\\Pictures\\Sample Pictures\\";
+            //urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
+            urlsalidaimg = "D:\\IMGTE\\";
             
             /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
@@ -195,22 +195,18 @@ public class Contr_Evento extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        File archivo_server = new File(urlsalidaimg+item.getName());
-                        eve.setImagen(urlsalidaimg+item.getName());
-                        item.write(archivo_server);
-                        if(sizeInBytes>1048576 )
+                        
+                        if(sizeInBytes>3145728 )
                         {
-                            InputStream inputstream = new FileInputStream(urlsalidaimg+item.getName());
-                            archivo_server.delete();
-                            OutputStream output = new FileOutputStream(urlsalidaimg+item.getName());
-                            BufferedImage src = ImageIO.read(inputstream);
-                            BufferedImage dest = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
-                            Graphics2D g = dest.createGraphics();
-                            AffineTransform at = AffineTransform.getScaleInstance((double)300 / src.getWidth(),
-                                    (double)300 / src.getHeight());
-                            g.drawRenderedImage(src, at);
-                            ImageIO.write(dest, "JPG", output);
-                            output.close();
+                            session.setAttribute("Mensaje", "El límite del tamaño para la imagen es: 3 MB");
+                            session.setAttribute("TipoMensaje", "NODio");
+                            response.sendRedirect("View/ConsultaSeleccion.jsp");
+                        }
+                        else
+                        {
+                            File archivo_server = new File(urlsalidaimg+item.getName());
+                            eve.setImagen(urlsalidaimg+item.getName());
+                            item.write(archivo_server);
                         }
                     }
                     else

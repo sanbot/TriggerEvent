@@ -192,15 +192,15 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
                                     
 				</div>
 				<div class=" col-xs-12 col-sm-12 col-md-2 col-lg-2">
-                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 5</span><div class="graficocolor" style="background: #88B131;"></div>
+                                    <span class="glyphicon glyphicon-star espacio" style="color: #88B131;"></span><span class="ratinggrafico">5  Votos: <%=Calificacion[0]%></span>
                                     <br>
-                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 4</span><div class="graficocolor" style="background: #9C0;"></div>
+                                    <span class="glyphicon glyphicon-star espacio" style="color: #9C0;"></span><span class="ratinggrafico">4  Votos: <%=Calificacion[1]%></span>
                                     <br>
-                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 3</span><div class="graficocolor" style="background: #FFCF02;"></div>
+                                    <span class="glyphicon glyphicon-star espacio" style="color: #FFCF02;"></span><span class="ratinggrafico">3  Votos: <%=Calificacion[2]%></span>
                                     <br>
-                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 2</span><div class="graficocolor" style="background: #FF9F02;"></div>
+                                    <span class="glyphicon glyphicon-star espacio" style="color: #FF9F02;"></span><span class="ratinggrafico">2  Votos: <%=Calificacion[3]%></span>
                                     <br>
-                                    <span class="glyphicon glyphicon-star ratinggrafico espacio"> 1</span><div class="graficocolor" style="background: #FF6F31;"></div>
+                                    <span class="glyphicon glyphicon-star espacio" style="color: #FF6F31;"></span><span class="ratinggrafico">1  Votos: <%=Calificacion[4]%></span>
 				</div>
 
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">

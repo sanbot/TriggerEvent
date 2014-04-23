@@ -295,7 +295,7 @@ public class Evento {
                     "JOIN tb_usuario u on u.No_Documento = e.NIT \n"+
                     "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"+
                     "Where e.Estado = 'Aprobado' AND "
-                  + "Fecha >= ?";
+                  + "Fecha >= ? ORDER BY Fecha";
         
         try{
             Date fecha = new Date();

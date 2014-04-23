@@ -273,7 +273,6 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
     new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
     
-    <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script>
         (function($) {
 

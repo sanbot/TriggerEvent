@@ -23,6 +23,8 @@
 }
 .espacio{
     padding-right: 10px;
+    font-size: 20px;
+    padding-top: 20px;
 }
 /*Esconder el div para paginacion*/
 .hide{
@@ -43,7 +45,8 @@
 .ratinggrafico{
   margin: 20px 0;
   font-size: 16px;
-  color: #1F5DAA;
+  color: black;
+  padding-left: 10px;
 }
 #imagen{
   margin-top: 50%;

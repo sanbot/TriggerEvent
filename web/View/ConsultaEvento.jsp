@@ -227,35 +227,42 @@ int Cantidad = usu.getCantidadEventosPendientes();
             }
         });
         $("#previo").click(function(){
-            var activo = $("li.active").prev();
-            var textoactivo =$("li.active").prev().find("a").text();
-            $("li.active").removeClass("active");
-            $(".paginacion").addClass("hide");
-            activo.addClass("active");
-            $(".disabled").removeClass("disabled");
-            $("#"+textoactivo).removeClass("hide");
-            if($("li.active").prev().find("a").text()===$("#previo").text())
+            if($("li.disabled").find("a").text()!== $("#previo").text())
             {
-                $("#previo").parent("li").addClass("disabled");
+                var activo = $("li.active").prev();
+                var textoactivo =$("li.active").prev().find("a").text();
+                $("li.active").removeClass("active");
+                $(".paginacion").addClass("hide");
+                activo.addClass("active");
+                $(".disabled").removeClass("disabled");
+                $("#"+textoactivo).removeClass("hide");
+                if($("li.active").prev().find("a").text()===$("#previo").text())
+                {
+                    $("#previo").parent("li").addClass("disabled");
+                }
+                if($("li.active").next().find("a").text()===$("#siguiente").text()){
+                    $("#siguiente").parent("li").addClass("disabled");
+                }
             }
-            if($("li.active").next().find("a").text()===$("#siguiente").text()){
-                $("#siguiente").parent("li").addClass("disabled");
-            }
+            
         });
         $("#siguiente").click(function(){
-            var activo = $("li.active").next();
-            var textoactivo =$("li.active").next().find("a").text();
-            $("li.active").removeClass("active");
-            $(".paginacion").addClass("hide");
-            activo.addClass("active");
-            $("#"+textoactivo).removeClass("hide");
-            $(".disabled").removeClass("disabled");
-            if($("li.active").prev().find("a").text()===$("#previo").text())
+            if($("li.disabled").find("a").text()!== $("#siguiente").text())
             {
-                $("#previo").parent("li").addClass("disabled");
-            }
-            if($("li.active").next().find("a").text()===$("#siguiente").text()){
-                $("#siguiente").parent("li").addClass("disabled");
+                var activo = $("li.active").next();
+                var textoactivo =$("li.active").next().find("a").text();
+                $("li.active").removeClass("active");
+                $(".paginacion").addClass("hide");
+                activo.addClass("active");
+                $("#"+textoactivo).removeClass("hide");
+                $(".disabled").removeClass("disabled");
+                if($("li.active").prev().find("a").text()===$("#previo").text())
+                {
+                    $("#previo").parent("li").addClass("disabled");
+                }
+                if($("li.active").next().find("a").text()===$("#siguiente").text()){
+                    $("#siguiente").parent("li").addClass("disabled");
+                }
             }
         });
         $(".modal-Modifica").click(function(){
