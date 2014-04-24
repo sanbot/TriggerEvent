@@ -45,9 +45,6 @@ public class Contr_Usuarios extends HttpServlet {
                     b = usu.getlogin(correo,Contrasenia);
                     if(b)
                     {
-                        session.setAttribute("Mensaje","Te has logueado correctamente, bienvenido/a.");
-                        session.setAttribute("TipoMensaje", "Dio");
-                        
                         Codigo = usu.getCodigo();
                         Tipo_Documento = usu.getTipo_Documento();
                         No_Documento = usu.getNo_Documento();
@@ -73,9 +70,9 @@ public class Contr_Usuarios extends HttpServlet {
                         response.sendRedirect(url);
                     }
                     else{
-                         session.setAttribute("Mensaje",usu.getMensaje());
-                         session.setAttribute("TipoMensaje", "NODio");
-                    url="View/index.jsp" ;
+                        session.setAttribute("Mensaje",usu.getMensaje());
+                        session.setAttribute("TipoMensaje", "NODio");
+                        url="View/index.jsp" ;
                     response.sendRedirect(url);
                     }
                 
@@ -104,7 +101,7 @@ public class Contr_Usuarios extends HttpServlet {
                     session.setAttribute("Direccion", Direccion);
                     session.setAttribute("Ciudad", usu.getCiudad());
                     
-                    session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente.");
+                    session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente");
                     session.setAttribute("TipoMensaje" , "Dio");
                     url="View/Perfil.jsp";
                     response.sendRedirect(url);

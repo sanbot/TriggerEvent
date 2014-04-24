@@ -66,7 +66,7 @@ Author     : ADSI
                                 <br/>
                                 <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
                                 <ul>
-                                        <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Qui&eacute;nes somos</a></li>
+                                        <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
                                         <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
                                         <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
                                 </ul>
@@ -128,7 +128,7 @@ Author     : ADSI
                         <ul>
                             <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Qui&eacute;nes somos</a></li>
+                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
                                     <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
                                     <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
                             </ul>
@@ -165,7 +165,7 @@ Author     : ADSI
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Qui&eacute;nes somos</a></li>
+                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
                                     <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
                                     <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
                             </ul>
@@ -205,7 +205,7 @@ Author     : ADSI
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Qui&eacute;nes somos</a></li>
+                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
                                     <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
                                     <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
                             </ul>

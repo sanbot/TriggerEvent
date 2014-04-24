@@ -7,9 +7,12 @@
 				<nav class="gn-menu-wrapper">
 					<div class="gn-scroller">
 						<ul class="gn-menu">
-							<li class="gn-search-item">
-								<a href="index.jsp" class="gn-icon gn-icon-download"><div class="negro">Inicio</div></a>
-							</li>
+							<li>
+                                                            <a href="index.jsp">
+                                                                    <span class="glyphicon glyphicon-home glyphiconuno"></span>
+                                                                    <div class="negro">Inicio</div>
+                                                            </a>
+                                                        </li>
 							<li>
 								<a href="Perfil.jsp">
                                                                         <span class="glyphicon glyphicon-user glyphiconuno"></span>
@@ -37,7 +40,7 @@
 							<li>
                                                             <a href="Nosotros.jsp">
                                                                     <span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>
-                                                                    <div class="negro">Qui&eacute;nes Somos</div>
+                                                                    <div class="negro">Equipo desarrollador</div>
                                                             </a>
 							</li>
 							<li>
