@@ -70,7 +70,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                         <%}%>
                                         <%if(Cantidad!=0 && Rol.equals("Administrador"))
                                         {%>
-                                        <a href="CEventoPendiente.jsp" ><span class="glyphicon glyphicon-bell close aligncerar" title="Eventos pendientes"><span class="badge"><%=Cantidad%></span></span></a>
+                                        <a href="CEventoPendiente.jsp" class="pull-right" ><span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes"></span><span class="badge"><%=Cantidad%></span></a>
                                         <%}%>
                                     </h3>
                                 

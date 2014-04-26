@@ -227,15 +227,15 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
                                             <div class="col-md-1"></div>
                                             <div class="col-sm-4 contenido-2">
                                                 <div class="rating-evento">
-                                                        <span class="glyphicon glyphicon-star star-rating five-star"></span>5 valor: <%=Calificacion[0]%>
+                                                        <span class="glyphicon glyphicon-star star-rating five-star"></span>5 Votos: <%=Calificacion[0]%>
                                                         <br/>
-                                                        <span class="glyphicon glyphicon-star star-rating four-star"></span>4 valor: <%=Calificacion[1]%>
+                                                        <span class="glyphicon glyphicon-star star-rating four-star"></span>4 Votos: <%=Calificacion[1]%>
                                                         <br/>
-                                                        <span class="glyphicon glyphicon-star star-rating three-star"></span>3 valor: <%=Calificacion[2]%>
+                                                        <span class="glyphicon glyphicon-star star-rating three-star"></span>3 Votos: <%=Calificacion[2]%>
                                                         <br/>
-                                                        <span class="glyphicon glyphicon-star star-rating two-star"></span>2 valor: <%=Calificacion[3]%>
+                                                        <span class="glyphicon glyphicon-star star-rating two-star"></span>2 Votos: <%=Calificacion[3]%>
                                                         <br/>
-                                                        <span class="glyphicon glyphicon-star star-rating one-star"></span>1 valor: <%=Calificacion[4]%>
+                                                        <span class="glyphicon glyphicon-star star-rating one-star"></span>1 Votos: <%=Calificacion[4]%>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 contenido-2 visible-sm visible-md visible-lg contenido-2">
@@ -251,6 +251,7 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
                     </div>
                     <div class="col-xs-1"></div>
                 </div>
+                                                
 		<br/>
 		<%if(!pendiente){%>
 		<%if((Rol.equals("Cliente") || Rol.equals("Administrador")) && !pendiente)
@@ -258,51 +259,68 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 		if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario") && usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion"))
 		{%>
 		<div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-10">
+                        <div class="row">
+                            <div class="col-md-12 opinion-div contenidoborde">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="titulo-opinion"><center>DAR UNA OPINI&Oacute;N</center></h3>
+                                    </div>
+                                </div>
+                                <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
 
-			<legend><center>CALIFICACIONES</center></legend>
+                                    <div class="row">
+                                        <div class="col-xs-10 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-3 col-lg-3">
+                                            <div class="form-group">
 
-			<form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="Comentario">Comentario</label>
+                                                <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,100]"></textarea>
+                                            </div>
+                                        </div>
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-						<div class="form-group">
+                                        <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-3 col-lg-3">
+                                            <div class="form-group">
+                                                    <label for="Imagen">Puntuaci&oacute;n</label>
+                                                    <div id="stars" class="starrr rating" data-rating="3">
+                                                    </div>
+                                                    <span id="countname">Regular</span>
+                                                    <input type="hidden" name="Rating" id="count" value="3"/>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row contenido-opinion">
+                                        <div class="col-xs-10 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-3 col-lg-3">
+                                        </div>
+                                        <div class="col-xs-10 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-6 col-lg-6">
+                                            <div class="form-group">
+                                                <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
+                                            </div>
+                                        </div>
 
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<div class="form-group">
-							<label for="Comentario">Comentario</label>
-							<textarea name="comentario" class="form-control" rows="4" placeholder="Puntúa. Dejar una crítica es opcional" data-notblank="true" data-rangelength="[10,100]"></textarea>
-						</div>
-						<div class="form-group">
-							<button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
-						</div>
-					</div>
-
-					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-						<div class="form-group">
-							
-							<div class="row lead">
-								<label for="Imagen">Puntuaci&oacute;n</label>
-								<div id="stars" class="starrr rating" data-rating="3">
-								</div>
-								<span id="countname">Regular</span>
-								<input type="hidden" name="Rating" id="count" value="3"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
-					</div>
-				</div>
-			</form>
-		</div>
+                                        <div class="ccol-xs-10 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-3 col-lg-3">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
 		<%} else if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")){%>
 		<div class="row">
 
-                    <legend><center>CALIFICACIONES</center></legend>
+                    <legend><center>DEJA TU OPINI&Oacute;N</center></legend>
 
 			<form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
 
@@ -336,7 +354,7 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 		{%>
 		<div class="row">
 
-			<legend>CALIFICACIONES</legend>
+			<legend><center>DEJA TU OPINI&Oacute;N</center></legend>
 
 			<form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
 
@@ -383,7 +401,7 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 			<!-- /widget -->
 			<div class="widget">
 				<div class="widget-header">
-					<h3>Comentarios de nuestros usuarios</h3>
+					<h3>Opiniones de nuestros usuarios</h3>
 				</div>
 				<!-- /widget-header -->
 				<div class="widget-content">
