@@ -71,7 +71,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <div class="form-group">
-                            <label for="Correo">Correo</label>
+                            <label for="Correo">Correo electr&oacute;nico</label>
                             <input name="Correo" type="email" class="form-control" data-type="email" id="Correo" data-maxlength="100" data-notblank="true" data-required="true" <%if(!Rol.equals("")&&!Rol.equals(null)){%> value="<%=DatosUsuario[8]%>" readonly<%}%>/>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <div class="form-group">
-                            <label for="Categoria">Categoria</label>
+                            <label for="Categoria">Categor&iacute;a del tema</label>
                             <select name="Categoria" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                 <option value=""></option>
                                 <option value="Contenido">Contenido</option>
@@ -124,7 +124,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                    <div class="col-xs-12 col-sm-12 col-md-offset-5 col-md-2 col-lg-offset-5 col-lg-2">
                         <div class="form-group">
                             <center>
                                 <button type="submit" class="btn defecto btn-block" id="Contactenos" name="Contactenos">Enviar</button>
@@ -136,9 +136,13 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 	</div>
 	<!-- FOOTER -->
 	<footer>
-            <hr class="featurette-divider">
-            <p>&copy; 2013 Trigger Event, Inc.</p>
-	</footer>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                </div>
+            </div>
+        </footer>
     </div>
 
 

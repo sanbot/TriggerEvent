@@ -47,51 +47,33 @@ int Cantidad = usu.getCantidadEventosPendientes();
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div class="form-group">
+                                    <ol class="breadcrumb">
+                                        <li><a href="index.jsp">Inicio</a></li>
+                                        <li class="active">Eventos</a></li>
+                                      </ol>
+
 					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Eventos
 				</div>
 			</div>
 		</div>
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<br/>
-				<h1 class="Center">Eventos</h1>
-			</div>
-		</div>
-                <%if(Rol.equals("Administrador") || Rol.equals("Empresa"))
-                {%>
-		<div class="row">
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-4">
-                            <div class="form-group">
-				<a href="RegistrarEvento.jsp" role="button" class="btn btn-block defecto">Registrar Evento</a>
-                            </div>
-			</div>
-			<div class="col-md-4">
-			</div>
-		</div>
-                <%}%>
-                <%if(Cantidad!=0 && Rol.equals("Administrador"))
-                {%>
-		<div class="row">
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-4">
-                            <div class="form-group">
-				<a href="CEventoPendiente.jsp" role="button" class="btn btn-block defecto">Consultar eventos pendientes <span class="badge pull-right"><%=Cantidad%></span></a>
-                            </div>
-			</div>
-			<div class="col-md-4">
-			</div>
-		</div>
-                <%}%>
+                
+                
                 <div class="row" >
                     <div class="col-md-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                     <h3 class="panel-title">
-                                            Eventos
+                                        Eventos 
+                                        <%if(Rol.equals("Administrador") || Rol.equals("Empresa"))
+                                        {%>
+                                        <a href="RegistrarEvento.jsp" role="button" class="close alignregistrar normalcerrar">Registrar    </a>
+                                        <%}%>
+                                        <%if(Cantidad!=0 && Rol.equals("Administrador"))
+                                        {%>
+                                        <a href="CEventoPendiente.jsp" ><span class="glyphicon glyphicon-bell close aligncerar" title="Eventos pendientes"><span class="badge"><%=Cantidad%></span></span></a>
+                                        <%}%>
                                     </h3>
+                                
                             </div>
     			</div>
                         <%
@@ -109,7 +91,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                             <div class="panel-heading">
                                                     <h3 class="panel-title">
                                                             <%=Row[1]%>
-                                                            <a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a>
+                                                            <a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a>
                                                     </h3>
                                             </div>
                                             <div class="panel-body">

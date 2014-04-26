@@ -88,152 +88,170 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 	<br/>
 	<br/>
 	<div class="container">
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<div class="form-group">
-					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="ConsultaEvento.jsp">Eventos</a> <span class="glyphicon glyphicon-share-alt"></span> Detalle Evento
-				</div>
-			</div>
-		</div>
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<br/>
-				<h1 class="Center">Detalle de Evento</h1>
-			</div>
-		</div>
-		<form id="search" data-validate="parsley" enctype="multipart/form-data" method="post" action="/TriggerEvent/Contr_Evento">
-
-
-
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<div class="form-group">
-						<img src="ImagenEvento.jsp?Codigo=<%=CodigoEvento%>" class="img-responsive imgevento"/>
-					</div>
-				</div>
-
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					
-					<div class="form-group">
-						<label for="Creador">Creador del evento</label>
-						<input name="Creador" type="text" class="form-control" id="NombreEvento" data-rangelength="[3,30]" data-notblank="true" data-required="true" value="<%=Datos[0]%>" readonly/>
-					</div>
-				</div>
-
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<div class="form-group">
-						<label for="Nombre">Nombre</label>
-						<input name="Nombre" type="text" class="form-control" id="NombreEvento" data-rangelength="[3,30]" data-notblank="true" data-required="true" value="<%=Datos[1]%>" readonly/>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<div class="form-group">
-						<label for="Rango">Rango</label>
-						<input name="Rango" type="text" class="form-control" id="RangoEvento" placeholder="10000-2000000" data-required="true" data-notblank="true" data-rangelength="[13,13]" value="<%=Datos[2]%>" readonly/>
-					</div>
-					
-
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-					<div class="form-group">
-						<label for="Departamento">Departamento</label>
-						<select id="departamentoevento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-							<option value="<%=Datos[3]%>"><%=Datos[4]%></option>
-						</select>
-					</div>
-					
-
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-					<div class="form-group">
-						<label for="Ciudad">Ciudad</label>
-						<select id="ciudadevento" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-							<option value="<%=Datos[5]%>"><%=Datos[6]%></option>
-						</select>
-					</div>
-					
-
-				</div>
-			</div>
-			<div class="row">
-
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<div class="form-group">
-						<label for="Direccion">Direcci&oacute;n</label>
-						<input name="Direccion" class="form-control" data-required="true" data-notblank="true" data-rangelength="[8,100]" readonly value="<%=Datos[7]%>"/>
-					</div>
-				</div>
-
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<div class="form-groupr">
-						<label for="Fecha">Fecha</label>
-						<input type='text' name="Fecha" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" data-rangelength="[18,19]" readonly value="<%=Datos[8]%>"/>
-					</div>
-				</div>
-
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					<div class="form-groupr">
-						<label for="Hora">Hora</label>
-						<input type='text' name="Hora" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" data-rangelength="[6,9]" readonly value="<%=Datos[10]%>"/>
-					</div>
-				</div>
-			</div>
-                        <%if(!pendiente){%>
-			<div class="row">
-                                <div class=" col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <div class="form-group">
-						<label for="Descripcion">Descripci&oacute;n</label>
-						<textarea id="DescripcionEvento" name="Descripcion" class="form-control" data-rangelength="[8,150]" rows="10" readonly><%=Datos[9]%></textarea>
-					</div>
-                                    
-				</div>
-				<div class=" col-xs-12 col-sm-12 col-md-2 col-lg-2">
-                                    <span class="glyphicon glyphicon-star espacio" style="color: #88B131;"></span><span class="ratinggrafico">5  Votos: <%=Calificacion[0]%></span>
-                                    <br>
-                                    <span class="glyphicon glyphicon-star espacio" style="color: #9C0;"></span><span class="ratinggrafico">4  Votos: <%=Calificacion[1]%></span>
-                                    <br>
-                                    <span class="glyphicon glyphicon-star espacio" style="color: #FFCF02;"></span><span class="ratinggrafico">3  Votos: <%=Calificacion[2]%></span>
-                                    <br>
-                                    <span class="glyphicon glyphicon-star espacio" style="color: #FF9F02;"></span><span class="ratinggrafico">2  Votos: <%=Calificacion[3]%></span>
-                                    <br>
-                                    <span class="glyphicon glyphicon-star espacio" style="color: #FF6F31;"></span><span class="ratinggrafico">1  Votos: <%=Calificacion[4]%></span>
-				</div>
-
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                    <center><canvas id="myChart" width="280" height="280"></canvas></center>
-				</div>
-			</div>
-                        <%}else{%>
+		<div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb">
+                            <li><a href="index.jsp">Inicio</a></li>
+                            <li><a href="ConsultaEvento.jsp">Eventos</a></li>
+                            <li class="active">Detalle Evento</li>
+                        </ol>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-10">
                         <div class="row">
-                                <div class=" col-xs-12 col-sm-12 col-md-3 col-lg-3">
-				</div>
-                            <div class=" col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label for="Descripcion">Descripci&oacute;n</label>
-                                    <textarea id="DescripcionEvento" name="Descripcion" class="form-control" data-rangelength="[8,150]" rows="4" readonly><%=Datos[9]%></textarea>
+                            <div class="col-md-5 eventoborde contenidoborde">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="margen-img"> 
+                                            <center>
+                                                <img src="ImagenEvento.jsp?Codigo=<%=CodigoEvento%>" class="imgevento icon-animated-bell" alt="Nombre de la imagen">
+                                            </center>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <center>
+                                            <div class="tituloevento"><h3><%=Datos[1]%></h3></div>
+                                            </center>
+                                        </h3>
+                                    </div>    
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 contenido_uno">
+                                        <div class="contenido">
+                                            <label for="Creador">Creador:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 contenido_dos">
+                                        <div class="contenido">
+                                            <label for="NombreEmpresa"><%=Datos[0]%></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 contenido_uno">
+                                        <div class="contenido">
+                                            <label for="RangoPrecios">Rango de precios:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 contenido_dos">
+                                        <div class="contenido">
+                                            <label for="RangoPreciosEvento"><%=Datos[2]%></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 contenido_uno">
+                                        <div class="contenido">
+                                            <label for="Departametno">Departamento:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 contenido_dos">
+                                        <div class="contenido">
+                                            <label for="DepartamentoEvento"><%=Datos[4]%></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 contenido_uno">
+                                        <div class="contenido">
+                                            <label for="Ciudad">Ciudad:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 contenido_dos">
+                                        <div class="contenido">
+                                            <label for="CiudadEvento"><%=Datos[6]%></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 contenido_uno">
+                                        <div class="contenido">
+                                            <label for="Direccion">Direcci&oacute;n:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 contenido_dos">
+                                        <div class="contenido">
+                                            <label for="DireccionEvento"><%=Datos[7]%></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 contenido_uno">
+                                        <div class="contenido">
+                                            <label for="Fecha">Fecha:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 contenido_dos">
+                                        <div class="contenido">
+                                            <label for="FechaEvento"><%=Datos[8]%></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 contenido_uno">
+                                        <div class="contenido">
+                                            <label for="Hora">Hora:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 contenido_dos">
+                                        <div class="contenido">
+                                            <label for="HoraEvento"><%=Datos[10]%></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 contenido_medio">
+                                        <div class="contenido">
+                                            <label for="Clasificacion"><a class="linkevento" href="DetalleClasificacionEvento.jsp?CodigoEvento=<%=CodigoEvento%>">Ver clasificaci&oacute;n </a></label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-				</div>
-			</div>
-                        <%}%>
-			<div class="row">
-				<div class="col-md-4">
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<a href="DetalleClasificacionEvento.jsp?CodigoEvento=<%=CodigoEvento%>" class="btn btn-block defecto">Ver clasificaci&oacute;n</a>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-				</div>
-			</div>
-		</form>
+                            <div class="col-md-7 eventoborde">
+                                <div class="row">
+                                    <div class="col-md-12 descripciontamanio descripcion-nombre">
+                                        <label for="Descripcion">Descripci&oacute;n:</label>
+                                        <br/>
+                                        <%=Datos[9]%>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-sm-4 contenido-2">
+                                                <div class="rating-evento">
+                                                        <span class="glyphicon glyphicon-star star-rating five-star"></span>5 valor: <%=Calificacion[0]%>
+                                                        <br/>
+                                                        <span class="glyphicon glyphicon-star star-rating four-star"></span>4 valor: <%=Calificacion[1]%>
+                                                        <br/>
+                                                        <span class="glyphicon glyphicon-star star-rating three-star"></span>3 valor: <%=Calificacion[2]%>
+                                                        <br/>
+                                                        <span class="glyphicon glyphicon-star star-rating two-star"></span>2 valor: <%=Calificacion[3]%>
+                                                        <br/>
+                                                        <span class="glyphicon glyphicon-star star-rating one-star"></span>1 valor: <%=Calificacion[4]%>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 contenido-2 visible-sm visible-md visible-lg contenido-2">
+                                                <center>
+                                                    <canvas id="myChart" height="240"></canvas>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
+		<br/>
 		<%if(!pendiente){%>
 		<%if((Rol.equals("Cliente") || Rol.equals("Administrador")) && !pendiente)
 		{ 
@@ -241,7 +259,7 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 		{%>
 		<div class="row">
 
-			<legend>CALIFICACIONES</legend>
+			<legend><center>CALIFICACIONES</center></legend>
 
 			<form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
 
@@ -284,7 +302,7 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 		<%} else if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")){%>
 		<div class="row">
 
-			<legend>CALIFICACIONES</legend>
+                    <legend><center>CALIFICACIONES</center></legend>
 
 			<form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
 
@@ -357,13 +375,7 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 		</div>
 		<%}
 	}%>
-        <div class="row clearfix">
-    		<div class="col-md-12 column">
-    			<h1 class="text-center" style="font-size: 3em;">
-    				Comentarios de nuestros usuarios
-    			</h1>
-    		</div>
-    	</div>
+        <br/>
 	<div class="row clearfix">
 		<div class="col-md-2">
 		</div>
@@ -371,11 +383,22 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 			<!-- /widget -->
 			<div class="widget">
 				<div class="widget-header">
-					<h3>Contenido</h3>
+					<h3>Comentarios de nuestros usuarios</h3>
 				</div>
 				<!-- /widget-header -->
 				<div class="widget-content">
-					<ul class="messages_layout">
+					<ul class="messages_layout <%if(Comentarios.length > 5){%>scrollcomentarios<%}%>">
+                                                <li class="from_user left">
+							<div class="message_wrap"> 
+								<span class="arrow"></span>
+								<div class="info"> 
+									<span class="name">Usuario: asdasdasd, Evento: asdasdasd</span>
+								</div>
+								<div class="text"> 
+									asdasdasd
+								</div>
+							</div>
+						</li>
 						<%
                                                 int i =1;
                                                 for (String[] Row : Comentarios)

@@ -5819,13 +5819,13 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 .panel-primary {
-  border-color: #428bca;
+  border-color: #2F4154;
 }
 
 .panel-primary > .panel-heading {
   color: #ffffff;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #2F4154;
+  border-color: #2F4154;
 }
 
 .panel-primary > .panel-heading + .panel-collapse .panel-body {

@@ -43,14 +43,14 @@ Author     : ADSI
 	<div class="row clearfix">
 		<div class="col-md-12">
 			<div class="form-group">
-                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Qui&eacute;nes somos
+                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Equipo desarrollador
 			</div>
 		</div>
 	</div>
 	<div class="row clearfix">
 		<div class="col-md-12">
 			<br/>
-			<h1 class="Center">Qui&eacute;nes Somos</h1>
+			<h1 class="Center">Equipo desarrollador</h1>
 		</div>
 	</div>
 	<div class="row">
@@ -71,9 +71,13 @@ Author     : ADSI
 	</div>
 	<!-- FOOTER -->
 	<footer>
-            <hr class="featurette-divider">
-            <p>&copy; 2013 Trigger Event, Inc.</p>
-	</footer>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                </div>
+            </div>
+        </footer>
     </div>
 
 

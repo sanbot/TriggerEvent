@@ -18,7 +18,7 @@
 	height: 40px;
 	line-height: 40px;
 
-	background: #1f5daa;
+	background: #2F4154;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f6f1', endColorstr='#f2efea');
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f6f1', endColorstr='#f2efea')";
 	
@@ -71,6 +71,12 @@
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+        
+}
+
+.scrollcomentarios {
+    height: 500px;
+    overflow-x: auto;
 }
 
 .widget-header+.widget-content {

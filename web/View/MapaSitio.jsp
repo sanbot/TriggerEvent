@@ -58,9 +58,9 @@ Author     : ADSI
 		<div class="col-md-12">
                     <div class="form-group">
                         <ul>
-                                <li class="lista"><span class="gn-icon gn-icon-download glyphicondos"></span><strong>Inicio</strong></li>
+                                <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
                                 <ul>
-                                        <li class="lista"><a href="index.jsp"><span class="gn-icon gn-icon-download glyphicondos"></span> Inicio</a></li>
+                                        <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
                                         <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                                 </ul>
                                 <br/>
@@ -78,9 +78,9 @@ Author     : ADSI
                 <div class="col-md-4">
                     <div class="form-group">
                         <ul>
-                            <li class="lista"><span class="gn-icon gn-icon-download glyphicondos"></span><strong>Inicio</strong></li>
+                            <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
                             <ul>
-                                    <li class="lista"><a href="index.jsp"><span class="gn-icon gn-icon-download glyphicondos"></span> Inicio</a></li>
+                                    <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
                                     <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
@@ -140,9 +140,9 @@ Author     : ADSI
                 <div class="col-md-4">
                     <div class="form-group">
                         <ul>
-                            <li class="lista"><span class="gn-icon gn-icon-download glyphicondos"></span><strong>Inicio</strong></li>
+                            <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
                             <ul>
-                                    <li class="lista"><a href="index.jsp"><span class="gn-icon gn-icon-download glyphicondos"></span> Inicio</a></li>
+                                    <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
                                     <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
@@ -181,9 +181,9 @@ Author     : ADSI
                 <div class="col-md-4">
                     <div class="form-group">
                         <ul>
-                            <li class="lista"><span class="gn-icon gn-icon-download glyphicondos"></span><strong>Inicio</strong></li>
+                            <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
                             <ul>
-                                    <li class="lista"><a href="index.jsp"><span class="gn-icon gn-icon-download glyphicondos"></span> Inicio</a></li>
+                                    <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
                                     <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
@@ -220,9 +220,13 @@ Author     : ADSI
 	</div>
 	<!-- FOOTER -->
 	<footer>
-            <hr class="featurette-divider">
-            <p>&copy; 2013 Trigger Event, Inc.</p>
-	</footer>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                </div>
+            </div>
+        </footer>
     </div>
 
 

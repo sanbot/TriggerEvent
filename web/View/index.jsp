@@ -73,18 +73,18 @@
         								Correo
         							</label>
         							<div class="col-sm-9">
-        								<input type="email" class="form-control" id="txtCorreoInicio1" name="correo" placeholder="email" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
+        								<input type="email" class="form-control" id="txtCorreoInicio1" name="correo" placeholder="e-mail" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
         							</div>
         						</div>
-        						<div class="form-group" id="target-1">
+        						<div class="form-group">
         							<label for="Contrasenia" class="col-sm-3 control-label">
                                         Contrase&ntilde;a
                                     </label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-9" id="target-2">
                                         <input type="password" class="form-control" id="txtPassWordInicio" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[8,50]">
                                     </div>
                                 </div>
-                                <div class="form-group" id="target-2">
+                                <div class="form-group" >
                                     <div class="col-sm-offset-3 col-sm-9">
                                         <div class="checkbox">
                                             <label>
@@ -108,8 +108,8 @@
                             </form>
                         </div>
                         <div class="panel-footer" >
-                            ¿No estás registrado? 
-                            <a href="RegistrarUsuario.jsp">Regístrate aquí</a>
+                            ¿No está registrado? 
+                            <a href="RegistrarUsuario.jsp">Regístrese aquí</a>
                         </div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <%=Row[1]%>
-                                <%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a><%}%>
+                                <%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a><%}%>
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -182,7 +182,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <%=Row[1]%>
-                                <%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a><%}%>
+                                <%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close  aligncerar"></span></a><%}%>
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -228,7 +228,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <%=Row[1]%>
-                                <%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close"></span></a><%}%>
+                                <%if(!Rol.equals(null)&&!Rol.equals("")){%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close  aligncerar"></span></a><%}%>
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -334,13 +334,11 @@
                 </div>
             </div>
         </div>
-        <div class="container marketing">
-            <hr class="featurette-divider">
-        </div>
         <footer>
             <div class="row">
                 <div class="col-md-12">
-                    <p>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</p>
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
                 </div>
             </div>
         </footer>
@@ -366,24 +364,17 @@
 
         <%if(Rol.equals("") || Rol.equals(null)){%>
             guidely.add ({
-                attachTo: '#target-1'
-                , anchor: 'top-middle'
-                , title: 'Ingreso de E-mail'
-                , text: 'En este campo ingresas el correo electrónico con el que te registraste.'
-            });
-
-            guidely.add ({
                 attachTo: '#target-2'
-                , anchor: 'top-middle'
-                , title: 'Ingreso de contraseña'
-                , text: 'En este campo ingresas la contraseña con la que te registraste.'
+                , anchor: 'bottom-left'
+                , title: 'Correo y contraseña'
+                , text: 'Debe diligenciar completa y correctamente los campos que se muestran.'
             });
-
+            
             guidely.add ({
                 attachTo: '#target-3'
                 , anchor: 'bottom-left'
-                , title: 'Inicio de sesión o limpieza de campos'
-                , text: 'Puedes, ya sea ingresar al aplicativo o, limpiar los campos anteriores.'
+                , title: 'Iniciar sesión o limpiar campos'
+                , text: 'Puede, ya sea ingresar al aplicativo o limpiar los campos diligenciados.'
             });
             
             guidely.add ({
@@ -397,7 +388,7 @@
                 attachTo: '#target-5'
                 , anchor: 'bottom-left'
                 , title: 'Los más comentados'
-                , text: 'Estos son los eventos más polémicos, le damos la oportunidad a nuestros usuarios de expresar su opinión.'
+                , text: 'Estos son los eventos más polémicos. Le damos la oportunidad a nuestros usuarios de expresar su opinión.'
             });
             
             guidely.add ({
@@ -409,7 +400,7 @@
             
             guidely.add ({
                 attachTo: '#target-7'
-                , anchor: 'bottom-left'
+                , anchor: 'bottom-right'
                 , title: 'Algunos comentarios'
                 , text: 'En Trigger Event, tenemos en cuenta los comentarios de nuestros usuarios. Estos son algunos de ellos.'
             });
@@ -426,7 +417,7 @@
                 attachTo: '#target-5'
                 , anchor: 'bottom-left'
                 , title: 'Los más comentados'
-                , text: 'Estos son los eventos más polémicos, le damos la oportunidad a nuestros usuarios de expresar su opinión.'
+                , text: 'Estos son los eventos más polémicos. Le damos la oportunidad a nuestros usuarios de expresar su opinión.'
             });
             
             guidely.add ({
@@ -438,7 +429,7 @@
             
             guidely.add ({
                 attachTo: '#target-7'
-                , anchor: 'bottom-left'
+                , anchor: 'bottom-right'
                 , title: 'Algunos comentarios'
                 , text: 'En Trigger Event, tenemos en cuenta los comentarios de nuestros usuarios. Estos son algunos de ellos.'
             });

@@ -1,6 +1,6 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
-<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap-theme.css" />
 <link rel="stylesheet" type="text/css" href="../Libs/Bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/Default.css" />
 <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/component.css" />

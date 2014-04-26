@@ -126,7 +126,7 @@ public class Contr_Usuarios extends HttpServlet {
                         session.setAttribute("Registrar_Correo", correo);
                         session.setAttribute("Registrar_CodigoVer", CodVer);
                         
-                        session.setAttribute("Mensaje", "Verifica tu correo, te hemos enviado el código de verificación.");
+                        session.setAttribute("Mensaje", "Verifique su correo, se le ha enviado el código de verificación.");
                         session.setAttribute("TipoMensaje", "Dio");
                         url="View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
@@ -146,18 +146,18 @@ public class Contr_Usuarios extends HttpServlet {
                 
                 b = msm.EnviarCodVer(correo, celular, Nombre, CodVer);
                 if (b)
-                    {
-                        session.setAttribute("Mensaje" ,"Verifica tu correo, te hemos enviado el código de verificación.");
-                        session.setAttribute("TipoMensaje" ,"Dio");
-                        url="View/RegistrarUsuario.jsp";
-                        response.sendRedirect(url);
-                    }else
-                    {
-                        session.setAttribute("Mensaje" ,"currió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
-                        session.setAttribute("TipoMensaje" ,"NODio");
-                        url="View/RegistrarUsuario.jsp";
-                        response.sendRedirect(url);
-                    }
+                {
+                    session.setAttribute("Mensaje" ,"Verifique su correo, se le ha enviado el código de verificación.");
+                    session.setAttribute("TipoMensaje" ,"Dio");
+                    url="View/RegistrarUsuario.jsp";
+                    response.sendRedirect(url);
+                }else
+                {
+                    session.setAttribute("Mensaje" ,"currió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
+                    session.setAttribute("TipoMensaje" ,"NODio");
+                    url="View/RegistrarUsuario.jsp";
+                    response.sendRedirect(url);
+                }
             }else if(request.getParameter("LimpiarDatosUsuario")!= null){
                 session.setAttribute("Registrar_Nombre", null);
                 session.setAttribute("Registrar_Celular", null);
@@ -208,7 +208,7 @@ public class Contr_Usuarios extends HttpServlet {
                         }
                     }
                     else{
-                        session.setAttribute("Mensaje","El código de verificación no coincide con el enviado, por favor inténtelo de nuevo.");
+                        session.setAttribute("Mensaje","El código de verificación no coincide con el enviado.");
                         session.setAttribute("TipoMensaje", "NODio");
                         url="View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
@@ -232,19 +232,19 @@ public class Contr_Usuarios extends HttpServlet {
                     boolean c = msm.recordarcontrasenia(correo, contra,Nombre );
                     if (c)
                     {
-                        session.setAttribute("Mensaje","Verifica tu correo, te hemos enviado tu contraseña.");
+                        session.setAttribute("Mensaje","Verifique su correo, se le ha enviado su contraseña.");
                         session.setAttribute("TipoMensaje", "Dio");
                         url="View/index.jsp";
                         response.sendRedirect(url);
                     }else
                     {
-                        session.setAttribute("Mensaje","Ocurrió un problema inesperado al tratar de enviar su contraseña, por favor inténtelo de nuevo.");
+                        session.setAttribute("Mensaje","Ocurrió un problema inesperado al tratar de enviar su contraseña, espere un momento e inténtelo de nuevo.");
                         session.setAttribute("TipoMensaje", "NODio");
                         url="View/index.jsp";
                         response.sendRedirect(url);
                     }
                 }else{
-                    session.setAttribute("Mensaje" , "El correo es incorrecto, verifiquelo e inténtelo de nuevo.");
+                    session.setAttribute("Mensaje" , "El correo diligenciado no concuerda con ninguna cuenta registrada, verífiquelo e inténtelo de nuevo.");
                     session.setAttribute("TipoMensaje", "NODio");
                     
                     url="View/index.jsp";
@@ -273,7 +273,7 @@ public class Contr_Usuarios extends HttpServlet {
                     response.sendRedirect(url);
                 }else
                 {
-                    session.setAttribute("Mensaje" , "Ocurrió un problema inesperado al tratar de modificar sus datos, por favor, inténtelo de nuevo.");
+                    session.setAttribute("Mensaje" , "Ocurrió un problema inesperado al tratar de modificar sus datos, espere e inténtelo de nuevo.");
                     session.setAttribute("TipoMensaje" , "NODio");
                     url="View/MUsuario.jsp?Codigo="+Codigo;
                     response.sendRedirect(url);
@@ -339,13 +339,13 @@ public class Contr_Usuarios extends HttpServlet {
                         }else
                         {
                             //session.setAttribute("Mensaje", usu.getMensaje());
-                            session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de modificar la contrasenia, por favor inténtelo de nuevo.");
+                            session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de modificar la contrasenia, espere un momento e inténtelo de nuevo.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                     }
                     else
                     {
-                        session.setAttribute("Mensaje", "La contraseña actual no es correcta, por favor verifque e inténtelo de nuevo.");
+                        session.setAttribute("Mensaje", "La contraseña actual no coincide con su cuenta");
                         session.setAttribute("TipoMensaje", "NODio");
                     }
                 }
