@@ -190,6 +190,10 @@ p
     overflow-x: auto;
 }
 
+.texto-justificado{
+    text-align: justify;
+}
+
 .descripciontamanio
 {
     height: 250px;

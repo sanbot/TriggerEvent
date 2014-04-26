@@ -563,4 +563,32 @@ public class Cls_Satisfaccion {
         }
         return 0;
     }
+    
+    public String getComentarioOCalificacion(String tipo, String codigoUsuario) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr=null;
+        ResultSet rs=null;
+        String sql="Select "+ tipo +" FROM tb_satisfaccion Where Id_Usuario = ? ";
+        try{
+            pr=conn.prepareStatement(sql);
+            pr.setString(1, codigoUsuario);
+            rs = pr.executeQuery();
+            if(rs.next())
+            {
+                return rs.getString(tipo);
+            }
+            return null;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pr.close();
+                conn.close();
+            }catch(Exception ex){
+
+            }
+        }
+        this.setMensaje("Ocurruó un problema al tratar de buscar el/la " + tipo + " del evento, por favor inténtelo más tarde.");
+        return null;
+    }
 }

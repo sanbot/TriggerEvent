@@ -279,7 +279,7 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
                                         <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-6 col-lg-6">
                                             <div class="form-group">
                                                 <label for="Comentario">Comentario</label>
-                                                <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,100]"></textarea>
+                                                <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,250]"></textarea>
                                             </div>
                                         </div>
 
@@ -317,82 +317,80 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
                     </div>
                     <div class="col-xs-1"></div>
                 </div>
-		<%} else if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")){%>
+		<%} else{%>
 		<div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-10">
+                        <div class="row">
+                            <div class="col-md-12 opinion-div contenidoborde">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="titulo-opinion"><center>DAR UNA OPINI&Oacute;N</center></h3>
+                                    </div>
+                                </div>
+                                <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
 
-                    <legend><center>DEJA TU OPINI&Oacute;N</center></legend>
+                                    <div class="row">
+                                        <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-5 col-lg-5">
+                                            <div class="form-group texto-justificado">
+                                                <label for="Comentario">Comentario</label>
+                                                <br/>
+                                                <%if(!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")){%>
+                                                <%=usu.getComentarioOCalificacion("Comentario", CodigoUsuario)%>
+                                                <%}else {%>
+                                                    <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,250]"></textarea>
+                                                <%}%>
+                                            </div>
+                                        </div>
 
-			<form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
+                                        <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-5 col-lg-5">
+                                            <div class="form-group">
+                                                <label for="Imagen">Puntuaci&oacute;n</label>
+                                                <%if(!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")){%>
+                                                    <br/>
+                                                    <span class="glyphicon glyphicon-star"></span> <%=usu.getComentarioOCalificacion("Calificacion", CodigoUsuario)%> puntos de calificaci&oacute;n
+                                                <%}else {%>
+                                                    <div id="stars" class="starrr rating" data-rating="3">
+                                                    </div>
+                                                    <span id="countname">Regular</span>
+                                                    <input type="hidden" name="Rating" id="count" value="3"/>
+                                                <%}%>
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-						<div class="form-group">
-
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<div class="form-group">
-							<label for="Comentario">Comentario</label>
-							<textarea name="comentario" class="form-control" rows="4" placeholder="Puntúa. Dejar una crítica es opcional" data-notblank="true" data-rangelength="[10,100]"></textarea>
-						</div>
-						<div class="form-group">
-							<button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
-						</div>
-					</div>
-
-					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
-					</div>
-				</div>
-			</form>
-		</div>
-		<%}else if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion"))
-		{%>
-		<div class="row">
-
-			<legend><center>DEJA TU OPINI&Oacute;N</center></legend>
-
-			<form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
-
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-						<div class="form-group">
-
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-						<div class="form-group">
-							
-							<div class="row lead">
-								<label for="Imagen">Puntuaci&oacute;n</label>
-								<div id="stars" class="starrr rating" data-rating="3">
-								</div>
-								<span id="countname">Regular</span>
-								<input type="hidden" name="Rating" id="count" value="3"/>
-							</div>
-							<button name="RegistrarSatisfaccion" type="submit" class="btn btn-default" id="Comentario">Enviar crítica</button>
-						</div>
-						
-						
-						
-					</div>
-
-					<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
-					</div>
-				</div>
-			</form>
-		</div>
-		<%}
-	}%>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-1"></div>
+                                    </div>
+                                    <div class="row contenido-opinion">
+                                        <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-5 col-lg-5">
+                                            <div class="form-group">
+                                                <%if (usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")){%>
+                                                    <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
+                                                <%}%>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-5 col-lg-5">
+                                            <div class="form-group">
+                                                <%if(usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")){%>
+                                                <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-left" id="Comentario">Enviar crítica</button>
+                                                <%}%>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </div>
+		<%}%>
+            <%}%>
         <br/>
 	<div class="row clearfix">
 		<div class="col-md-2">

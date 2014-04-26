@@ -443,4 +443,9 @@ public class Contr_Consultar {
         b = sat.ComprobarCalificacionRegistrada(CodigoEvento, CodigoUsuario, Tipo);
         return b;
     }
+    public String getComentarioOCalificacion(String tipo, String CodigoUsuario){
+        Cls_Satisfaccion sat = new Cls_Satisfaccion();
+        String dato = sat.getComentarioOCalificacion(tipo, CodigoUsuario);
+        return dato;
+    }
 }

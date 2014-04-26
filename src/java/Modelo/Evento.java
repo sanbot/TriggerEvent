@@ -911,4 +911,5 @@ public class Evento {
         this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
         return false;
     }
+
 }
