@@ -31,6 +31,7 @@ public class Contr_Satisfaccion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding( "UTF-8" );
         //declaramos las variables necesarias para todo el proyecto
         String Mensaje, Comentario, Rating, CodigoEvento, CodigoUsuario;
         HttpSession session = request.getSession(true);

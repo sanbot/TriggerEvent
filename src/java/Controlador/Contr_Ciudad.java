@@ -31,6 +31,7 @@ public class Contr_Ciudad extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding( "UTF-8" );
         String Nombre, Codigo, Mensaje, url, Departamento;
         Ciudad ciu = new Ciudad();
         HttpSession session = request.getSession(true);

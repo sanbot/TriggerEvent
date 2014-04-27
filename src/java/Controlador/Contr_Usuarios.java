@@ -31,6 +31,7 @@ public class Contr_Usuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding( "UTF-8" );
         Usuario usu = new Usuario();
         Mensajeria msm = new Mensajeria();
         String script, Nombre, Codigo, Tipo_Documento,Estado, No_Documento, Telefono, Direccion, correo , celular, url, CodVer, CodigoVerificacion, Ciudad, Departamento;
@@ -55,6 +56,8 @@ public class Contr_Usuarios extends HttpServlet {
                         Rol = usu.getTipo();
                         Ciudad = usu.getCiudad();
                         Departamento = usu.getDepartamento();
+                        
+                        
                         
                         session.setAttribute("Codigo", Codigo);
                         session.setAttribute("Rol", Rol);

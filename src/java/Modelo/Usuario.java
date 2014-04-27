@@ -158,7 +158,7 @@ public class Usuario {
                  + " u.No_Celular Celular, c.Nombre NombreCiudad , d.Nombre NombreDepartamento, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
                     "From  tb_usuario u Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo "
                   + " Join tb_ciudad c on c.Codigo = u.Codigo_Ciudad "
-                + " Join tb_departamento d on d.Codigo = c.Codigo_Departamento\n" +
+                + " Join tb_departamento d on d.Codigo = c.Codigo_Departamento \n" +
                     "Where u.Correo = ? AND u.Contrasenia = ?";
         try{
             
@@ -356,7 +356,7 @@ public class Usuario {
             if(i==1){
                 pr=conn.prepareStatement("Select c.Nombre NombreCiudad, d.Nombre NombreDepartamento "
                         + "From tb_ciudad  c "
-                        + "Join tb_departamento d on d.Codigo = c.Codigo_Departamento"
+                        + "Join tb_departamento d on d.Codigo = c.Codigo_Departamento "
                         + " Where c.Codigo = ?");
                 pr.setString(1, Ciudad);
                 rs=pr.executeQuery();
@@ -364,7 +364,7 @@ public class Usuario {
                 while (rs.next())
                 {
                     this.setCiudad(rs.getString("NombreCiudad"));
-                    this.setDepartamento("NombreDepartamento");
+                    this.setDepartamento(rs.getString("NombreDepartamento"));
                 }
                 return true;
             }

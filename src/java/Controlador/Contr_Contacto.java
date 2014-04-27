@@ -30,6 +30,7 @@ public class Contr_Contacto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding( "UTF-8" );
         String Nombre, Correo, Asunto,Categoria, Ciudad, Comentario, Contenido, script, url;
         HttpSession session = request.getSession(true);
         Mensajeria msm = new Mensajeria();

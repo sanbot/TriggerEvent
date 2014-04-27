@@ -4,10 +4,10 @@
     Author     : Sanser
     --%>
 
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
-    <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
-    <%
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
+<%
 String Tipo = (String)  session.getAttribute("Tipo_Documento");
 String Documento = (String)session.getAttribute("No_Documento");
 String Telefono = (String) session.getAttribute("Telefono");
@@ -50,10 +50,10 @@ String Departamento = (String) session.getAttribute("Departamento");
             <br/>
             <br/>
             <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <ol class="breadcrumb">
                     <li><a href="index.jsp">Inicio</a></li>
-                    <li class="active">Perfil</a></li>
+                    <li class="active">Mi perfil</a></li>
                 </ol>
             </div>
         </div>
@@ -70,7 +70,7 @@ String Departamento = (String) session.getAttribute("Departamento");
 
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <center><img src="../Libs/Customs/images/userapplication.png" class="img-perfil"/></center>
-                            <h3 class="nombre-usuario">Santiago Botero Ruiz</h3>
+                            <h3 class="nombre-usuario"><%=Nombre%></h3>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 datos-personales">
                             <div class="row primer-dato">
@@ -211,33 +211,28 @@ String Departamento = (String) session.getAttribute("Departamento");
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         <h4 class="modal-title" id="myModalLabel">
-                                            <center>Cambiar Contraseña</center>
+                                            <center>Cambiar contraseña</center>
                                         </h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-8">
+                                            <div class="col-xs-8 col-xs-offset-2">
                                                 <div class="form-group">
                                                     <label for="ContraseniaActual">Contrase&ntilde;a actual</label>
                                                     <input id="ContraseniaActual" name="ContraseniaActual" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
                                                 </div>
                                             </div>
-                                            <div class="col-md-2"></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-2"></div>
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <label for="ContraseniaNueva">Contrase&ntilde;a nueva</label>
-                                                        <input id="ContraseniaNueva" name="ContraseniaNueva" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
-                                                    </div>
+                                            <div class="col-xs-8 col-xs-offset-2">
+                                                <div class="form-group">
+                                                    <label for="ContraseniaNueva">Contrase&ntilde;a nueva</label>
+                                                    <input id="ContraseniaNueva" name="ContraseniaNueva" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
                                                 </div>
-                                            <div class="col-md-2"></div>
+                                            </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-8">
+                                            <div class="col-xs-8 col-xs-offset-2">
                                                 <div class="form-group">
                                                     <div class="form-group">
                                                         <label for="ContraseniaRepetir">Repetir contrase&ntilde;a nueva</label>
@@ -245,7 +240,6 @@ String Departamento = (String) session.getAttribute("Departamento");
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2"></div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -260,7 +254,7 @@ String Departamento = (String) session.getAttribute("Departamento");
             </div>
             <footer>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-xs-12">
                         <hr class="featurette-divider">
                         <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
                     </div>

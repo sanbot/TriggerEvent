@@ -44,145 +44,117 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
         <%}%>
         
 	<div class="container">
-                <br/>
-                <br/>
-                <br/>
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<div class="form-group">
-					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Mi perfil
-				</div>
-			</div>
-		</div>
+            <br/>
+            <br/>
+            <br/>
+            <div class="row clearfix">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <ol class="breadcrumb">
+                            <li><a href="index.jsp">Inicio</a></li>
+                            <li class="active">Mi perfil</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
 	</div>
 	<div class="container">
-		<div class="row clearfix">
-			<div class="col-md-12">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <h1 class="Center">Modificar perfil</h1>
+                    <form id="search" data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Usuarios">
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Tipo">Tipo de usuario</label>
+                                    <input name="TipoUsuario" type="text" class="form-control" id="Tipo_Usuario_MPerfil"value="<%=Rol%>" readonly/>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Tipo_Documento">Tipo de documento</label>
+                                    <input name="Tipo_Documento" type="text" class="form-control" id="Tipo_Documento_MPerfil" value="<%=DatosUsuario[3]%>" readonly/>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Numero_Documento">N&uacute;mero de documento</label>
+                                    <input name="No_Documento" type="text" class="form-control" id="Numero_Documento_MPerfil" value="<%=DatosUsuario[4]%>" readonly/> 
+                                </div>
+                            </div>
 
-				<h1 class="Center">Modificar perfil</h1>
-				
-				<form id="search" data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Usuarios">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Nombre">Nombre de usuario</label>
+                                    <input name="Nombre" type="text" class="form-control" id="Nombre_Documento_MPerfil" value="<%=Nombre%>" readonly/>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Celular">N&uacute;mero de celular</label>
+                                    <input name="Celular" type="text" class="form-control" id="Celular_MPerfil" value="<%=DatosUsuario[7]%>" readonly/>
+                                </div>
+                            </div>
 
-					<div class="row">
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Tipo">Tipo Usuario</label>
-								<input name="TipoUsuario" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=Rol%>" readonly/>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Tipo_Documento">Tipo Documento</label>
-								<input name="Tipo_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=DatosUsuario[3]%>" readonly/>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-							<div class="form-group">
-								<label for="Numero_Documento">N&uacute;mero de Documento</label>
-								<input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=DatosUsuario[4]%>" readonly/> 
-							</div>
-						</div>
-
-					</div>
-
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Nombre">Nombre</label>
-                                                                <input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=Nombre%>" readonly/>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Celular">Celular</label>
-								<input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=DatosUsuario[7]%>" readonly/>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Correo">Correo</label>
-								<input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=DatosUsuario[8]%>" readonly/>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-                                                        <div class="form-group">
-
-                                                                <label for="Departamento">Departamento</label>
-                                                                <select id="departamentoperfil" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-                                                                </select>
-                                                        </div>
-
-                                                </div>
-                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-                                                        <div class="form-group">
-                                                                <label for="Ciudad">Ciudad</label>
-                                                                <select id="ciudadperfil" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-                                                                    <option value='<%=DatosUsuario[13]%>'><%=DatosUsuario[11]%></option>
-                                                                </select>
-                                                        </div>
-
-                                                </div>
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-							<div class="form-group">
-								<label for="Tipo">Tel&eacute;fono</label>
-								<input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=DatosUsuario[6]%>"/>
-							</div> 
-						</div>
-
-						
-
-					</div>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
-                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-                                                <div class="form-group">
-                                                        <label for="Imagen">Direcci&oacute;n</label>
-                                                        <div class="form-group">
-                                                                <input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true" value="<%=DatosUsuario[9]%>"/>
-                                                        </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
-                                        </div>
-					<div class="row">
-						<div class="col-md-offset-4 col-md-4">
-							<button type="submit" name="ModificarPerfil" class="btn defecto btn-block">Guardar</button>
-						</div>
-					</div>
-				</form>
-			</div>
-
-			<div class="container marketing">
-				<hr class="featurette-divider">
-			</div>
-			<!-- FOOTER -->
-			<footer>
-				<p>&copy; 2013 Trigger Event, Inc.</p>
-			</footer>
-
-		</div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Correo">Correo electr&oacute;nico</label>
+                                    <input name="Correo" type="text" class="form-control" id="Correo_MPerfil" value="<%=DatosUsuario[8]%>" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Departamento">Departamento</label>
+                                    <select id="departamentoperfil" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Ciudad">Ciudad</label>
+                                    <select id="ciudadperfil" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                        <option value='<%=DatosUsuario[13]%>'><%=DatosUsuario[11]%></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Tipo">N&uacute;mero de tel&eacute;fono</label>
+                                    <input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=DatosUsuario[6]%>"/>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-4 col-sm-4 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Imagen">Direcci&oacute;n</label>
+                                    <div class="form-group">
+                                        <input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true" value="<%=DatosUsuario[9]%>"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-5 col-md-offset-5 col-md-2">
+                                <button type="submit" name="ModificarPerfil" class="btn defecto btn-block">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <footer>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <hr class="featurette-divider">
+                        <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                    </div>
+                </div>
+            </footer>
 	</div>
-</div>
-
-
-
-
-
       <!-- Bootstrap core JavaScript
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->

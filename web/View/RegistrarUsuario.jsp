@@ -63,12 +63,12 @@
         <div class="row clearfix">
             <div class="col-md-12">
                 <h1 class="Center">REGISTRARSE</h1>
-                <form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+                <form data-validate="parsley" data-focus="first" method="post" action="/TriggerEvent/Contr_Usuarios">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Nombre">Nombre</label>
-                                <input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=nombre%>" <%if(!nombre.equals("")){%>readonly<%}%> />
+                                <input name="Nombre" type="text" class="form-control" id="txt_nombre_registro_usuario" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=nombre%>" <%if(!nombre.equals("")){%>readonly<%}%> />
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">

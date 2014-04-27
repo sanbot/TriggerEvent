@@ -7,9 +7,6 @@
 package Controlador;
 
 import Modelo.Seleccion;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +40,7 @@ public class Contr_Seleccion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding( "UTF-8" );
         HttpSession session = request.getSession(true);
         PrintWriter out = response.getWriter();
         
