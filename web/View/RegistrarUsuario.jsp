@@ -47,37 +47,37 @@
 </head>
 <body>
     <%@include file="../WEB-INF/jspf/Menu.jspf" %>
+    
     <div class="container">
-        <div class="row clearfix">
-            <br/>
-            <br/>
-            <br/>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registrarse
-                </div>
+        <br/>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li class="active">Registrarse</a></li>
+                </ol>
             </div>
         </div>
-    </div>
-    <div class="container">
         <div class="row clearfix">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <h1 class="Center">REGISTRARSE</h1>
                 <form data-validate="parsley" data-focus="first" method="post" action="/TriggerEvent/Contr_Usuarios">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Nombre">Nombre</label>
                                 <input name="Nombre" type="text" class="form-control" id="txt_nombre_registro_usuario" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=nombre%>" <%if(!nombre.equals("")){%>readonly<%}%> />
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Nombre">Celular</label>
                                 <input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=Celular%>" <%if(!Celular.equals("")){%>readonly<%}%>/>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Nombre">Correo electr&oacute;nico</label>
                                 <input name="Correo" type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=Correo%>" <%if(!Correo.equals("")){%>readonly<%}%>/>
@@ -85,9 +85,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                        <div class="col-xs-4 col-xs-offset-4 col-sm-offset-4 col-sm-4 col-md-offset-5 col-md-2 col-lg-2">
                             <div class="form-group">
                                 <label for="Nota" style="font-size: 10px;"><i>Nota: oprima enviar para solicitar un c&oacute;digo de verificaci&oacute;n</i></label>
                                 <%if(!nombre.equals("")){%>
@@ -98,13 +96,11 @@
                                 <%}%>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                        </div>
                     </div>
                 </form>
                 <form id="search" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Tipo">Tipo Usuario</label>
                                 <select name="Tipo_Usuario" id="Tipos" class="form-control" data-required="true">
@@ -118,7 +114,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Imagen">Tipo Documento</label>
                                 <select name="Tipo_Documento" tabindex="1" data-placeholder="" class="form-control" data-required="true">
@@ -131,7 +127,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label  for="Nombre">N&uacute;mero de Documento</label>
                                 <input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
@@ -139,19 +135,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Codverifi">C&oacute;digo de Verificaci&oacute;n</label>
                                 <input name="codver" type="text" class="form-control" id="codver" data-rangelength="[4,4]" data-notblank="true" data-required="true"/>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Telefono">Tel&eacute;fono</label>
                                 <input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true">
                             </div> 
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Direccion">Direcci&oacute;n</label>
                                 <div class="form-group">
@@ -161,15 +157,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-2 col-sm-4 col-md-offset-2 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Departamento">Departamento</label>
                                 <select id="departamento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Ciudad">Ciudad</label>
                                 <select id="ciudad" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
@@ -178,14 +173,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-2 col-sm-4 col-md-offset-2 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Password">Contrase&ntilde;a</label>
                                 <input id="txtRegistrarContrasenia" name="Password" class="form-control" type="password" data-notblank="true" data-type="contrasenia" data-rangelength="[6,30]" data-required="true">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xs-10 col-xs-offset-1  col-sm-offset-0 col-sm-4 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="REPassword">Repita la Contrase&ntilde;a</label>
                                 <input name="REPassword" class="form-control" type="password" data-notblank="true" data-type="contrasenia" data-rangelength="[6,30]" data-required="true" data-equalto="#txtRegistrarContrasenia">
@@ -193,18 +187,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                        <div class="col-xs-4 col-xs-offset-4 col-sm-offset-4 col-sm-4 col-md-offset-5 col-md-2 col-lg-2">
                             <div class="form-group">
                                 <button name="RegistrarUsuario" type="submit" class="btn btn-block defecto" id="RegistrarUsuario">Registrar</button>
                             </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                            <div class="form-group">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                         </div>
                     </div>
                 </form>
@@ -212,7 +198,7 @@
         </div>
         <footer>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <hr class="featurette-divider">
                     <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
                 </div>

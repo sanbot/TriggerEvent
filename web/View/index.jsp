@@ -48,73 +48,138 @@
     	<br/>
     	<br/>
     	<br/>
-    	<div class="row">
-    		        
-        		<div class="col-md-4">
-                            <label id="imagen1" class="control-label Justify">
-                                <h1 class="Center">EVENTOS AL ALCANCE DE SU MANO</h1>
-                                Tendencias musicales en cualquier dispositivo, actualizamos sus eventos diariamente, promocione su "evento" f&aacute;cilmente.
-                            </label>
-                            <div class="google-play-disponible">
-                                <img src="../Libs/Customs/images/google_play_icon.png" alt="Disponible en google play" height="50" />
+    	<div class="row visible-md visible-lg">
+            <div class="col-xs-8 col-xs-offset-2 col-md-offset-0 col-md-4">
+                <label id="imagen1" class="control-label Justify">
+                    <h1 class="Center">EVENTOS AL ALCANCE DE SU MANO</h1>
+                    Tendencias musicales en cualquier dispositivo, actualizamos sus eventos diariamente, promocione su "evento" f&aacute;cilmente.
+                </label>
+                <div class="google-play-disponible">
+                    <img src="../Libs/Customs/images/google_play_icon.png" alt="Disponible en google play" height="50" />
+                </div>
+            </div>
+            <div class="col-xs-8 col-xs-offset-2 col-md-offset-0 col-md-4">
+                <center><img id="imagen" class="img-responsive" src="../Libs/Customs/images/logoteblanco.png"/></center>
+            </div>
+            <div class="col-xs-8 col-xs-offset-2 col-md-offset-0 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-lock"></span> Inicio de sesi&oacute;n
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+                            <div class="form-group">
+                                <label for="Correo" class="col-sm-3 control-label" >
+                                    Correo
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="txtCorreoInicio1" name="correo" placeholder="e-mail" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
+                                </div>
                             </div>
-        		</div>
-        		<div class="col-xs-offset-2 col-sm-offset-3 col-md-offset-0 col-md-4">
-        			<img id="imagen" class="img-responsive" src="../Libs/Customs/images/logoteblanco.png"/>
-        		</div>
-        		<div class="col-md-4">
-        			<div class="panel panel-default">
-        				<div class="panel-heading">
-        					<span class="glyphicon glyphicon-lock"></span> Inicio de sesi&oacute;n
-        				</div>
-        				<div class="panel-body">
-        					<form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
-        						<div class="form-group">
-        							<label for="Correo" class="col-sm-3 control-label" >
-        								Correo
-        							</label>
-        							<div class="col-sm-9">
-        								<input type="email" class="form-control" id="txtCorreoInicio1" name="correo" placeholder="e-mail" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
-        							</div>
-        						</div>
-        						<div class="form-group">
-        							<label for="Contrasenia" class="col-sm-3 control-label">
-                                        Contrase&ntilde;a
-                                    </label>
-                                    <div class="col-sm-9" id="target-2">
-                                        <input type="password" class="form-control" id="txtPassWordInicio" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[8,50]">
-                                    </div>
+                            <div class="form-group">
+                                <label for="Contrasenia" class="col-sm-3 control-label">
+                                    Contrase&ntilde;a
+                                </label>
+                                <div class="col-sm-9" id="target-2">
+                                    <input type="password" class="form-control" id="txtPassWordInicio" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[8,50]">
                                 </div>
-                                <div class="form-group" >
-                                    <div class="col-sm-offset-3 col-sm-9">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"/>
-                                                Recordarme
-                                            </label>
-                                        </div>
-                                        <a id="modal-Olvide" href="#modal-container-Olvide" role="button" data-toggle="modal">Olvid&eacute; la contrase&ntilde;a</a>
+                            </div>
+                            <div class="form-group" >
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"/>
+                                            Recordarme
+                                        </label>
                                     </div>
+                                    <a id="modal-Olvide" href="#modal-container-Olvide" role="button" data-toggle="modal">Olvid&eacute; la contrase&ntilde;a</a>
                                 </div>
-                                <div class="form-group last" >
-                                    <div class="col-sm-offset-3 col-sm-9">
-                                        <button type="submit" name="login" class="btn btn-success btn-sm" >
-                                            Ingresar
-                                        </button>
-                                        <button type="reset" class="btn btn-default btn-sm" id="target-3">
-                                           Limpiar
-                                        </button>
-                                    </div>
+                            </div>
+                            <div class="form-group last" >
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" name="login" class="btn btn-success btn-sm" >
+                                        Ingresar
+                                    </button>
+                                    <button type="reset" class="btn btn-default btn-sm" id="target-3">
+                                        Limpiar
+                                    </button>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="panel-footer" >
-                            ¿No está registrado? 
-                            <a href="RegistrarUsuario.jsp">Regístrese aquí</a>
-                        </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer" >
+                        ¿No está registrado? 
+                        <a href="RegistrarUsuario.jsp">Regístrese aquí</a>
                     </div>
                 </div>
-            
+            </div>
+        </div>
+        <div class="row visible-xs visible-sm">
+            <div class="col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-lock"></span> Inicio de sesi&oacute;n
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+                            <div class="form-group">
+                                <label for="Correo" class="col-sm-3 control-label" >
+                                    Correo
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="txtCorreoInicio1" name="correo" placeholder="e-mail" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Contrasenia" class="col-sm-3 control-label">
+                                    Contrase&ntilde;a
+                                </label>
+                                <div class="col-sm-9" id="target-2">
+                                    <input type="password" class="form-control" id="txtPassWordInicio" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[8,50]">
+                                </div>
+                            </div>
+                            <div class="form-group" >
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"/>
+                                            Recordarme
+                                        </label>
+                                    </div>
+                                    <a id="modal-Olvide" href="#modal-container-Olvide" role="button" data-toggle="modal">Olvid&eacute; la contrase&ntilde;a</a>
+                                </div>
+                            </div>
+                            <div class="form-group last" >
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" name="login" class="btn btn-success btn-sm" >
+                                        Ingresar
+                                    </button>
+                                    <button type="reset" class="btn btn-default btn-sm" id="target-3">
+                                        Limpiar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer" >
+                        ¿No está registrado? 
+                        <a href="RegistrarUsuario.jsp">Regístrese aquí</a>
+                    </div>
+                </div>
+            </div>            
+            <div class="col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">
+                <center><img id="imagen" class="img-responsive" src="../Libs/Customs/images/logoteblanco.png"/></center>
+            </div>
+            <div class="col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">
+                <label id="imagen1" class="control-label Justify">
+                    <h1 class="Center">EVENTOS AL ALCANCE DE SU MANO</h1>
+                    Tendencias musicales en cualquier dispositivo, actualizamos sus eventos diariamente, promocione su "evento" f&aacute;cilmente.
+                </label>
+                <div class="google-play-disponible">
+                    <img src="../Libs/Customs/images/google_play_icon.png" alt="Disponible en google play" height="50" />
+                </div>
+                <br/>
+            </div>
         </div>
     </div>
     <%}%>
@@ -126,7 +191,7 @@
         <br/>
         <%}%>
         <div class="row clearfix" >
-            <div class="col-md-4 column">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
                 <div class="panel panel-primary" id="target-4">
                     <div class="panel-heading">
                         <h3 class="panel-title">
@@ -174,7 +239,7 @@
                     </div>
                 <%}%>
             </div>
-            <div class="col-md-4 column">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
                 <div class="panel panel-primary" id="target-5">
                     <div class="panel-heading">
                         <h3 class="panel-title">
@@ -220,7 +285,7 @@
                     </div>
                 <%}%>
             </div>
-            <div class="col-md-4 column">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
                 <div class="panel panel-primary" id="target-6">
                     <div class="panel-heading">
                         <h3 class="panel-title">
@@ -272,9 +337,7 @@
     </div>
     <div class="container" style="width: 100%; margin-top: 2%;">
         <div class="row clearfix">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-8">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                 <!-- /widget -->
                 <div class="widget">
                     <div class="widget-header" id="target-7">
@@ -303,8 +366,6 @@
                 </div>
                 <!-- /widget --> 
             </div>
-            <div class="col-md-2">
-            </div>
         </div>
         <div class="modal fade" id="modal-container-Olvide" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -318,9 +379,9 @@
                     <div class="modal-body">
                         <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
                             <div class="row">
-                                <div class="col-md-offset-2 col-md-8">
+                                <div class="col-xs-offset-2 col-xs-8">
                                     <div class="form-group">
-                                        <label for="CorreoRecordar" class="col-sm-3" >
+                                        <label for="CorreoRecordar" class="col-sm-3 col-xs-4" >
                                             Correo
                                         </label>
                                         <input type="email" class="form-control" id="txtemailInicio" name="correo" placeholder="correo" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
@@ -329,7 +390,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <div class="col-md-offset-4 col-md-4">
+                                    <div class="col-xs-offset-4 col-xs-4">
                                         <button type="submit" name="recucontrasenia" class="btn defecto btn-block" >
                                             Enviar
                                         </button>
@@ -343,7 +404,7 @@
         </div>
         <footer>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <hr class="featurette-divider">
                     <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
                 </div>

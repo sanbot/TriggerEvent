@@ -50,13 +50,13 @@ String Departamento = (String) session.getAttribute("Departamento");
             <br/>
             <br/>
             <div class="row">
-            <div class="col-xs-12">
-                <ol class="breadcrumb">
-                    <li><a href="index.jsp">Inicio</a></li>
-                    <li class="active">Mi perfil</a></li>
-                </ol>
+                <div class="col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="index.jsp">Inicio</a></li>
+                        <li class="active">Mi perfil</a></li>
+                    </ol>
+                </div>
             </div>
-        </div>
             <div class="row clearfix">
                 <div class="col-md-12">
                         <h1 class="Center">Mi perfil</h1>
