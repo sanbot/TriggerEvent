@@ -458,13 +458,14 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 		</div>
                 <%}%>
 	</div>
-	<div class="container marketing">
-		<hr class="featurette-divider">
-	</div>
-	<!-- FOOTER -->
 	<footer>
-		<p>&copy; 2013 Trigger Event, Inc.</p>
-	</footer>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                </div>
+            </div>
+        </footer>
 </div>
 
 

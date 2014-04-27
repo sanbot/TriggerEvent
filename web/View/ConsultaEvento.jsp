@@ -50,9 +50,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                     <ol class="breadcrumb">
                                         <li><a href="index.jsp">Inicio</a></li>
                                         <li class="active">Eventos</a></li>
-                                      </ol>
-
-					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Eventos
+                                    </ol>
 				</div>
 			</div>
 		</div>
@@ -192,7 +190,18 @@ int Cantidad = usu.getCantidadEventosPendientes();
     $(document).ready(function () {
         $(".paginacion").addClass("hide");
         $("#1").removeClass("hide");
-        $("#previo").parent("li").addClass("disabled");
+        
+        $("li").nextAll().each( function() {
+            if ($(this).hasClass("active")) {
+                if($(this).prev().find("a").text()===$("#previo").text())
+                {
+                    $("#previo").parent("li").addClass("disabled");
+                }
+                if($(this).next().find("a").text()===$("#siguiente").text()){
+                    $("#siguiente").parent("li").addClass("disabled");
+                }
+            }
+        });
         $(".pag").click(function(){
             $("li.active").removeClass("active");
             $(this).parent().addClass("active");
@@ -200,16 +209,20 @@ int Cantidad = usu.getCantidadEventosPendientes();
             var idpag = "#"+$(this).text();
             $(idpag).removeClass("hide");
             $(".disabled").removeClass("disabled");
-            if($("li.active").prev().find("a").text()===$("#previo").text())
-            {
-                $("#previo").parent("li").addClass("disabled");
-            }
-            if($("li.active").next().find("a").text()===$("#siguiente").text()){
-                $("#siguiente").parent("li").addClass("disabled");
-            }
+            $("li").nextAll().each( function() {
+                if ($(this).hasClass("active")) {
+                    if($(this).prev().find("a").text()===$("#previo").text())
+                    {
+                        $("#previo").parent("li").addClass("disabled");
+                    }
+                    if($(this).next().find("a").text()===$("#siguiente").text()){
+                        $("#siguiente").parent("li").addClass("disabled");
+                    }
+                }
+            });
         });
         $("#previo").click(function(){
-            if($("li.disabled").find("a").text()!== $("#previo").text())
+            if($("li.disabled:first").find("a").text()!== $("#previo").text())
             {
                 var activo = $("li.active").prev();
                 var textoactivo =$("li.active").prev().find("a").text();
@@ -218,18 +231,22 @@ int Cantidad = usu.getCantidadEventosPendientes();
                 activo.addClass("active");
                 $(".disabled").removeClass("disabled");
                 $("#"+textoactivo).removeClass("hide");
-                if($("li.active").prev().find("a").text()===$("#previo").text())
-                {
-                    $("#previo").parent("li").addClass("disabled");
-                }
-                if($("li.active").next().find("a").text()===$("#siguiente").text()){
-                    $("#siguiente").parent("li").addClass("disabled");
-                }
+                $("li").nextAll().each( function() {
+                    if ($(this).hasClass("active")) {
+                        if($(this).prev().find("a").text()===$("#previo").text())
+                        {
+                            $("#previo").parent("li").addClass("disabled");
+                        }
+                        if($(this).next().find("a").text()===$("#siguiente").text()){
+                            $("#siguiente").parent("li").addClass("disabled");
+                        }
+                    }
+                });
             }
             
         });
         $("#siguiente").click(function(){
-            if($("li.disabled").find("a").text()!== $("#siguiente").text())
+            if($("li.disabled:last").find("a").text()!== $("#siguiente").text())
             {
                 var activo = $("li.active").next();
                 var textoactivo =$("li.active").next().find("a").text();
@@ -238,13 +255,17 @@ int Cantidad = usu.getCantidadEventosPendientes();
                 activo.addClass("active");
                 $("#"+textoactivo).removeClass("hide");
                 $(".disabled").removeClass("disabled");
-                if($("li.active").prev().find("a").text()===$("#previo").text())
-                {
-                    $("#previo").parent("li").addClass("disabled");
-                }
-                if($("li.active").next().find("a").text()===$("#siguiente").text()){
-                    $("#siguiente").parent("li").addClass("disabled");
-                }
+                $("li").nextAll().each( function() {
+                    if ($(this).hasClass("active")) {
+                        if($(this).prev().find("a").text()===$("#previo").text())
+                        {
+                            $("#previo").parent("li").addClass("disabled");
+                        }
+                        if($(this).next().find("a").text()===$("#siguiente").text()){
+                            $("#siguiente").parent("li").addClass("disabled");
+                        }
+                    }
+                });
             }
         });
         $(".modal-Modifica").click(function(){

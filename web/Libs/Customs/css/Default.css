@@ -478,3 +478,34 @@ p
 .contenido-opinion{
     padding-bottom: 10px;
 }
+
+/*Perfil diseño*/
+  .perfil-contenido{
+    background-color : #2F4154;
+    color: #fff;
+}
+.img-perfil{
+    padding-top: 30px;
+    height: 240px;
+}
+.nombre-usuario{
+    text-align: center;
+}
+.contenido-dos{
+    text-align: left;
+}
+.datos-perfil
+{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.primer-dato {
+    padding-top: 10px;
+}
+
+.datos-personales {
+    padding: 0;
+    padding-bottom: 15px;
+    border-left: 1px solid #fff;
+    border-top:  1px solid #fff;
+}

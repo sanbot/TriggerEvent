@@ -15,6 +15,7 @@ String Celular = (String) session.getAttribute("Celular");
 String Correo = (String) session.getAttribute("Correo");
 String Direccion = (String) session.getAttribute("Direccion");
 String Ciudad = (String) session.getAttribute("Ciudad");
+String Departamento = (String) session.getAttribute("Departamento");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,205 +45,228 @@ String Ciudad = (String) session.getAttribute("Ciudad");
         <%}else if(Rol.equals("Empresa")){%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
         <%}%>
-	<div class="container" style="margin-top: 5%;">
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<div class="form-group">
-					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Mi perfil
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="container">
-		<div class="row clearfix">
-			<div class="col-md-12">
+            <br/>
+            <br/>
+            <br/>
+            <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li class="active">Perfil</a></li>
+                </ol>
+            </div>
+        </div>
+            <div class="row clearfix">
+                <div class="col-md-12">
+                        <h1 class="Center">Mi perfil</h1>
+                </div>
+            </div>
+	
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-10">
+                    <div class="row perfil-contenido contenido-borde">
 
-				<h1 class="Center">Mi perfil</h1>
-				
-				<form data-validate="parsley" role="form">
-
-					<div class="row">
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Tipo">Tipo Usuario</label>
-								<input type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" readonly value="<%=Rol%>"/>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Imagen">Tipo Documento</label>
-								<input type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" readonly value="<%=Tipo%>"/>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-							<div class="form-group">
-								<label for="Nombre">N&uacute;mero de Documento</label>
-								<input type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=Documento%>" readonly/>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="row">
-                                            
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Nombre">Nombre</label>
-								<input type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=Nombre%>" readonly/>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Nombre">Celular</label>
-								<input type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[13,15]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=Celular%>" readonly/>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Nombre">Correo</label>
-								<input type="text" class="form-control" id="Direccion" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" value="<%=Correo%>" readonly/>
-							</div>
-						</div>
-
-					</div>
-
-				</form>
-
-				<form data-validate="parsley" role="form">
-
-					<div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<div class="form-group">
-								<label for="Ciudad">Ciudad</label>
-								<input type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=Ciudad%>" readonly/>
-							</div>
-						</div>
-						<div class=" col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-							<div class="form-group">
-								<label for="Tipo">Tel&eacute;fono</label>
-								<input class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=Telefono%>" readonly/>
-							</div> 
-						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
-							<div class="form-group">
-								<label for="Imagen">Direcci&oacute;n</label>
-								<div class="form-group">
-									<input class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true" value="<%=Direccion%>" readonly/>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-					<div class="row">
-						<div class="col-md-offset-4 col-md-4">
-                                                    <div class="form-group">
-							<a href="ModificarPerfil.jsp" class="btn defecto btn-block">Modificar Perfil</a>
-                                                    </div>
-						</div>
-					</div>
-				
-
-			</form>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <center><img src="../Libs/Customs/images/userapplication.png" class="img-perfil"/></center>
+                            <h3 class="nombre-usuario">Santiago Botero Ruiz</h3>
                         </div>
-                        <div class="row">
-                                <div class="col-md-4">
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <a id="modal-Modificar" href="#modal-container-Modificar" role="button" class="btn btn-block defecto" data-toggle="modal">Cambiar contrase&ntilde;a</a>
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 datos-personales">
+                            <div class="row primer-dato">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="Tipo_Documento">Tipo de documento: </label>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="Tipo_Documento_Usuario"><%=Tipo%></label>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="No_Documento">N&uacute;mero de documento: </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="No_Documento_Usuario"><%=Documento%></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="Tipo_USuario">Tipo de usuario: </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="Tipo_USuario_Usuario"><%=Rol%></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="No_Celular">N&uacute;mero de Celular: </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="No_Celular_USuario"><%=Celular%></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="No_Telefono">N&uacute;mero de tel&eacute;fono: </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="No_Telefono_Usuario"><%=Telefono%></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="Correo_Electronico">Correo electr&oacute;nico</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="Correo_Electronico_Usuario"><%=Correo%></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="Departamento">Departamento: </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="Departamento_USuario"><%=Departamento%></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="Ciudad">Ciudad: </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="Ciudad_USuario"><%=Ciudad%></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5">
+                                    <div class="datos-perfil">
+                                        <label for="Direccion">Direcci&oacute;n: </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
+                                    <div class="datos-perfil">
+                                        <label for="Direccion_USuario"><%=Direccion%></label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-				<form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
-					<div class="col-md-12">
-						<div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h4 class="modal-title" id="myModalLabel">
-                                                                                    <center>Cambiar Contraseña</center>
-										</h4>
-									</div>
-									<div class="modal-body">
-                                                                                <div class="row">
-											<div class="col-md-2"></div>
-											<div class="col-md-8">
-												<div class="form-group">
-                                                                                                    <label for="ContraseniaActual">Contrase&ntilde;a actual</label>
-													<input id="ContraseniaActual" name="ContraseniaActual" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
-												</div>
-											</div>
-                                                                                        <div class="col-md-2">
-                                                                                            
-                                                                                        </div>
-										</div>
-										<div class="row">
-											<div class="col-md-2"></div>
-											<div class="col-md-8">
-												<div class="form-group">
-                                                                                                    <label for="ContraseniaNueva">Contrase&ntilde;a nueva</label>
-													<input id="ContraseniaNueva" name="ContraseniaNueva" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
-												</div>
-											</div>
-                                                                                        <div class="col-md-2">
-                                                                                            
-                                                                                        </div>
-										</div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2"></div>
-                                                                                    <div class="col-md-8">
-                                                                                        <div class="form-group">
-                                                                                            <div class="form-group">
-                                                                                                <label for="ContraseniaRepetir">Repetir contrase&ntilde;a nueva</label>
-                                                                                                    <input id="ContraseniaRepetir" name="ContraseniaRepetir" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-2"></div>
-                                                                                </div>
-                                                                            
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                <button name="CambiarContrasenia" type="submit" class="btn defecto">Cambiar</button>
-									</div>
-								</div>
-								
-							</div>
-							
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="container marketing">
-				<hr class="featurette-divider">
-			</div>
-			<!-- FOOTER -->
-			<footer>
-				<p>&copy; 2013 Trigger Event, Inc.</p>
-			</footer>
-
-		</div>
-	</div>
-</div>
-
-
-
-
-
+                        <div class="col-xs-1"></div>
+                    </div>
+                </div>
+                <div class="col-xs-1"></div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3">
+                    <div class="form-group">
+                        <a id="modal-Modificar" href="#modal-container-Modificar" role="button" class="btn btn-block defecto pull-right" data-toggle="modal">Cambiar contrase&ntilde;a</a>
+                    </div>
+                </div>
+                <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3">
+                    <div class="form-group">
+                        <a href="ModificarPerfil.jsp" class="btn defecto btn-block">Modificar Perfil</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <form data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
+                    <div class="col-md-12">
+                        <div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            <center>Cambiar Contraseña</center>
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label for="ContraseniaActual">Contrase&ntilde;a actual</label>
+                                                    <input id="ContraseniaActual" name="ContraseniaActual" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label for="ContraseniaNueva">Contrase&ntilde;a nueva</label>
+                                                        <input id="ContraseniaNueva" name="ContraseniaNueva" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
+                                                    </div>
+                                                </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label for="ContraseniaRepetir">Repetir contrase&ntilde;a nueva</label>
+                                                        <input id="ContraseniaRepetir" name="ContraseniaRepetir" class="form-control" type="password" data-notblank="true" data-rangelength="[6,30]" data-required="true" data-type="contrasenia">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                            <button name="CambiarContrasenia" type="submit" class="btn defecto">Cambiar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <footer>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="featurette-divider">
+                        <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
       <!-- Bootstrap core JavaScript
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->

@@ -43,12 +43,13 @@
     <%}else if(Rol.equals("") || Rol.equals(null)){%>
     <%@include file="../WEB-INF/jspf/Menu.jspf" %>
     <%}%>
+    <%if(Rol == "" || Rol == null){%>
     <div id="body" class="container" style="width: 100%;">
     	<br/>
     	<br/>
     	<br/>
     	<div class="row">
-    		<%if(Rol == ""){%>        
+    		        
         		<div class="col-md-4">
                             <label id="imagen1" class="control-label Justify">
                                 <h1 class="Center">EVENTOS AL ALCANCE DE SU MANO</h1>
@@ -113,11 +114,17 @@
                         </div>
                     </div>
                 </div>
-            <%}%>
+            
         </div>
     </div>
+    <%}%>
     <div class="container">
         <br/>
+        <%if(Rol != "" && Rol != null){%>
+        
+        <br/>
+        <br/>
+        <%}%>
         <div class="row clearfix" >
             <div class="col-md-4 column">
                 <div class="panel panel-primary" id="target-4">

@@ -33,7 +33,7 @@ public class Contr_Usuarios extends HttpServlet {
             throws ServletException, IOException {
         Usuario usu = new Usuario();
         Mensajeria msm = new Mensajeria();
-        String script, Nombre, Codigo, Tipo_Documento,Estado, No_Documento, Telefono, Direccion, correo , celular, url, CodVer, CodigoVerificacion, Ciudad;
+        String script, Nombre, Codigo, Tipo_Documento,Estado, No_Documento, Telefono, Direccion, correo , celular, url, CodVer, CodigoVerificacion, Ciudad, Departamento;
         String Password, REPassword, Rol, Contrasenia;
         HttpSession session = request.getSession(true);
  
@@ -54,6 +54,7 @@ public class Contr_Usuarios extends HttpServlet {
                         celular = usu.getCelular();
                         Rol = usu.getTipo();
                         Ciudad = usu.getCiudad();
+                        Departamento = usu.getDepartamento();
                         
                         session.setAttribute("Codigo", Codigo);
                         session.setAttribute("Rol", Rol);
@@ -65,6 +66,7 @@ public class Contr_Usuarios extends HttpServlet {
                         session.setAttribute("Correo", correo);
                         session.setAttribute("Direccion", Direccion);
                         session.setAttribute("Ciudad", Ciudad);
+                        session.setAttribute("Departamento", Departamento);
                         
                         url="View/index.jsp";
                         response.sendRedirect(url);
@@ -100,6 +102,7 @@ public class Contr_Usuarios extends HttpServlet {
                     session.setAttribute("Correo", correo);
                     session.setAttribute("Direccion", Direccion);
                     session.setAttribute("Ciudad", usu.getCiudad());
+                    session.setAttribute("Departamento", usu.getDepartamento());
                     
                     session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente");
                     session.setAttribute("TipoMensaje" , "Dio");
