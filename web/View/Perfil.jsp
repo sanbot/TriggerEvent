@@ -194,6 +194,7 @@ String Departamento = (String) session.getAttribute("Departamento");
                 <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3">
                     <div class="form-group">
                         <a id="modal-Modificar" href="#modal-container-Modificar" role="button" class="btn btn-block defecto pull-right" data-toggle="modal">Cambiar contrase&ntilde;a</a>
+                        <br/>
                     </div>
                 </div>
                 <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3">

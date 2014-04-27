@@ -16,104 +16,91 @@ String[][] ListaGustos = usu.getMisGustos(Codigo);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<title>Trigger Event</title>
-	<meta name="description" content="Eventos musicales" />
-	<meta name="keywords" content="Eventos, musical, Trigger Event" />
-	<meta name="author" content="Sanser Soft" />
-	<link rel="shortcut icon" href="../favicon.ico">
-        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
-
-	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
-
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Trigger Event</title>
+    <meta name="description" content="Eventos musicales" />
+    <meta name="keywords" content="Eventos, musical, Trigger Event" />
+    <meta name="author" content="Sanser Soft" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
+    <link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
+    <script src="../Libs/Customs/js/modernizr.custom.js"></script>
 </head>
 <body>
-    
-	<%
-        if(Rol.equals("Administrador"))
-        {%>
-        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <%
-        }else if(Rol.equals("Cliente"))
-        {%>
-        <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
-        <%}else if(Rol.equals("Empresa")){%>
-        <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
-        <%}%>
-	<br/>
-	<br/>
-	<br/>
-	<div class="container">
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<div class="form-group">
-					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Mis gustos
-				</div>
-			</div>
-		</div>
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<br/>
-				<h1 class="Center">Mis Gustos</h1>
-			</div>
-		</div>
-                <div class="row">
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-4">
-				<a href="RegistrarGustos.jsp" class="btn btn-block defecto" >Agregar Gustos</a>
-			</div>
-			<div class="col-md-4">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				
-                                <br/>
-                                <div class="table-responsive">
-                                        <table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-                                                <thead>
-                                                        <tr>
-                                                                <th>Nombre</th>
-                                                                <th>Tipo</th>
-                                                                <th>Imagen</th>
-                                                                <th></th>
-                                                        </tr>
-                                                </thead>
-                                                <tbody>
-                                                        <%
-                                                        for(String[] Row : ListaGustos){%>
-                                                        <tr>
-                                                                <td><%=Row[1]%></td>
-                                                                <td><%=Row[2]%></td>
-                                                                <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
-                                                                <td><center><a href="ModificarGustos.jsp?Codigo=<%=Row[0]%>&Accion=Quitar"><span class="glyphicon glyphicon-remove"></span><center></td>
-                                                        </tr>
-                                                        <%
-                                                        }%>
-                                                </tbody>
-                                        </table>
-                                </div>
-				
-                        </div>
-				<div class="container marketing">
-					<hr class="featurette-divider">
-				</div>
-			</div>
-			
-			<!-- FOOTER -->
-			<footer>
-				<p>&copy; 2013 Trigger Event, Inc.</p>
-			</footer>
-		</div>
-
-
-
-
-
+    <%
+    if(Rol.equals("Administrador"))
+    {%>
+    <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+    <%
+    }else if(Rol.equals("Cliente"))
+    {%>
+    <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
+    <%}else if(Rol.equals("Empresa")){%>
+    <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
+    <%}%>
+    <div class="container">
+        <br/>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li class="active">Mis gustos</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xs-12">
+                <h1 class="Center">Mis Gustos</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-offset-5 col-md-2">
+                <div class="form-group">
+                    <a href="RegistrarGustos.jsp" class="btn btn-block defecto" >Agregar Gustos</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div class="table-responsive">
+                    <table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Imagen</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                            for(String[] Row : ListaGustos){%>
+                                <tr>
+                                    <td><%=Row[1]%></td>
+                                    <td><%=Row[2]%></td>
+                                    <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
+                                    <td><center><a href="ModificarGustos.jsp?Codigo=<%=Row[0]%>&Accion=Quitar"><span class="glyphicon glyphicon-remove"></span><center></td>
+                                </tr>
+                            <%
+                            }%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                </div>
+            </div>
+        </footer>
+    </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
