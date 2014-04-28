@@ -15,255 +15,219 @@ String[][] ListaSeleccion = usu.BuscarDatosSeleccion();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<title>Trigger Event</title>
-	<meta name="description" content="Eventos musicales" />
-	<meta name="keywords" content="Eventos, musical, Trigger Event" />
-	<meta name="author" content="Sanser Soft" />
-	<link rel="shortcut icon" href="../favicon.ico">
-        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
-
-	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
-
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Trigger Event</title>
+    <meta name="description" content="Eventos musicales" />
+    <meta name="keywords" content="Eventos, musical, Trigger Event" />
+    <meta name="author" content="Sanser Soft" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
+    <link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
+    <script src="../Libs/Customs/js/modernizr.custom.js"></script>
 </head>
 <body>
-	<%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+    <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+	
+    <div class="container">
+        <br/>
 	<br/>
 	<br/>
-	<br/>
-	<div class="container">
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<div class="form-group">
-					<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Selecci&oacute;n
-				</div>
-			</div>
-		</div>
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<br/>
-				<h1 class="Center">Registro y Consulta de Selecci&oacute;n</h1>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-4">
-				<a id="modal-Registrar" href="#modal-container-Registrar" role="button" class="btn btn-block defecto" data-toggle="modal">Registrar</a>
-			</div>
-			<div class="col-md-4">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				
-				<br/>
-				<div class="table-responsive">
-					<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>Nombre</th>
-                                                                <th>Tipo</th>
-                                                                <th>Imagen</th>
-                                                                <th>Estado</th>
-								<th></th>
-                                                                <th></th>
-                                                                <th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<%
-                                                        int i = 0;
-                                                        for(String[] Row : ListaSeleccion){%>
-							<tr>
-								<td><%=Row[1]%></td>
-                                                                <td><%=Row[2]%></td>
-                                                                <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
-                                                                <td><%=Row[3]%></td>
-								<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-tipo="<%=Row[2]%>" data-estado="<%=Row[3]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
-                                                                <td><center><a href="ModificarSeleccion.jsp?Codigo=<%=Row[0]%>&Accion=Desaprobar"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                                                <td><center><a href="ModificarSeleccion.jsp?Codigo=<%=Row[0]%>&Accion=Aprobar"><span class="glyphicon glyphicon-ok"></span></a></center></td>
-							</tr>
-							<%
-                                                        i++;
-                                                        }%>
-						</tbody>
-					</table>
-				</div>			</div>
-				<div class="container marketing">
-					<hr class="featurette-divider">
-				</div>
-			</div>
-			<div class="row">
-                            <form data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
-					<div class="col-md-12">
-						<div class="modal fade" id="modal-container-Registrar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h4 class="modal-title" id="myModalLabel">
-                                                                                    <center>Registrar una Selecci&oacute;n</center>
-										</h4>
-									</div>
-									<div class="modal-body">
-										<div class="row">
-											<div class="col-md-2"></div>
-											<div class="col-md-8">
-												<div class="form-group">
-													<label for="Nombre">Nombre</label>
-													<input id="Nombre" name="Nombre" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true">
-												</div>
-											</div>
-                                                                                        <div class="col-md-2">
-                                                                                            
-                                                                                        </div>
-										</div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2"></div>
-                                                                                    <div class="col-md-8">
-                                                                                        <div class="form-group">
-                                                                                            <label for="Tipo">Tipo</label>
-                                                                                            <select name="Tipo" id="Tipos" class="form-control" data-required="true">
-                                                                                                <option value="Gusto">Gusto</option>
-                                                                                                <option value="Ambiente">Ambiente</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-2"></div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                    <div class="col-md-2"></div>
-                                                                                    <div class="col-md-8">
-                                                                                        <div class="form-group">
-                                                                                            <label for="Imagen">Imagen</label>
-                                                                                            <input id="archivo" type="file" name="Imagen" data-required="true" accept="image/*"/>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-2"></div>
-                                                                                </div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                <button name="RegistrarSeleccion" type="submit" class="btn defecto">Registrar</button> 
-									</div>
-								</div>
-								
-							</div>
-							
-						</div>
-					</div>
-				</form>
-			</div>
-                        <div class="row">
-				<form data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
-					<div class="col-md-12">
-						<div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h4 class="modal-title" id="myModalLabel">
-                                                                                    <center>Modificar</center>
-										</h4>
-									</div>
-									<div class="modal-body">
-                                                                                <div class="row">
-											<div class="col-md-2"></div>
-											<div class="col-md-8">
-												<div class="form-group">
-													<label for="Codigo">Codigo</label>
-													<input id="CodigoSeleccion" name="Codigo" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true" readonly>
-												</div>
-											</div>
-                                                                                        <div class="col-md-2">
-                                                                                            
-                                                                                        </div>
-										</div>
-										<div class="row">
-											<div class="col-md-2"></div>
-											<div class="col-md-8">
-												<div class="form-group">
-													<label for="Nombre">Nombre</label>
-													<input id="NombreSeleccion" name="Nombre" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true">
-												</div>
-											</div>
-                                                                                        <div class="col-md-2">
-                                                                                            
-                                                                                        </div>
-										</div>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2"></div>
-                                                                                    <div class="col-md-8">
-                                                                                        <div class="form-group">
-                                                                                            <label for="Tipo">Tipo</label>
-                                                                                            <select name="Tipo" id="TipoSeleccion" class="form-control" data-required="true">
-                                                                                                <option value="Gusto">Gusto</option>
-                                                                                                <option value="Ambiente">Ambiente</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-2"></div>
-                                                                                </div>
-                                                                            <div class="row">
-                                                                                    <div class="col-md-2"></div>
-                                                                                    <div class="col-md-8">
-                                                                                        <div class="form-group">
-                                                                                            <label for="Estado">Estado</label>
-                                                                                            <select name="Estado" id="EstadoSeleccion" class="form-control" data-required="true">
-                                                                                                <option value="Aprobado">Aprobado</option>
-                                                                                                <option value="Desaprobado">Desaprobado</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-2"></div>
-                                                                            </div>
-                                                                                <div class="row">
-                                                                                        <div class="col-md-2"></div>
-                                                                                        <div class="col-md-8">
-                                                                                            <div class="form-group">
-                                                                                                <label for="Imagen">Imagen</label>
-                                                                                                <input id="archivo" type="file" name="Imagen" data-required="true" accept="image/*"/>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-2"></div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                        <div class="col-md-2"></div>
-                                                                                        <div class="col-md-8">
-                                                                                            <div class="form-group">
-                                                                                                <label for="ImagenActual">Imagen Actual</label>
-                                                                                                <img id="ImgActual" class="img-responsive imgseleccion" src="">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-2"></div>
-                                                                                </div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                <button name="ModificarSeleccion" type="submit" class="btn defecto">Modificar</button>
-									</div>
-								</div>
-								
-							</div>
-							
-						</div>
-					</div>
-				</form>
-			</div>
-			<!-- FOOTER -->
-			<footer>
-				<p>&copy; 2013 Trigger Event, Inc.</p>
-			</footer>
-		</div>
-
-
-
-
-
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li class="active">Registrar/Consultar gustos y ambientes</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xs-12">
+                <h1 class="Center">Registrar/Consultar gustos y ambientes</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-offset-5 col-md-2">
+                <div class="form-group">
+                    <a id="modal-Registrar" href="#modal-container-Registrar" role="button" class="btn btn-block defecto" data-toggle="modal">Registrar</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="table-responsive">
+                <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Imagen</th>
+                            <th>Estado</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                        int i = 0;
+                        for(String[] Row : ListaSeleccion){%>
+                            <tr>
+                                <td><%=Row[1]%></td>
+                                <td><%=Row[2]%></td>
+                                <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
+                                <td><%=Row[3]%></td>
+                                <td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-tipo="<%=Row[2]%>" data-estado="<%=Row[3]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
+                                <td><center><a href="ModificarSeleccion.jsp?Codigo=<%=Row[0]%>&Accion=Desaprobar"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                <td><center><a href="ModificarSeleccion.jsp?Codigo=<%=Row[0]%>&Accion=Aprobar"><span class="glyphicon glyphicon-ok"></span></a></center></td>
+                            </tr>
+                        <%
+                        i++;
+                        }%>
+                    </tbody>
+                </table>
+            </div>			
+            </div>
+        </div>
+        <div class="row">
+            <form data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
+                <div class="col-xs-12">
+                    <div class="modal fade" id="modal-container-Registrar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            <center>Registrar una gusto o ambiente</center>
+                                        </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="Nombre">Nombre</label>
+                                                <input id="Nombre" name="Nombre" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="Tipo">Tipo</label>
+                                                <select name="Tipo" id="Tipos" class="form-control" data-required="true">
+                                                    <option value="Gusto">Gusto</option>
+                                                    <option value="Ambiente">Ambiente</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="Imagen">Imagen</label>
+                                                <input id="archivo" type="file" name="Imagen" data-required="true" accept="image/*"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button name="RegistrarSeleccion" type="submit" class="btn defecto">Registrar</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <form data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
+                <div class="col-md-12">
+                    <div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            <center>Modificar</center>
+                                        </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="Codigo">Codigo</label>
+                                                <input id="CodigoSeleccion" name="Codigo" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="Nombre">Nombre</label>
+                                                <input id="NombreSeleccion" name="Nombre" class="form-control" type="text" data-notblank="true" data-rangelength="[3,30]" data-required="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="Tipo">Tipo</label>
+                                                <select name="Tipo" id="TipoSeleccion" class="form-control" data-required="true">
+                                                    <option value="Gusto">Gusto</option>
+                                                    <option value="Ambiente">Ambiente</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="Estado">Estado</label>
+                                                <select name="Estado" id="EstadoSeleccion" class="form-control" data-required="true">
+                                                    <option value="Aprobado">Aprobado</option>
+                                                    <option value="Desaprobado">Desaprobado</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="Imagen">Imagen</label>
+                                                <input id="archivo" type="file" name="Imagen" data-required="true" accept="image/*"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="form-group">
+                                                <label for="ImagenActual">Imagen Actual</label>
+                                                <img id="ImgActual" class="img-responsive imgseleccion" src="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button name="ModificarSeleccion" type="submit" class="btn defecto">Modificar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+	<footer>
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                </div>
+            </div>
+        </footer>
+    </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
