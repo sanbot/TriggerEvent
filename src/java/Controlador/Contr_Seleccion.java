@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import Modelo.Seleccion;
@@ -40,131 +39,102 @@ public class Contr_Seleccion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding( "UTF-8" );
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
         PrintWriter out = response.getWriter();
-        
+
         boolean b;
-        try
-        {
+        try {
             Seleccion sel = new Seleccion();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
             //urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
             urlsalidaimg = "D:\\IMGTE\\";
-            
+
             /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
-            
+
             /*ServletFileUpload esta clase convierte los input file a FileItem*/
             ServletFileUpload servlet_up = new ServletFileUpload(file_factory);
             /*sacando los FileItem del ServletFileUpload en una lista */
-            
+
             List items = servlet_up.parseRequest(request);
             Iterator it = items.iterator();
-            
+
             while (it.hasNext()) {
                 FileItem item = (FileItem) it.next();
                 if (item.isFormField()) {
                     //Plain request parameters will come here. 
-                    
+
                     String name = item.getFieldName();
-                    if(name.equals("Codigo"))
-                    {
+                    if (name.equals("Codigo")) {
                         sel.setCodigo(item.getString());
-                    }
-                    else if(name.equals("Nombre"))
-                    {
+                    } else if (name.equals("Nombre")) {
                         sel.setNombre(item.getString());
-                    }
-                    else if(name.equals("Tipo"))
-                    {
+                    } else if (name.equals("Tipo")) {
                         sel.setTipo(item.getString());
-                    }
-                    else if(name.equals("Estado"))
-                    {
+                    } else if (name.equals("Estado")) {
                         sel.setEstado(item.getString());
-                    }
-                    else if(name.equals("RegistrarSeleccion"))
-                    {
-                        if(!sel.getImagen().equals(""))
-                        {
+                    } else if (name.equals("RegistrarSeleccion")) {
+                        if (!sel.getImagen().equals("")) {
                             File img = new File(sel.getImagen());
                             b = sel.setRegistrarSeleccion(sel.getNombre(), sel.getTipo(), sel.getImagen());
-                            if(b)
-                            {
-                                if(!img.delete())
-                                {
+                            if (b) {
+                                if (!img.delete()) {
                                     String sda = "no";
                                 }
-                                session.setAttribute("Mensaje","Los datos de la selección han sido registrados correctamente.");
-                                session.setAttribute("TipoMensaje","Dio");
-                                url="View/ConsultaSeleccion.jsp" ;
+                                session.setAttribute("Mensaje", "Los datos de la selección han sido registrados correctamente.");
+                                session.setAttribute("TipoMensaje", "Dio");
+                                url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
-                            }
-                            else
-                            {
-                                if(!img.delete())
-                                {
+                            } else {
+                                if (!img.delete()) {
                                     String sda = "no";
                                 }
-                                session.setAttribute("Mensaje",sel.getMensaje());
-                                session.setAttribute("TipoMensaje","NODio");
-                                url="View/ConsultaSeleccion.jsp" ;
+                                session.setAttribute("Mensaje", sel.getMensaje());
+                                session.setAttribute("TipoMensaje", "NODio");
+                                url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
                             }
+                        } else {
+                            session.setAttribute("Mensaje", "Por favor, Seleccione una imagen e inténtelo de nuevo");
+                            session.setAttribute("TipoMensaje", "NODio");
                         }
-                        else
-                        {
-                            session.setAttribute("Mensaje","Por favor, Seleccione una imagen e inténtelo de nuevo");
-                            session.setAttribute("TipoMensaje","NODio");
-                        }
-                    }else if(name.equals("ModificarSeleccion"))
-                    {
-                        if(sel.getImagen().equals(""))
-                        {
+                    } else if (name.equals("ModificarSeleccion")) {
+                        if (sel.getImagen().equals("")) {
                             File img = new File(sel.getImagen());
                             b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getEstado());
-                            if(b)
-                            {
+                            if (b) {
                                 img.delete();
                                 session.setAttribute("Mensaje", "Los datos de la selección han sido modificados correctamente.");
-                                session.setAttribute("TipoMensaje","Dio");
-                                url="View/ConsultaSeleccion.jsp" ;
+                                session.setAttribute("TipoMensaje", "Dio");
+                                url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
-                            }
-                            else
-                            {
+                            } else {
                                 img.delete();
                                 session.setAttribute("Mensaje", sel.getMensaje());
-                                session.setAttribute("TipoMensaje","NODio");
-                                url="View/ConsultaSeleccion.jsp" ;
+                                session.setAttribute("TipoMensaje", "NODio");
+                                url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getImagen(), sel.getEstado());
-                            if(b)
-                            {
+                            if (b) {
                                 session.setAttribute("Mensaje", "Los datos de la selección han sido modificados correctamente.");
-                                session.setAttribute("TipoMensaje","Dio");
-                                url="View/ConsultaSeleccion.jsp" ;
+                                session.setAttribute("TipoMensaje", "Dio");
+                                url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
-                            }
-                            else
-                            {
+                            } else {
                                 session.setAttribute("Mensaje", sel.getMensaje());
-                                session.setAttribute("TipoMensaje","NODio");
-                                url="View/ConsultaSeleccion.jsp" ;
+                                session.setAttribute("TipoMensaje", "NODio");
+                                url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
                             }
                         }
                     }
-                   
+
                 } else {
-                    if(!item.getName().equals(""))
-                    {
+                    if (!item.getName().equals("")) {
                         //uploaded files will come here.
                         FileItem file = item;
                         String fieldName = item.getFieldName();
@@ -172,30 +142,24 @@ public class Contr_Seleccion extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        
-                        
-                        if(sizeInBytes>3145728 )
-                        {
+
+                        if (sizeInBytes > 3145728) {
                             session.setAttribute("Mensaje", "El límite del tamaño para la imagen es: 3 MB");
                             session.setAttribute("TipoMensaje", "NODio");
                             response.sendRedirect("View/ConsultaSeleccion.jsp");
-                        }
-                        else
-                        {
-                            File archivo_server = new File(urlsalidaimg+item.getName());
-                            sel.setImagen(urlsalidaimg+item.getName());
+                        } else {
+                            File archivo_server = new File(urlsalidaimg + item.getName());
+                            sel.setImagen(urlsalidaimg + item.getName());
                             item.write(archivo_server);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         sel.setImagen("");
                     }
                 }
             }
-            
+
             response.sendRedirect("View/index.jsp");
-        } catch (FileUploadException ex) {  
+        } catch (FileUploadException ex) {
             System.out.print(ex.getMessage().toString());
         } catch (Exception ex) {
             Logger.getLogger(Contr_Seleccion.class.getName()).log(Level.SEVERE, null, ex);

@@ -17,9 +17,11 @@ import javax.mail.internet.MimeMessage;
  * @author santi
  */
 public class Mensajeria {
+
     private final Properties properties = new Properties();
     private Session sess;
-    public void Init (){
+
+    public void Init() {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.port", 587);
@@ -29,16 +31,16 @@ public class Mensajeria {
         properties.put("mail.smtp.auth", "true");
         sess = Session.getDefaultInstance(properties);
     }
-   
-    public boolean recordarcontrasenia(String correo, String Contra, String Nombre){
-        
+
+    public boolean recordarcontrasenia(String correo, String Contra, String Nombre) {
+
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
                 + "<td colspan=\"2\" style=\"color: #1f5daa; font-size: 36px;\"><b>Trigger Event</b></td>"
                 + "</tr>"
                 + "<td>"
-                + "Hola "+Nombre+"."
+                + "Hola " + Nombre + "."
                 + "</td>"
                 + "<td></td>"
                 + "</tr>"
@@ -52,7 +54,7 @@ public class Mensajeria {
                 + "Contraseña: "
                 + "</td>"
                 + "<td>"
-                + Contra +"."
+                + Contra + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -67,39 +69,40 @@ public class Mensajeria {
                 + "</tr>"
                 + "</table>";
 
-        try{
+        try {
             Init();
-            
-            MimeMessage message = new MimeMessage(sess);  
-            message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));  
-            message.setSubject("Recuperación contraseña Trigger Event");  
-            message.setContent(msgBody,"text/html");  
-            Transport t = sess.getTransport("smtp");  
-            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
-            t.sendMessage(message, message.getAllRecipients());  
-            t.close(); 
+
+            MimeMessage message = new MimeMessage(sess);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+            message.setSubject("Recuperación contraseña Trigger Event");
+            message.setContent(msgBody, "text/html");
+            Transport t = sess.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
             return true;
-        }catch (MessagingException me){
+        } catch (MessagingException me) {
             System.out.print(me.toString());
-        }  
-        return  false;
+        }
+        return false;
     }
-    public boolean EnviarMensajeCambioEstadoEvento(String[]Datos,String Estado){
-        
+
+    public boolean EnviarMensajeCambioEstadoEvento(String[] Datos, String Estado) {
+
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
                 + "<td colspan=\"2\" style=\"color: #1f5daa; font-size: 36px;\"><b>Trigger Event</b></td>"
                 + "</tr>"
                 + "<td>"
-                + "Hola "+Datos[0]+"."
+                + "Hola " + Datos[0] + "."
                 + "</td>"
                 + "<td></td>"
                 + "</tr>"
                 + "<tr>"
                 + "<td colspan=\"2\">"
-                + "Nuestro equipo t&eacute;cnico le notifica que su evento " +Datos[1] + " el cual fue planeado para la fecha "+Datos[3]+" en la direcci&oacute;n "+Datos[2]+" ha sido " + Estado
+                + "Nuestro equipo t&eacute;cnico le notifica que su evento " + Datos[1] + " el cual fue planeado para la fecha " + Datos[3] + " en la direcci&oacute;n " + Datos[2] + " ha sido " + Estado
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -114,40 +117,40 @@ public class Mensajeria {
                 + "</tr>"
                 + "</table>";
 
-        try{
+        try {
             Init();
-            
-            MimeMessage message = new MimeMessage(sess);  
-            message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(Datos[4]));  
-            message.setSubject("Información del evento - Trigger Event");  
-            message.setContent(msgBody,"text/html");  
-            Transport t = sess.getTransport("smtp");  
-            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
-            t.sendMessage(message, message.getAllRecipients());  
-            t.close(); 
+
+            MimeMessage message = new MimeMessage(sess);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(Datos[4]));
+            message.setSubject("Información del evento - Trigger Event");
+            message.setContent(msgBody, "text/html");
+            Transport t = sess.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
             return true;
-        }catch (MessagingException me){
+        } catch (MessagingException me) {
             System.out.print(me.toString());
-        }  
-        return  false;
+        }
+        return false;
     }
-    
-    public boolean EnviarMensajeCambioEstadoEvento(String[]Datos,String Estado, String Motivo){
-        
+
+    public boolean EnviarMensajeCambioEstadoEvento(String[] Datos, String Estado, String Motivo) {
+
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
                 + "<td colspan=\"2\" style=\"color: #1f5daa; font-size: 36px;\"><b>Trigger Event</b></td>"
                 + "</tr>"
                 + "<td>"
-                + "Hola "+Datos[0]+"."
+                + "Hola " + Datos[0] + "."
                 + "</td>"
                 + "<td></td>"
                 + "</tr>"
                 + "<tr>"
                 + "<td colspan=\"2\">"
-                + "Nuestro equipo t&eacute;cnico le notifica que su evento " +Datos[1] + " el cual fue planeado para la fecha "+Datos[3]+" en la direcci&oacute;n "+Datos[2]+" ha sido " + Estado
+                + "Nuestro equipo t&eacute;cnico le notifica que su evento " + Datos[1] + " el cual fue planeado para la fecha " + Datos[3] + " en la direcci&oacute;n " + Datos[2] + " ha sido " + Estado
                 + "<br/> Mitivo: " + Motivo
                 + "</td>"
                 + "</tr>"
@@ -163,27 +166,27 @@ public class Mensajeria {
                 + "</tr>"
                 + "</table>";
 
-        try{
+        try {
             Init();
-            
-            MimeMessage message = new MimeMessage(sess);  
-            message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(Datos[4]));  
-            message.setSubject("Información del evento - Trigger Event");  
-            message.setContent(msgBody,"text/html");  
-            Transport t = sess.getTransport("smtp");  
-            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
-            t.sendMessage(message, message.getAllRecipients());  
-            t.close(); 
+
+            MimeMessage message = new MimeMessage(sess);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(Datos[4]));
+            message.setSubject("Información del evento - Trigger Event");
+            message.setContent(msgBody, "text/html");
+            Transport t = sess.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
             return true;
-        }catch (MessagingException me){
+        } catch (MessagingException me) {
             System.out.print(me.toString());
-        }  
-        return  false;
+        }
+        return false;
     }
-    
-    public boolean EnviarCodVer(String correo, String Numero, String Nombre, String CodVer){
-        
+
+    public boolean EnviarCodVer(String correo, String Numero, String Nombre, String CodVer) {
+
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
@@ -191,7 +194,7 @@ public class Mensajeria {
                 + "</tr>"
                 + "<tr>"
                 + "<td>"
-                + "Hola "+Nombre+"."
+                + "Hola " + Nombre + "."
                 + "</td>"
                 + "<td></td>"
                 + "</tr>"
@@ -205,7 +208,7 @@ public class Mensajeria {
                 + "Nombre de usuario:"
                 + "</td>"
                 + "<td>"
-                + Nombre +"."
+                + Nombre + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -213,7 +216,7 @@ public class Mensajeria {
                 + "Número:"
                 + "</td>"
                 + "<td>"
-                + Numero+"."
+                + Numero + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -221,7 +224,7 @@ public class Mensajeria {
                 + "Correo:"
                 + "</td>"
                 + "<td>"
-                + correo+"."
+                + correo + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -229,7 +232,7 @@ public class Mensajeria {
                 + "Código de verificación:"
                 + "</td>"
                 + "<td>"
-                + CodVer+"."
+                + CodVer + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -244,37 +247,36 @@ public class Mensajeria {
                 + "</tr>"
                 + "</table>";
 
-        try{
+        try {
             Init();
-            
-            MimeMessage message = new MimeMessage(sess);  
-            message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));  
-            message.setSubject("Código de verificación Trigger Event");  
-            message.setContent(msgBody,"text/html");  
-            Transport t = sess.getTransport("smtp");  
-            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
-            t.sendMessage(message, message.getAllRecipients());  
-            t.close(); 
+
+            MimeMessage message = new MimeMessage(sess);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+            message.setSubject("Código de verificación Trigger Event");
+            message.setContent(msgBody, "text/html");
+            Transport t = sess.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
             return true;
-        }catch (MessagingException me){  
+        } catch (MessagingException me) {
                         //Aqui se deberia o mostrar un mensaje de error o en lugar  
-                        //de no hacer nada con la excepcion, lanzarla para que el modulo  
-                        //superior la capture y avise al usuario con un popup, por ejemplo. 
+            //de no hacer nada con la excepcion, lanzarla para que el modulo  
+            //superior la capture y avise al usuario con un popup, por ejemplo. 
             System.out.print(me.toString());
-        }  
-        return  false;
+        }
+        return false;
     }
-    
-    public boolean setMensajeModificarAprobar(String correo, String celular, String Nombre, String Tipo_Documento, String No_Documento, String Telefono,String Direccion)
-    {
+
+    public boolean setMensajeModificarAprobar(String correo, String celular, String Nombre, String Tipo_Documento, String No_Documento, String Telefono, String Direccion) {
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
                 + "<td colspan=\"2\" style=\"color: #1f5daa; font-size: 36px;\"><b>Trigger Event</b></td>"
                 + "</tr>"
                 + "<td>"
-                + "Hola "+Nombre+"."
+                + "Hola " + Nombre + "."
                 + "</td>"
                 + "<td></td>"
                 + "</tr>"
@@ -288,7 +290,7 @@ public class Mensajeria {
                 + "Su nombre: "
                 + "</td>"
                 + "<td>"
-                + Nombre +"."
+                + Nombre + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -296,7 +298,7 @@ public class Mensajeria {
                 + "Tipo de documento: "
                 + "</td>"
                 + "<td>"
-                + Tipo_Documento+"."
+                + Tipo_Documento + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -304,7 +306,7 @@ public class Mensajeria {
                 + "Número de documento: "
                 + "</td>"
                 + "<td>"
-                + No_Documento+"."
+                + No_Documento + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -312,7 +314,7 @@ public class Mensajeria {
                 + "Número teléfonico: "
                 + "</td>"
                 + "<td>"
-                + Telefono+"."
+                + Telefono + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -320,7 +322,7 @@ public class Mensajeria {
                 + "Número celular: "
                 + "</td>"
                 + "<td>"
-                + celular+"."
+                + celular + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -328,7 +330,7 @@ public class Mensajeria {
                 + "Correo: "
                 + "</td>"
                 + "<td>"
-                + correo+"."
+                + correo + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -336,7 +338,7 @@ public class Mensajeria {
                 + "Dirección: "
                 + "</td>"
                 + "<td>"
-                + Direccion+"."
+                + Direccion + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -351,36 +353,36 @@ public class Mensajeria {
                 + "</tr>"
                 + "</table>";
 
-        try{
+        try {
             Init();
-            
-            MimeMessage message = new MimeMessage(sess);  
-            message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));  
-            message.setSubject("Aprobación de la cuenta en Trigger Event");  
-            message.setContent(msgBody,"text/html");  
-            Transport t = sess.getTransport("smtp");  
-            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
-            t.sendMessage(message, message.getAllRecipients());  
-            t.close(); 
+
+            MimeMessage message = new MimeMessage(sess);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+            message.setSubject("Aprobación de la cuenta en Trigger Event");
+            message.setContent(msgBody, "text/html");
+            Transport t = sess.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
             return true;
-        }catch (MessagingException me){  
+        } catch (MessagingException me) {
                         //Aqui se deberia o mostrar un mensaje de error o en lugar  
-                        //de no hacer nada con la excepcion, lanzarla para que el modulo  
-                        //superior la capture y avise al usuario con un popup, por ejemplo. 
+            //de no hacer nada con la excepcion, lanzarla para que el modulo  
+            //superior la capture y avise al usuario con un popup, por ejemplo. 
             System.out.print(me.toString());
-        }  
+        }
         return false;
     }
-    public boolean setMensajeModificarDesaprobar(String correo, String celular, String Nombre, String Tipo_Documento, String No_Documento, String Telefono,String Direccion)
-    {
+
+    public boolean setMensajeModificarDesaprobar(String correo, String celular, String Nombre, String Tipo_Documento, String No_Documento, String Telefono, String Direccion) {
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
                 + "<td colspan=\"2\" style=\"color: #1f5daa; font-size: 36px;\"><b>Trigger Event</b></td>"
                 + "</tr>"
                 + "<td>"
-                + "Hola "+Nombre+"."
+                + "Hola " + Nombre + "."
                 + "</td>"
                 + "<td></td>"
                 + "</tr>"
@@ -394,7 +396,7 @@ public class Mensajeria {
                 + "Su nombre: "
                 + "</td>"
                 + "<td>"
-                + Nombre +"."
+                + Nombre + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -402,7 +404,7 @@ public class Mensajeria {
                 + "Tipo de documento: "
                 + "</td>"
                 + "<td>"
-                + Tipo_Documento+"."
+                + Tipo_Documento + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -410,7 +412,7 @@ public class Mensajeria {
                 + "Número de documento: "
                 + "</td>"
                 + "<td>"
-                + No_Documento+"."
+                + No_Documento + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -418,7 +420,7 @@ public class Mensajeria {
                 + "Número teléfonico: "
                 + "</td>"
                 + "<td>"
-                + Telefono+"."
+                + Telefono + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -426,7 +428,7 @@ public class Mensajeria {
                 + "Número celular: "
                 + "</td>"
                 + "<td>"
-                + celular+"."
+                + celular + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -434,7 +436,7 @@ public class Mensajeria {
                 + "Correo: "
                 + "</td>"
                 + "<td>"
-                + correo+"."
+                + correo + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -442,7 +444,7 @@ public class Mensajeria {
                 + "Dirección: "
                 + "</td>"
                 + "<td>"
-                + Direccion+"."
+                + Direccion + "."
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
@@ -457,37 +459,37 @@ public class Mensajeria {
                 + "</tr>"
                 + "</table>";
 
-        try{
+        try {
             Init();
-            
-            MimeMessage message = new MimeMessage(sess);  
-            message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));  
-            message.setSubject("Desaprobacion de la cuenta Trigger Event");  
-            message.setContent(msgBody,"text/html");  
-            Transport t = sess.getTransport("smtp");  
-            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
-            t.sendMessage(message, message.getAllRecipients());  
-            t.close(); 
+
+            MimeMessage message = new MimeMessage(sess);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+            message.setSubject("Desaprobacion de la cuenta Trigger Event");
+            message.setContent(msgBody, "text/html");
+            Transport t = sess.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
             return true;
-        }catch (MessagingException me){  
+        } catch (MessagingException me) {
                         //Aqui se deberia o mostrar un mensaje de error o en lugar  
-                        //de no hacer nada con la excepcion, lanzarla para que el modulo  
-                        //superior la capture y avise al usuario con un popup, por ejemplo. 
+            //de no hacer nada con la excepcion, lanzarla para que el modulo  
+            //superior la capture y avise al usuario con un popup, por ejemplo. 
             System.out.print(me.toString());
-        }  
+        }
         return false;
     }
-    
-    public boolean contactenos(String contenido, String asunto, String Nombre){
-      
-                String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
+
+    public boolean contactenos(String contenido, String asunto, String Nombre) {
+
+        String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
                 + "<td colspan=\"2\" style=\"color: #1f5daa; font-size: 36px;\"><b>Trigger Event</b></td>"
                 + "</tr>"
                 + "<td>"
-                + "Hola "+Nombre+"."
+                + "Hola " + Nombre + "."
                 + "</td>"
                 + "<td></td>"
                 + "</tr>"
@@ -507,25 +509,25 @@ public class Mensajeria {
                 + "</td>"
                 + "</tr>"
                 + "</table>";
-        try{
+        try {
             Init();
-            
-            MimeMessage message = new MimeMessage(sess);  
-            message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));  
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress((String) properties.get("mail.smtp.user")));  
-            message.setSubject(asunto +" -- Trigger Event" );  
-            message.setContent(msgBody,"text/html");  
-            Transport t = sess.getTransport("smtp");  
-            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));  
-            t.sendMessage(message, message.getAllRecipients());  
-            t.close(); 
+
+            MimeMessage message = new MimeMessage(sess);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress((String) properties.get("mail.smtp.user")));
+            message.setSubject(asunto + " -- Trigger Event");
+            message.setContent(msgBody, "text/html");
+            Transport t = sess.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
             return true;
-        }catch (MessagingException me){  
+        } catch (MessagingException me) {
                         //Aqui se deberia o mostrar un mensaje de error o en lugar  
-                        //de no hacer nada con la excepcion, lanzarla para que el modulo  
-                        //superior la capture y avise al usuario con un popup, por ejemplo. 
+            //de no hacer nada con la excepcion, lanzarla para que el modulo  
+            //superior la capture y avise al usuario con un popup, por ejemplo. 
             System.out.print(me.toString());
-        }  
-        return  false;
+        }
+        return false;
     }
 }

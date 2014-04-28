@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Modelo;
 
 import java.sql.Connection;
@@ -16,6 +15,7 @@ import java.sql.SQLException;
  * @author santiago
  */
 public class Departamento {
+
     String Codigo;
     String Nombre;
     cone conexion = new cone();
@@ -28,8 +28,8 @@ public class Departamento {
     public void setMensaje(String Mensaje) {
         this.Mensaje = Mensaje;
     }
-    
-    public Departamento(){
+
+    public Departamento() {
         Connection conn = conexion.conectar();
     }
 
@@ -48,149 +48,142 @@ public class Departamento {
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
     }
-    
-    public boolean setRegistrarDepartamento (String nombre)
-    {
+
+    public boolean setRegistrarDepartamento(String nombre) {
         Connection conn = conexion.conectar();
         String Est = "";
-        PreparedStatement pr=null;
+        PreparedStatement pr = null;
         String codigo = "DEP";
         int numerocodigo = this.CantidadRegistroDepartamento();
-        codigo+=numerocodigo;
-        pr=null;
-        String sql="INSERT INTO tb_departamento(Codigo, Nombre)";
-        sql+="VALUES(?,?)";
-        try{
-            
-            pr=conn.prepareStatement(sql);
+        codigo += numerocodigo;
+        pr = null;
+        String sql = "INSERT INTO tb_departamento(Codigo, Nombre)";
+        sql += "VALUES(?,?)";
+        try {
+
+            pr = conn.prepareStatement(sql);
             pr.setString(1, codigo);
             pr.setString(2, nombre);
-            
-            
-            if(pr.executeUpdate()==1){
+
+            if (pr.executeUpdate() == 1) {
                 return true;
             }
-        }catch(SQLException ex){
-            if(ex.toString().indexOf("Duplicate")>0)
-            {
-                if(ex.toString().indexOf("Nombre")>0)
-                {
+        } catch (SQLException ex) {
+            if (ex.toString().indexOf("Duplicate") > 0) {
+                if (ex.toString().indexOf("Nombre") > 0) {
                     this.setMensaje("Ya existe un departamento registrado con este nombre.");
                 }
             }
             return false;
-        }finally{
-            try{
+        } finally {
+            try {
                 pr.close();
                 conn.close();
-            }catch(Exception ex){
+            } catch (Exception ex) {
 
             }
         }
         this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos del departamento, por favor, inténtelo de nuevo.");
         return false;
     }
-    
-    public int CantidadRegistroDepartamento(){
+
+    public int CantidadRegistroDepartamento() {
         Connection conn = conexion.conectar();
-        PreparedStatement pr=null;
-        ResultSet rs=null;
-        String sql="Select * "+
-                   "From  tb_departamento";
-        try{
-            pr=conn.prepareStatement(sql);
-            rs=pr.executeQuery();
-            
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "Select * "
+                + "From  tb_departamento";
+        try {
+            pr = conn.prepareStatement(sql);
+            rs = pr.executeQuery();
+
             int i = 0;
-            while(rs.next()){
-                
+            while (rs.next()) {
+
                 i++;
             }
-            return i+1;
-        }catch(Exception ex){
+            return i + 1;
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            try{
+        } finally {
+            try {
                 rs.close();
                 pr.close();
                 conn.close();
-            }catch(Exception ex){
+            } catch (Exception ex) {
 
             }
         }
         return 0;
     }
-    
-    public String[][] BuscarDatosDepartamentoTodos(){
+
+    public String[][] BuscarDatosDepartamentoTodos() {
         Connection conn = conexion.conectar();
-        PreparedStatement pr=null;
-        ResultSet rs=null;
-        String sql="SELECT Codigo, Nombre \n" +
-                    "FROM  `tb_departamento` \n";
-        
-        try{
-            pr=conn.prepareStatement(sql);
-            rs=pr.executeQuery();
-            
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "SELECT Codigo, Nombre \n"
+                + "FROM  `tb_departamento` \n";
+
+        try {
+            pr = conn.prepareStatement(sql);
+            rs = pr.executeQuery();
+
             int rows = 0;
-            while(rs.next())
-            {
-                rows ++;
+            while (rs.next()) {
+                rows++;
             }
-            String [][] Datos = new String[rows][2];
+            String[][] Datos = new String[rows][2];
             rs.beforeFirst();
             rows = 0;
-            while(rs.next()){
+            while (rs.next()) {
                 Departamento dep = new Departamento();
                 dep.setCodigo(rs.getString("Codigo"));
                 dep.setNombre(rs.getString("Nombre"));
                 Datos[rows][0] = dep.getCodigo();
                 Datos[rows][1] = dep.getNombre();
-                
+
                 rows++;
-                
+
             }
             return Datos;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            try{
+        } finally {
+            try {
                 rs.close();
                 pr.close();
                 conn.close();
-            }catch(Exception ex){
+            } catch (Exception ex) {
 
             }
         }
         return null;
     }
-    
+
     public boolean actualizardatosDepartamento(String codigo, String nombre) {
         Connection conn = conexion.conectar();
-        PreparedStatement pr=null;
-        String sql="UPDATE tb_departamento SET Nombre = ? ";
-                sql += "WHERE Codigo = ?";
-        try{
-            pr=conn.prepareStatement(sql);
+        PreparedStatement pr = null;
+        String sql = "UPDATE tb_departamento SET Nombre = ? ";
+        sql += "WHERE Codigo = ?";
+        try {
+            pr = conn.prepareStatement(sql);
             pr.setString(1, nombre);
             pr.setString(2, codigo);
-            if(pr.executeUpdate()==1){
+            if (pr.executeUpdate() == 1) {
                 return true;
             }
-        }catch(Exception ex){
-            if(ex.toString().indexOf("Duplicate")>0)
-            {
-                if(ex.toString().indexOf("Nombre")>0)
-                {
+        } catch (Exception ex) {
+            if (ex.toString().indexOf("Duplicate") > 0) {
+                if (ex.toString().indexOf("Nombre") > 0) {
                     this.setMensaje("Ya existe un departamento registrado con este nombre.");
                 }
             }
             return false;
-        }finally{
-            try{
+        } finally {
+            try {
                 pr.close();
                 conn.close();
-            }catch(Exception ex){
+            } catch (Exception ex) {
 
             }
         }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import Modelo.Cls_Satisfaccion;
@@ -31,96 +30,77 @@ public class Contr_Satisfaccion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding( "UTF-8" );
+        request.setCharacterEncoding("UTF-8");
         //declaramos las variables necesarias para todo el proyecto
         String Mensaje, Comentario, Rating, CodigoEvento, CodigoUsuario;
         HttpSession session = request.getSession(true);
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        
+
         //evaluamos las peticiones realizadas
-        if(request.getParameter("RegistrarSatisfaccion")!= null)
-        {
+        if (request.getParameter("RegistrarSatisfaccion") != null) {
             //incializamos las varaibles para codigo de evento y usuario
             CodigoEvento = request.getParameter("CodigoEvento");
             CodigoUsuario = (String) session.getAttribute("Codigo");
-            
-            
+
             //evaluamos el contendio de rating
-            if((request.getParameter("Rating")!= null && !request.getParameter("Rating").equals("0"))&& (request.getParameter("comentario")!= null &&!request.getParameter("comentario").equals("")))
-            {
+            if ((request.getParameter("Rating") != null && !request.getParameter("Rating").equals("0")) && (request.getParameter("comentario") != null && !request.getParameter("comentario").equals(""))) {
                 //gudardamos el contenido de rating y comentario
                 Rating = request.getParameter("Rating");
                 Comentario = request.getParameter("comentario");
-                
+
                 //realizamos los metodos necesarios para registar la calificacion
-                if(sat.setRegistrarCalificacionYComentarioSatisfaccion(CodigoUsuario, CodigoEvento, Rating, Comentario))
-                {
+                if (sat.setRegistrarCalificacionYComentarioSatisfaccion(CodigoUsuario, CodigoEvento, Rating, Comentario)) {
                     //guardamos el mensaje correspondiente
                     session.setAttribute("Mensaje", "Se envió correctamente la crítica.");
                     session.setAttribute("TipoMensaje", "Dio");
-                }
-                else
-                {
+                } else {
                     //guardamos el mensaje correspondiente
                     session.setAttribute("Mensaje", sat.getMensaje());
                     session.setAttribute("TipoMensaje", "NODio");
                 }
                 //retornamos a la vista
-                response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento="+CodigoEvento);
-                
-            }
-            else if(request.getParameter("Rating")!=null && !request.getParameter("Rating").equals("0"))
-            {
+                response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento);
+
+            } else if (request.getParameter("Rating") != null && !request.getParameter("Rating").equals("0")) {
                 //gudardamos el contenido de rating 
                 Rating = request.getParameter("Rating");
-                
+
                 //realizamos los metodos necesarios para registar la calificacion
-                if(sat.setRegistrarCalificacionSatisfaccion(CodigoUsuario, CodigoEvento, Rating))
-                {
+                if (sat.setRegistrarCalificacionSatisfaccion(CodigoUsuario, CodigoEvento, Rating)) {
                     //guardamos el mensaje correspondiente
                     session.setAttribute("Mensaje", "Se envió correctamente la crítica.");
                     session.setAttribute("TipoMensaje", "Dio");
-                }
-                else
-                {
+                } else {
                     //guardamos el mensaje correspondiente
                     session.setAttribute("Mensaje", sat.getMensaje());
                     session.setAttribute("TipoMensaje", "NODio");
                 }
                 //retornamos a la vista
-                response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento="+CodigoEvento);
-                
-            }else if(request.getParameter("comentario")!= null && !request.getParameter("comentario").equals(""))
-            {
-                
+                response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento);
+
+            } else if (request.getParameter("comentario") != null && !request.getParameter("comentario").equals("")) {
+
                 Comentario = request.getParameter("comentario");
                 //realizamos los metodos necesarios para registar la calificacion
-                if(sat.setRegistrarComentarioSatisfaccion(CodigoUsuario, CodigoEvento, Comentario))
-                {
+                if (sat.setRegistrarComentarioSatisfaccion(CodigoUsuario, CodigoEvento, Comentario)) {
                     //guardamos el mensaje correspondiente
                     session.setAttribute("Mensaje", "Se envió correctamente la crítica.");
                     session.setAttribute("TipoMensaje", "Dio");
-                }
-                else
-                {
+                } else {
                     //guardamos el mensaje correspondiente
                     session.setAttribute("Mensaje", sat.getMensaje());
                     session.setAttribute("TipoMensaje", "NODio");
                 }
                 //retornamos a la vista
-                response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento="+CodigoEvento);
-            }
-            else
-            {
+                response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento);
+            } else {
                 //guardamos el mensaje correspondiente
                 session.setAttribute("Mensaje", "Para registrar un comentario o calificación debe llenar al menos uno de los dos campos.");
                 session.setAttribute("TipoMensaje", "NODio");
-                response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento="+CodigoEvento);
+                response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento);
             }
-            
-        }
-        else
-        {
+
+        } else {
             response.sendRedirect("View/ConsultaEvento.jsp");
         }
     }

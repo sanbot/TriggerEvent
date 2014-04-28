@@ -19,7 +19,7 @@ import Modelo.Cls_Satisfaccion;
  * @author santi
  */
 public class Contr_Consultar {
-    
+
     String Mensaje;
 
     public String getMensaje() {
@@ -29,61 +29,51 @@ public class Contr_Consultar {
     public void setMensaje(String Mensaje) {
         this.Mensaje = Mensaje;
     }
-    
-    
-    
-    public String[][] BuscarDatosUsuariosPenditeTodos()
-    {
+
+    public String[][] BuscarDatosUsuariosPenditeTodos() {
         Usuario usu = new Usuario();
         String[][] Datos = usu.BuscarDatosUsuarioPenditeTodos();
-                
+
         return Datos;
     }
-    
-    public String[][] BuscarDatosUsuariosPendientes()
-    {
+
+    public String[][] BuscarDatosUsuariosPendientes() {
         Usuario usu = new Usuario();
         String[][] Datos = usu.BuscarDatosUsuarioPendientes();
-                
+
         return Datos;
     }
-    
-    public String[] BuscarDatosUsuario(String Codigo)
-    {
+
+    public String[] BuscarDatosUsuario(String Codigo) {
         Usuario usu = new Usuario();
         String[] Datos = usu.getDatosUsuario(Codigo);
-                
+
         return Datos;
     }
-    public String[][] BuscarDatosTipoUsuariosTodos()
-    {
+
+    public String[][] BuscarDatosTipoUsuariosTodos() {
         Tipo_Usuario Tusu = new Tipo_Usuario();
         String[][] Datos = Tusu.BuscarDatosTipoUsuarioTodos();
-                
+
         return Datos;
     }
-    
-    public String[][] BuscarDatosEmpresa()
-    {
+
+    public String[][] BuscarDatosEmpresa() {
         Usuario usu = new Usuario();
         String[][] Datos = usu.BuscarDatosEmpresa();
-                
+
         return Datos;
     }
-    
-    public boolean setCambiarEstadoUsaurio(String Codigo, String Estado)
-    {
+
+    public boolean setCambiarEstadoUsaurio(String Codigo, String Estado) {
         Usuario usu = new Usuario();
         Mensajeria msm = new Mensajeria();
         boolean b;
-        if(Estado.equals("true"))
-        {
+        if (Estado.equals("true")) {
             b = usu.setaprobarUsaurio(Codigo);
-            if(b)
-            {
+            if (b) {
                 boolean p = usu.getDatosParaEstado(Codigo);
-                if(p)
-                {
+                if (p) {
                     String Tipo_Documento = usu.getTipo_Documento();
                     String No_Documento = usu.getNo_Documento();
                     String Nombre = usu.getNombre();
@@ -92,29 +82,20 @@ public class Contr_Consultar {
                     String celular = usu.getCelular();
                     String correo = usu.getCorreo();
                     b = msm.setMensajeModificarAprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
-                    if(b)
-                    {
+                    if (b) {
                         this.setMensaje("Se ha modificado el estado del usuario correctamente.");
-                    }
-                    else
-                    {
+                    } else {
                         this.setMensaje("Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
                     }
                 }
-            }
-            else 
-            {
+            } else {
                 this.setMensaje("Ocurrio un error al tratar de modificar el estado del usuario.");
             }
-        }
-        else if (Estado.equals("false"))
-        {
+        } else if (Estado.equals("false")) {
             b = usu.setdesaprobarUsaurio(Codigo);
-            if(b)
-            {
+            if (b) {
                 boolean p = usu.getDatosParaEstado(Codigo);
-                if(p)
-                {
+                if (p) {
                     String Tipo_Documento = usu.getTipo_Documento();
                     String No_Documento = usu.getNo_Documento();
                     String Nombre = usu.getNombre();
@@ -123,327 +104,267 @@ public class Contr_Consultar {
                     String celular = usu.getCelular();
                     String correo = usu.getCorreo();
                     b = msm.setMensajeModificarDesaprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
-                    if(b)
-                    {
+                    if (b) {
                         this.setMensaje("Se ha modificado el estado del usuario correctamente.");
-                    }
-                    else
-                    {
+                    } else {
                         this.setMensaje("Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
                     }
                 }
 
-            }
-            else 
-            {
+            } else {
                 this.setMensaje("Ocurrio un error al tratar de modificar el estado del usuario.");
             }
-        }
-        else
-        {
+        } else {
             b = false;
             this.setMensaje("");
         }
         return b;
     }
-    public String[][] BuscarDatosDepartamentoTodos()
-    {
+
+    public String[][] BuscarDatosDepartamentoTodos() {
         Departamento dep = new Departamento();
         String[][] Datos = dep.BuscarDatosDepartamentoTodos();
-                
+
         return Datos;
     }
-    
-    public String[][] BuscarDatosCuidadTodos()
-    {
+
+    public String[][] BuscarDatosCuidadTodos() {
         Ciudad ciu = new Ciudad();
         String[][] Datos = ciu.BuscarDatosCiudadTodos();
-                
+
         return Datos;
     }
-    public String[][] BuscarDatosSeleccion()
-    {
+
+    public String[][] BuscarDatosSeleccion() {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getDatosSeleccion();
         return Datos;
     }
-    public Blob BuscarImagenes(String Codigo)
-    {
+
+    public Blob BuscarImagenes(String Codigo) {
         Seleccion sel = new Seleccion();
         Blob Datos = sel.getImagenSeleccion(Codigo);
         return Datos;
     }
-    public Blob BuscarImagenesEvento(String Codigo)
-    {
+
+    public Blob BuscarImagenesEvento(String Codigo) {
         Evento eve = new Evento();
         Blob Datos = eve.getImagenEvento(Codigo);
         return Datos;
     }
-    
-    public String[][] getGustosNuevos(String Codigo)
-    {
+
+    public String[][] getGustosNuevos(String Codigo) {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getGustosNuevos(Codigo);
         return Datos;
     }
-    public String[][] getClasifiacionNuevos(String Codigo)
-    {
+
+    public String[][] getClasifiacionNuevos(String Codigo) {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getClasificacionNuevos(Codigo);
         return Datos;
     }
-    public String[][] getMisGustos(String Codigo)
-    {
+
+    public String[][] getMisGustos(String Codigo) {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getMisGustos(Codigo);
         return Datos;
     }
-    
-    public String[][] getClasificacionEvento(String Codigo)
-    {
+
+    public String[][] getClasificacionEvento(String Codigo) {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getClasificacionEvento(Codigo);
         return Datos;
     }
-    
-    public boolean AddRemoveGustos(String Codigo, String CodigoUsuario, String Accion)
-    {
+
+    public boolean AddRemoveGustos(String Codigo, String CodigoUsuario, String Accion) {
         Seleccion sel = new Seleccion();
-        boolean b ;
-        if(Accion.equals("Nuevo"))
-        {
+        boolean b;
+        if (Accion.equals("Nuevo")) {
             b = sel.AddGusto(Codigo, CodigoUsuario);
-            if(b)
-            {
-               this.setMensaje("Se agrego el gusto satisfactoriamente.");
-            }
-            else
-            {
+            if (b) {
+                this.setMensaje("Se agrego el gusto satisfactoriamente.");
+            } else {
                 this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
             }
-        }
-        else
-        {
+        } else {
             b = sel.CantidadGustosAmbientesPreRemove(Codigo, CodigoUsuario);
-            if(b)
-            {
+            if (b) {
                 b = sel.RemoveGusto(Codigo, CodigoUsuario);
-                if(b)
-                {
+                if (b) {
                     this.setMensaje("Se quito el gusto de tus gustos existosamente.");
-                }
-                else
-                {
+                } else {
                     this.setMensaje("Ocurrió un error al tratar de remover este gusto de tus gustos, por favor inténtelo nuevamente.");
                 }
-            }
-            else
-            {
+            } else {
                 this.setMensaje(sel.getMensaje());
             }
         }
         return b;
     }
-    
-    public boolean AprobarDesaprobarEvento(String CodigoEvento)
-    {
+
+    public boolean AprobarDesaprobarEvento(String CodigoEvento) {
         Evento eve = new Evento();
         Mensajeria sms = new Mensajeria();
-        boolean b ;
-        
+        boolean b;
+
         b = eve.setCambioEstadoEvento(CodigoEvento, "Aprobado");
-        if(b)
-        {
-           String [] Datos = eve.BuscarEventoParaMensaje(CodigoEvento);
-           if(sms.EnviarMensajeCambioEstadoEvento(Datos,"Aprobado"))
-           {
-               this.setMensaje("Se aprobó el evento satisfactoriamente.");
-           }
-           else
-           {
-               this.setMensaje("Se aprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
-           }
-        }
-        else
-        {
+        if (b) {
+            String[] Datos = eve.BuscarEventoParaMensaje(CodigoEvento);
+            if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Aprobado")) {
+                this.setMensaje("Se aprobó el evento satisfactoriamente.");
+            } else {
+                this.setMensaje("Se aprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
+            }
+        } else {
             this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
         }
-        
+
         return b;
     }
-    
-    public boolean AprobarDesaprobarSeleccion(String CodigoSeleccion, String Accion)
-    {
+
+    public boolean AprobarDesaprobarSeleccion(String CodigoSeleccion, String Accion) {
         Seleccion sel = new Seleccion();
-        boolean b ;
-        if(Accion.equals("Aprobar"))
-        {
+        boolean b;
+        if (Accion.equals("Aprobar")) {
             b = sel.AprobarSeleccion(CodigoSeleccion);
-            if(b)
-            {
+            if (b) {
                 this.setMensaje("Se aprobó el gusto/ambiente satisfactoriamente.");
-            }
-            else
-            {
+            } else {
                 this.setMensaje(sel.getMensaje());
             }
-        }
-        else
-        {
+        } else {
             b = sel.CantidadUsoAmbienteGusto(CodigoSeleccion);
-            if(b)
-            {
+            if (b) {
                 b = sel.DesaprobarSeleccion(CodigoSeleccion);
-                if(b)
-                {
+                if (b) {
                     this.setMensaje("El gusto o ambiente ha sido desaprobado satisfactoriamente");
-                }
-                else
-                {
+                } else {
                     this.setMensaje(sel.getMensaje());
                 }
-            }else
-            {
+            } else {
                 this.setMensaje("No se puede desaprobar, porque hay usuarios o eventos usando este ambiente o gusto.");
             }
         }
         return b;
     }
-    
-    public boolean AddClasificacionEvento(String CodigoSeleccion, String Accion, String CodigoEvento)
-    {
+
+    public boolean AddClasificacionEvento(String CodigoSeleccion, String Accion, String CodigoEvento) {
         Seleccion sel = new Seleccion();
         boolean b = false;
-        if(Accion.equals("Nuevo"))
-        {
+        if (Accion.equals("Nuevo")) {
             b = sel.AddClasificacionEvento(CodigoSeleccion, CodigoEvento);
-            if(b)
-            {
+            if (b) {
                 this.setMensaje("Se agrego el gusto/ambiente a la calificación satisfactoriamente.");
-                if(sel.ComprobarRegistroCompletoUSuario(CodigoEvento))
-                {
+                if (sel.ComprobarRegistroCompletoUSuario(CodigoEvento)) {
                     Evento eve = new Evento();
-                    if(eve.setEstadoPendiente(CodigoEvento))
-                    {
+                    if (eve.setEstadoPendiente(CodigoEvento)) {
                         String mensaje = this.getMensaje();
                         mensaje += " Se han cumplido los requisitos mínimos para el registro y el evento está en espera por aprobación.";
                         this.setMensaje(mensaje);
                     }
-                    
+
                 }
-            }
-            else
-            {
+            } else {
                 this.setMensaje(sel.getMensaje());
             }
         }
         return b;
     }
-    
-    public String getCantidadPendientes()
-    {
+
+    public String getCantidadPendientes() {
         Usuario usu = new Usuario();
         String Dato = usu.getCantidadPendientes();
         return Dato;
     }
-    public int getCantidadEventosPendientes()
-    {
+
+    public int getCantidadEventosPendientes() {
         Evento eve = new Evento();
         int Dato = eve.CantidadEventoPendiente();
         return Dato;
     }
-    
-    public String[][] getBuscarDatosPrincipalesEvento()
-    {
+
+    public String[][] getBuscarDatosPrincipalesEvento() {
         Evento eve = new Evento();
-        String [][]Datos = eve.BuscarDatosPrincipalesEventos();
+        String[][] Datos = eve.BuscarDatosPrincipalesEventos();
         return Datos;
     }
-    
-    public String[][] getBuscarDatosEventosProximos()
-    {
+
+    public String[][] getBuscarDatosEventosProximos() {
         Evento eve = new Evento();
-        String [][]Datos = eve.BuscarDatosEventosProximos();
+        String[][] Datos = eve.BuscarDatosEventosProximos();
         return Datos;
     }
-    
-    public String[][] getBuscarDatosEventosDestacados()
-    {
+
+    public String[][] getBuscarDatosEventosDestacados() {
         Evento eve = new Evento();
-        String [][]Datos = eve.BuscarDatosEventosDestacados();
+        String[][] Datos = eve.BuscarDatosEventosDestacados();
         return Datos;
     }
-    
-    public String[][] getBuscarComentariosAleatorios()
-    {
+
+    public String[][] getBuscarComentariosAleatorios() {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        String [][]Datos = sat.BuscarComentariosAleatorios();
+        String[][] Datos = sat.BuscarComentariosAleatorios();
         return Datos;
     }
-    
-    public String[][] getBuscarComentarios(String CodigoEvetno, int Limite)
-    {
+
+    public String[][] getBuscarComentarios(String CodigoEvetno, int Limite) {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        String [][]Datos = sat.BuscarComentariosEvento(CodigoEvetno, Limite);
+        String[][] Datos = sat.BuscarComentariosEvento(CodigoEvetno, Limite);
         return Datos;
     }
-    
-    public String[][] getBuscarDatosEventosComentado()
-    {
+
+    public String[][] getBuscarDatosEventosComentado() {
         Evento eve = new Evento();
-        String [][]Datos = eve.BuscarDatosEventosComentado();
+        String[][] Datos = eve.BuscarDatosEventosComentado();
         return Datos;
     }
-    
-    public  int getCantidadComentariosEventos(String CodigoEvento)
-    {
+
+    public int getCantidadComentariosEventos(String CodigoEvento) {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
         int row = sat.getCantidadComentariosEvento(CodigoEvento);
         return row;
     }
-    
-    public String[] getBuscarDatosDetalladosEvento(String CodigoEvento)
-    {
+
+    public String[] getBuscarDatosDetalladosEvento(String CodigoEvento) {
         Evento eve = new Evento();
-        String []Datos = eve.BuscarDatosDetalladosEventos(CodigoEvento);
+        String[] Datos = eve.BuscarDatosDetalladosEventos(CodigoEvento);
         return Datos;
     }
-    public int[] getCalificacionEvento(String CodigoEvento)
-    {
+
+    public int[] getCalificacionEvento(String CodigoEvento) {
         Evento eve = new Evento();
-        int []Datos = eve.getCalificacionEvento(CodigoEvento);
+        int[] Datos = eve.getCalificacionEvento(CodigoEvento);
         return Datos;
     }
-    
-    
-    public String[][] getBuscarDatosMisEventos(String nit)
-    {
+
+    public String[][] getBuscarDatosMisEventos(String nit) {
         Evento eve = new Evento();
-        String [][]Datos = eve.BuscarDatosMisEventos(nit);
+        String[][] Datos = eve.BuscarDatosMisEventos(nit);
         return Datos;
     }
-    public String[][] getBuscarDatosPrincipalesEventoPendiente()
-    {
+
+    public String[][] getBuscarDatosPrincipalesEventoPendiente() {
         Evento eve = new Evento();
-        String [][]Datos = eve.BuscarDatosPrincipalesEventosPendientes();
+        String[][] Datos = eve.BuscarDatosPrincipalesEventosPendientes();
         return Datos;
     }
-    public boolean getComprobacionRegistroEvento(String CodigoEvento)
-    {
+
+    public boolean getComprobacionRegistroEvento(String CodigoEvento) {
         boolean b;
         Seleccion sel = new Seleccion();
         b = sel.ComprobarRegistroCompletoUSuario(CodigoEvento);
         return b;
     }
-    
-    public boolean getComprobacionCalificacionYComentario(String CodigoEvento, String CodigoUsuario, String Tipo)
-    {
+
+    public boolean getComprobacionCalificacionYComentario(String CodigoEvento, String CodigoUsuario, String Tipo) {
         boolean b;
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
         b = sat.ComprobarCalificacionRegistrada(CodigoEvento, CodigoUsuario, Tipo);
         return b;
     }
-    public String getComentarioOCalificacion(String tipo, String CodigoUsuario){
+
+    public String getComentarioOCalificacion(String tipo, String CodigoUsuario) {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
         String dato = sat.getComentarioOCalificacion(tipo, CodigoUsuario);
         return dato;

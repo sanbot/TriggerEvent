@@ -7,19 +7,19 @@ package Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 /**
  *
  * @author santi_000
  */
 public class Tipo_Usuario {
-    
+
     cone conexion = new cone();
-    public Tipo_Usuario(){
+
+    public Tipo_Usuario() {
         Connection conn = conexion.conectar();
     }
-    
+
     String Codigo;
     String Tipo_Usuario;
     String Descripcion;
@@ -47,40 +47,40 @@ public class Tipo_Usuario {
     public void setTipo_Usuario(String Tipo_Usuario) {
         this.Tipo_Usuario = Tipo_Usuario;
     }
-    public String[][] BuscarDatosTipoUsuarioTodos(){
+
+    public String[][] BuscarDatosTipoUsuarioTodos() {
         Connection conn = conexion.conectar();
-        PreparedStatement pr=null;
-        ResultSet rs=null;
-        String sql="Select * "+
-                   "From  tb_tipo_usuario";
-        
-        try{
-            pr=conn.prepareStatement(sql);
-            rs=pr.executeQuery();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "Select * "
+                + "From  tb_tipo_usuario";
+
+        try {
+            pr = conn.prepareStatement(sql);
+            rs = pr.executeQuery();
             int rows = 0;
-             while(rs.next()){
-                rows ++;
+            while (rs.next()) {
+                rows++;
             }
             rs.beforeFirst();
-            String [][] Datos = new String[rows][2];
+            String[][] Datos = new String[rows][2];
             rows = 0;
-            while(rs.next()){
-                
+            while (rs.next()) {
+
                 Datos[rows][0] = rs.getString("Codigo");
                 Datos[rows][1] = rs.getString("Tipo");
-                
-                
+
                 rows++;
             }
             return Datos;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally{
-            try{
+        } finally {
+            try {
                 rs.close();
                 pr.close();
                 conn.close();
-            }catch(Exception ex){
+            } catch (Exception ex) {
 
             }
         }

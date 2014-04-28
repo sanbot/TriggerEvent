@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import java.io.IOException;
@@ -31,50 +30,45 @@ public class Contr_Departamento extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding( "UTF-8" );
+        request.setCharacterEncoding("UTF-8");
         String Nombre, Codigo, Mensaje, url;
         Departamento dep = new Departamento();
         HttpSession session = request.getSession(true);
-        if(request.getParameter("RegistrarDepartamento")!=null)
-            {
-                
-                Nombre = request.getParameter("Nombre");
-                
-                boolean b = dep.setRegistrarDepartamento(Nombre);
-                if(b){
-                    
-                    session.setAttribute("Mensaje","Los datos del departamento han sido registrados correctamente.");
-                    session.setAttribute("TipoMensaje","Dio");
-                    url="View/ConsultaDepartamento.jsp" ;
-                    response.sendRedirect(url);
-                }else{
-                    session.setAttribute("Mensaje",dep.getMensaje());
-                    session.setAttribute("TipoMensaje","NODio");
-                    url="View/ConsultaDepartamento.jsp";
-                    response.sendRedirect(url);
-                }
+        if (request.getParameter("RegistrarDepartamento") != null) {
+
+            Nombre = request.getParameter("Nombre");
+
+            boolean b = dep.setRegistrarDepartamento(Nombre);
+            if (b) {
+
+                session.setAttribute("Mensaje", "Los datos del departamento han sido registrados correctamente.");
+                session.setAttribute("TipoMensaje", "Dio");
+                url = "View/ConsultaDepartamento.jsp";
+                response.sendRedirect(url);
+            } else {
+                session.setAttribute("Mensaje", dep.getMensaje());
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/ConsultaDepartamento.jsp";
+                response.sendRedirect(url);
             }
-        else if(request.getParameter("ModificarDepartamento") != null)
-        {
+        } else if (request.getParameter("ModificarDepartamento") != null) {
             Codigo = request.getParameter("Codigo");
             Nombre = request.getParameter("Nombre");
-                
-            boolean b = dep.actualizardatosDepartamento(Codigo, Nombre);
-            if(b){
 
-                session.setAttribute("Mensaje","Los datos del departamento han sido modificados correctamente.");
-                session.setAttribute("TipoMensaje","Dio");
-                url="View/ConsultaDepartamento.jsp" ;
+            boolean b = dep.actualizardatosDepartamento(Codigo, Nombre);
+            if (b) {
+
+                session.setAttribute("Mensaje", "Los datos del departamento han sido modificados correctamente.");
+                session.setAttribute("TipoMensaje", "Dio");
+                url = "View/ConsultaDepartamento.jsp";
                 response.sendRedirect(url);
-            }else{
-                session.setAttribute("Mensaje",dep.getMensaje());
-                session.setAttribute("TipoMensaje","NODio");
-                url="View/ConsultaDepartamento.jsp";
+            } else {
+                session.setAttribute("Mensaje", dep.getMensaje());
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/ConsultaDepartamento.jsp";
                 response.sendRedirect(url);
             }
-        }
-        else
-        {
+        } else {
             url = "index.jsp";
             response.sendRedirect(url);
         }

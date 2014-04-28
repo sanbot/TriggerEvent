@@ -20,9 +20,8 @@ import javax.servlet.http.HttpSession;
 public class Contr_Usuarios extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -31,347 +30,307 @@ public class Contr_Usuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding( "UTF-8" );
+        request.setCharacterEncoding("UTF-8");
         Usuario usu = new Usuario();
         Mensajeria msm = new Mensajeria();
-        String script, Nombre, Codigo, Tipo_Documento,Estado, No_Documento, Telefono, Direccion, correo , celular, url, CodVer, CodigoVerificacion, Ciudad, Departamento;
+        String script, Nombre, Codigo, Tipo_Documento, Estado, No_Documento, Telefono, Direccion, correo, celular, url, CodVer, CodigoVerificacion, Ciudad, Departamento;
         String Password, REPassword, Rol, Contrasenia;
         HttpSession session = request.getSession(true);
- 
+
         boolean b = false;
-            if(request.getParameter("login")!= null)
-            {
-                correo = request.getParameter("correo");
-                Contrasenia = request.getParameter("contrasenia");
-                    b = usu.getlogin(correo,Contrasenia);
-                    if(b)
-                    {
-                        Codigo = usu.getCodigo();
-                        Tipo_Documento = usu.getTipo_Documento();
-                        No_Documento = usu.getNo_Documento();
-                        Nombre = usu.getNombre();
-                        Telefono = usu.getTelefono();
-                        Direccion = usu.getDireccion();
-                        celular = usu.getCelular();
-                        Rol = usu.getTipo();
-                        Ciudad = usu.getCiudad();
-                        Departamento = usu.getDepartamento();
-                        
-                        
-                        
-                        session.setAttribute("Codigo", Codigo);
-                        session.setAttribute("Rol", Rol);
-                        session.setAttribute("Tipo_Documento", Tipo_Documento);
-                        session.setAttribute("No_Documento", No_Documento);
-                        session.setAttribute("Nombre", Nombre);
-                        session.setAttribute("Telefono", Telefono);
-                        session.setAttribute("Celular", celular);
-                        session.setAttribute("Correo", correo);
-                        session.setAttribute("Direccion", Direccion);
-                        session.setAttribute("Ciudad", Ciudad);
-                        session.setAttribute("Departamento", Departamento);
-                        
-                        url="View/index.jsp";
-                        response.sendRedirect(url);
-                    }
-                    else{
-                        session.setAttribute("Mensaje",usu.getMensaje());
-                        session.setAttribute("TipoMensaje", "NODio");
-                        url="View/index.jsp" ;
-                    response.sendRedirect(url);
-                    }
-                
-            }else if(request.getParameter("ModificarPerfil")!= null){
-                Nombre = request.getParameter("Nombre");
-                Codigo = (String)session.getAttribute("Codigo");
-                Tipo_Documento= request.getParameter("Tipo_Documento");
-                No_Documento= request.getParameter("No_Documento");
-                Telefono= request.getParameter("Telefono");
-                celular=request.getParameter("Celular");
-                correo=request.getParameter("Correo");
-                Direccion=request.getParameter("Direccion");
-                Rol = request.getParameter("TipoUsuario");
-                Ciudad = request.getParameter("Ciudad");
-                
-                b = usu.actualizardatos(Codigo, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Ciudad);
-                if(b)
-                {
-                    session.setAttribute("Rol", Rol);
-                    session.setAttribute("Tipo_Documento", Tipo_Documento);
-                    session.setAttribute("No_Documento", No_Documento);
-                    session.setAttribute("Nombre", Nombre);
-                    session.setAttribute("Telefono", Telefono);
-                    session.setAttribute("Celular", celular);
-                    session.setAttribute("Correo", correo);
-                    session.setAttribute("Direccion", Direccion);
-                    session.setAttribute("Ciudad", usu.getCiudad());
-                    session.setAttribute("Departamento", usu.getDepartamento());
-                    
-                    session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente");
-                    session.setAttribute("TipoMensaje" , "Dio");
-                    url="View/Perfil.jsp";
-                    response.sendRedirect(url);
-                }else
-                {
-                    session.setAttribute("Mensaje" ,"Ocurrió un problema inesperado al tratar de modificar sus datos, por favor, inténtelo de nuevo.");
-                    session.setAttribute("TipoMensaje" ,"NODio");
-                    url="View/ModificarPerfil.jsp";
-                    response.sendRedirect(url);
-                }
-            }else if(request.getParameter("EnviarCodigoVer")!= null){
-                Nombre = request.getParameter("Nombre");
-                celular=request.getParameter("Celular");
-                correo=request.getParameter("Correo");
-                CodVer = usu.CodVer();
-                
-                b = msm.EnviarCodVer(correo, celular, Nombre, CodVer);
-                if (b)
-                    {
-                        session.setAttribute("Registrar_Nombre", Nombre);
-                        session.setAttribute("Registrar_Celular", celular);
-                        session.setAttribute("Registrar_Correo", correo);
-                        session.setAttribute("Registrar_CodigoVer", CodVer);
-                        
-                        session.setAttribute("Mensaje", "Verifique su correo, se le ha enviado el código de verificación.");
-                        session.setAttribute("TipoMensaje", "Dio");
-                        url="View/RegistrarUsuario.jsp";
-                        response.sendRedirect(url);
-                    }else
-                    {
-                        session.setAttribute("Mensaje" ,"Ocurrió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
-                        session.setAttribute("TipoMensaje" ,"NODio");
-                        url="View/RegistrarUsuario.jsp";
-                        response.sendRedirect(url);
-                    }
-            }
-            else if(request.getParameter("REnviarCodigoVer")!= null){
-                Nombre = (String) session.getAttribute("Registrar_Nombre");
-                celular= (String) session.getAttribute("Registrar_Celular");
-                correo= (String) session.getAttribute("Registrar_Correo");
-                CodVer = (String) session.getAttribute("Registrar_CodigoVer");
-                
-                b = msm.EnviarCodVer(correo, celular, Nombre, CodVer);
-                if (b)
-                {
-                    session.setAttribute("Mensaje" ,"Verifique su correo, se le ha enviado el código de verificación.");
-                    session.setAttribute("TipoMensaje" ,"Dio");
-                    url="View/RegistrarUsuario.jsp";
-                    response.sendRedirect(url);
-                }else
-                {
-                    session.setAttribute("Mensaje" ,"currió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
-                    session.setAttribute("TipoMensaje" ,"NODio");
-                    url="View/RegistrarUsuario.jsp";
-                    response.sendRedirect(url);
-                }
-            }else if(request.getParameter("LimpiarDatosUsuario")!= null){
-                session.setAttribute("Registrar_Nombre", null);
-                session.setAttribute("Registrar_Celular", null);
-                session.setAttribute("Registrar_Correo", null);
-                session.setAttribute("Registrar_CodigoVer", null);
-                
-                url="View/RegistrarUsuario.jsp";
+        if (request.getParameter("login") != null) {
+            correo = request.getParameter("correo");
+            Contrasenia = request.getParameter("contrasenia");
+            b = usu.getlogin(correo, Contrasenia);
+            if (b) {
+                Codigo = usu.getCodigo();
+                Tipo_Documento = usu.getTipo_Documento();
+                No_Documento = usu.getNo_Documento();
+                Nombre = usu.getNombre();
+                Telefono = usu.getTelefono();
+                Direccion = usu.getDireccion();
+                celular = usu.getCelular();
+                Rol = usu.getTipo();
+                Ciudad = usu.getCiudad();
+                Departamento = usu.getDepartamento();
+
+                session.setAttribute("Codigo", Codigo);
+                session.setAttribute("Rol", Rol);
+                session.setAttribute("Tipo_Documento", Tipo_Documento);
+                session.setAttribute("No_Documento", No_Documento);
+                session.setAttribute("Nombre", Nombre);
+                session.setAttribute("Telefono", Telefono);
+                session.setAttribute("Celular", celular);
+                session.setAttribute("Correo", correo);
+                session.setAttribute("Direccion", Direccion);
+                session.setAttribute("Ciudad", Ciudad);
+                session.setAttribute("Departamento", Departamento);
+
+                url = "View/index.jsp";
                 response.sendRedirect(url);
-                 
-            }else if(request.getParameter("RegistrarUsuario")!=null)
-            {
-                
-                Nombre = (String) session.getAttribute("Registrar_Nombre");
-                celular= (String) session.getAttribute("Registrar_Celular");
-                correo= (String) session.getAttribute("Registrar_Correo");
-                CodVer = (String) session.getAttribute("Registrar_CodigoVer");
-                
-                CodigoVerificacion= request.getParameter("codver");
-                Rol = request.getParameter("Tipo_Usuario");
-                Tipo_Documento = request.getParameter("Tipo_Documento");
-                No_Documento = request.getParameter("No_Documento");
-                Telefono = request.getParameter("Telefono");
-                Direccion = request.getParameter("Direccion");
-                Password = request.getParameter("Password");
-                REPassword = request.getParameter("REPassword");
-                Ciudad = request.getParameter("Ciudad");
-                
-                if(Password.equals(REPassword))
-                {
-                    if(CodVer.equals(CodigoVerificacion))
-                    {
-                        b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
-                        if(b){
-                            session.setAttribute("Registrar_Nombre", null);
-                            session.setAttribute("Registrar_Celular", null);
-                            session.setAttribute("Registrar_Correo", null);
-                            session.setAttribute("Registrar_CodigoVer", null);
+            } else {
+                session.setAttribute("Mensaje", usu.getMensaje());
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/index.jsp";
+                response.sendRedirect(url);
+            }
 
-                            session.setAttribute("Mensaje","Los datos del usuario han sido registrados correctamente.");
-                            session.setAttribute("TipoMensaje","Dio");
-                            url="View/RegistrarUsuario.jsp" ;
-                            response.sendRedirect(url);
-                        }else{
-                            session.setAttribute("Mensaje",usu.getMensaje());
-                            session.setAttribute("TipoMensaje","NODio");
-                            url="View/RegistrarUsuario.jsp";
-                            response.sendRedirect(url);
-                        }
-                    }
-                    else{
-                        session.setAttribute("Mensaje","El código de verificación no coincide con el enviado.");
-                        session.setAttribute("TipoMensaje", "NODio");
-                        url="View/RegistrarUsuario.jsp";
-                        response.sendRedirect(url);
-                    }
-                }
-                else
-                {
-                    session.setAttribute("Mensaje","ErrorPass");
-                    session.setAttribute("TipoMensaje","NODio");
-                    url="View/RegistrarUsuario.jsp";
-                    response.sendRedirect(url);
-                }
-            }
-            else if(request.getParameter("recucontrasenia")!= null){
-                correo = request.getParameter("correo");
-                b = usu.getrecordarContrasenia(correo);
-                if(b)
-                {
-                    String contra = usu.getContrasenia();
-                    Nombre = usu.getNombre();
-                    boolean c = msm.recordarcontrasenia(correo, contra,Nombre );
-                    if (c)
-                    {
-                        session.setAttribute("Mensaje","Verifique su correo, se le ha enviado su contraseña.");
-                        session.setAttribute("TipoMensaje", "Dio");
-                        url="View/index.jsp";
-                        response.sendRedirect(url);
-                    }else
-                    {
-                        session.setAttribute("Mensaje","Ocurrió un problema inesperado al tratar de enviar su contraseña, espere un momento e inténtelo de nuevo.");
-                        session.setAttribute("TipoMensaje", "NODio");
-                        url="View/index.jsp";
-                        response.sendRedirect(url);
-                    }
-                }else{
-                    session.setAttribute("Mensaje" , "El correo diligenciado no concuerda con ninguna cuenta registrada, verífiquelo e inténtelo de nuevo.");
-                    session.setAttribute("TipoMensaje", "NODio");
-                    
-                    url="View/index.jsp";
-                    response.sendRedirect(url);
-                }
-            }else if(request.getParameter("ModificarUsuarioTodos")!= null){
-                Nombre = request.getParameter("Nombre");
-                Codigo = request.getParameter("Codigo");
-                Rol = request.getParameter("Tipo");
-                Tipo_Documento= request.getParameter("Tipo_Documento");
-                No_Documento= request.getParameter("No_Documento");
-                Telefono= request.getParameter("Telefono");
-                celular=request.getParameter("Celular");
-                correo=request.getParameter("Correo");
-                Direccion=request.getParameter("Direccion");
-                Estado =request.getParameter("Estado");
-                Ciudad = request.getParameter("Ciudad");
-                
-                b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado, Ciudad);
-                if(b)
-                {
-                    
-                    session.setAttribute("Mensaje" , "Sus datos han sido modificados correctamente.");
-                    session.setAttribute("TipoMensaje" , "Dio");
-                    url="View/ConsultaUsuario.jsp";
-                    response.sendRedirect(url);
-                }else
-                {
-                    session.setAttribute("Mensaje" , "Ocurrió un problema inesperado al tratar de modificar sus datos, espere e inténtelo de nuevo.");
-                    session.setAttribute("TipoMensaje" , "NODio");
-                    url="View/MUsuario.jsp?Codigo="+Codigo;
-                    response.sendRedirect(url);
-                }
-            }
-            else if(request.getParameter("RegistrarTodoUsuario")!=null)
-            {
-                
-                Nombre = request.getParameter("Nombre");
-                celular=request.getParameter("Celular");
-                correo=request.getParameter("Correo");
-                
-                Rol = request.getParameter("Tipo_Usuario");
-                Tipo_Documento = request.getParameter("Tipo_Documento");
-                No_Documento = request.getParameter("No_Documento");
-                Telefono = request.getParameter("Telefono");
-                Direccion = request.getParameter("Direccion");
-                Password = request.getParameter("Password");
-                REPassword = request.getParameter("REPassword");
-                Ciudad = request.getParameter("Ciudad");
-                
-                if(Password.equals(REPassword))
-                {
-                        b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
-                        if(b){
-                            session.setAttribute("Registrar_Nombre", null);
-                            session.setAttribute("Registrar_Celular", null);
-                            session.setAttribute("Registrar_Correo", null);
-                            session.setAttribute("Registrar_CodigoVer", null);
+        } else if (request.getParameter("ModificarPerfil") != null) {
+            Nombre = request.getParameter("Nombre");
+            Codigo = (String) session.getAttribute("Codigo");
+            Tipo_Documento = request.getParameter("Tipo_Documento");
+            No_Documento = request.getParameter("No_Documento");
+            Telefono = request.getParameter("Telefono");
+            celular = request.getParameter("Celular");
+            correo = request.getParameter("Correo");
+            Direccion = request.getParameter("Direccion");
+            Rol = request.getParameter("TipoUsuario");
+            Ciudad = request.getParameter("Ciudad");
 
-                            session.setAttribute("Mensaje","Los datos del usuario han sido registrados correctamente.");
-                            session.setAttribute("TipoMensaje","Dio");
-                            url="View/ConsultaUsuario.jsp" ;
-                            response.sendRedirect(url);
-                        }else{
-                            session.setAttribute("TipoMensaje","NODio");
-                            session.setAttribute("Mensaje",usu.getMensaje());
-                            url="View/ConsultaUsuario.jsp";
-                            response.sendRedirect(url);
-                        }
-                }
-                else
-                {
-                    session.setAttribute("Mensaje","Las contraseñas no coinciden.");
-                    session.setAttribute("TipoMensaje","NODio");
-                    url="View/ConsultaUsuario.jsp";
-                    response.sendRedirect(url);
-                }
-            }else if (request.getParameter("CambiarContrasenia")!= null)
-            {
-                Codigo = (String ) session.getAttribute("Codigo");
-                String Contr = request.getParameter("ContraseniaActual");
-                String ContrNueva = request.getParameter("ContraseniaNueva");
-                String ContrReContra = request.getParameter("ContraseniaRepetir");
-                if(ContrNueva.equals(ContrReContra))
-                {
-                    if(usu.getConfirmarContrasenia(Codigo, Contr))
-                    {
-                        if(usu.setCambioContrasenia(Codigo, ContrNueva))
-                        {
-                            session.setAttribute("Mensaje", "La contraseña ha sido modificada exitosamente.");
-                            session.setAttribute("TipoMensaje", "Dio");
-                        }else
-                        {
-                            //session.setAttribute("Mensaje", usu.getMensaje());
-                            session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de modificar la contrasenia, espere un momento e inténtelo de nuevo.");
-                            session.setAttribute("TipoMensaje", "NODio");
-                        }
-                    }
-                    else
-                    {
-                        session.setAttribute("Mensaje", "La contraseña actual no coincide con su cuenta");
-                        session.setAttribute("TipoMensaje", "NODio");
-                    }
-                }
-                else
-                {
-                    session.setAttribute("Mensaje", "Error al tratar de modificar la contraseña, las contraseñas no coinciden");
-                    session.setAttribute("TipoMensaje", "NODio");
-                }
-                response.sendRedirect("View/Perfil.jsp");
+            b = usu.actualizardatos(Codigo, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Ciudad);
+            if (b) {
+                session.setAttribute("Rol", Rol);
+                session.setAttribute("Tipo_Documento", Tipo_Documento);
+                session.setAttribute("No_Documento", No_Documento);
+                session.setAttribute("Nombre", Nombre);
+                session.setAttribute("Telefono", Telefono);
+                session.setAttribute("Celular", celular);
+                session.setAttribute("Correo", correo);
+                session.setAttribute("Direccion", Direccion);
+                session.setAttribute("Ciudad", usu.getCiudad());
+                session.setAttribute("Departamento", usu.getDepartamento());
+
+                session.setAttribute("Mensaje", "Sus datos han sido modificados correctamente");
+                session.setAttribute("TipoMensaje", "Dio");
+                url = "View/Perfil.jsp";
+                response.sendRedirect(url);
+            } else {
+                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de modificar sus datos, por favor, inténtelo de nuevo.");
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/ModificarPerfil.jsp";
+                response.sendRedirect(url);
             }
-            else{
-            url="View/login.jsp";
+        } else if (request.getParameter("EnviarCodigoVer") != null) {
+            Nombre = request.getParameter("Nombre");
+            celular = request.getParameter("Celular");
+            correo = request.getParameter("Correo");
+            CodVer = usu.CodVer();
+
+            b = msm.EnviarCodVer(correo, celular, Nombre, CodVer);
+            if (b) {
+                session.setAttribute("Registrar_Nombre", Nombre);
+                session.setAttribute("Registrar_Celular", celular);
+                session.setAttribute("Registrar_Correo", correo);
+                session.setAttribute("Registrar_CodigoVer", CodVer);
+
+                session.setAttribute("Mensaje", "Verifique su correo, se le ha enviado el código de verificación.");
+                session.setAttribute("TipoMensaje", "Dio");
+                url = "View/RegistrarUsuario.jsp";
+                response.sendRedirect(url);
+            } else {
+                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/RegistrarUsuario.jsp";
+                response.sendRedirect(url);
+            }
+        } else if (request.getParameter("REnviarCodigoVer") != null) {
+            Nombre = (String) session.getAttribute("Registrar_Nombre");
+            celular = (String) session.getAttribute("Registrar_Celular");
+            correo = (String) session.getAttribute("Registrar_Correo");
+            CodVer = (String) session.getAttribute("Registrar_CodigoVer");
+
+            b = msm.EnviarCodVer(correo, celular, Nombre, CodVer);
+            if (b) {
+                session.setAttribute("Mensaje", "Verifique su correo, se le ha enviado el código de verificación.");
+                session.setAttribute("TipoMensaje", "Dio");
+                url = "View/RegistrarUsuario.jsp";
+                response.sendRedirect(url);
+            } else {
+                session.setAttribute("Mensaje", "currió un problema inesperado al tratar de enviar el código de verificación, por favor inténtelo de nuevo.");
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/RegistrarUsuario.jsp";
+                response.sendRedirect(url);
+            }
+        } else if (request.getParameter("LimpiarDatosUsuario") != null) {
+            session.setAttribute("Registrar_Nombre", null);
+            session.setAttribute("Registrar_Celular", null);
+            session.setAttribute("Registrar_Correo", null);
+            session.setAttribute("Registrar_CodigoVer", null);
+
+            url = "View/RegistrarUsuario.jsp";
             response.sendRedirect(url);
-            }  
+
+        } else if (request.getParameter("RegistrarUsuario") != null) {
+
+            Nombre = (String) session.getAttribute("Registrar_Nombre");
+            celular = (String) session.getAttribute("Registrar_Celular");
+            correo = (String) session.getAttribute("Registrar_Correo");
+            CodVer = (String) session.getAttribute("Registrar_CodigoVer");
+
+            CodigoVerificacion = request.getParameter("codver");
+            Rol = request.getParameter("Tipo_Usuario");
+            Tipo_Documento = request.getParameter("Tipo_Documento");
+            No_Documento = request.getParameter("No_Documento");
+            Telefono = request.getParameter("Telefono");
+            Direccion = request.getParameter("Direccion");
+            Password = request.getParameter("Password");
+            REPassword = request.getParameter("REPassword");
+            Ciudad = request.getParameter("Ciudad");
+
+            if (Password.equals(REPassword)) {
+                if (CodVer.equals(CodigoVerificacion)) {
+                    b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
+                    if (b) {
+                        session.setAttribute("Registrar_Nombre", null);
+                        session.setAttribute("Registrar_Celular", null);
+                        session.setAttribute("Registrar_Correo", null);
+                        session.setAttribute("Registrar_CodigoVer", null);
+
+                        session.setAttribute("Mensaje", "Los datos del usuario han sido registrados correctamente.");
+                        session.setAttribute("TipoMensaje", "Dio");
+                        url = "View/RegistrarUsuario.jsp";
+                        response.sendRedirect(url);
+                    } else {
+                        session.setAttribute("Mensaje", usu.getMensaje());
+                        session.setAttribute("TipoMensaje", "NODio");
+                        url = "View/RegistrarUsuario.jsp";
+                        response.sendRedirect(url);
+                    }
+                } else {
+                    session.setAttribute("Mensaje", "El código de verificación no coincide con el enviado.");
+                    session.setAttribute("TipoMensaje", "NODio");
+                    url = "View/RegistrarUsuario.jsp";
+                    response.sendRedirect(url);
+                }
+            } else {
+                session.setAttribute("Mensaje", "ErrorPass");
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/RegistrarUsuario.jsp";
+                response.sendRedirect(url);
+            }
+        } else if (request.getParameter("recucontrasenia") != null) {
+            correo = request.getParameter("correo");
+            b = usu.getrecordarContrasenia(correo);
+            if (b) {
+                String contra = usu.getContrasenia();
+                Nombre = usu.getNombre();
+                boolean c = msm.recordarcontrasenia(correo, contra, Nombre);
+                if (c) {
+                    session.setAttribute("Mensaje", "Verifique su correo, se le ha enviado su contraseña.");
+                    session.setAttribute("TipoMensaje", "Dio");
+                    url = "View/index.jsp";
+                    response.sendRedirect(url);
+                } else {
+                    session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de enviar su contraseña, espere un momento e inténtelo de nuevo.");
+                    session.setAttribute("TipoMensaje", "NODio");
+                    url = "View/index.jsp";
+                    response.sendRedirect(url);
+                }
+            } else {
+                session.setAttribute("Mensaje", "El correo diligenciado no concuerda con ninguna cuenta registrada, verífiquelo e inténtelo de nuevo.");
+                session.setAttribute("TipoMensaje", "NODio");
+
+                url = "View/index.jsp";
+                response.sendRedirect(url);
+            }
+        } else if (request.getParameter("ModificarUsuarioTodos") != null) {
+            Nombre = request.getParameter("Nombre");
+            Codigo = request.getParameter("Codigo");
+            Rol = request.getParameter("Tipo");
+            Tipo_Documento = request.getParameter("Tipo_Documento");
+            No_Documento = request.getParameter("No_Documento");
+            Telefono = request.getParameter("Telefono");
+            celular = request.getParameter("Celular");
+            correo = request.getParameter("Correo");
+            Direccion = request.getParameter("Direccion");
+            Estado = request.getParameter("Estado");
+            Ciudad = request.getParameter("Ciudad");
+
+            b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado, Ciudad);
+            if (b) {
+
+                session.setAttribute("Mensaje", "Sus datos han sido modificados correctamente.");
+                session.setAttribute("TipoMensaje", "Dio");
+                url = "View/ConsultaUsuario.jsp";
+                response.sendRedirect(url);
+            } else {
+                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de modificar sus datos, espere e inténtelo de nuevo.");
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/MUsuario.jsp?Codigo=" + Codigo;
+                response.sendRedirect(url);
+            }
+        } else if (request.getParameter("RegistrarTodoUsuario") != null) {
+
+            Nombre = request.getParameter("Nombre");
+            celular = request.getParameter("Celular");
+            correo = request.getParameter("Correo");
+
+            Rol = request.getParameter("Tipo_Usuario");
+            Tipo_Documento = request.getParameter("Tipo_Documento");
+            No_Documento = request.getParameter("No_Documento");
+            Telefono = request.getParameter("Telefono");
+            Direccion = request.getParameter("Direccion");
+            Password = request.getParameter("Password");
+            REPassword = request.getParameter("REPassword");
+            Ciudad = request.getParameter("Ciudad");
+
+            if (Password.equals(REPassword)) {
+                b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
+                if (b) {
+                    session.setAttribute("Registrar_Nombre", null);
+                    session.setAttribute("Registrar_Celular", null);
+                    session.setAttribute("Registrar_Correo", null);
+                    session.setAttribute("Registrar_CodigoVer", null);
+
+                    session.setAttribute("Mensaje", "Los datos del usuario han sido registrados correctamente.");
+                    session.setAttribute("TipoMensaje", "Dio");
+                    url = "View/ConsultaUsuario.jsp";
+                    response.sendRedirect(url);
+                } else {
+                    session.setAttribute("TipoMensaje", "NODio");
+                    session.setAttribute("Mensaje", usu.getMensaje());
+                    url = "View/ConsultaUsuario.jsp";
+                    response.sendRedirect(url);
+                }
+            } else {
+                session.setAttribute("Mensaje", "Las contraseñas no coinciden.");
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/ConsultaUsuario.jsp";
+                response.sendRedirect(url);
+            }
+        } else if (request.getParameter("CambiarContrasenia") != null) {
+            Codigo = (String) session.getAttribute("Codigo");
+            String Contr = request.getParameter("ContraseniaActual");
+            String ContrNueva = request.getParameter("ContraseniaNueva");
+            String ContrReContra = request.getParameter("ContraseniaRepetir");
+            if (ContrNueva.equals(ContrReContra)) {
+                if (usu.getConfirmarContrasenia(Codigo, Contr)) {
+                    if (usu.setCambioContrasenia(Codigo, ContrNueva)) {
+                        session.setAttribute("Mensaje", "La contraseña ha sido modificada exitosamente.");
+                        session.setAttribute("TipoMensaje", "Dio");
+                    } else {
+                        //session.setAttribute("Mensaje", usu.getMensaje());
+                        session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de modificar la contrasenia, espere un momento e inténtelo de nuevo.");
+                        session.setAttribute("TipoMensaje", "NODio");
+                    }
+                } else {
+                    session.setAttribute("Mensaje", "La contraseña actual no coincide con su cuenta");
+                    session.setAttribute("TipoMensaje", "NODio");
+                }
+            } else {
+                session.setAttribute("Mensaje", "Error al tratar de modificar la contraseña, las contraseñas no coinciden");
+                session.setAttribute("TipoMensaje", "NODio");
+            }
+            response.sendRedirect("View/Perfil.jsp");
+        } else {
+            url = "View/login.jsp";
+            response.sendRedirect(url);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -385,8 +344,7 @@ public class Contr_Usuarios extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response

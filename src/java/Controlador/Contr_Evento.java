@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import Modelo.Evento;
@@ -44,143 +43,102 @@ public class Contr_Evento extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding( "UTF-8" );
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
-        
+
         boolean b;
-        try
-        {
+        try {
             Evento eve = new Evento();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
             //urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
             urlsalidaimg = "D:\\IMGTE\\";
-            
+
             /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
-            
+
             /*ServletFileUpload esta clase convierte los input file a FileItem*/
             ServletFileUpload servlet_up = new ServletFileUpload(file_factory);
             /*sacando los FileItem del ServletFileUpload en una lista */
-            
+
             List items = servlet_up.parseRequest(request);
             Iterator it = items.iterator();
-            
+
             while (it.hasNext()) {
                 FileItem item = (FileItem) it.next();
                 if (item.isFormField()) {
                     //Plain request parameters will come here. 
-                    
+
                     String name = item.getFieldName();
-                    if(name.equals("Creador"))
-                    {
+                    if (name.equals("Creador")) {
                         eve.setCreador(item.getString());
-                    }
-                    else if(name.equals("Nombre"))
-                    {
+                    } else if (name.equals("Nombre")) {
                         eve.setNombre(item.getString());
-                    }
-                    else if(name.equals("Codigo"))
-                    {
+                    } else if (name.equals("Codigo")) {
                         eve.setCodigo(item.getString());
-                    }
-                    else if(name.equals("Rango"))
-                    {
+                    } else if (name.equals("Rango")) {
                         eve.setRango(item.getString());
-                    }
-                    else if(name.equals("Fecha"))
-                    {
+                    } else if (name.equals("Fecha")) {
                         eve.setFecha(item.getString());
-                    }
-                    else if(name.equals("Descripcion"))
-                    {
+                    } else if (name.equals("Descripcion")) {
                         eve.setDescipcion(item.getString());
-                    }
-                    else if(name.equals("Ciudad"))
-                    {
+                    } else if (name.equals("Ciudad")) {
                         eve.setCiudad(item.getString());
-                    }
-                    else if(name.equals("Direccion"))
-                    {
+                    } else if (name.equals("Direccion")) {
                         eve.setDireccion(item.getString());
-                    }
-                    else if(name.equals("Motivo"))
-                    {
+                    } else if (name.equals("Motivo")) {
                         eve.setMotivo(item.getString());
-                    }
-                    else if(name.equals("RegistrarEvento"))
-                    {
-                        if(eve.ConvertirFecha(eve.getFecha()))
-                        {
-                            if(eve.ValidarDosDiasFecha(eve.getFechaDate()))
-                            {
-                                if(!eve.getImagen().equals(""))
-                                {
+                    } else if (name.equals("RegistrarEvento")) {
+                        if (eve.ConvertirFecha(eve.getFecha())) {
+                            if (eve.ValidarDosDiasFecha(eve.getFechaDate())) {
+                                if (!eve.getImagen().equals("")) {
                                     b = eve.setRegistrarEvento(eve.getImagen(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador(), eve.getCiudad(), eve.getDireccion());
-                                    if(b)
-                                    {
+                                    if (b) {
                                         session.setAttribute("Mensaje", "Se ha registrado el evento satisfactoriamente.");
                                         session.setAttribute("TipoMensaje", "Dio");
-                                        response.sendRedirect("View/RClasificacionEvento.jsp?CodigoEvento="+eve.getCodigo());
-                                    }
-                                    else
-                                    {
+                                        response.sendRedirect("View/RClasificacionEvento.jsp?CodigoEvento=" + eve.getCodigo());
+                                    } else {
                                         session.setAttribute("Mensaje", eve.getMensaje());
                                         session.setAttribute("TipoMensaje", "NODio");
                                         response.sendRedirect("View/RegistrarEvento.jsp");
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     session.setAttribute("Mensaje", "Por favor, Seleccione una imagen e inténtelo de nuevo");
                                     session.setAttribute("TipoMensaje", "NODio");
                                     response.sendRedirect("View/RegistrarEvento.jsp");
                                 }
-                                
-                            }
-                            else
-                            {
+
+                            } else {
                                 session.setAttribute("Mensaje", "Ocurrió un error, no se puede registrar un evento que inicie antes de dos días");
                                 session.setAttribute("TipoMensaje", "NODio");
                                 response.sendRedirect("View/RegistrarEvento.jsp");
                             }
-                        }
-                        else
-                        {
+                        } else {
                             session.setAttribute("Mensaje", "No se pudo convertir el formato de fecha a Date");
                             session.setAttribute("TipoMensaje", "NODio");
                             response.sendRedirect("View/RegistrarEvento.jsp");
                         }
-                        
-                    }
-                    else if (name.equals("DesactivarEvento"))
-                    {
-                        if(eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo()))
-                        {
+
+                    } else if (name.equals("DesactivarEvento")) {
+                        if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
                             Mensajeria sms = new Mensajeria();
                             String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
-                            if(sms.EnviarMensajeCambioEstadoEvento(Datos,"Desaprobado", eve.getMotivo()))
-                            {
-                                session.setAttribute("Mensaje","Se desaprobó el evento satisfactoriamente.");
+                            if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
+                                session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
-                            }
-                            else
-                            {
-                                session.setAttribute("Mensaje","Se desaprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
+                            } else {
+                                session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
                                 session.setAttribute("TipoMensaje", "NODio");
                             }
-                        }
-                        else
-                        {
-                            session.setAttribute("Mensaje","Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
+                        } else {
+                            session.setAttribute("Mensaje", "Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                         response.sendRedirect("View/CEventoPendiente.jsp");
                     }
-                   
+
                 } else {
-                    if(!item.getName().equals(""))
-                    {
+                    if (!item.getName().equals("")) {
                         //uploaded files will come here.
                         FileItem file = item;
                         String fieldName = item.getFieldName();
@@ -188,29 +146,24 @@ public class Contr_Evento extends HttpServlet {
                         String contentType = item.getContentType();
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
-                        
-                        if(sizeInBytes>3145728 )
-                        {
+
+                        if (sizeInBytes > 3145728) {
                             session.setAttribute("Mensaje", "El límite del tamaño para la imagen es: 3 MB");
                             session.setAttribute("TipoMensaje", "NODio");
                             response.sendRedirect("View/ConsultaSeleccion.jsp");
-                        }
-                        else
-                        {
-                            File archivo_server = new File(urlsalidaimg+item.getName());
-                            eve.setImagen(urlsalidaimg+item.getName());
+                        } else {
+                            File archivo_server = new File(urlsalidaimg + item.getName());
+                            eve.setImagen(urlsalidaimg + item.getName());
                             item.write(archivo_server);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         eve.setImagen("");
                     }
                 }
             }
-            
+
             response.sendRedirect("View/index.jsp");
-        } catch (FileUploadException ex) {  
+        } catch (FileUploadException ex) {
             System.out.print(ex.getMessage().toString());
         } catch (Exception ex) {
             Logger.getLogger(Contr_Seleccion.class.getName()).log(Level.SEVERE, null, ex);

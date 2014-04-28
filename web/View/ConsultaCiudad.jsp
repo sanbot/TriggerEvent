@@ -181,11 +181,6 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
             </div>
         </footer>
     </div>
-
-
-
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -205,7 +200,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
-                $(".modal-Modifica").click(function(){
+            $(".modal-Modifica").click(function(){
                 var Id = $(this).data('id');
                 var Name = $(this).data('nombre');
                 var DepId = $(this).data('depid');
@@ -213,14 +208,14 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                 $(".modal-body #ConNombre").val( Name );
                 $('#ConDepartamento [value='+DepId+']').prop('selected', true);
                 });
-    		$('#table1').dataTable({
-    			"sPaginationType": "bs_normal"
+                $('#table1').dataTable({
+                        "sPaginationType": "bs_normal"
                 // "sPaginationType": "bs_four_button"
                 // "sPaginationType": "bs_full"
                 // "sPaginationType": "bs_two_button"
             }); 
-    		$('#table1').each(function(){
-    			var datatable = $(this);
+            $('#table1').each(function(){
+                var datatable = $(this);
                 // SEARCH - Add the placeholder for Search and Turn this into in-line form control
                 var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
                 search_input.attr('placeholder', 'Buscar');
