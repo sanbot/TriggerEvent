@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
 import Modelo.Ciudad;
@@ -31,52 +30,47 @@ public class Contr_Ciudad extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding( "UTF-8" );
+        request.setCharacterEncoding("UTF-8");
         String Nombre, Codigo, Mensaje, url, Departamento;
         Ciudad ciu = new Ciudad();
         HttpSession session = request.getSession(true);
-        if(request.getParameter("RegistrarCiudad")!=null)
-            {
-                
-                Nombre = request.getParameter("Nombre");
-                Departamento = request.getParameter("Departamento");
-                
-                boolean b = ciu.setRegistrarCiudad(Nombre, Departamento);
-                if(b){
-                    
-                    session.setAttribute("Mensaje","Los datos del departamento han sido registrados correctamente.");
-                    session.setAttribute("TipoMensaje","Dio");
-                    url="View/ConsultaCiudad.jsp" ;
-                    response.sendRedirect(url);
-                }else{
-                    session.setAttribute("Mensaje",ciu.getMensaje());
-                    session.setAttribute("TipoMensaje","NODio");
-                    url="View/ConsultaCiudad.jsp";
-                    response.sendRedirect(url);
-                }
+        if (request.getParameter("RegistrarCiudad") != null) {
+
+            Nombre = request.getParameter("Nombre");
+            Departamento = request.getParameter("Departamento");
+
+            boolean b = ciu.setRegistrarCiudad(Nombre, Departamento);
+            if (b) {
+
+                session.setAttribute("Mensaje", "Los datos del departamento han sido registrados correctamente.");
+                session.setAttribute("TipoMensaje", "Dio");
+                url = "View/ConsultaCiudad.jsp";
+                response.sendRedirect(url);
+            } else {
+                session.setAttribute("Mensaje", ciu.getMensaje());
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/ConsultaCiudad.jsp";
+                response.sendRedirect(url);
             }
-        else if(request.getParameter("ModificarCiudad") != null)
-        {
+        } else if (request.getParameter("ModificarCiudad") != null) {
             Codigo = request.getParameter("Codigo");
             Nombre = request.getParameter("Nombre");
             Departamento = request.getParameter("Departamento");
-            
-            boolean b = ciu.actualizardatosCiudad(Codigo, Nombre, Departamento);
-            if(b){
 
-                session.setAttribute("Mensaje","Los datos del departamento han sido modificados correctamente.");
-                session.setAttribute("TipoMensaje","Dio");
-                url="View/ConsultaCiudad.jsp" ;
+            boolean b = ciu.actualizardatosCiudad(Codigo, Nombre, Departamento);
+            if (b) {
+
+                session.setAttribute("Mensaje", "Los datos del departamento han sido modificados correctamente.");
+                session.setAttribute("TipoMensaje", "Dio");
+                url = "View/ConsultaCiudad.jsp";
                 response.sendRedirect(url);
-            }else{
-                session.setAttribute("Mensaje",ciu.getMensaje());
-                session.setAttribute("TipoMensaje","NODio");
-                url="View/ConsultaCiudad.jsp";
+            } else {
+                session.setAttribute("Mensaje", ciu.getMensaje());
+                session.setAttribute("TipoMensaje", "NODio");
+                url = "View/ConsultaCiudad.jsp";
                 response.sendRedirect(url);
             }
-        }
-        else
-        {
+        } else {
             url = "index.jsp";
             response.sendRedirect(url);
         }

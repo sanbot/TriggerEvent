@@ -29,129 +29,123 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
 
 </head>
 <body>
-        <%
-        if(Rol.equals("Administrador"))
-        {%>
-        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <%
-        }else if(Rol.equals("Cliente"))
-        {%>
-        <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
-        <%}else if(Rol.equals("Empresa")){%>
-        <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
-        <%}%>
+    <%
+    if(Rol.equals("Administrador"))
+    {%>
+    <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+    <%
+    }else if(Rol.equals("Cliente"))
+    {%>
+    <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
+    <%}else if(Rol.equals("Empresa")){%>
+    <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
+    <%}%>
+        
+    <div class="container">
         <br/>
         <br/>
         <br/>
-        <div class="container">
 	<div class="row clearfix">
-		<div class="col-md-12">
-			<div class="form-group">
-                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span><a href="ConsultaEvento.jsp"> Eventos</a><span class="glyphicon glyphicon-share-alt"></span> Consulta de eventos pendientes
-			</div>
-		</div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <ol class="breadcrumb">
+                        <li><a href="index.jsp">Inicio</a></li>
+                        <li><a href="ConsultaEvento.jsp">Eventos</a></li>
+                        <li class="active">Consulta de eventos pendientes</a></li>
+                    </ol>
+                </div>
+            </div>
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-12">
-			<br/>
-			<h1 class="Center">Consulta de eventos Pendientes</h1>
-		</div>
+            <div class="col-xs-12">
+                <h1 class="Center">Consulta de eventos Pendientes</h1>
+            </div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<br/>
-                        <div class="table-responsive">
-                                <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                    <th>Imagen</th>
-                                                    <th>Nombre</th>
-                                                    <th>Fecha</th>
-                                                    <th>Hora</th>
-                                                    <th>Creador</th>
-                                                    <th>Ciudad</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <%for(String[] Row : ListaEvento){%>
-                                                <tr>
-                                                        <td><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"/></td>
-                                                        <td><%=Row[1]%></td>
-                                                        <td><%=Row[2]%></td>
-                                                        <td><%=Row[5]%></td>
-                                                        <td><%=Row[3]%></td>
-                                                        <td><%=Row[4]%></td>
-                                                        <td><center><a class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-creador="<%=Row[3]%>"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                                        <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
-                                                        <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>&Pendiente=true"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
-                                                </tr>
-                                                <%}%>
-                                        </tbody>
-                                </table>
-                        </div>
-		</div>
-                <div class="row">
-                    <form data-validate="parsley" enctype="multipart/form-data" method="post" action="/TriggerEvent/Contr_Evento">
-                            <div class="col-md-12">
-                                    <div class="modal fade" id="modal-container-Desactivar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                                    <h4 class="modal-title" id="myModalLabel">
-                                                                        <center>Desactivar el evento: <span id="NombreEvento"></span></center>
-                                                                    </h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                    <div class="row">
-                                                                            <div class="col-md-2"></div>
-                                                                            <div class="col-md-8">
-                                                                                    <div class="form-group">
-                                                                                            <input id="CodigoEvento" name="Codigo" type="hidden" readonly>
-                                                                                    </div>
-                                                                            </div>
-                                                                            <div class="col-md-2"></div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                            <div class="col-md-2"></div>
-                                                                            <div class="col-md-8">
-                                                                                    <div class="form-group">
-                                                                                            <label for="Motivo">Motivo</label>
-                                                                                            <textarea id="Motivo" name="Motivo" class="form-control" data-rangelength="[6,150]" rows="5" data-required="true"></textarea>
-                                                                                    </div>
-                                                                            </div>
-                                                                            <div class="col-md-2"></div>
-                                                                    </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                    <button name="DesactivarEvento" type="submit" class="btn defecto">Desactivar</button> 
-                                                            </div>
-                                                    </div>
-
-                                            </div>
-
-                                    </div>
-                            </div>
-                    </form>
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Creador</th>
+                                <th>Ciudad</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(String[] Row : ListaEvento){%>
+                            <tr>
+                                <td><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"/></td>
+                                <td><%=Row[1]%></td>
+                                <td><%=Row[2]%></td>
+                                <td><%=Row[5]%></td>
+                                <td><%=Row[3]%></td>
+                                <td><%=Row[4]%></td>
+                                <td><center><a class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-creador="<%=Row[3]%>"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
+                                <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>&Pendiente=true"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
                 </div>
-		<div class="container marketing">
-			<hr class="featurette-divider">
-		</div>
+            </div>
+            <div class="row">
+                <form data-validate="parsley" enctype="multipart/form-data" method="post" action="/TriggerEvent/Contr_Evento">
+                    <div class="col-xs-12">
+                        <div class="modal fade" id="modal-container-Desactivar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            <center>Desactivar el evento: <span id="NombreEvento"></span></center>
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-xs-8 col-xs-offset-2">
+                                                <div class="form-group">
+                                                        <input id="CodigoEvento" name="Codigo" type="hidden" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-10 col-xs-offset-1">
+                                                <div class="form-group">
+                                                    <label for="Motivo">Motivo</label>
+                                                    <textarea id="Motivo" name="Motivo" class="form-control" data-rangelength="[6,250]" rows="7" data-required="true"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button name="DesactivarEvento" type="submit" class="btn defecto">Desactivar</button> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 	</div>
 	<!-- FOOTER -->
 	<footer>
-		<p>&copy; 2013 Trigger Event, Inc.</p>
-	</footer>
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                </div>
+            </div>
+        </footer>
     </div>
-
-
-
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

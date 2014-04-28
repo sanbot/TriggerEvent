@@ -4,18 +4,12 @@ Created on : 18-mar-2014, 14:17:00
 Author     : ADSI
 --%>
 
-<%-- 
-Document   : RegistrarUsuario
-Created on : 11/03/2014, 08:28:24 AM
-Author     : santi_000
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaUsuario = usu.BuscarDatosUsuariosTodos();
+String[][] ListaUsuario = usu.BuscarDatosUsuariosPenditeTodos();
 String Cantidad = usu.getCantidadPendientes();
 if(session.getAttribute("TipoMensaje").equals("Aprobar"))
 {
@@ -29,105 +23,104 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<title>Trigger Event</title>
-	<meta name="description" content="Eventos musicales" />
-	<meta name="keywords" content="Eventos, musical, Trigger Event" />
-	<meta name="author" content="Sanser Soft" />
-	<link rel="shortcut icon" href="../favicon.ico">
-        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
-
-	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
-
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Trigger Event</title>
+    <meta name="description" content="Eventos musicales" />
+    <meta name="keywords" content="Eventos, musical, Trigger Event" />
+    <meta name="author" content="Sanser Soft" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
+    <link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
+    <script src="../Libs/Customs/js/modernizr.custom.js"></script>
 </head>
 <body>
-        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <br/>
-        <br/>
-        <br/>
-        <div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12">
-			<div class="form-group">
-				<a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Registro y Consulta de Usuario
-			</div>
-		</div>
-	</div>
-	<div class="row clearfix">
-		<div class="col-md-12">
-			<br/>
-			<h1 class="Center">Registro y Consulta de Usuarios</h1>
-		</div>
-	</div>
+    <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+    <br/>
+    <br/>
+    <br/>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li class="active">Registrar y Consultar Usuarios</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <h1 class="Center">Registrar y Consultar Usuarios</h1>
+            </div>
+        </div>
         <%if(Cantidad!= null && !Cantidad.equals("0"))
         {%>
             <div class="row">
-                    <div class="col-md-4">
+                <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-offset-4 col-md-2">
+                    <div class="form-group">
+                        <a href="CUsuariosPendientes.jsp"class="btn btn-block defecto">Empresas pendientes <span class="badge pull-right animacion-bell"><%=Cantidad%></span></a>
                     </div>
-                    <div class="col-md-4">
-                        <a href="CUsuariosPendientes.jsp"class="btn btn-block defecto">Consultar Empresas Pendientes <span class="badge pull-right"><%=Cantidad%></span></a>
-                    </div>
-                    <div class="col-md-4">
-                    </div>
-            </div>
-        <%}%>
-        <div class="row">
-                <div class="col-md-4">
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-md-offset-0 col-md-2">
+                    <div class="form-group">
+                        <a href="RUsuario.jsp"class="btn btn-block defecto">Registrar usuario</a>
+                    </div>
+                </div>
+            </div>
+        <%}else{%>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-offset-4 col-md-4">
+                <div class="form-group">
                     <a href="RUsuario.jsp"class="btn btn-block defecto">Registrar usuario</a>
                 </div>
-                <div class="col-md-4">
-                </div>
+            </div>
         </div>
-	<div class="row">
-		<div class="col-md-12">
-			
-                <br/>
-                    <div class="table-responsive">
-                            <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-                                    <thead>
-                                            <tr>
-                                                    <th>NOMBRE</th>
-                                                    <th>TIPO USUARIO</th>
-                                                    <th>TIPO DOCUMENTO</th>
-                                                    <th>NÚMERO DOCUMENTO</th>
-                                                    <th>ESTADO</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                            </tr>
-                                    </thead>
-                                    <tbody>
-                                            <%for(String[] Row : ListaUsuario){%>
-                                            <tr>
-                                                    <td><%=Row[4]%></td>
-                                                    <td><%=Row[1]%></td>
-                                                    <td><%=Row[2]%></td>
-                                                    <td><%=Row[3]%></td>
-                                                    <td><%=Row[10]%></td>
-                                                    <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-edit"></span></center></td>
-                                                    <td><center><a href="ModificarUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                                    <td><center><a href="ModificarUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
-                                                    <td><center><a href="CUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span><center></td>
-                                            </tr>
-                                            <%}%>
-                                    </tbody>
-                            </table>
-                    </div>
-		</div>
-		<div class="container marketing">
-			<hr class="featurette-divider">
-		</div>
-	</div>
-	<!-- FOOTER -->
-	<footer>
-		<p>&copy; 2013 Trigger Event, Inc.</p>
-	</footer>
+        <%}%>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>NOMBRE</th>
+                                    <th>TIPO USUARIO</th>
+                                    <th>TIPO DOCUMENTO</th>
+                                    <th>NÚMERO DOCUMENTO</th>
+                                    <th>ESTADO</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(String[] Row : ListaUsuario){%>
+                                    <tr>
+                                        <td><%=Row[4]%></td>
+                                        <td><%=Row[1]%></td>
+                                        <td><%=Row[2]%></td>
+                                        <td><%=Row[3]%></td>
+                                        <td><%=Row[10]%></td>
+                                        <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-edit"></span></center></td>
+                                        <td><center><a href="ModificarUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                        <td><center><a href="ModificarUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
+                                        <td><center><a href="CUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span><center></td>
+                                    </tr>
+                                <%}%>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr class="featurette-divider">
+                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                </div>
+            </div>
+        </footer>
     </div>
 
 

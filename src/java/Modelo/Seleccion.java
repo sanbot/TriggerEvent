@@ -834,7 +834,7 @@ public class Seleccion {
                 
                 i = Integer.parseInt(rs.getString("Cantidad"));
             }
-            return i+1;
+            return i+2;
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{

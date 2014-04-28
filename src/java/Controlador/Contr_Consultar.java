@@ -32,10 +32,10 @@ public class Contr_Consultar {
     
     
     
-    public String[][] BuscarDatosUsuariosTodos()
+    public String[][] BuscarDatosUsuariosPenditeTodos()
     {
         Usuario usu = new Usuario();
-        String[][] Datos = usu.BuscarDatosUsuarioTodos();
+        String[][] Datos = usu.BuscarDatosUsuarioPenditeTodos();
                 
         return Datos;
     }

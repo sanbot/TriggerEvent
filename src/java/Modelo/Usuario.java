@@ -256,10 +256,11 @@ public class Usuario {
         PreparedStatement pr=null;
         ResultSet rs=null;
         String sql="Select u.Codigo codigo, u.Codigo_Tipo CodigoTipo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,u.Nombre nombre, u.Telefono telefono,"
-                 + " u.No_Celular Celular, u.codigo_ciudad CodCiudad, c.nombre NombreCiudad, c.Codigo_Departamento DepCiudad, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
+                 + " u.No_Celular Celular, u.codigo_ciudad CodCiudad, c.nombre NombreCiudad, d.Nombre NombreDepartamento, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n" +
                    "From  tb_usuario u"
                 + " Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo "
-                + " Join tb_ciudad c on c.codigo = u.codigo_ciudad \n" +
+                + " Join tb_ciudad c on c.codigo = u.codigo_ciudad "
+                + " Join tb_departamento d on c.Codigo_Departamento = d.Codigo \n" +
                     "Where u.Codigo = ?";
         String[] Usuario = new String[14];
         try{
@@ -280,8 +281,7 @@ public class Usuario {
                     Usuario[9] = rs.getString("Direccion");
                     Usuario[10] = rs.getString("Estado");
                     Usuario[11] = rs.getString("NombreCiudad");
-                    Usuario[12] = rs.getString("DepCiudad");
-                    Usuario[13] = rs.getString("CodCiudad");
+                    Usuario[12] = rs.getString("NombreDepartamento");
                     
             }
             return Usuario;
@@ -567,14 +567,14 @@ public class Usuario {
         this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
         return false;
     }
-    public String[][] BuscarDatosUsuarioTodos(){
+    public String[][] BuscarDatosUsuarioPenditeTodos(){
         Connection conn = conexion.conectar();
         PreparedStatement pr=null;
         ResultSet rs=null;
         String sql="SELECT u.Codigo, tu.Tipo, u.Tipo_Documento, u.No_Documento, u.Nombre, u.Contrasenia, u.Telefono, u.No_Celular, c.Nombre Ciudad, u.Correo, u.Direccion, u.Estado\n" +
                     "FROM  `tb_usuario` u\n" +
                     "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo "
-                + "Join tb_ciudad c on c.codigo = u.codigo_ciudad";
+                + "Join tb_ciudad c on c.codigo = u.codigo_ciudad Where u.Estado != 'Pendiente'";
         
         try{
             pr=conn.prepareStatement(sql);
