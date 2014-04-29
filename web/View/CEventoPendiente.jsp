@@ -21,7 +21,7 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
 	<meta name="description" content="Eventos musicales" />
 	<meta name="keywords" content="Eventos, musical, Trigger Event" />
 	<meta name="author" content="Sanser Soft" />
-	<link rel="shortcut icon" href="../favicon.ico">
+        <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
 	<link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
 
