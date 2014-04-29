@@ -48,36 +48,34 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
         <br/>
         <div class="container">
 	<div class="row clearfix">
-		<div class="col-md-12">
-			<div class="form-group">
-                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Cont&aacute;ctenos
-			</div>
-		</div>
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li class="active">Cont&aacute;ctenos</a></li>
+                </ol>
+            </div>
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-12">
-			<br/>
-			<h1 class="Center">Cont&aacute;ctenos</h1>
-		</div>
+            <div class="col-xs-12">
+                <h1 class="Center">Cont&aacute;ctenos</h1>
+            </div>
 	</div>
 	<div class="row">
             <form id="search" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Contacto">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="Nombre">Nombre</label>
                             <input name="Nombre" type="text" class="form-control" id="Nombre" data-rangelength="[3,30]" data-notblank="true" data-required="true" <%if(!Rol.equals("")&&!Rol.equals(null)){%> value="<%=Nombre%>" readonly<%}%>/>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="Correo">Correo electr&oacute;nico</label>
                             <input name="Correo" type="email" class="form-control" data-type="email" id="Correo" data-maxlength="100" data-notblank="true" data-required="true" <%if(!Rol.equals("")&&!Rol.equals(null)){%> value="<%=DatosUsuario[8]%>" readonly<%}%>/>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="Categoria">Categor&iacute;a del tema</label>
                             <select name="Categoria" tabindex="1" data-placeholder="" class="form-control" data-required="true">
@@ -89,24 +87,22 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                             </select>
                         </div>
                     </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="Nombre">Asunto</label>
                             <input name="Asunto" type="text" class="form-control" id="Asunto" data-notblank="true" data-rangelength="[3,30]" data-required="true"/>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="Departamento">Departamento</label>
                             <select id="departamentocontactenos" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                             </select>
                         </div>
                     </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="Ciudad">Ciudad</label>
                             <select name="Ciudad" id="ciudadcontactenos" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
@@ -116,19 +112,17 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                     </div>
                 </div>
                 <div class="row">              
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-10 col-xs-offset-1">
                         <div class="form-group">
                             <label for="Comentario">Comentario</label>
-                            <textarea name="Comentario" class="form-control" rows="11" data-notblank="true" data-rangelength="[10,500]" data-required="true"></textarea>
+                            <textarea name="Comentario" class="form-control" rows="9" data-notblank="true" data-rangelength="[10,500]" data-required="true"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-offset-5 col-md-2 col-lg-offset-5 col-lg-2">
+                    <div class="col-xs-4 col-xs-offset-4 col-sm-offset-4 col-sm-4 col-md-offset-5 col-md-2 col-lg-2">
                         <div class="form-group">
-                            <center>
-                                <button type="submit" class="btn defecto btn-block" id="Contactenos" name="Contactenos">Enviar</button>
-                            </center>
+                            <button type="submit" class="btn defecto btn-block" id="Contactenos" name="Contactenos">Enviar</button>
                         </div>
                     </div>
                 </div>
@@ -137,18 +131,13 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 	<!-- FOOTER -->
 	<footer>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <hr class="featurette-divider">
                     <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
                 </div>
             </div>
         </footer>
     </div>
-
-
-
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

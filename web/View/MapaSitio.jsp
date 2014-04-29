@@ -36,40 +36,40 @@ Author     : ADSI
     <%}else{%>
     <%@include file="../WEB-INF/jspf/Menu.jspf" %>    
     <%}%>
+    <div class="container">
         <br/>
         <br/>
         <br/>
-        <div class="container">
 	<div class="row clearfix">
-		<div class="col-md-12">
-			<div class="form-group">
-                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Mapa del sitio
-			</div>
-		</div>
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li class="active">Mapa del sitio</a></li>
+                </ol>
+            </div>
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-12">
-			<br/>
-			<h1 class="Center">Mapa del sitio</h1>
-		</div>
+            <div class="col-xs-12">
+                <h1 class="Center">Mapa del sitio</h1>
+            </div>
 	</div>
 	<div class="row">
             <%if(Rol.equals("")||Rol.equals(null)){%>
 		<div class="col-md-12">
                     <div class="form-group">
                         <ul>
-                                <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
-                                <ul>
-                                        <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
-                                        <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
-                                </ul>
-                                <br/>
-                                <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
-                                <ul>
-                                        <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
-                                        <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
-                                        <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
-                                </ul>
+                            <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
+                            <ul>
+                                    <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
+                                    <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
+                            </ul>
+                            <br/>
+                            <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
+                            <ul>
+                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
+                                    <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
+                                    <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
+                            </ul>
                         </ul>
                     </div>
                 </div>
@@ -80,20 +80,20 @@ Author     : ADSI
                         <ul>
                             <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
                             <ul>
-                                    <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
-                                    <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
+                                <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
+                                <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-user glyphiconuno"></span><strong>Mi perfil</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Perfil.jsp"><span class="glyphicon glyphicon-user glyphiconuno"></span>Mi perfil</a></li>
-                                    <li class="lista"><a href="MisGustos.jsp"><span class="glyphicon glyphicon-headphones glyphiconuno"></span>Mis gustos</a></li>
+                                <li class="lista"><a href="Perfil.jsp"><span class="glyphicon glyphicon-user glyphiconuno"></span>Mi perfil</a></li>
+                                <li class="lista"><a href="MisGustos.jsp"><span class="glyphicon glyphicon-headphones glyphiconuno"></span>Mis gustos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-glass glyphiconuno"></span><strong>Eventos</strong></li>
                             <ul>
-                                    <li class="lista"><a href="ConsultaEvento.jsp"><span class="glyphicon glyphicon-glass glyphiconuno"></span>Eventos</a></li>
-                                    <li class="lista"><a href="RegistrarEvento.jsp"><span class="glyphicon glyphicon-list-alt glyphiconuno"></span>Registrar Evento</a></li>
+                                <li class="lista"><a href="ConsultaEvento.jsp"><span class="glyphicon glyphicon-glass glyphiconuno"></span>Eventos</a></li>
+                                <li class="lista"><a href="RegistrarEvento.jsp"><span class="glyphicon glyphicon-list-alt glyphiconuno"></span>Registrar Evento</a></li>
                             </ul>
                         </ul>
                     </div>
@@ -103,22 +103,22 @@ Author     : ADSI
                         <ul>
                             <li class="lista"><span class="glyphicon glyphicon-phone glyphiconuno"></span><strong>Usuarios</strong></li>
                             <ul>
-                                    <li class="lista"><a href="ConsultaUsuario.jsp"><span class="glyphicon glyphicon-phone glyphiconuno"></span> Usuarios</a></li>
+                                <li class="lista"><a href="ConsultaUsuario.jsp"><span class="glyphicon glyphicon-phone glyphiconuno"></span> Usuarios</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-music glyphiconuno"></span><strong>Gustos y ambientes</strong></li>
                             <ul>
-                                    <li class="lista"><a href="ConsultaSeleccion.jsp"><span class="glyphicon glyphicon-music glyphiconuno"></span>Gustos y ambientes</a></li>
+                                <li class="lista"><a href="ConsultaSeleccion.jsp"><span class="glyphicon glyphicon-music glyphiconuno"></span>Gustos y ambientes</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-tower glyphiconuno"></span><strong>Departamentos</strong></li>
                             <ul>
-                                    <li class="lista"><a href="ConsultaDepartamento.jsp"><span class="glyphicon glyphicon-tower glyphiconuno"></span>Departamentos</a></li>
+                                <li class="lista"><a href="ConsultaDepartamento.jsp"><span class="glyphicon glyphicon-tower glyphiconuno"></span>Departamentos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-tree-deciduous glyphiconuno"></span><strong>Ciudades</strong></li>
                             <ul>
-                                    <li class="lista"><a href="ConsultaCiudad.jsp"><span class="glyphicon glyphicon-tree-deciduous glyphiconuno"></span>Ciudades</a></li>
+                                <li class="lista"><a href="ConsultaCiudad.jsp"><span class="glyphicon glyphicon-tree-deciduous glyphiconuno"></span>Ciudades</a></li>
                             </ul>
                         </ul>
                     </div>
@@ -128,9 +128,9 @@ Author     : ADSI
                         <ul>
                             <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
-                                    <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
-                                    <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
+                                <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
+                                <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
+                                <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
                             </ul>
                         </ul>
                     </div>
@@ -142,14 +142,14 @@ Author     : ADSI
                         <ul>
                             <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
                             <ul>
-                                    <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
-                                    <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
+                                <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
+                                <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-user glyphiconuno"></span><strong>Mi perfil</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Perfil.jsp"><span class="glyphicon glyphicon-user glyphiconuno"></span>Mi perfil</a></li>
-                                    <li class="lista"><a href="MisGustos.jsp"><span class="glyphicon glyphicon-headphones glyphiconuno"></span>Mis gustos</a></li>
+                                <li class="lista"><a href="Perfil.jsp"><span class="glyphicon glyphicon-user glyphiconuno"></span>Mi perfil</a></li>
+                                <li class="lista"><a href="MisGustos.jsp"><span class="glyphicon glyphicon-headphones glyphiconuno"></span>Mis gustos</a></li>
                             </ul>
                         </ul>
                     </div>
@@ -159,15 +159,15 @@ Author     : ADSI
                         <ul>
                             <li class="lista"><span class="glyphicon glyphicon-glass glyphiconuno"></span><strong>Eventos</strong></li>
                             <ul>
-                                    <li class="lista"><a href="ConsultaEvento.jsp"><span class="glyphicon glyphicon-glass glyphiconuno"></span>Eventos</a></li>
-                                    <li class="lista"><a href="MisEventos.jsp"><span class="glyphicon glyphicon-list-alt glyphiconuno"></span>Mis eventos</a></li>
+                                <li class="lista"><a href="ConsultaEvento.jsp"><span class="glyphicon glyphicon-glass glyphiconuno"></span>Eventos</a></li>
+                                <li class="lista"><a href="MisEventos.jsp"><span class="glyphicon glyphicon-list-alt glyphiconuno"></span>Mis eventos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
-                                    <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
-                                    <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
+                                <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
+                                <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
+                                <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
                             </ul>
                         </ul>
                     </div>
@@ -183,14 +183,14 @@ Author     : ADSI
                         <ul>
                             <li class="lista"><span class="glyphicon glyphicon-home glyphiconuno"></span><strong>Inicio</strong></li>
                             <ul>
-                                    <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
-                                    <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
+                                <li class="lista"><a href="index.jsp"><span class="glyphicon glyphicon-home glyphiconuno"></span> Inicio</a></li>
+                                <li class="lista"><a href="Contactenos.jsp"><span class="gn-icon gn-icon-help"></span>Cont&aacute;ctenos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-user glyphiconuno"></span><strong>Mi perfil</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Perfil.jsp"><span class="glyphicon glyphicon-user glyphiconuno"></span>Mi perfil</a></li>
-                                    <li class="lista"><a href="MisGustos.jsp"><span class="glyphicon glyphicon-headphones glyphiconuno"></span>Mis gustos</a></li>
+                                <li class="lista"><a href="Perfil.jsp"><span class="glyphicon glyphicon-user glyphiconuno"></span>Mi perfil</a></li>
+                                <li class="lista"><a href="MisGustos.jsp"><span class="glyphicon glyphicon-headphones glyphiconuno"></span>Mis gustos</a></li>
                             </ul>
                         </ul>
                     </div>
@@ -200,14 +200,14 @@ Author     : ADSI
                         <ul>
                             <li class="lista"><span class="glyphicon glyphicon-glass glyphiconuno"></span><strong>Eventos</strong></li>
                             <ul>
-                                    <li class="lista"><a href="ConsultaEvento.jsp"><span class="glyphicon glyphicon-glass glyphiconuno"></span>Eventos</a></li>
+                                <li class="lista"><a href="ConsultaEvento.jsp"><span class="glyphicon glyphicon-glass glyphiconuno"></span>Eventos</a></li>
                             </ul>
                             <br/>
                             <li class="lista"><span class="glyphicon glyphicon-globe glyphiconuno"></span><strong>Men&uacute; Corporativo</strong></li>
                             <ul>
-                                    <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
-                                    <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
-                                    <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
+                                <li class="lista"><a href="Nosotros.jsp"><span class="glyphicon glyphicon-thumbs-up glyphiconuno"></span>Equipo desarrollador</a></li>
+                                <li class="lista"><a href="MapaSitio.jsp"><span class="glyphicon glyphicon-globe glyphiconuno"></span>Mapa del sitio </a></li>
+                                <li class="lista"><a href="#"><span class="gn-icon gn-icon-cog"></span>Ayuda en l&iacute;nea</a></li>
                             </ul>
                         </ul>
                     </div>
@@ -221,18 +221,13 @@ Author     : ADSI
 	<!-- FOOTER -->
 	<footer>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <hr class="featurette-divider">
                     <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
                 </div>
             </div>
         </footer>
     </div>
-
-
-
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

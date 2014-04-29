@@ -9,18 +9,16 @@ Author     : ADSI
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<title>Trigger Event</title>
-	<meta name="description" content="Eventos musicales" />
-	<meta name="keywords" content="Eventos, musical, Trigger Event" />
-	<meta name="author" content="Sanser Soft" />
-	<link rel="shortcut icon" href="../favicon.ico">
-        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-
-	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
-
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Trigger Event</title>
+    <meta name="description" content="Eventos musicales" />
+    <meta name="keywords" content="Eventos, musical, Trigger Event" />
+    <meta name="author" content="Sanser Soft" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
+    <script src="../Libs/Customs/js/modernizr.custom.js"></script>
 </head>
 <body>
     <%
@@ -36,22 +34,22 @@ Author     : ADSI
     <%}else{%>
     <%@include file="../WEB-INF/jspf/Menu.jspf" %>    
     <%}%>
+    <div class="container">
         <br/>
         <br/>
         <br/>
-        <div class="container">
 	<div class="row clearfix">
-		<div class="col-md-12">
-			<div class="form-group">
-                            <a href="index.jsp">Inicio</a> <span class="glyphicon glyphicon-share-alt"></span>Equipo desarrollador
-			</div>
-		</div>
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li class="active">Equipo desarrollador</a></li>
+                </ol>
+            </div>
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-12">
-			<br/>
-			<h1 class="Center">Equipo desarrollador</h1>
-		</div>
+            <div class="col-md-12">
+                <h1 class="Center">Equipo desarrollador</h1>
+            </div>
 	</div>
 	<div class="row">
             <div class="col-xs-12 col-sm-12 col-ms-6 col-lg-6">
@@ -72,18 +70,13 @@ Author     : ADSI
 	<!-- FOOTER -->
 	<footer>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <hr class="featurette-divider">
                     <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
                 </div>
             </div>
         </footer>
     </div>
-
-
-
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

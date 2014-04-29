@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="Nombre">Celular</label>
+                                <label for="Nombre">N&uacute;mero de celular</label>
                                 <input name="Celular" type="text" class="form-control" id="Hora" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" value="<%=Celular%>" <%if(!Celular.equals("")){%>readonly<%}%>/>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                     <div class="row">
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="Tipo">Tipo Usuario</label>
+                                <label for="Tipo">Tipo de usuario</label>
                                 <select name="Tipo_Usuario" id="Tipos" class="form-control" data-required="true">
                                     <%
                                     for(String[] Row : ListaTipoUsuario){
@@ -116,7 +116,7 @@
                         </div>
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="Imagen">Tipo Documento</label>
+                                <label for="Imagen">Tipo de documento</label>
                                 <select name="Tipo_Documento" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                     <option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>
                                     <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
@@ -129,7 +129,7 @@
                         </div>
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label  for="Nombre">N&uacute;mero de Documento</label>
+                                <label  for="Nombre">N&uacute;mero de documento</label>
                                 <input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
                             </div>
                         </div>
@@ -137,13 +137,13 @@
                     <div class="row">
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="Codverifi">C&oacute;digo de Verificaci&oacute;n</label>
+                                <label for="Codverifi">C&oacute;digo de verificaci&oacute;n</label>
                                 <input name="codver" type="text" class="form-control" id="codver" data-rangelength="[4,4]" data-notblank="true" data-required="true"/>
                             </div>
                         </div>
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="Telefono">Tel&eacute;fono</label>
+                                <label for="Telefono">N&uacute;mero de tel&eacute;fono</label>
                                 <input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true">
                             </div> 
                         </div>

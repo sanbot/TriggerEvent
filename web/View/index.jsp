@@ -373,7 +373,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 class="modal-title" id="myModalLabel">
-                            Olvid&eacute; la contrase&ntilde;a.
+                            <center>Olvid&eacute; la contrase&ntilde;a</center>
                         </h4>
                     </div>
                     <div class="modal-body">
@@ -381,8 +381,8 @@
                             <div class="row">
                                 <div class="col-xs-offset-2 col-xs-8">
                                     <div class="form-group">
-                                        <label for="CorreoRecordar" class="col-sm-3 col-xs-4" >
-                                            Correo
+                                        <label for="CorreoRecordar">
+                                            Correo electr&oacute;nico
                                         </label>
                                         <input type="email" class="form-control" id="txtemailInicio" name="correo" placeholder="correo" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
                                     </div>
