@@ -111,7 +111,7 @@ public class Cls_Satisfaccion {
                 return true;
             } else {
                 //sino se inserta la calificacion, retornamos un falso y guardamos un mensaje encapsulado
-                this.setMensaje("Ocurrió un problema inesperado al tratar de registrar la crítica para el evento.");
+                this.setMensaje("Ocurrió un problema inesperado al registrar la crítica al evento. Estamos trabajando para solucionar este problema.");
                 return false;
             }
         } catch (SQLException ex) {
@@ -125,7 +125,7 @@ public class Cls_Satisfaccion {
             }
         }
 
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar la crítica.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -167,7 +167,7 @@ public class Cls_Satisfaccion {
                     return true;
                 } else {
                     //sino se inserta el comentario, retornamos un falso y guardamos un mensaje encapsulado
-                    this.setMensaje("Ocurrió un problema inesperado al tratar de registrar el comentario para el evento.");
+                    this.setMensaje("Ocurrió un problema inesperado al registrar la puntuación al evento.  Estamos trabajando para solucionar este problema.");
                     return false;
                 }
             } else {
@@ -186,7 +186,7 @@ public class Cls_Satisfaccion {
                     return true;
                 } else {
                     //sino se inserta la calificacion, retornamos un falso y guardamos un mensaje encapsulado
-                    this.setMensaje("Ocurrió un problema inesperado al tratar de registrar la calificación para el evento.");
+                    this.setMensaje("Ocurrió un problema inesperado al registrar la puntuación al evento. Estamos trabajando para solucionar este problema.");
                     return false;
                 }
             }
@@ -201,7 +201,7 @@ public class Cls_Satisfaccion {
             }
         }
 
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar la puntuación al evento. Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -248,7 +248,7 @@ public class Cls_Satisfaccion {
                     return true;
                 } else {
                     //sino se inserta el comentario, retornamos un falso y guardamos un mensaje encapsulado
-                    this.setMensaje("Ocurrió un problema inesperado al tratar de registrar el comentario para el evento.");
+                    this.setMensaje("Ocurrió un problema inesperado al registrar el comentario al evento. Estamos trabajando para solucionar este problema.");
                     return false;
                 }
             } else {
@@ -268,7 +268,7 @@ public class Cls_Satisfaccion {
                     return true;
                 } else {
                     //sino se inserta el comentario, retornamos un falso y guardamos un mensaje encapsulado
-                    this.setMensaje("Ocurrió un problema inesperado al tratar de registrar el comentario para el evento.");
+                    this.setMensaje("Ocurrió un problema inesperado al registrar el comentario al evento. Estamos trabajando para solucionar este problema.");
                     return false;
                 }
             }
@@ -283,7 +283,7 @@ public class Cls_Satisfaccion {
             }
         }
 
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar el comentario al evento. Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -536,7 +536,7 @@ public class Cls_Satisfaccion {
 
             }
         }
-        this.setMensaje("Ocurruó un problema al tratar de buscar el/la " + tipo + " del evento, por favor inténtelo más tarde.");
+        this.setMensaje("Ocurruó un problema al buscar el/la " + tipo + " del evento. Estamos trabajando para solucionar este problema.");
         return null;
     }
 }

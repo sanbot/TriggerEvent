@@ -41,7 +41,7 @@ public class Contr_Departamento extends HttpServlet {
             boolean b = dep.setRegistrarDepartamento(Nombre);
             if (b) {
 
-                session.setAttribute("Mensaje", "Los datos del departamento han sido registrados correctamente.");
+                session.setAttribute("Mensaje", "El departamento ha sido registradó correctamente.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/ConsultaDepartamento.jsp";
                 response.sendRedirect(url);
@@ -58,7 +58,7 @@ public class Contr_Departamento extends HttpServlet {
             boolean b = dep.actualizardatosDepartamento(Codigo, Nombre);
             if (b) {
 
-                session.setAttribute("Mensaje", "Los datos del departamento han sido modificados correctamente.");
+                session.setAttribute("Mensaje", "El departamento ha sido modificadó correctamente.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/ConsultaDepartamento.jsp";
                 response.sendRedirect(url);

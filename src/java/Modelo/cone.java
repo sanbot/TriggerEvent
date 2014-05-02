@@ -25,7 +25,7 @@ public class cone {
             //String de conexion con mySQL
             String MYSQL = "jdbc:mysql://localhost:3306/trigger_event?zeroDateTimeBehavior=convertToNull";
             //Conexion usuario y contraseña
-            conn = DriverManager.getConnection(MYSQL, "root", "0000");
+            conn = DriverManager.getConnection(MYSQL, "root", "");
 
         } catch (ClassNotFoundException ex)// problemas con sql o bd, usuario,contraseña
         {

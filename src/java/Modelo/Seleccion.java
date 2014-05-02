@@ -114,7 +114,7 @@ public class Seleccion {
         } catch (SQLException ex) {
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("Nombre") > 0) {
-                    this.setMensaje("Ya hay un ambiente o gusto con este nombre.");
+                    this.setMensaje("Ya hay un "+tipo+" con este nombre.");
                     return false;
                 }
             }
@@ -126,7 +126,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar el "+tipo+". Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -297,7 +297,7 @@ public class Seleccion {
         } catch (Exception ex) {
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("Nombre") > 0) {
-                    this.setMensaje("Ya hay un ambiente o gusto con este nombre.");
+                    this.setMensaje("Ya hay un "+tipo+" con este nombre.");
                     return false;
                 }
             }
@@ -309,7 +309,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al modificar el "+tipo+".  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -338,7 +338,7 @@ public class Seleccion {
         } catch (Exception ex) {
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("Nombre") > 0) {
-                    this.setMensaje("Ya hay un ambiente o gusto con este nombre.");
+                    this.setMensaje("Ya hay un "+tipo+" con este nombre.");
                     return false;
                 }
             }
@@ -350,7 +350,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al  modificar el "+tipo+".  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -562,7 +562,7 @@ public class Seleccion {
         } catch (Exception ex) {
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("UK_Id_Seleccion_Id_Usuario") > 0) {
-                    this.setMensaje("Ya existe este gusto registrado.");
+                    this.setMensaje("Ya tiene este gusto agregado. No puede volverlo a agregar.");
                     return false;
                 }
             }
@@ -574,7 +574,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al agregar el gusto a su cuenta.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -610,7 +610,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al remover el gusto de su cuenta.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -670,9 +670,9 @@ public class Seleccion {
                 pr.setString(1, codigoSeleccion);
                 rs = pr.executeQuery();
                 if (rs.next()) {
-                    this.setMensaje("No se puede eliminar este " + rs.getString("Tipo") + ", porque es el único que tienes registrado.");
+                    this.setMensaje("No se puede remover este " + rs.getString("Tipo") + ", porque es el único que tiene registrado.");
                 } else {
-                    this.setMensaje("Ocurrió un error inesperado, por favor inténtelo más tarde.");
+                    this.setMensaje("Ocurrió un error inesperado al remover el "+rs.getString("Tipo")+" de su cuenta.  Estamos trabajando para solucionar este problema.");
                 }
                 return false;
             }
@@ -711,7 +711,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al desactivar este gusto o ambiente.");
         return false;
     }
 
@@ -736,7 +736,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al activar este gusto o ambiente.");
         return false;
     }
 
@@ -776,7 +776,7 @@ public class Seleccion {
         } catch (Exception ex) {
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("UK_IdSeleccion_IdEvento_SeleccionEvento") > 0) {
-                    this.setMensaje("Ya existe un gusto o ambiente registrado en este evento.");
+                    this.setMensaje("Este gusto o ambiente ya se encuentra agregado a la clasificacion de este evento.");
                 }
             }
         } finally {
@@ -787,7 +787,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar la clasificación del evento, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al agregar este gusto o ambiente a la clasificación del evento.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -825,6 +825,9 @@ public class Seleccion {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        String consultaevento = "Select Estado"
+                + " From tb_evento"
+                + " Where Codigo = ?";
         String sqla = "Select Count(se.Codigo) Cantidad "
                 + "From  tb_seleccion_evento se "
                 + "JOIN tb_seleccion s on  se.Id_Seleccion = s.Codigo "
@@ -838,25 +841,33 @@ public class Seleccion {
                 + "AND s.Tipo = 'Ambiente' "
                 + "AND se.Estado = 'Activo'";
         try {
-            pr = conn.prepareStatement(sqla);
+            pr = conn.prepareStatement(consultaevento);
             pr.setString(1, codigoevento);
             rs = pr.executeQuery();
+            if(rs.next() && (!rs.getString("Estado").equals("Pendiente")))
+            {
+                pr = conn.prepareStatement(sqla);
+                pr.setString(1, codigoevento);
+                rs = pr.executeQuery();
 
-            int uno = 0;
-            if (rs.next()) {
+                int uno = 0;
+                if (rs.next()) {
 
-                uno = Integer.parseInt(rs.getString("Cantidad"));
-            }
+                    uno = Integer.parseInt(rs.getString("Cantidad"));
+                }
 
-            pr = conn.prepareStatement(sqlb);
-            pr.setString(1, codigoevento);
-            rs = pr.executeQuery();
-            int dos = 0;
-            if (rs.next()) {
-                dos = Integer.parseInt(rs.getString("Cantidad"));
-            }
-            if (uno >= 1 && dos >= 1) {
-                return true;
+                pr = conn.prepareStatement(sqlb);
+                pr.setString(1, codigoevento);
+                rs = pr.executeQuery();
+                int dos = 0;
+                if (rs.next()) {
+                    dos = Integer.parseInt(rs.getString("Cantidad"));
+                }
+                if (uno >= 1 && dos >= 1) {
+                    return true;
+                }
+            }else{
+                
             }
         } catch (Exception ex) {
             ex.printStackTrace();

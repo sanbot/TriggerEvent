@@ -94,7 +94,7 @@ public class Contr_Evento extends HttpServlet {
                                 if (!eve.getImagen().equals("")) {
                                     b = eve.setRegistrarEvento(eve.getImagen(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador(), eve.getCiudad(), eve.getDireccion());
                                     if (b) {
-                                        session.setAttribute("Mensaje", "Se ha registrado el evento satisfactoriamente.");
+                                        session.setAttribute("Mensaje", "Se registro el evento satisfactoriamente.");
                                         session.setAttribute("TipoMensaje", "Dio");
                                         response.sendRedirect("View/RClasificacionEvento.jsp?CodigoEvento=" + eve.getCodigo());
                                     } else {
@@ -103,18 +103,18 @@ public class Contr_Evento extends HttpServlet {
                                         response.sendRedirect("View/RegistrarEvento.jsp");
                                     }
                                 } else {
-                                    session.setAttribute("Mensaje", "Por favor, Seleccione una imagen e inténtelo de nuevo");
+                                    session.setAttribute("Mensaje", "Seleccione una imagen para registrar el evento");
                                     session.setAttribute("TipoMensaje", "NODio");
                                     response.sendRedirect("View/RegistrarEvento.jsp");
                                 }
 
                             } else {
-                                session.setAttribute("Mensaje", "Ocurrió un error, no se puede registrar un evento que inicie antes de dos días");
+                                session.setAttribute("Mensaje", "No se puede registrar un evento que inicie antes de dos días");
                                 session.setAttribute("TipoMensaje", "NODio");
                                 response.sendRedirect("View/RegistrarEvento.jsp");
                             }
                         } else {
-                            session.setAttribute("Mensaje", "No se pudo convertir el formato de fecha a Date");
+                            session.setAttribute("Mensaje", "Ocurrió un problema inesperado con la fecha del evento. Estamos trabajando para solucionar este problema.");
                             session.setAttribute("TipoMensaje", "NODio");
                             response.sendRedirect("View/RegistrarEvento.jsp");
                         }
@@ -127,11 +127,11 @@ public class Contr_Evento extends HttpServlet {
                                 session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                             } else {
-                                session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
+                                session.setAttribute("Mensaje", "Se desaprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
                                 session.setAttribute("TipoMensaje", "NODio");
                             }
                         } else {
-                            session.setAttribute("Mensaje", "Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
+                            session.setAttribute("Mensaje", "Ocurrió un error al desaprobar el evento. Estamos trabajando para solucionar este problema.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                         response.sendRedirect("View/CEventoPendiente.jsp");
@@ -148,7 +148,7 @@ public class Contr_Evento extends HttpServlet {
                         long sizeInBytes = item.getSize();
 
                         if (sizeInBytes > 3145728) {
-                            session.setAttribute("Mensaje", "El límite del tamaño para la imagen es: 3 MB");
+                            session.setAttribute("Mensaje", "El tamaño límite de la imagen es: 3 MB");
                             session.setAttribute("TipoMensaje", "NODio");
                             response.sendRedirect("View/ConsultaSeleccion.jsp");
                         } else {

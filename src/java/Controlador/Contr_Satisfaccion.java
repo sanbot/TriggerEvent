@@ -51,7 +51,7 @@ public class Contr_Satisfaccion extends HttpServlet {
                 //realizamos los metodos necesarios para registar la calificacion
                 if (sat.setRegistrarCalificacionYComentarioSatisfaccion(CodigoUsuario, CodigoEvento, Rating, Comentario)) {
                     //guardamos el mensaje correspondiente
-                    session.setAttribute("Mensaje", "Se envió correctamente la crítica.");
+                    session.setAttribute("Mensaje", "La crítica ha sido registrada correctamente.");
                     session.setAttribute("TipoMensaje", "Dio");
                 } else {
                     //guardamos el mensaje correspondiente
@@ -68,7 +68,7 @@ public class Contr_Satisfaccion extends HttpServlet {
                 //realizamos los metodos necesarios para registar la calificacion
                 if (sat.setRegistrarCalificacionSatisfaccion(CodigoUsuario, CodigoEvento, Rating)) {
                     //guardamos el mensaje correspondiente
-                    session.setAttribute("Mensaje", "Se envió correctamente la crítica.");
+                    session.setAttribute("Mensaje", "La crítica ha sido registrada correctamente.");
                     session.setAttribute("TipoMensaje", "Dio");
                 } else {
                     //guardamos el mensaje correspondiente
@@ -84,7 +84,7 @@ public class Contr_Satisfaccion extends HttpServlet {
                 //realizamos los metodos necesarios para registar la calificacion
                 if (sat.setRegistrarComentarioSatisfaccion(CodigoUsuario, CodigoEvento, Comentario)) {
                     //guardamos el mensaje correspondiente
-                    session.setAttribute("Mensaje", "Se envió correctamente la crítica.");
+                    session.setAttribute("Mensaje", "La crítica ha sido registrada correctamente.");
                     session.setAttribute("TipoMensaje", "Dio");
                 } else {
                     //guardamos el mensaje correspondiente
@@ -95,7 +95,7 @@ public class Contr_Satisfaccion extends HttpServlet {
                 response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento);
             } else {
                 //guardamos el mensaje correspondiente
-                session.setAttribute("Mensaje", "Para registrar un comentario o calificación debe llenar al menos uno de los dos campos.");
+                session.setAttribute("Mensaje", "Debe seleccionar una puntuación o escribir un comentario.");
                 session.setAttribute("TipoMensaje", "NODio");
                 response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento);
             }

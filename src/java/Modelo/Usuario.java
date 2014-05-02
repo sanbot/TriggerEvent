@@ -184,10 +184,10 @@ public class Usuario {
                     return true;
                 }
                 if (this.getEstado().equals("Desaprobado")) {
-                    this.setMensaje("Lo sentimos, no hemos podido conectar tu cuenta al aplicativo, ya que está desaprobada.");
+                    this.setMensaje("Lo sentimos, no puede ingresar al aplicativo, su cuenta fue desaprobada.");
                     return false;
                 } else if (this.getEstado().equals("Pendiente")) {
-                    this.setMensaje("Lo sentimos, no hemos podido conectar tu cuenta al aplicativo, ya que está pendiente por aprobación.");
+                    this.setMensaje("Lo sentimos, no puede ingresar al aplicativo, su cuenta aún está pendiente por aprobación.");
                     return false;
                 }
             }
@@ -202,7 +202,7 @@ public class Usuario {
                 ex.getMessage();
             }
         }
-        this.setMensaje("El correo/contraseña es incorrecta. Inténtelo de nuevo.");
+        this.setMensaje("La dirección de correo electrónico o la contraseña que ha introducido no son correctas.");
         return false;
     }
 
@@ -535,7 +535,10 @@ public class Usuario {
                     this.setMensaje("Ya existe una cuenta registrada con este número de documento.");
                 }
                 if (ex.toString().indexOf(Celular) > 0) {
-                    this.setMensaje("Ya existe una cuenta registrada con este celular.");
+                    this.setMensaje("Ya existe una cuenta registrada con este número de celular.");
+                }
+                if (ex.toString().indexOf(Correo) > 0) {
+                    this.setMensaje("Ya existe una cuenta registrada con este correo electrónico.");
                 }
             }
 
@@ -548,7 +551,7 @@ public class Usuario {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos del usuario, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar los datos del usuario.");
         return false;
     }
 

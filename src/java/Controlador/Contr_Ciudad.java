@@ -42,7 +42,7 @@ public class Contr_Ciudad extends HttpServlet {
             boolean b = ciu.setRegistrarCiudad(Nombre, Departamento);
             if (b) {
 
-                session.setAttribute("Mensaje", "Los datos del departamento han sido registrados correctamente.");
+                session.setAttribute("Mensaje", "La ciudad se registró correctamente.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/ConsultaCiudad.jsp";
                 response.sendRedirect(url);
@@ -60,7 +60,7 @@ public class Contr_Ciudad extends HttpServlet {
             boolean b = ciu.actualizardatosCiudad(Codigo, Nombre, Departamento);
             if (b) {
 
-                session.setAttribute("Mensaje", "Los datos del departamento han sido modificados correctamente.");
+                session.setAttribute("Mensaje", "La ciudad ha sido modificada correctamente.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/ConsultaCiudad.jsp";
                 response.sendRedirect(url);

@@ -204,7 +204,7 @@ public class Evento {
             }
         } catch (SQLException ex) {
             if (ex.toString().indexOf("uk_nombre_codigociudad_fecha") > 0) {
-                this.setMensaje("No se puede registrar este evento ya que existe un evento con el mismo nombre, la misma fecha y en la misma ciudad");
+                this.setMensaje("No se puede registrar este evento porque existe otro con el mismo nombre, la misma fecha y en la misma ciudad");
             }
             return false;
         } finally {
@@ -215,7 +215,7 @@ public class Evento {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos del evento, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar el evento.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -842,7 +842,7 @@ public class Evento {
 
             }
         }
-        this.setMensaje("Ocurruó un problema al tratar de completar el registro del evento, por favor inténtelo más tarde.");
+        this.setMensaje("Ocurruó un problema al completar el registro del evento.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -868,7 +868,7 @@ public class Evento {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al modificar el evento.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -895,7 +895,7 @@ public class Evento {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la selección, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al desaprobar el evento,  Estamos trabajando para solucionar este problema..");
         return false;
     }
 

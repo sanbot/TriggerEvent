@@ -44,12 +44,12 @@ public class Contr_Contacto extends HttpServlet {
                     + "<br/> El/La " + Categoria + " es la siguiente: \"" + Comentario + "\".";
             boolean b = msm.contactenos(Contenido, Asunto, "Administrador");
             if (b) {
-                session.setAttribute("Mensaje", "Tu correo ha sido enviado satisfactoriamente al administrador, te responderemos lo más pronto posible.");
+                session.setAttribute("Mensaje", "Tu correo ha sido enviado satisfactoriamente al administrador del sitio, te responderemos lo más pronto posible.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/index.jsp";
                 response.sendRedirect(url);
             } else {
-                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al tratar de enviar su mensaje, por favor inténtelo de nuevo.");
+                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al enviar su mensaje. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/index.jsp";
                 response.sendRedirect(url);

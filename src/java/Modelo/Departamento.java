@@ -83,7 +83,7 @@ public class Departamento {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos del departamento, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar el departamento. Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -187,7 +187,7 @@ public class Departamento {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos del departamento, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al modificar el departamento. Estamos trabajando para solucionar este problema.");
         return false;
     }
 }

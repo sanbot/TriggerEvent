@@ -89,7 +89,7 @@ public class Ciudad {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de insertar los datos de la ciudad, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al insertar la ciudad. Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -195,7 +195,7 @@ public class Ciudad {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al tratar de modificar los datos de la ciudad, por favor, inténtelo de nuevo.");
+        this.setMensaje("Ocurrió un problema inesperado al modificar la ciudad. Estamos trabajando para solucionar este problema.");
         return false;
     }
 }

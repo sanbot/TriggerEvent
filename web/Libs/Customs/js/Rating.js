@@ -133,7 +133,7 @@ $( document ).ready(function() {
         }
         else
         {
-         $('#countname').html("Debe seleccionar una opci&oacute;n");
+         $('#countname').html("");
          $('#count').val(0);
        }
 });

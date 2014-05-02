@@ -83,7 +83,7 @@ public class Contr_Seleccion extends HttpServlet {
                                 if (!img.delete()) {
                                     String sda = "no";
                                 }
-                                session.setAttribute("Mensaje", "Los datos de la selección han sido registrados correctamente.");
+                                session.setAttribute("Mensaje", "El gusto o ambiente ha sido registrado correctamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                                 url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
@@ -97,7 +97,7 @@ public class Contr_Seleccion extends HttpServlet {
                                 response.sendRedirect(url);
                             }
                         } else {
-                            session.setAttribute("Mensaje", "Por favor, Seleccione una imagen e inténtelo de nuevo");
+                            session.setAttribute("Mensaje", "Seleccione una imagen, para registrar el ambiente o gusto.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                     } else if (name.equals("ModificarSeleccion")) {
@@ -106,7 +106,7 @@ public class Contr_Seleccion extends HttpServlet {
                             b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getEstado());
                             if (b) {
                                 img.delete();
-                                session.setAttribute("Mensaje", "Los datos de la selección han sido modificados correctamente.");
+                                session.setAttribute("Mensaje", "El gusto o ambiente ha sido registrada correctamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                                 url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
@@ -120,7 +120,7 @@ public class Contr_Seleccion extends HttpServlet {
                         } else {
                             b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getImagen(), sel.getEstado());
                             if (b) {
-                                session.setAttribute("Mensaje", "Los datos de la selección han sido modificados correctamente.");
+                                session.setAttribute("Mensaje", "El gusto o ambiente ha sido modificado correctamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                                 url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
@@ -144,7 +144,7 @@ public class Contr_Seleccion extends HttpServlet {
                         long sizeInBytes = item.getSize();
 
                         if (sizeInBytes > 3145728) {
-                            session.setAttribute("Mensaje", "El límite del tamaño para la imagen es: 3 MB");
+                            session.setAttribute("Mensaje", "El tamaño límite de la imagen es: 3 MB");
                             session.setAttribute("TipoMensaje", "NODio");
                             response.sendRedirect("View/ConsultaSeleccion.jsp");
                         } else {

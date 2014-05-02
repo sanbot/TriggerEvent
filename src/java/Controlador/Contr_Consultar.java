@@ -89,7 +89,7 @@ public class Contr_Consultar {
                     }
                 }
             } else {
-                this.setMensaje("Ocurrio un error al tratar de modificar el estado del usuario.");
+                this.setMensaje("Ocurrio un error al modificar el estado del usuario.");
             }
         } else if (Estado.equals("false")) {
             b = usu.setdesaprobarUsaurio(Codigo);
@@ -112,7 +112,7 @@ public class Contr_Consultar {
                 }
 
             } else {
-                this.setMensaje("Ocurrio un error al tratar de modificar el estado del usuario.");
+                this.setMensaje("Ocurrio un error al modificar el estado del usuario. Estamos trabajando para solucionar este problema.");
             }
         } else {
             b = false;
@@ -185,7 +185,7 @@ public class Contr_Consultar {
             if (b) {
                 this.setMensaje("Se agrego el gusto satisfactoriamente.");
             } else {
-                this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
+                this.setMensaje("Ocurrió un error al agregar el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
             }
         } else {
             b = sel.CantidadGustosAmbientesPreRemove(Codigo, CodigoUsuario);
@@ -194,7 +194,7 @@ public class Contr_Consultar {
                 if (b) {
                     this.setMensaje("Se quito el gusto de tus gustos existosamente.");
                 } else {
-                    this.setMensaje("Ocurrió un error al tratar de remover este gusto de tus gustos, por favor inténtelo nuevamente.");
+                    this.setMensaje("Ocurrió un error al remover el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
                 }
             } else {
                 this.setMensaje(sel.getMensaje());
@@ -214,10 +214,10 @@ public class Contr_Consultar {
             if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Aprobado")) {
                 this.setMensaje("Se aprobó el evento satisfactoriamente.");
             } else {
-                this.setMensaje("Se aprobó el evento satisfactoriamente, pero no se logró enviar la notificación al correo de la empresa.");
+                this.setMensaje("Se aprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
             }
         } else {
-            this.setMensaje("Ocurrió un error al tratar de agregar el gusto a tus gustos, por favor inténtelo de nuevo.");
+            this.setMensaje("Ocurrió un error al agregar el gusto a su cuenta. Estamos trabajando para solucionar este problema.");
         }
 
         return b;
@@ -238,7 +238,7 @@ public class Contr_Consultar {
             if (b) {
                 b = sel.DesaprobarSeleccion(CodigoSeleccion);
                 if (b) {
-                    this.setMensaje("El gusto o ambiente ha sido desaprobado satisfactoriamente");
+                    this.setMensaje("El gusto o ambiente ha sido desaprobado satisfactoriamente.");
                 } else {
                     this.setMensaje(sel.getMensaje());
                 }
@@ -255,12 +255,12 @@ public class Contr_Consultar {
         if (Accion.equals("Nuevo")) {
             b = sel.AddClasificacionEvento(CodigoSeleccion, CodigoEvento);
             if (b) {
-                this.setMensaje("Se agrego el gusto/ambiente a la calificación satisfactoriamente.");
+                this.setMensaje("Se agregó el gusto/ambiente a la calificación satisfactoriamente.");
                 if (sel.ComprobarRegistroCompletoUSuario(CodigoEvento)) {
                     Evento eve = new Evento();
                     if (eve.setEstadoPendiente(CodigoEvento)) {
                         String mensaje = this.getMensaje();
-                        mensaje += " Se han cumplido los requisitos mínimos para el registro y el evento está en espera por aprobación.";
+                        mensaje += " Se han cumplido los requisitos mínimos para el registro y el evento está en la lista de espera por aprobación.";
                         this.setMensaje(mensaje);
                     }
 
