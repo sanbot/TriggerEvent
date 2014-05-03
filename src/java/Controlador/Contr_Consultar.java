@@ -7,8 +7,6 @@ package Controlador;
 import Modelo.Usuario;
 import Modelo.Mensajeria;
 import Modelo.Tipo_Usuario;
-import Modelo.Departamento;
-import Modelo.Ciudad;
 import Modelo.Seleccion;
 import Modelo.Evento;
 import java.sql.Blob;
@@ -119,20 +117,6 @@ public class Contr_Consultar {
             this.setMensaje("");
         }
         return b;
-    }
-
-    public String[][] BuscarDatosDepartamentoTodos() {
-        Departamento dep = new Departamento();
-        String[][] Datos = dep.BuscarDatosDepartamentoTodos();
-
-        return Datos;
-    }
-
-    public String[][] BuscarDatosCuidadTodos() {
-        Ciudad ciu = new Ciudad();
-        String[][] Datos = ciu.BuscarDatosCiudadTodos();
-
-        return Datos;
     }
 
     public String[][] BuscarDatosSeleccion() {
@@ -305,12 +289,6 @@ public class Contr_Consultar {
     public String[][] getBuscarComentariosAleatorios() {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
         String[][] Datos = sat.BuscarComentariosAleatorios();
-        return Datos;
-    }
-
-    public String[][] getBuscarComentarios(String CodigoEvetno, int Limite) {
-        Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        String[][] Datos = sat.BuscarComentariosEvento(CodigoEvetno, Limite,1);
         return Datos;
     }
 
