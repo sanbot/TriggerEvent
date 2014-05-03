@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controlador;
 
+import Modelo.Ciudad;
 import Modelo.Cls_Satisfaccion;
+import Modelo.Departamento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,35 +35,63 @@ public class Contr_Help extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cls_Satisfaccion sat = new Cls_Satisfaccion();
+
         response.setContentType("text/html;charset=UTF-8");
-        
 
         PrintWriter out = response.getWriter();
         try {
-           if(request.getParameter("accion").equals("vermas")){
-                String[][] Datos = sat.BuscarComentariosEvento(request.getParameter("codigoevento"), Integer.parseInt(request.getParameter("limite")) , Integer.parseInt(request.getParameter("cantidad")));
+            if (request.getParameter("accion").equals("vermas")) {
+                Cls_Satisfaccion sat = new Cls_Satisfaccion();
+                String[][] Datos = sat.BuscarComentariosEvento(request.getParameter("codigoevento"), Integer.parseInt(request.getParameter("limite")), Integer.parseInt(request.getParameter("cantidad")));
                 JSONObject obj = new JSONObject();
                 int i = 0;
-                for(String row[] : Datos)
-                {
+                for (String row[] : Datos) {
                     JSONObject ob = new JSONObject();
-                    
+
                     ob.put("usuario", row[0]);
                     ob.put("empresa", row[1]);
                     ob.put("comentario", row[2]);
                     obj.put(Integer.toString(i), ob);
-                    
+
+                    i++;
+                }
+                out.println(obj);
+            } else if (request.getParameter("accion").equals("total")) {
+                Cls_Satisfaccion sat = new Cls_Satisfaccion();
+                int row = sat.getCantidadComentariosEvento(request.getParameter("codigoevento"));
+                out.println(row);
+            } else if (request.getParameter("accion").equals("getciudad")) {
+                Ciudad ciu = new Ciudad();
+                String[][] Datos = ciu.BuscarDatosCiudadTodos(request.getParameter("codigodepartamento"));
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("ciudad", row[1]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.println(obj);
+            } else if (request.getParameter("accion").equals("getdepartamentos")) {
+                Departamento dep = new Departamento();
+                String[][] Datos = dep.BuscarDatosDepartamentoTodos();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("departamento", row[1]);
+                    obj.put(Integer.toString(i), ob);
+
                     i++;
                 }
                 out.println(obj);
             }
-           if(request.getParameter("accion").equals("total"))
-           {
-               int row = sat.getCantidadComentariosEvento(request.getParameter("codigoevento"));
-               out.println(row);
-           }
-           
+
         } finally {
             out.close();
         }

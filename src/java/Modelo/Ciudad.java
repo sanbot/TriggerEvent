@@ -122,7 +122,7 @@ public class Ciudad {
         }
         return 0;
     }
-
+    /**por quitar*/
     public String[][] BuscarDatosCiudadTodos() {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
@@ -153,6 +153,50 @@ public class Ciudad {
                 Datos[rows][1] = ciu.getNombre();
                 Datos[rows][2] = ciu.getDepartamento();
                 Datos[rows][3] = NombreDepar;
+
+                rows++;
+
+            }
+            return Datos;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return null;
+    }
+    
+    public String[][] BuscarDatosCiudadTodos(String CodigoDepartamento) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "SELECT c.Codigo Codigo, c.Nombre Ciudad \n"
+                + "FROM  `tb_ciudad` c "
+                + "Join tb_departamento d on c.Codigo_Departamento = d.Codigo "
+                + " And d.Codigo = ? ORDER BY Ciudad\n";
+
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, CodigoDepartamento);
+            rs = pr.executeQuery();
+
+            int rows = 0;
+            while (rs.next()) {
+                rows++;
+            }
+            String[][] Datos = new String[rows][2];
+            rs.beforeFirst();
+            rows = 0;
+            String NombreDepar;
+            while (rs.next()) {
+                Datos[rows][0] = rs.getString("Codigo");
+                Datos[rows][1] = rs.getString("Ciudad");
 
                 rows++;
 

@@ -26,8 +26,6 @@
         CodVer = (String) session.getAttribute("Registrar_CodVer");
     }
     String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
-    String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
-    String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -211,7 +209,6 @@
 <!--Bootstrap-->
 <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
 <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
-<script src="../Libs/Bootstrap/js/holder.js"></script>
 <!--Parsley-->
 <script src="../Libs/Customs/js/Parsley.js"></script>    
 <script src="../Libs/Customs/js/classie.js"></script>
@@ -221,48 +218,46 @@ new gnMenu( document.getElementById( 'gn-menu' ) );
 </script>
 
 <script>
-(function($) {
-
-    $.fn.changeType = function(){
-        var data;
-        data = [
-            <%
-            for(String[] Row :ListaCiudad)
-            {%>
-                {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
-
-            <%}%>
-            {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
-            ];
-        var datadep = [
-            <%
-            for(String[] Row :ListaDepartamento)
-            {%>
-                {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
-
-            <%}%>
-            {"codigo":"", "nombre":""}
-            ];
-        var options_departments = "<option value=''></option>";
-        $.each(datadep, function(i,d){
-            options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+    function getdepartamentos() {
+        $.ajax({
+            type: 'POST',
+            url: '/TriggerEvent/Contr_Help',
+            data: {"accion": 'getdepartamentos'},
+            success: function(data) {
+                var opcion = [];
+                opcion.push('<option value=""><\/option>');
+                var datos = jQuery.parseJSON(data);
+                $.each(datos, function(key, val) {
+                    opcion.push('<option value="' + val.codigo + '">' + val.departamento + '<\/option>');
+                });
+                $("select#departamento").html(opcion.join(""));
+            }
         });
-        $("select#departamento", this).html(options_departments);
+    }
+    function getciudades(index)
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/TriggerEvent/Contr_Help',
+            data: {"accion": 'getciudad', "codigodepartamento": index},
+            success: function(data) {
+                var opcionciudad = [];
+                var datos = jQuery.parseJSON(data);
+
+                $.each(datos, function(key, val) {
+                    opcionciudad.push('<option value="' + val.codigo + '">' + val.ciudad + '<\/option>');
+                });
+                $("select#ciudad").html(opcionciudad.join(""));
+            }
+        });
+    }
+    
+    $(document).ready(function() {
+        getdepartamentos();
         $("select#departamento", this).change(function(){
             var index = $(this).val();
-            var options = '';
-            $.each(data, function(i,c){
-                if(c.codigo_departamento === index)
-                {
-                    options += '<option value="' + c.codigo + '">' + c.nombre + '<\/option>';
-                }
-            });
-            $("select#ciudad").html(options);
+            getciudades(index);
         });
-    };
-    })(jQuery);
-    $(document).ready(function() {
-        $("form#search").changeType();
     });
     </script>
     <script>

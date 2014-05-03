@@ -444,16 +444,12 @@ int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
     <script type="text/javascript" src="../Libs/Customs/js/Rating.js" ></script>
     <script type="text/javascript" src="../Libs/Customs/js/graficos.js" ></script>
     <script>
-        
-        $(".vermascomentarios").click(function(){
-            var i= 0;
-            $( "li.from_user" ).each(function( index ) {
-             i++;
-            });
+        function mascomentarios(cantidad, limite)
+        {
             $.ajax({
                 type: 'POST',
                 url: '/TriggerEvent/Contr_Help',
-                data: {"accion": 'vermas', "cantidad": "5", "codigoevento": '<%=CodigoEvento%>', "limite": i-1},
+                data: {"accion": 'vermas', "cantidad": cantidad, "codigoevento": '<%=CodigoEvento%>', "limite": limite},
                 success: function(data){
                     var datos = jQuery.parseJSON(data);
                     var items = [];
@@ -496,6 +492,15 @@ int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
                     });
                 }
             });
+        }
+        $(".vermascomentarios").click(function(){
+            var i= 0;
+            $( "li.from_user" ).each(function( index ) {
+             i++;
+            });
+            mascomentarios("5",i-1);
+            
+            
         });
         var data = [
 	{
@@ -526,49 +531,7 @@ int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
         var myNewChart = new Chart(ctx).Doughnut(data);
         
         $(document).ready(function(){
-            $.ajax({
-                type: 'POST',
-                url: '/TriggerEvent/Contr_Help',
-                data: {"accion": 'vermas', "cantidad": "5", "codigoevento": '<%=CodigoEvento%>', "limite": "0"},
-                success: function(data){
-                    var datos = jQuery.parseJSON(data);
-                    var items = [];
-                    $.each(datos, function(key, val){
-                        
-                        items.push('<li class="from_user left">');
-                        items.push('<div class="message_wrap"> ');
-                        items.push('<span class="arrow"></span>');
-                        items.push('<div class="info"> ');
-                        items.push('<span class="name">Usuario: '+ val.usuario +', Evento: '+ val.empresa+'</span>');
-                        items.push('</div>');
-                        items.push('<div class="text"> ');
-                        items.push(val.comentario);
-                        items.push('</div>');
-                        items.push('</div>');
-                        items.push('</li>');
-                    });
-                    
-                    $("#contenedor-mensajes").prepend(items.join(""));
-                    var cant= 0;
-                    $( "li.from_user" ).each(function( index ) {
-                        cant++;
-                    });
-                    
-                    var total;
-                    $.ajax({
-                        type: 'POST',
-                        url: '/TriggerEvent/Contr_Help',
-                        data: {"accion": 'total',"codigoevento": '<%=CodigoEvento%>'},
-                        success: function(data){
-                            total = data;
-                            if(cant>total )
-                            {
-                                $("#vermas").addClass("hidden");
-                            }
-                        }
-                    });
-                }
-            });
+            mascomentarios("5", "0");
         });
         
     </script>
