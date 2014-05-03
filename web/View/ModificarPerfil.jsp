@@ -2,48 +2,44 @@
     Document   : RUsuario
     Created on : 28-feb-2014, 15:14:34
     Author     : Sanser
-    --%>
+--%>
 
-    <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
-    <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
-    <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
-    <%
-String Codigo = (String)  session.getAttribute("Codigo");
-Contr_Consultar usu = new Contr_Consultar();
-String[] DatosUsuario = usu.BuscarDatosUsuario(Codigo);
-String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
-String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
+<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
+<%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
+<%
+    String Codigo = (String) session.getAttribute("Codigo");
+    Contr_Consultar usu = new Contr_Consultar();
+    String[] DatosUsuario = usu.BuscarDatosUsuario(Codigo);
 %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<title>Trigger Event</title>
-	<meta name="description" content="Eventos musicales" />
-	<meta name="keywords" content="Eventos, musical, Trigger Event" />
-	<meta name="author" content="Sanser Soft" />
-	<link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Trigger Event</title>
+        <meta name="description" content="Eventos musicales" />
+        <meta name="keywords" content="Eventos, musical, Trigger Event" />
+        <meta name="author" content="Sanser Soft" />
+        <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
-	<title>Trigger Event</title>
-	
-</head>
-<body>
-	<%
-        if(Rol.equals("Administrador"))
-        {%>
+        <script src="../Libs/Customs/js/modernizr.custom.js"></script>
+        <title>Trigger Event</title>
+
+    </head>
+    <body>
+        <%
+            if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
         <%
-        }else if(Rol.equals("Cliente"))
-        {%>
+        } else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
-        <%}else if(Rol.equals("Empresa")){%>
+        <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
         <%}%>
-        
-	<div class="container">
+
+        <div class="container">
             <br/>
             <br/>
             <br/>
@@ -57,8 +53,8 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                     </div>
                 </div>
             </div>
-	</div>
-	<div class="container">
+        </div>
+        <div class="container">
             <div class="row clearfix">
                 <div class="col-xs-12">
                     <h1 class="Center">Modificar perfil</h1>
@@ -154,82 +150,85 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                     </div>
                 </div>
             </footer>
-	</div>
-      <!-- Bootstrap core JavaScript
-      ================================================== -->
-      <!-- Placed at the end of the document so the pages load faster -->
-      <!--Bootstrap-->
-      <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
-      <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
-      <script src="../Libs/Bootstrap/js/holder.js"></script>
-      <!--Parsley-->
-      <script src="../Libs/Customs/js/Parsley.js"></script>    
-      <script src="../Libs/Customs/js/classie.js"></script>
-      <script src="../Libs/Customs/js/gnmenu.js"></script>
-      <script>
-        (function($) {
-
-            $.fn.changeType = function(){
-                var data;
-                data = [
-                    <%
-                        for(String[] Row :ListaCiudad)
-                        {%>
-                            {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>", "codigo_departamento":"<%=Row[2]%>", "departamento":"<%=Row[3]%>"},
-
-                        <%}
-                    %>
-                    {"codigo":"", "nombre":"","codigo_departamento":"","departamento":""}
-                    ];
-                var datadep = [
-                    <%
-                        for(String[] Row :ListaDepartamento)
-                        {%>
-                            {"codigo":"<%=Row[0]%>", "nombre":"<%=Row[1]%>"},
-
-                        <%}
-                    %>
-                    {"codigo":"", "nombre":""}
-                    ];
-                var options_departments = "";
-
-
-                $.each(datadep, function(i,d){
-                        options_departments += '<option value="' + d.codigo + '">' + d.nombre + '<\/option>';
+        </div>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!--Bootstrap-->
+        <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
+        <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
+        <script src="../Libs/Bootstrap/js/holder.js"></script>
+        <!--Parsley-->
+        <script src="../Libs/Customs/js/Parsley.js"></script>    
+        <script src="../Libs/Customs/js/classie.js"></script>
+        <script src="../Libs/Customs/js/gnmenu.js"></script>
+        <script>
+            function getdepartamentos() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Help',
+                    data: {"accion": 'getdepartamentos'},
+                    success: function(data) {
+                        var opcion = [];
+                        opcion.push('<option value=""><\/option>');
+                        var datos = jQuery.parseJSON(data);
+                        $.each(datos, function(key, val) {
+                            opcion.push('<option value="' + val.codigo + '">' + val.departamento + '<\/option>');
+                        });
+                        $("select#departamentoperfil").html(opcion.join(""));
+                    }
+                }).done(function() {
+                    $("select#departamentoperfil [value='<%=DatosUsuario[12]%>']").prop("selected", true);
                 });
-                $("select#departamentoperfil", this).html(options_departments);
-                $('#departamentoperfil [value=<%=DatosUsuario[12]%>]').prop('selected', true);
-                
-                var option = "";
-                $.each(data, function(i,da){
-                    if(da.codigo_departamento === "<%=DatosUsuario[12]%>")
-                    {
-                        option += '<option value="' + da.codigo + '">' + da.nombre + '<\/option>';
+            }
+            function getciudades(index)
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Help',
+                    data: {"accion": 'getciudad', "codigodepartamento": index},
+                    success: function(data) {
+                        var opcionciudad = [];
+                        var datos = jQuery.parseJSON(data);
+
+                        $.each(datos, function(key, val) {
+                            opcionciudad.push('<option value="' + val.codigo + '">' + val.ciudad + '<\/option>');
+                        });
+                        $("select#ciudadperfil").html(opcionciudad.join(""));
                     }
                 });
-                $("select#ciudadperfil").html(option);
-                $('#ciudadperfil [value=<%=DatosUsuario[13]%>]').prop('selected', true);
+            }
+            $(document).ready(function() {
 
-                $("select#departamentoperfil", this).change(function(){
-                    var index = $(this).val();
-                    var options = "";
-                    $.each(data, function(i,da){
-                        if(da.codigo_departamento === index)
-                        {
-                            options += '<option value="' + da.codigo + '">' + da.nombre + '<\/option>';
-                        }
-                    });
-                    $("select#ciudadperfil").html(options);
+                getdepartamentos();
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Help',
+                    data: {"accion": 'getciudad', "codigodepartamento": '<%=DatosUsuario[12]%>'},
+                    success: function(data) {
+                        var opcionciudad = [];
+                        var datos = jQuery.parseJSON(data);
+
+                        $.each(datos, function(key, val) {
+                            opcionciudad.push('<option value="' + val.codigo + '">' + val.ciudad + '<\/option>');
+                        });
+                        $("select#ciudadperfil").html(opcionciudad.join(""));
+                    }
+                }).done(function() {
+                    $("select#ciudadperfil [value='<%=DatosUsuario[14]%>']").prop("selected", true);
                 });
-            };
-        })(jQuery);
-        $(document).ready(function(){$("form#search").changeType();});
-    </script>
-      <script>
-      new gnMenu( document.getElementById( 'gn-menu' ) );
-      </script>
-      <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-      <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
-    <%session.setAttribute("Mensaje", "");%>
-  </body>
-  </html>
+
+                $("select#departamentoperfil", this).change(function() {
+                    var index = $(this).val();
+                    getciudades(index);
+                });
+            });
+        </script>
+        <script>
+            new gnMenu(document.getElementById('gn-menu'));
+        </script>
+        <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
+        <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
+        <%session.setAttribute("Mensaje", "");%>
+    </body>
+</html>

@@ -257,7 +257,7 @@ public class Usuario {
                 + " Join tb_ciudad c on c.codigo = u.codigo_ciudad "
                 + " Join tb_departamento d on c.Codigo_Departamento = d.Codigo \n"
                 + "Where u.Codigo = ?";
-        String[] Usuario = new String[14];
+        String[] Usuario = new String[15];
         try {
 
             pr = conn.prepareStatement(sql);
@@ -278,6 +278,7 @@ public class Usuario {
                 Usuario[11] = rs.getString("NombreCiudad");
                 Usuario[12] = rs.getString("CodigoDepartamento");
                 Usuario[13] = rs.getString("NombreDepartamento");
+                Usuario[14] = rs.getString("CodCiudad");
 
             }
             return Usuario;
