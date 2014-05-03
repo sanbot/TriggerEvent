@@ -9,7 +9,6 @@ Author     : ADSI
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,13 +61,7 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <%for(String[] Row : ListaDepartamento){%>
-                                <tr>
-                                    <td><%=Row[1]%></td>
-                                    <td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
-                                </tr>
-                            <%}%>
+                        <tbody id="contenido-departamentos">
                         </tbody>
                     </table>
                 </div>			
@@ -171,26 +164,31 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
     	new gnMenu( document.getElementById( 'gn-menu' ) );
     </script>
     <script>
-    $(document).ready(function () {
-        $(".modal-Modifica").click(function(){
-        var Id = $(this).data('id');
-        var Name = $(this).data('nombre');
-        $(".modal-body #ConCodigo").val( Id );
-        $(".modal-body #ConNombre").val( Name );
-        });
-    });
-    </script>
-    <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-    <script type="text/javascript">
-    	$(document).ready(function() {
-    		$('#table1').dataTable({
-    			"sPaginationType": "bs_normal"
-                // "sPaginationType": "bs_four_button"
-                // "sPaginationType": "bs_full"
-                // "sPaginationType": "bs_two_button"
+    function getdepartamentos() {
+        $.ajax({
+            type: 'POST',
+            url: '/TriggerEvent/Contr_Help',
+            data: {"accion": 'getdepartamentos'},
+            success: function(data) {
+                var opcion = [];
+                var datos = jQuery.parseJSON(data);
+                $.each(datos, function(key, val) {
+                    opcion.push('<tr>');
+                    opcion.push('<td>'+val.departamento+'</td>');
+                    opcion.push('<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="'+val.codigo+'" data-nombre="'+val.departamento+'"><span class="glyphicon glyphicon-edit"></span><center></td>');
+                    opcion.push('</tr>');
+                });
+                $("#contenido-departamentos").html(opcion.join(""));
+            }
+        }).done(function(){
+            $('#table1').dataTable({
+                "sPaginationType": "bs_normal"
+//                 "sPaginationType": "bs_four_button"
+//                 "sPaginationType": "bs_full"
+//                 "sPaginationType": "bs_two_button"
             }); 
-    		$('#table1').each(function(){
-    			var datatable = $(this);
+            $('#table1').each(function(){
+                var datatable = $(this);
                 // SEARCH - Add the placeholder for Search and Turn this into in-line form control
                 var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
                 search_input.attr('placeholder', 'Buscar');
@@ -199,8 +197,22 @@ String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
                 var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
                 length_sel.addClass('form-control input-sm');
             });
-    	});
+            $("a.modal-Modifica").click(function(){
+                var Id = $(this).data('id');
+                var Name = $(this).data('nombre');
+                $(".modal-body #ConCodigo").val( Id );
+                $(".modal-body #ConNombre").val( Name );
+            });
+        });
+    }
+    
+    $(document).ready(function () {
+        $("#contenido-departamentos").html('<tr><td colspan="2"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+        getdepartamentos();
+        
+    });
     </script>
+    <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
 </body>

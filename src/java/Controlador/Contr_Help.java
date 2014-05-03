@@ -90,7 +90,25 @@ public class Contr_Help extends HttpServlet {
                     i++;
                 }
                 out.println(obj);
+            } else if (request.getParameter("accion").equals("getciudades")) {
+                Ciudad ciu = new Ciudad();
+                String[][] Datos = ciu.BuscarDatosCiudadTodos();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("ciudad", row[1]);
+                    ob.put("iddepto", row[2]);
+                    ob.put("nomdepto", row[3]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.println(obj);
             }
+            
 
         } finally {
             out.close();

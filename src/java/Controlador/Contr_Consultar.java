@@ -121,6 +121,19 @@ public class Contr_Consultar {
         return b;
     }
 
+    public String[][] BuscarDatosDepartamentoTodos() {
+        Departamento dep = new Departamento();
+        String[][] Datos = dep.BuscarDatosDepartamentoTodos();
+
+        return Datos;
+    }
+
+    public String[][] BuscarDatosCuidadTodos() {
+        Ciudad ciu = new Ciudad();
+        String[][] Datos = ciu.BuscarDatosCiudadTodos();
+
+        return Datos;
+    }
 
     public String[][] BuscarDatosSeleccion() {
         Seleccion sel = new Seleccion();

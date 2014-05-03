@@ -9,8 +9,6 @@ Author     : ADSI
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaDepartamento = usu.BuscarDatosDepartamentoTodos();
-String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,14 +62,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <%if(ListaCiudad != null) {for(String[] Row : ListaCiudad){%>
-                                <tr>
-                                    <td><%=Row[1]%></td>
-                                    <td><%=Row[3]%></td>
-                                    <td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="<%=Row[0]%>" data-depid="<%=Row[2]%>" data-dep="<%=Row[3]%>" data-nombre="<%=Row[1]%>"><span class="glyphicon glyphicon-edit"></span><center></td>
-                                </tr>
-                            <%}}%>
+                        <tbody id="contenido-ciudades">
                         </tbody>
                     </table>
                 </div>
@@ -102,10 +93,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                                         <div class="col-xs-8 col-xs-offset-2">
                                             <div class="form-group">
                                                 <label for="Departamento">Departamento</label>
-                                                <select name="Departamento" id="Tipos" class="form-control" data-required="true">
-                                                    <%for(String[] Row : ListaDepartamento){%>
-                                                        <option value="<%=Row[0]%>"><%=Row[1]%></option>
-                                                    <%}%>
+                                                <select name="Departamento" id="CiuDepartamentos_Registro" class="form-control" data-required="true">
                                                 </select>
                                             </div>
                                         </div>
@@ -153,10 +141,7 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
                                         <div class="col-xs-8 col-xs-offset-2">
                                             <div class="form-group">
                                                 <label for="Departamento">Departamento</label>
-                                                <select name="Departamento" id="ConDepartamento" class="form-control" data-required="true" >
-                                                    <%for(String[] Row : ListaDepartamento){%>
-                                                        <option value="<%=Row[0]%>"><%=Row[1]%></option>
-                                                    <%}%>
+                                                <select name="Departamento" id="CiuDepartamento_Modificar" class="form-control" data-required="true" >
                                                 </select>
                                             </div>
                                         </div>
@@ -199,31 +184,90 @@ String[][] ListaCiudad = usu.BuscarDatosCuidadTodos();
     </script>
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
-    	$(document).ready(function() {
-            $(".modal-Modifica").click(function(){
-                var Id = $(this).data('id');
-                var Name = $(this).data('nombre');
-                var DepId = $(this).data('depid');
-                $(".modal-body #ConCodigo").val( Id );
-                $(".modal-body #ConNombre").val( Name );
-                $('#ConDepartamento [value='+DepId+']').prop('selected', true);
-                });
-                $('#table1').dataTable({
-                        "sPaginationType": "bs_normal"
-                // "sPaginationType": "bs_four_button"
-                // "sPaginationType": "bs_full"
-                // "sPaginationType": "bs_two_button"
-            }); 
-            $('#table1').each(function(){
-                var datatable = $(this);
-                // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-                var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-                search_input.attr('placeholder', 'Buscar');
-                search_input.addClass('form-control input-sm');
-                // LENGTH - Inline-Form control
-                var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                length_sel.addClass('form-control input-sm');
+        function getdepartamentos() {
+            $.ajax({
+                type: 'POST',
+                url: '/TriggerEvent/Contr_Help',
+                data: {"accion": 'getdepartamentos'},
+                success: function(data) {
+                    var opcion = [];
+                    opcion.push('<option value=""><\/option>');
+                    var datos = jQuery.parseJSON(data);
+                    $.each(datos, function(key, val) {
+                        opcion.push('<option value="' + val.codigo + '">' + val.departamento + '<\/option>');
+                    });
+                    $("select#CiuDepartamentos_Registro").html(opcion.join(""));
+                    $("select#CiuDepartamento_Modificar").html(opcion.join(""));
+                }
             });
+        }
+        function getciudades() {
+            $.ajax({
+                type: 'POST',
+                url: '/TriggerEvent/Contr_Help',
+                data: {"accion": 'getciudades'},
+                success: function(data) {
+                    
+                    var opcion = [];
+                    var datos = jQuery.parseJSON(data);
+                    $.each(datos, function(key, val) {
+                        opcion.push('<tr>');
+                        opcion.push('<td>'+val.ciudad+'</td>');
+                        opcion.push('<td>'+val.nomdepto+'</td>');
+                        opcion.push('<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="'+val.codigo+'" data-depid="'+val.iddepto+'" data-dep="'+val.nomdepto+'" data-nombre="'+val.ciudad+'"><span class="glyphicon glyphicon-edit"></span><center></td>');
+                        opcion.push('</tr>');
+                        
+                    });
+                    $("#contenido-ciudades").html(opcion.join(""));
+                }
+            }).done(function(){
+                $('#table1').dataTable({
+                    "sPaginationType": "bs_normal"
+                    // "sPaginationType": "bs_four_button"
+                    // "sPaginationType": "bs_full"
+                    // "sPaginationType": "bs_two_button"
+                }); 
+                $('#table1').each(function(){
+                    var datatable = $(this);
+                    // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+                    var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                    search_input.attr('placeholder', 'Buscar');
+                    search_input.addClass('form-control input-sm');
+                    // LENGTH - Inline-Form control
+                    var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+                    length_sel.addClass('form-control input-sm');
+                });
+                $(".modal-Modifica").click(function(){
+                    var Id = $(this).data('id');
+                    var Name = $(this).data('nombre');
+                    var DepId = $(this).data('depid');
+                    $(".modal-body #ConCodigo").val( Id );
+                    $(".modal-body #ConNombre").val( Name );
+                    $.ajax({
+                        type: 'POST',
+                        url: '/TriggerEvent/Contr_Help',
+                        data: {"accion": 'getdepartamentos'},
+                        success: function(data) {
+                            var opcion = [];
+                            opcion.push('<option value=""><\/option>');
+                            var datos = jQuery.parseJSON(data);
+                            $.each(datos, function(key, val) {
+                                opcion.push('<option value="' + val.codigo + '">' + val.departamento + '<\/option>');
+                            });
+                            $("select#CiuDepartamento_Modificar").html(opcion.join(""));
+                        }
+                    }).done(function(){
+                        $('#CiuDepartamento_Modificar [value='+DepId+']').prop('selected', true);
+                    });
+
+                });
+            });
+        }
+    	$(document).ready(function() {
+            getdepartamentos();
+            $("#contenido-ciudades").html('<tr><td colspan="3"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+            getciudades();
+            
     	});
     </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

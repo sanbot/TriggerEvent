@@ -122,7 +122,7 @@ public class Ciudad {
         }
         return 0;
     }
-    /**por quitar*/
+    
     public String[][] BuscarDatosCiudadTodos() {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;

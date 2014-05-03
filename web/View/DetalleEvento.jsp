@@ -1,8 +1,3 @@
-<%-- 
-    Document   : DetalleEvento
-    Created on : 10-abr-2014, 12:53:19
-    Author     : ADSI
-    --%>
 
 <%-- 
 Document   : RegistrarUsuario

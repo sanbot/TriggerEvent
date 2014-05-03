@@ -509,3 +509,9 @@ p
     border-left: 1px solid #fff;
     border-top:  1px solid #fff;
 }
+/*loading*/
+.img-loading
+{
+    height: 60px;
+    width: 60px;
+}
