@@ -310,7 +310,7 @@ public class Contr_Consultar {
 
     public String[][] getBuscarComentarios(String CodigoEvetno, int Limite) {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        String[][] Datos = sat.BuscarComentariosEvento(CodigoEvetno, Limite);
+        String[][] Datos = sat.BuscarComentariosEvento(CodigoEvetno, Limite,1);
         return Datos;
     }
 

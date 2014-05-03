@@ -45,7 +45,8 @@ public class Contr_Evento extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
-
+        
+       
         boolean b;
         try {
             Evento eve = new Evento();

@@ -437,19 +437,20 @@ public class Cls_Satisfaccion {
         return null;
     }
 
-    public String[][] BuscarComentariosEvento(String codigoEvento, int Limite) {
+    public String[][] BuscarComentariosEvento(String codigoEvento, int Limite, int cantidad) {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String sql = "SELECT u.Nombre NombreUsuario, (Select Nombre From tb_evento Where Codigo = sa.Id_Evento) NombreEmpresa, sa.Comentario \n"
                 + "FROM  `tb_satisfaccion` sa \n"
                 + "JOIN tb_usuario u on u.Codigo = sa.Id_Usuario "
-                + "Where sa.Comentario IS NOT NULL AND sa.Id_Evento = ? Order by sa.Fecha LIMIT 0,?";
+                + "Where sa.Comentario IS NOT NULL AND sa.Id_Evento = ? Order by sa.Fecha LIMIT ?,?";
 
         try {
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigoEvento);
             pr.setInt(2, Limite);
+            pr.setInt(3, cantidad);
             rs = pr.executeQuery();
 
             int rows = 0;

@@ -38,21 +38,6 @@ try{
 
 String Datos[] = usu.getBuscarDatosDetalladosEvento(CodigoEvento);
 int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
-int limiteinfe = 5;
-
-try
-{
-	if(request.getParameter("Limite")!= null)
-	{
-	limiteinfe = Integer.parseInt(request.getParameter("Limite"));
-}
-
-}catch(Exception ex)
-{
-	response.sendRedirect("ConsultaEvento.jsp");
-}
-
-String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -393,55 +378,28 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
 	<div class="row clearfix">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                 <!-- /widget -->
-                <div class="widget">
+                <div  class="widget">
                     <div class="widget-header">
                         <h3>Opiniones de nuestros usuarios</h3>
                     </div>
                     <!-- /widget-header -->
                     <div class="widget-content">
-                        <ul class="messages_layout <%if(Comentarios.length > 5){%>scrollcomentarios<%}%>">
-                            <li class="from_user left">
-                                <div class="message_wrap"> 
-                                    <span class="arrow"></span>
-                                    <div class="info"> 
-                                            <span class="name">Usuario: asdasdasd, Evento: asdasdasd</span>
-                                    </div>
-                                    <div class="text"> 
-                                            asdasdasd
-                                    </div>
-                                </div>
-                            </li>
-                            <%
-                            int i =1;
-                            for (String[] Row : Comentarios)
-                            {
-                            %>
-                            <li class="from_user left" <%if(i==Comentarios.length){%>id="ComentarioFinal"<%}%>>
-                                <div class="message_wrap"> 
-                                    <span class="arrow"></span>
-                                    <div class="info"> 
-                                            <span class="name">Usuario: <%=Row[0]%>, Evento: <%=Row[1]%></span>
-                                    </div>
-                                    <div class="text"> 
-                                            <%=Row[2]%>
-                                    </div>
-                                </div>
-                            </li>
-                            <%
-                            i++;}%>
-                            <%if(usu.getCantidadComentariosEventos(CodigoEvento)>Comentarios.length){%>
-                            <li class="from_user left">
+                        <ul id="contenido" class="messages_layout">
+                            <div id="contenedor-mensajes">
+                                
+                            </div>
+                            
+                            <li id="vermas" class="from_user left">
                                 <div class="message_wrap"> 
                                     <span class="arrow"></span>
                                     <div class="info"> 
                                         <span class="name">Hay m&aacute;s comentarios de este evento</span>
                                     </div>
                                     <div class="text"> 
-                                        <a href="DetalleEvento.jsp?CodigoEvento=<%=CodigoEvento%>&Limite=<%=limiteinfe+5%>#ComentarioFinal" class="vermascomentarios"><span class="name">Ver m&aacute;s comentarios</span></a>
+                                        <a class="vermascomentarios"><span class="name">Ver m&aacute;s comentarios</span></a>
                                     </div>
                                 </div>
                             </li>
-                            <%}%>
                         </ul>
                     </div>
                     <!-- /widget-content --> 
@@ -459,11 +417,6 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
             </div>
         </footer>
     </div>
-
-
-
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -491,6 +444,59 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
     <script type="text/javascript" src="../Libs/Customs/js/Rating.js" ></script>
     <script type="text/javascript" src="../Libs/Customs/js/graficos.js" ></script>
     <script>
+        
+        $(".vermascomentarios").click(function(){
+            var i= 0;
+            $( "li.from_user" ).each(function( index ) {
+             i++;
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/TriggerEvent/Contr_Help',
+                data: {"accion": 'vermas', "cantidad": "5", "codigoevento": '<%=CodigoEvento%>', "limite": i-1},
+                success: function(data){
+                    var datos = jQuery.parseJSON(data);
+                    var items = [];
+                    $.each(datos, function(key, val){
+                        
+                        items.push('<li class="from_user left">');
+                        items.push('<div class="message_wrap"> ');
+                        items.push('<span class="arrow"></span>');
+                        items.push('<div class="info"> ');
+                        items.push('<span class="name">Usuario: '+ val.usuario +', Evento: '+ val.empresa+'</span>');
+                        items.push('</div>');
+                        items.push('<div class="text"> ');
+                        items.push(val.comentario);
+                        items.push('</div>');
+                        items.push('</div>');
+                        items.push('</li>');
+                    });
+                    
+                    $("#contenedor-mensajes").append(items.join(""));
+                    var cant= 0;
+                    $( "li.from_user" ).each(function( index ) {
+                        cant++;
+                    });
+                    if(cant>5)
+                    {
+                        $("#contenido").addClass("scrollcomentarios");
+                    }
+                    var total;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/TriggerEvent/Contr_Help',
+                        data: {"accion": 'total',"codigoevento": '<%=CodigoEvento%>'},
+                        success: function(data){
+                            total = data;
+                            if(cant>total )
+                            {
+                                $("#vermas").addClass("hidden");
+                            }
+                        }
+                    });
+                }
+            });
+        });
         var data = [
 	{
 		value: <%=Calificacion[0]%>,
@@ -518,6 +524,53 @@ String Comentarios [][] = usu.getBuscarComentarios(CodigoEvento, limiteinfe);
         var ctx = $("#myChart").get(0).getContext("2d");
         //This will get the first returned node in the jQuery collection.
         var myNewChart = new Chart(ctx).Doughnut(data);
+        
+        $(document).ready(function(){
+            $.ajax({
+                type: 'POST',
+                url: '/TriggerEvent/Contr_Help',
+                data: {"accion": 'vermas', "cantidad": "5", "codigoevento": '<%=CodigoEvento%>', "limite": "0"},
+                success: function(data){
+                    var datos = jQuery.parseJSON(data);
+                    var items = [];
+                    $.each(datos, function(key, val){
+                        
+                        items.push('<li class="from_user left">');
+                        items.push('<div class="message_wrap"> ');
+                        items.push('<span class="arrow"></span>');
+                        items.push('<div class="info"> ');
+                        items.push('<span class="name">Usuario: '+ val.usuario +', Evento: '+ val.empresa+'</span>');
+                        items.push('</div>');
+                        items.push('<div class="text"> ');
+                        items.push(val.comentario);
+                        items.push('</div>');
+                        items.push('</div>');
+                        items.push('</li>');
+                    });
+                    
+                    $("#contenedor-mensajes").prepend(items.join(""));
+                    var cant= 0;
+                    $( "li.from_user" ).each(function( index ) {
+                        cant++;
+                    });
+                    
+                    var total;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/TriggerEvent/Contr_Help',
+                        data: {"accion": 'total',"codigoevento": '<%=CodigoEvento%>'},
+                        success: function(data){
+                            total = data;
+                            if(cant>total )
+                            {
+                                $("#vermas").addClass("hidden");
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        
     </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
     <%session.setAttribute("Mensaje", "");%>
