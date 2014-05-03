@@ -251,7 +251,7 @@ public class Usuario {
         PreparedStatement pr = null;
         ResultSet rs = null;
         String sql = "Select u.Codigo codigo, u.Codigo_Tipo CodigoTipo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,u.Nombre nombre, u.Telefono telefono,"
-                + " u.No_Celular Celular, u.codigo_ciudad CodCiudad, c.nombre NombreCiudad, d.Nombre NombreDepartamento, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n"
+                + " u.No_Celular Celular, u.codigo_ciudad CodCiudad, c.nombre NombreCiudad, d.Codigo CodigoDepartamento, d.Nombre NombreDepartamento, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n"
                 + "From  tb_usuario u"
                 + " Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo "
                 + " Join tb_ciudad c on c.codigo = u.codigo_ciudad "
@@ -276,7 +276,8 @@ public class Usuario {
                 Usuario[9] = rs.getString("Direccion");
                 Usuario[10] = rs.getString("Estado");
                 Usuario[11] = rs.getString("NombreCiudad");
-                Usuario[12] = rs.getString("NombreDepartamento");
+                Usuario[12] = rs.getString("CodigoDepartamento");
+                Usuario[13] = rs.getString("NombreDepartamento");
 
             }
             return Usuario;
