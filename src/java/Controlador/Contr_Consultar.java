@@ -68,39 +68,10 @@ public class Contr_Consultar {
         return Datos;
     }
 
-    public String[][] getClasifiacionNuevos(String Codigo) {
-        Seleccion sel = new Seleccion();
-        String Datos[][] = sel.getClasificacionNuevos(Codigo);
-        return Datos;
-    }
-
     public String[][] getClasificacionEvento(String Codigo) {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getClasificacionEvento(Codigo);
         return Datos;
-    }
-
-    public boolean AddClasificacionEvento(String CodigoSeleccion, String Accion, String CodigoEvento) {
-        Seleccion sel = new Seleccion();
-        boolean b = false;
-        if (Accion.equals("Nuevo")) {
-            b = sel.AddClasificacionEvento(CodigoSeleccion, CodigoEvento);
-            if (b) {
-                this.setMensaje("Se agregó el gusto/ambiente a la calificación satisfactoriamente.");
-                if (sel.ComprobarRegistroCompletoUSuario(CodigoEvento)) {
-                    Evento eve = new Evento();
-                    if (eve.setEstadoPendiente(CodigoEvento)) {
-                        String mensaje = this.getMensaje();
-                        mensaje += " Se han cumplido los requisitos mínimos para el registro y el evento está en la lista de espera por aprobación.";
-                        this.setMensaje(mensaje);
-                    }
-
-                }
-            } else {
-                this.setMensaje(sel.getMensaje());
-            }
-        }
-        return b;
     }
 
     public String getCantidadPendientes() {
@@ -167,13 +138,6 @@ public class Contr_Consultar {
         Evento eve = new Evento();
         String[][] Datos = eve.BuscarDatosPrincipalesEventosPendientes();
         return Datos;
-    }
-
-    public boolean getComprobacionRegistroEvento(String CodigoEvento) {
-        boolean b;
-        Seleccion sel = new Seleccion();
-        b = sel.ComprobarRegistroCompletoUSuario(CodigoEvento);
-        return b;
     }
 
     public boolean getComprobacionCalificacionYComentario(String CodigoEvento, String CodigoUsuario, String Tipo) {

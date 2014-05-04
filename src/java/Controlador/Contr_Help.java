@@ -233,6 +233,23 @@ public class Contr_Help extends HttpServlet {
                     i++;
                 }
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("getclasificacion")) {
+                Seleccion sel = new Seleccion();
+                String Codigo = request.getParameter("idevento");
+                String[][] Datos = sel.getClasificacionNuevos(Codigo);
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("tipo", row[2]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.print(obj);
             } else if (request.getParameter("accion").equals("aprobarseleccion")) {
                 String CodigoSeleccion = request.getParameter("idseleccion");
                 Seleccion sel = new Seleccion();
@@ -261,6 +278,31 @@ public class Contr_Help extends HttpServlet {
                     obj.put("0", "No se puede desaprobar, porque hay usuarios o eventos usando este ambiente o gusto.");
                 }
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("agregarclasificacion")) {
+                String CodigoSeleccion = request.getParameter("idseleccion");
+                String CodigoEvento = request.getParameter("idevento");
+                Seleccion sel = new Seleccion();
+                JSONObject obj = new JSONObject();
+                boolean b = sel.AddClasificacionEvento(CodigoSeleccion, CodigoEvento);
+                if (b) {
+                    obj.put("1", "Se agregó el gusto/ambiente a la calificación satisfactoriamente.");
+                    if (sel.ComprobarRegistroCompletoUSuario(CodigoEvento)) {
+                        Evento eve = new Evento();
+                        if (eve.setEstadoPendiente(CodigoEvento)) {
+                            String mensaje = "Se han cumplido los requisitos mínimos para el registro y el evento está en la lista de espera por aprobación.";
+                            obj.put("1", mensaje);
+                            obj.put("2", "true");
+                        }
+                    }
+                } else {
+                    obj.put("1", sel.getMensaje());
+                }
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("comprobarregistroevento")) {
+                String CodigoEvento = request.getParameter("idevento");
+                Seleccion sel = new Seleccion();
+                boolean dato = sel.ComprobarRegistroCompletoUSuario(CodigoEvento);
+                out.print(dato);
             } else {
                 response.sendRedirect("View/index.jsp");
             }

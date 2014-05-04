@@ -9,6 +9,7 @@
 /*mouse*/
 .calificacionevento:hover, 
 .desaprobarseleccion:hover, 
+.agregarclasificacion:hover, 
 .aprobarseleccion:hover{
     cursor: pointer;
 }

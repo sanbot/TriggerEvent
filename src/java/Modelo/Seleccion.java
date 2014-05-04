@@ -114,7 +114,7 @@ public class Seleccion {
         } catch (SQLException ex) {
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("Nombre") > 0) {
-                    this.setMensaje("Ya hay un "+tipo+" con este nombre.");
+                    this.setMensaje("Ya hay un " + tipo + " con este nombre.");
                     return false;
                 }
             }
@@ -126,7 +126,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al registrar el "+tipo+". Estamos trabajando para solucionar este problema.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar el " + tipo + ". Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -299,7 +299,7 @@ public class Seleccion {
         } catch (Exception ex) {
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("Nombre") > 0) {
-                    this.setMensaje("Ya hay un "+tipo+" con este nombre.");
+                    this.setMensaje("Ya hay un " + tipo + " con este nombre.");
                     return false;
                 }
             }
@@ -311,7 +311,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al modificar el "+tipo+".  Estamos trabajando para solucionar este problema.");
+        this.setMensaje("Ocurrió un problema inesperado al modificar el " + tipo + ".  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -340,7 +340,7 @@ public class Seleccion {
         } catch (Exception ex) {
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("Nombre") > 0) {
-                    this.setMensaje("Ya hay un "+tipo+" con este nombre.");
+                    this.setMensaje("Ya hay un " + tipo + " con este nombre.");
                     return false;
                 }
             }
@@ -352,7 +352,7 @@ public class Seleccion {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al  modificar el "+tipo+".  Estamos trabajando para solucionar este problema.");
+        this.setMensaje("Ocurrió un problema inesperado al  modificar el " + tipo + ".  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
@@ -403,7 +403,7 @@ public class Seleccion {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "Select Codigo, Nombre, Tipo, Imagen "
+        String sql = "Select Codigo, Nombre, Tipo "
                 + "From  tb_seleccion "
                 + "Where Codigo NOT IN (select Id_Seleccion From tb_seleccion_evento Where Id_Evento = ? And Estado = 'Activo')"
                 + "AND Estado = 'Aprobado'";
@@ -674,7 +674,7 @@ public class Seleccion {
                 if (rs.next()) {
                     this.setMensaje("No se puede remover este " + rs.getString("Tipo") + ", porque es el único que tiene registrado.");
                 } else {
-                    this.setMensaje("Ocurrió un error inesperado al remover el "+rs.getString("Tipo")+" de su cuenta.  Estamos trabajando para solucionar este problema.");
+                    this.setMensaje("Ocurrió un error inesperado al remover el " + rs.getString("Tipo") + " de su cuenta.  Estamos trabajando para solucionar este problema.");
                 }
                 return false;
             }
@@ -846,30 +846,31 @@ public class Seleccion {
             pr = conn.prepareStatement(consultaevento);
             pr.setString(1, codigoevento);
             rs = pr.executeQuery();
-            if(rs.next() && (!rs.getString("Estado").equals("Pendiente")))
-            {
-                pr = conn.prepareStatement(sqla);
-                pr.setString(1, codigoevento);
-                rs = pr.executeQuery();
+            if (rs.next()) {
+                if (!rs.getString("Estado").equals("Pendiente")) {
+                    pr = conn.prepareStatement(sqla);
+                    pr.setString(1, codigoevento);
+                    rs = pr.executeQuery();
 
-                int uno = 0;
-                if (rs.next()) {
+                    int uno = 0;
+                    if (rs.next()) {
 
-                    uno = Integer.parseInt(rs.getString("Cantidad"));
-                }
+                        uno = Integer.parseInt(rs.getString("Cantidad"));
+                    }
 
-                pr = conn.prepareStatement(sqlb);
-                pr.setString(1, codigoevento);
-                rs = pr.executeQuery();
-                int dos = 0;
-                if (rs.next()) {
-                    dos = Integer.parseInt(rs.getString("Cantidad"));
+                    pr = conn.prepareStatement(sqlb);
+                    pr.setString(1, codigoevento);
+                    rs = pr.executeQuery();
+                    int dos = 0;
+                    if (rs.next()) {
+                        dos = Integer.parseInt(rs.getString("Cantidad"));
+                    }
+                    if (uno >= 1 && dos >= 1) {
+                        return true;
+                    }
+                } else {
+                    return false;
                 }
-                if (uno >= 1 && dos >= 1) {
-                    return true;
-                }
-            }else{
-                
             }
         } catch (Exception ex) {
             ex.printStackTrace();
