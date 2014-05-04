@@ -582,7 +582,7 @@ public class Usuario {
         return false;
     }
 
-    public String[][] BuscarDatosUsuarioPenditeTodos() {
+    public String[][] BuscarDatosUsuarioPendienteTodos() {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
@@ -623,8 +623,8 @@ public class Usuario {
                 Datos[rows][5] = usu.getTelefono();
                 Datos[rows][6] = usu.getCelular();
                 Datos[rows][7] = usu.getCiudad();
-                Datos[rows][8] = usu.getCelular();
-                Datos[rows][9] = usu.getCorreo();
+                Datos[rows][8] = usu.getCorreo();
+                Datos[rows][9] = usu.getDireccion();
                 Datos[rows][10] = usu.getEstado();
 
                 rows++;
@@ -731,8 +731,8 @@ public class Usuario {
                 Datos[rows][5] = usu.getTelefono();
                 Datos[rows][6] = usu.getCelular();
                 Datos[rows][7] = usu.getCiudad();
-                Datos[rows][8] = usu.getCelular();
-                Datos[rows][9] = usu.getCorreo();
+                Datos[rows][8] = usu.getCorreo();
+                Datos[rows][9] = usu.getDireccion();
                 Datos[rows][10] = usu.getEstado();
 
                 rows++;

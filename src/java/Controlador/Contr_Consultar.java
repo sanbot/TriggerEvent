@@ -28,12 +28,6 @@ public class Contr_Consultar {
         this.Mensaje = Mensaje;
     }
 
-    public String[][] BuscarDatosUsuariosPenditeTodos() {
-        Usuario usu = new Usuario();
-        String[][] Datos = usu.BuscarDatosUsuarioPenditeTodos();
-
-        return Datos;
-    }
 
     public String[][] BuscarDatosUsuariosPendientes() {
         Usuario usu = new Usuario();
@@ -61,62 +55,6 @@ public class Contr_Consultar {
         String[][] Datos = usu.BuscarDatosEmpresa();
 
         return Datos;
-    }
-
-    public boolean setCambiarEstadoUsaurio(String Codigo, String Estado) {
-        Usuario usu = new Usuario();
-        Mensajeria msm = new Mensajeria();
-        boolean b;
-        if (Estado.equals("true")) {
-            b = usu.setaprobarUsaurio(Codigo);
-            if (b) {
-                boolean p = usu.getDatosParaEstado(Codigo);
-                if (p) {
-                    String Tipo_Documento = usu.getTipo_Documento();
-                    String No_Documento = usu.getNo_Documento();
-                    String Nombre = usu.getNombre();
-                    String Telefono = usu.getTelefono();
-                    String Direccion = usu.getDireccion();
-                    String celular = usu.getCelular();
-                    String correo = usu.getCorreo();
-                    b = msm.setMensajeModificarAprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
-                    if (b) {
-                        this.setMensaje("Se ha modificado el estado del usuario correctamente.");
-                    } else {
-                        this.setMensaje("Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
-                    }
-                }
-            } else {
-                this.setMensaje("Ocurrio un error al modificar el estado del usuario.");
-            }
-        } else if (Estado.equals("false")) {
-            b = usu.setdesaprobarUsaurio(Codigo);
-            if (b) {
-                boolean p = usu.getDatosParaEstado(Codigo);
-                if (p) {
-                    String Tipo_Documento = usu.getTipo_Documento();
-                    String No_Documento = usu.getNo_Documento();
-                    String Nombre = usu.getNombre();
-                    String Telefono = usu.getTelefono();
-                    String Direccion = usu.getDireccion();
-                    String celular = usu.getCelular();
-                    String correo = usu.getCorreo();
-                    b = msm.setMensajeModificarDesaprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
-                    if (b) {
-                        this.setMensaje("Se ha modificado el estado del usuario correctamente.");
-                    } else {
-                        this.setMensaje("Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
-                    }
-                }
-
-            } else {
-                this.setMensaje("Ocurrio un error al modificar el estado del usuario. Estamos trabajando para solucionar este problema.");
-            }
-        } else {
-            b = false;
-            this.setMensaje("");
-        }
-        return b;
     }
 
     public String[][] BuscarDatosSeleccion() {

@@ -9,7 +9,6 @@ Author     : ADSI
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaUsuario = usu.BuscarDatosUsuariosPenditeTodos();
 String Cantidad = usu.getCantidadPendientes();
 if(session.getAttribute("TipoMensaje").equals("Aprobar"))
 {
@@ -94,20 +93,7 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <%for(String[] Row : ListaUsuario){%>
-                                    <tr>
-                                        <td><%=Row[4]%></td>
-                                        <td><%=Row[1]%></td>
-                                        <td><%=Row[2]%></td>
-                                        <td><%=Row[3]%></td>
-                                        <td><%=Row[10]%></td>
-                                        <td><center><a href="MUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-edit"></span></center></td>
-                                        <td><center><a title="Desaprobar" class="estadousuario" data-id="<%=Row[0]%>" data-estado="Desaprobado"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                        <td><center><a title="Aprobar" class="estadousuario" data-id="<%=Row[0]%>" data-estado="Aprobado"><span class="glyphicon glyphicon-ok"></span></a></center></td>
-                                        <td><center><a href="CUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span><center></td>
-                                    </tr>
-                                <%}%>
+                            <tbody id="contenido-usuarios">
                             </tbody>
                     </table>
                 </div>
@@ -141,37 +127,77 @@ else if (session.getAttribute("TipoMensaje").equals("AprobarNO"))
     
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
-    	$('#table1').dataTable({
-            "sPaginationType": "bs_normal"
-            // "sPaginationType": "bs_four_button"
-            // "sPaginationType": "bs_full"
-            // "sPaginationType": "bs_two_button"
-        }); 
-    	$('#table1').each(function(){
-            var datatable = $(this);
-            // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-            var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-            search_input.attr('placeholder', 'Buscar');
-            search_input.addClass('form-control input-sm');
-            // LENGTH - Inline-Form control
-            var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-            length_sel.addClass('form-control input-sm');
-        });
-        $(".estadousuario").click(function(){
-            var codigo = $(this).data('id');
-            var estado = $(this).data('estado');
-            document.body.style.cursor='wait';
+        function usuariospendientes(){
+            $("#contenido-usuarios").html('<tr><td colspan="9"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
             $.ajax({
                 type: 'POST',
                 url: '/TriggerEvent/Contr_Usuarios',
-                data: {"accion": 'cambiarestadousuario',"codigousuario": codigo , "estadousuario": estado},
+                data: {"accion": 'todosusuarios'},
                 success: function(data){
-                    
-                    location.reload();
+                    var datos = jQuery.parseJSON(data);
+                    var items = [];
+                    $.each(datos, function(key, val){
+                        items.push('<tr>');
+                        items.push('<td>'+val.nombre+'</td>');
+                        items.push('<td>'+val.tipo+'</td>');
+                        items.push('<td>'+val.tipodocumento+'</td>');
+                        items.push('<td>'+val.numerodocumento+'</td>');
+                        items.push('<td>'+val.estado+'</td>');
+                        items.push('<td><center><a href="MUsuario.jsp?Codigo='+val.codigo+'"><span class="glyphicon glyphicon-edit"></span></center></td>');
+                        items.push('<td><center><a title="Desaprobar" class="estadousuario" data-id="'+val.codigo+'" data-estado="Desaprobado"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
+                        items.push('<td><center><a title="Aprobar" class="estadousuario" data-id="'+val.codigo+'" data-estado="Aprobado"><span class="glyphicon glyphicon-ok"></span></a></center></td>');
+                        items.push('<td><center><a href="CUsuario.jsp?Codigo='+val.codigo+'"><span class="glyphicon glyphicon-log-in"></span><center></td>');
+                        items.push('</tr>');
+                    });
+                    $("#contenido-usuarios").html(items.join(""));
                 }
+            }).done(function(){
+                $('#table1').dataTable({
+                    "sPaginationType": "bs_normal",
+                    // "sPaginationType": "bs_four_button"
+                    // "sPaginationType": "bs_full"
+                    // "sPaginationType": "bs_two_button"
+                    "bRetrieve": true
+                }); 
+                $('#table1').each(function(){
+                    var datatable = $(this);
+                    // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+                    var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                    search_input.attr('placeholder', 'Buscar');
+                    search_input.addClass('form-control input-sm');
+                    // LENGTH - Inline-Form control
+                    var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+                    length_sel.addClass('form-control input-sm');
+                });
+                $(".estadousuario").click(function(){
+                    var codigo = $(this).data('id');
+                    var estado = $(this).data('estado');
+                    document.body.style.cursor='wait';
+                    $.ajax({
+                        type: 'POST',
+                        url: '/TriggerEvent/Contr_Usuarios',
+                        data: {"accion": 'cambiarestadousuario',"codigousuario": codigo , "estadousuario": estado},
+                        success: function(data){
+                            var datos = jQuery.parseJSON(data);
+                            $.each(datos, function(key, val){
+                                if(val.tipomensaje === "NODio")
+                                {
+                                    alertify.error(val.mensaje);
+                                }
+                                else if(val.tipomensaje === "Dio")
+                                {
+                                    alertify.success(val.mensaje);
+                                }
+                            });
+                        }
+                    }).done(function(){
+                        document.body.style.cursor='default';
+                    });
+                });
             });
-        });
+        }
+    $(document).ready(function() {
+    	usuariospendientes()
     });
     </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

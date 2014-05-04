@@ -7,9 +7,6 @@ Author     : ADSI
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
-<%
-Contr_Consultar usu = new Contr_Consultar();
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

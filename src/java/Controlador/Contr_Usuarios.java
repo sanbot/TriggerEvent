@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -31,7 +32,7 @@ public class Contr_Usuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         Usuario usu = new Usuario();
         Mensajeria msm = new Mensajeria();
         String script, Nombre, Codigo, Tipo_Documento, Estado, No_Documento, Telefono, Direccion, correo, celular, url, CodVer, CodigoVerificacion, Ciudad, Departamento;
@@ -326,6 +327,8 @@ public class Contr_Usuarios extends HttpServlet {
         } else if (request.getParameter("accion").equals("cambiarestadousuario")) {
             Codigo = (String) request.getParameter("codigousuario");
             Estado = (String) request.getParameter("estadousuario");
+            JSONObject obj = new JSONObject();
+            JSONObject ob = new JSONObject();
             b = usu.setCambiarEstadoUsaurio(Codigo, Estado);
             if (b) {
                 boolean p = usu.getDatosParaEstado(Codigo);
@@ -340,28 +343,82 @@ public class Contr_Usuarios extends HttpServlet {
                     if (Estado.equals("Aprobado")) {
                         b = msm.setMensajeModificarAprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
                         if (b) {
-                            session.setAttribute("Mensaje", "Se ha modificado el estado del usuario correctamente.");
-                            session.setAttribute("TipoMensaje", "Dio");
+                            ob.put("mensaje", "Se ha modificado el estado del usuario correctamente.");
+                            ob.put("tipomensaje", "Dio");
 
                         } else {
-                            session.setAttribute("Mensaje", "Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
-                            session.setAttribute("TipoMensaje", "NODio");
+                            ob.put("mensaje", "Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
+                            ob.put("tipomensaje", "NODio");
                         }
                     } else if (Estado.equals("Desaprobado")) {
                         b = msm.setMensajeModificarDesaprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
                         if (b) {
-                            session.setAttribute("Mensaje", "Se ha modificado el estado del usuario correctamente.");
-                            session.setAttribute("TipoMensaje", "Dio");
+                            ob.put("mensaje", "Se ha modificado el estado del usuario correctamente.");
+                            ob.put("tipomensaje", "Dio");
                         } else {
-                            session.setAttribute("Mensaje", "Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
-                            session.setAttribute("TipoMensaje", "NODio");
+                            ob.put("mensaje", "Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
+                            ob.put("tipomensaje", "NODio");
                         }
                     }
                 }
             } else {
-                session.setAttribute("Mensaje", "Ocurrio un error al modificar el estado del usuario.");
-                session.setAttribute("TipoMensaje", "NODio");
+                ob.put("mensaje", "Ocurrio un error al modificar el estado del usuario.");
+                ob.put("tipomensaje", "NODio");
             }
+            PrintWriter out = response.getWriter();
+            obj.put("1", ob);
+            out.print(obj);
+            out.close();
+        } else if (request.getParameter("accion").equals("usuariospendientes")) {
+            String[][] Datos = usu.BuscarDatosUsuarioPendientes();
+            JSONObject obj = new JSONObject();
+            int i = 0;
+            for (String row[] : Datos) {
+                JSONObject ob = new JSONObject();
+
+                ob.put("codigo", row[0]);
+                ob.put("tipo", row[1]);
+                ob.put("tipodocumento", row[2]);
+                ob.put("numerodocumento", row[3]);
+                ob.put("nombre", row[4]);
+                ob.put("telefono", row[5]);
+                ob.put("celular", row[6]);
+                ob.put("ciudad", row[7]);
+                ob.put("correo", row[8]);
+                ob.put("direccion", row[9]);
+                ob.put("estado", row[10]);
+                obj.put(Integer.toString(i), ob);
+
+                i++;
+            }
+            PrintWriter out = response.getWriter();
+            out.println(obj);
+            out.close();
+        } else if (request.getParameter("accion").equals("todosusuarios")) {
+            String[][] Datos = usu.BuscarDatosUsuarioPendienteTodos();
+            JSONObject obj = new JSONObject();
+            int i = 0;
+            for (String row[] : Datos) {
+                JSONObject ob = new JSONObject();
+
+                ob.put("codigo", row[0]);
+                ob.put("tipo", row[1]);
+                ob.put("tipodocumento", row[2]);
+                ob.put("numerodocumento", row[3]);
+                ob.put("nombre", row[4]);
+                ob.put("telefono", row[5]);
+                ob.put("celular", row[6]);
+                ob.put("ciudad", row[7]);
+                ob.put("correo", row[8]);
+                ob.put("direccion", row[9]);
+                ob.put("estado", row[10]);
+                obj.put(Integer.toString(i), ob);
+
+                i++;
+            }
+            PrintWriter out = response.getWriter();
+            out.println(obj);
+            out.close();
         } else {
             url = "View/login.jsp";
             response.sendRedirect(url);

@@ -50,6 +50,7 @@ public class Contr_Evento extends HttpServlet {
         boolean b;
         try {
             Evento eve = new Evento();
+            Mensajeria sms = new Mensajeria();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
             //urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
@@ -122,7 +123,6 @@ public class Contr_Evento extends HttpServlet {
 
                     } else if (name.equals("DesactivarEvento")) {
                         if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
-                            Mensajeria sms = new Mensajeria();
                             String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
                             if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
                                 session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
@@ -162,8 +162,27 @@ public class Contr_Evento extends HttpServlet {
                     }
                 }
             }
-
-            response.sendRedirect("View/index.jsp");
+            if(request.getParameter("accion").equals("aprobarevento"))
+            {
+                Codigo =  request.getParameter("codigoevento");
+                b = eve.setCambioEstadoEvento(Codigo, "Aprobado");
+                if (b) {
+                    String[] Datos = eve.BuscarEventoParaMensaje(Codigo);
+                    if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Aprobado")) {
+                        session.setAttribute("Mensaje","Se aprobó el evento satisfactoriamente.");
+                        session.setAttribute("TipoMensaje","Dio");
+                    } else {
+                        session.setAttribute("Mensaje","Se aprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                        session.setAttribute("TipoMensaje","NODio");
+                    }
+                } else {
+                    session.setAttribute("Mensaje","Ocurrió un error al agregar el gusto a su cuenta. Estamos trabajando para solucionar este problema.");
+                    session.setAttribute("TipoMensaje","NODio");
+                }
+            }else
+            {
+                response.sendRedirect("View/index.jsp");
+            }
         } catch (FileUploadException ex) {
             System.out.print(ex.getMessage().toString());
         } catch (Exception ex) {
