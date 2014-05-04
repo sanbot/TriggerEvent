@@ -31,10 +31,10 @@
 </head>
 <body>
     <%
-	if(Rol.equals("Administrador"))
-       {%>
-	   <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-	   <%
+    if(Rol.equals("Administrador"))
+    {%>
+    <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+    <%
     }else if(Rol.equals("Cliente"))
     {%>
     <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>

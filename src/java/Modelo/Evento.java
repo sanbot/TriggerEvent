@@ -284,7 +284,9 @@ public class Evento {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad \n"
+        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
+                + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
+                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -302,7 +304,7 @@ public class Evento {
             while (rs.next()) {
                 rows++;
             }
-            String[][] Datos = new String[rows][6];
+            String[][] Datos = new String[rows][8];
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
@@ -318,6 +320,8 @@ public class Evento {
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = rs.getTime("Fecha").toString();
+                Datos[rows][6] = rs.getString("Calificacion");
+                Datos[rows][7] = rs.getString("Comentarios");
 
                 rows++;
 

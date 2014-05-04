@@ -109,9 +109,18 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                                 <label for="Hora">Hora: <%=Row[5]%></label>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="Fecha">Fecha: <%=Row[2]%></label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="panel-footer">
-                                            <label for="Fecha">Fecha: <%=Row[2]%></label>
+                                            <label for="Espacio"> </label>
+                                            <p class="pull-right calificacionevento" data-id="<%=Row[0]%>">
+                                                <span title="Calificaci&oacute;n" class="glyphicon glyphicon-star"><%if(Row[6]==null){%>0<%}else{%><%=Row[6]%><%}%></span>
+                                                <span title="Comentarios" class="glyphicon glyphicon-comment"><%if(Row[7]==null){%>0<%}else{%><%=Row[7]%><%}%></span>
+                                            </p>
                                     </div>
                                 </div>
                             </div>
@@ -260,11 +269,15 @@ int Cantidad = usu.getCantidadEventosPendientes();
                 });
             }
         });
+        $(".calificacionevento").click(function(){
+            var Id = $(this).data('id');
+            window.location.replace("http://localhost:8080/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento="+Id+"#titulo-opinion");
+        });
         $(".modal-Modifica").click(function(){
-        var Id = $(this).data('id');
-        var Name = $(this).data('nombre');
-        $(".modal-body #ConCodigo").val( Id );
-        $(".modal-body #ConNombre").val( Name );
+            var Id = $(this).data('id');
+            var Name = $(this).data('nombre');
+            $(".modal-body #ConCodigo").val( Id );
+            $(".modal-body #ConNombre").val( Name );
         });
     });
     </script>

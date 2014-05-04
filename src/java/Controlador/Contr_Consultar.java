@@ -5,7 +5,6 @@
 package Controlador;
 
 import Modelo.Usuario;
-import Modelo.Mensajeria;
 import Modelo.Tipo_Usuario;
 import Modelo.Seleccion;
 import Modelo.Evento;
@@ -75,21 +74,9 @@ public class Contr_Consultar {
         return Datos;
     }
 
-    public String[][] getGustosNuevos(String Codigo) {
-        Seleccion sel = new Seleccion();
-        String Datos[][] = sel.getGustosNuevos(Codigo);
-        return Datos;
-    }
-
     public String[][] getClasifiacionNuevos(String Codigo) {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getClasificacionNuevos(Codigo);
-        return Datos;
-    }
-
-    public String[][] getMisGustos(String Codigo) {
-        Seleccion sel = new Seleccion();
-        String Datos[][] = sel.getMisGustos(Codigo);
         return Datos;
     }
 
@@ -188,12 +175,6 @@ public class Contr_Consultar {
         Evento eve = new Evento();
         String[][] Datos = eve.BuscarDatosEventosComentado();
         return Datos;
-    }
-
-    public int getCantidadComentariosEventos(String CodigoEvento) {
-        Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        int row = sat.getCantidadComentariosEvento(CodigoEvento);
-        return row;
     }
 
     public String[] getBuscarDatosDetalladosEvento(String CodigoEvento) {
