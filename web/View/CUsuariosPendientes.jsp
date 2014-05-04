@@ -78,8 +78,8 @@ String[][] ListaUsuario = usu.BuscarDatosUsuariosPendientes();
                                     <td><%=Row[2]%></td>
                                     <td><%=Row[3]%></td>
                                     <td><%=Row[10]%></td>
-                                    <td><center><a href="ModificarUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=false"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                    <td><center><a href="ModificarUsuario.jsp?Codigo=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
+                                    <td><center><a title="Desaprobar" class="estadousuario" data-id="<%=Row[0]%>" data-estado="Desaprobado"><span class="glyphicon glyphicon-remove"></span></a></center></td>
+                                    <td><center><a title="Aprobar" class="estadousuario" data-id="<%=Row[0]%>" data-estado="Aprobado"><span class="glyphicon glyphicon-ok"></span></a></center></td>
                                     <td><center><a href="CUsuario.jsp?Codigo=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in"></span><center></td>
                                 </tr>
                             <%}%>
@@ -118,21 +118,34 @@ String[][] ListaUsuario = usu.BuscarDatosUsuariosPendientes();
     <script type="text/javascript">
     $(document).ready(function() {
     	$('#table1').dataTable({
-    		"sPaginationType": "bs_normal"
-                // "sPaginationType": "bs_four_button"
-                // "sPaginationType": "bs_full"
-                // "sPaginationType": "bs_two_button"
-            }); 
+            "sPaginationType": "bs_normal"
+            // "sPaginationType": "bs_four_button"
+            // "sPaginationType": "bs_full"
+            // "sPaginationType": "bs_two_button"
+        }); 
     	$('#table1').each(function(){
-    		var datatable = $(this);
-                // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-                var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-                search_input.attr('placeholder', 'Buscar');
-                search_input.addClass('form-control input-sm');
-                // LENGTH - Inline-Form control
-                var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                length_sel.addClass('form-control input-sm');
+            var datatable = $(this);
+            // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+            var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+            search_input.attr('placeholder', 'Buscar');
+            search_input.addClass('form-control input-sm');
+            // LENGTH - Inline-Form control
+            var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+            length_sel.addClass('form-control input-sm');
+        });
+        $(".estadousuario").click(function(){
+            var codigo = $(this).data('id');
+            var estado = $(this).data('estado');
+            document.body.style.cursor='wait';
+            $.ajax({
+                type: 'POST',
+                url: '/TriggerEvent/Contr_Usuarios',
+                data: {"accion": 'cambiarestadousuario',"codigousuario": codigo , "estadousuario": estado},
+                success: function(data){
+                    location.reload();
+                }
             });
+        });
     });
     </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

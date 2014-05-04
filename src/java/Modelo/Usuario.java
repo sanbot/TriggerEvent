@@ -424,6 +424,31 @@ public class Usuario {
         }
         return false;
     }
+    
+    public boolean setCambiarEstadoUsaurio(String Codigo, String Estado) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        String sql = "UPDATE tb_usuario SET Estado = ? ";
+        sql += "WHERE Codigo=?";
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, Estado);
+            pr.setString(2, Codigo);
+            if (pr.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.printf(ex.toString());
+        } finally {
+            try {
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return false;
+    }
 
     public String CodVer() {
         String cadenaAleatoria = "";

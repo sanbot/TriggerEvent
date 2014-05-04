@@ -7,6 +7,7 @@ package Controlador;
 import Modelo.Mensajeria;
 import Modelo.Usuario;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -322,13 +323,52 @@ public class Contr_Usuarios extends HttpServlet {
                 session.setAttribute("TipoMensaje", "NODio");
             }
             response.sendRedirect("View/Perfil.jsp");
+        } else if (request.getParameter("accion").equals("cambiarestadousuario")) {
+            Codigo = (String) request.getParameter("codigousuario");
+            Estado = (String) request.getParameter("estadousuario");
+            b = usu.setCambiarEstadoUsaurio(Codigo, Estado);
+            if (b) {
+                boolean p = usu.getDatosParaEstado(Codigo);
+                if (p) {
+                    Tipo_Documento = usu.getTipo_Documento();
+                    No_Documento = usu.getNo_Documento();
+                    Nombre = usu.getNombre();
+                    Telefono = usu.getTelefono();
+                    Direccion = usu.getDireccion();
+                    celular = usu.getCelular();
+                    correo = usu.getCorreo();
+                    if (Estado.equals("Aprobado")) {
+                        b = msm.setMensajeModificarAprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
+                        if (b) {
+                            session.setAttribute("Mensaje", "Se ha modificado el estado del usuario correctamente.");
+                            session.setAttribute("TipoMensaje", "Dio");
+
+                        } else {
+                            session.setAttribute("Mensaje", "Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
+                            session.setAttribute("TipoMensaje", "NODio");
+                        }
+                    } else if (Estado.equals("Desaprobado")) {
+                        b = msm.setMensajeModificarDesaprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
+                        if (b) {
+                            session.setAttribute("Mensaje", "Se ha modificado el estado del usuario correctamente.");
+                            session.setAttribute("TipoMensaje", "Dio");
+                        } else {
+                            session.setAttribute("Mensaje", "Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
+                            session.setAttribute("TipoMensaje", "NODio");
+                        }
+                    }
+                }
+            } else {
+                session.setAttribute("Mensaje", "Ocurrio un error al modificar el estado del usuario.");
+                session.setAttribute("TipoMensaje", "NODio");
+            }
         } else {
             url = "View/login.jsp";
             response.sendRedirect(url);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
