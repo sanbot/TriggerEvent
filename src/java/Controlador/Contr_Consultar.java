@@ -99,32 +99,6 @@ public class Contr_Consultar {
         return Datos;
     }
 
-    public boolean AddRemoveGustos(String Codigo, String CodigoUsuario, String Accion) {
-        Seleccion sel = new Seleccion();
-        boolean b;
-        if (Accion.equals("Nuevo")) {
-            b = sel.AddGusto(Codigo, CodigoUsuario);
-            if (b) {
-                this.setMensaje("Se agrego el gusto satisfactoriamente.");
-            } else {
-                this.setMensaje("Ocurrió un error al agregar el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
-            }
-        } else {
-            b = sel.CantidadGustosAmbientesPreRemove(Codigo, CodigoUsuario);
-            if (b) {
-                b = sel.RemoveGusto(Codigo, CodigoUsuario);
-                if (b) {
-                    this.setMensaje("Se quito el gusto de tus gustos existosamente.");
-                } else {
-                    this.setMensaje("Ocurrió un error al remover el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
-                }
-            } else {
-                this.setMensaje(sel.getMensaje());
-            }
-        }
-        return b;
-    }
-
     public boolean AprobarDesaprobarSeleccion(String CodigoSeleccion, String Accion) {
         Seleccion sel = new Seleccion();
         boolean b;

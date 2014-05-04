@@ -585,7 +585,7 @@ public class Seleccion {
         String codigo = "GUS";
         codigo += this.CantidadGustos();
         String sqlc = "Select Codigo From tb_seleccion_usuario Where Id_Seleccion = ? and Id_Usuario = ? ";
-        String sqlu = "UPDATE tb_seleccion_usuario SET Estado = 'Desactivo' Where Codigo = ?";
+        String sqlu = "UPDATE tb_seleccion_usuario SET Estado = 'Inactivo' Where Codigo = ?";
 
         try {
             pr = conn.prepareStatement(sqlc);
@@ -651,7 +651,7 @@ public class Seleccion {
         String sql = "SELECT Count(su.Codigo) Cantidad FROM `tb_seleccion_usuario` su "
                 + "JOIN tb_seleccion s on s.Codigo = su.Id_Seleccion "
                 + "AND s.Tipo = (Select Tipo From tb_seleccion Where Codigo = ?) "
-                + "WHERE Id_Usuario = ?";
+                + "WHERE Id_Usuario = ? AND su.Estado = 'Activo'";
         String consulta = "Select Tipo From tb_seleccion Where Codigo = ?";
         try {
             pr = conn.prepareStatement(sql);

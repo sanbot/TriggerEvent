@@ -519,9 +519,6 @@
 </script>
 <!--Pines Notify -->
 <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-
-
-
 <script src="../Libs/Customs/js/guidely.min.js"></script>
 <script>
 

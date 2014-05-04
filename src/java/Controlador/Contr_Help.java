@@ -10,6 +10,7 @@ import Modelo.Cls_Satisfaccion;
 import Modelo.Departamento;
 import Modelo.Evento;
 import Modelo.Mensajeria;
+import Modelo.Seleccion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -150,6 +151,71 @@ public class Contr_Help extends HttpServlet {
                     i++;
                 }
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("agregargusto")) {
+                Seleccion sel = new Seleccion();
+                String Codigo = request.getParameter("codigo");
+                String CodigoUsuario = request.getParameter("idusuario");
+                JSONObject obj = new JSONObject();
+                boolean b;
+                b = sel.AddGusto(Codigo, CodigoUsuario);
+                if (b) {
+                    obj.put("1", "Se agrego el gusto satisfactoriamente.");
+                } else {
+                    obj.put("0", "Ocurrió un error al agregar el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
+                }
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("removergusto")) {
+                Seleccion sel = new Seleccion();
+                String Codigo = request.getParameter("codigo");
+                String CodigoUsuario = request.getParameter("idusuario");
+                JSONObject obj = new JSONObject();
+                boolean b;
+                b = sel.CantidadGustosAmbientesPreRemove(Codigo, CodigoUsuario);
+                if (b) {
+                    b = sel.RemoveGusto(Codigo, CodigoUsuario);
+                    if (b) {
+                        obj.put("1", "Se quito el gusto de tus gustos existosamente.");
+                    } else {
+                        obj.put("0", "Ocurrió un error al remover el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
+                    }
+                } else {
+                    obj.put("0", sel.getMensaje());
+                }
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("getgustosnuevos")) {
+                String Codigo = request.getParameter("codigo");
+                Seleccion sel = new Seleccion();
+                String[][] Datos = sel.getGustosNuevos(Codigo);
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("tipo", row[2]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("getgustos")) {
+                String Codigo = request.getParameter("codigo");
+                Seleccion sel = new Seleccion();
+                String[][] Datos = sel.getMisGustos(Codigo);
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("tipo", row[2]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.print(obj);
             } else {
                 response.sendRedirect("View/index.jsp");
             }
@@ -159,7 +225,7 @@ public class Contr_Help extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

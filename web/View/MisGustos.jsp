@@ -11,7 +11,6 @@ Author     : ADSI
 <%
 String Codigo = (String) session.getAttribute("Codigo");
 Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaGustos = usu.getMisGustos(Codigo);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,17 +75,7 @@ String[][] ListaGustos = usu.getMisGustos(Codigo);
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <%
-                            for(String[] Row : ListaGustos){%>
-                                <tr>
-                                    <td><%=Row[1]%></td>
-                                    <td><%=Row[2]%></td>
-                                    <td><img src="Imagen.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"></td>
-                                    <td><center><a href="ModificarGustos.jsp?Codigo=<%=Row[0]%>&Accion=Quitar"><span class="glyphicon glyphicon-remove"></span><center></td>
-                                </tr>
-                            <%
-                            }%>
+                        <tbody id="contenido-mis-gustos">
                         </tbody>
                     </table>
                 </div>
@@ -119,24 +108,73 @@ String[][] ListaGustos = usu.getMisGustos(Codigo);
     </script>
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
-    	$(document).ready(function() {
-            
-            $('#table').dataTable({
-                "sPaginationType": "bs_normal"
-                // "sPaginationType": "bs_four_button"
-                // "sPaginationType": "bs_full"
-                // "sPaginationType": "bs_two_button"
-            }); 
-            $('#table').each(function(){
-                var datatable = $(this);
-                // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-                var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-                search_input.attr('placeholder', 'Buscar');
-                search_input.addClass('form-control input-sm');
-                // LENGTH - Inline-Form control
-                var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                length_sel.addClass('form-control input-sm');
+        function misgustos()
+        {
+            $("#contenido-mis-gustos").html('<tr><td colspan="4"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+            var Codigo = '<%=Codigo%>';
+            $.ajax({
+                type: 'POST',
+                url: '/TriggerEvent/Contr_Help',
+                data: {"accion": 'getgustos',"codigo": Codigo},
+                success: function(data){
+                    var datos = jQuery.parseJSON(data);
+                    var items = [];
+                    $.each(datos, function(key, val){
+                        items.push('<tr>');
+                        items.push('<td>'+val.nombre+'</td>');
+                        items.push('<td>'+val.tipo+'</td>');
+                        items.push('<td><img src="Imagen.jsp?Codigo='+val.codigo+'" class="img-responsive imgseleccion"></td>');
+                        items.push('<td><center><a class="removergusto" data-id="'+val.codigo+'"><span class="glyphicon glyphicon-remove"></span><center></td>');
+                        items.push('</tr>');
+                    });
+                    $("#contenido-mis-gustos").html(items.join(""));
+                }
+            }).done(function(){
+                $('#table').dataTable({
+                    "sPaginationType": "bs_normal",
+                    // "sPaginationType": "bs_four_button"
+                    // "sPaginationType": "bs_full"
+                    // "sPaginationType": "bs_two_button"
+                    "bRetrieve": true
+                }); 
+                $('#table').each(function(){
+                    var datatable = $(this);
+                    // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+                    var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                    search_input.attr('placeholder', 'Buscar');
+                    search_input.addClass('form-control input-sm');
+                    // LENGTH - Inline-Form control
+                    var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+                    length_sel.addClass('form-control input-sm');
+                });
+                $(".removergusto").click(function(){
+                    document.body.style.cursor='wait';
+                    var Id = $(this).data('id');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/TriggerEvent/Contr_Help',
+                        data: {"accion": 'removergusto',"codigo": Id, "idusuario": '<%=Codigo%>'},
+                        success: function(data){
+                            var datos = jQuery.parseJSON(data);
+                            $.each(datos, function(key, val){
+                                if(key === "1")
+                                {
+                                    alertify.success(val);
+                                    misgustos();
+                                }
+                                else{
+                                    alertify.error(val);
+                                }
+                            });
+                            document.body.style.cursor='default';
+                        }
+                    });
+                });
             });
+            
+        }
+    	$(document).ready(function() {
+            misgustos();
     	});
     </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
