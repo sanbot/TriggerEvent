@@ -8,6 +8,8 @@ package Controlador;
 import Modelo.Ciudad;
 import Modelo.Cls_Satisfaccion;
 import Modelo.Departamento;
+import Modelo.Evento;
+import Modelo.Mensajeria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -107,8 +109,50 @@ public class Contr_Help extends HttpServlet {
                     i++;
                 }
                 out.println(obj);
+            } else if (request.getParameter("accion").equals("aprobarevento")) {
+                Evento eve = new Evento();
+                Mensajeria sms = new Mensajeria();
+                String Codigo = request.getParameter("codigoevento");
+                JSONObject obj = new JSONObject();
+                JSONObject ob = new JSONObject();
+                boolean b = eve.setCambioEstadoEvento(Codigo, "Aprobado");
+                if (b) {
+                    String[] Datos = eve.BuscarEventoParaMensaje(Codigo);
+                    if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Aprobado")) {
+                        ob.put("mensaje", "Se aprobó el evento satisfactoriamente.");
+                        ob.put("tipomensaje", "Dio");
+                    } else {
+                        ob.put("mensaje", "Se aprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                        ob.put("tipomensaje", "NODio");
+                    }
+                } else {
+                    ob.put("mensaje", "Ocurrió un error al agregar el gusto a su cuenta. Estamos trabajando para solucionar este problema.");
+                    ob.put("tipomensaje", "NODio");
+                }
+                obj.put("1", ob);
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("geteventospendientes")) {
+                Evento eve = new Evento();
+                JSONObject obj = new JSONObject();
+                String[][] Datos = eve.BuscarDatosPrincipalesEventosPendientes();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("creador", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("hora", row[5]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.print(obj);
+            } else {
+                response.sendRedirect("View/index.jsp");
             }
-            
 
         } finally {
             out.close();

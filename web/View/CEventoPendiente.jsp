@@ -4,13 +4,9 @@ Created on : 18-mar-2014, 14:17:00
 Author     : ADSI
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
-<%
-Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,20 +74,7 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <%for(String[] Row : ListaEvento){%>
-                            <tr>
-                                <td><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-responsive imgseleccion"/></td>
-                                <td><%=Row[1]%></td>
-                                <td><%=Row[2]%></td>
-                                <td><%=Row[5]%></td>
-                                <td><%=Row[3]%></td>
-                                <td><%=Row[4]%></td>
-                                <td><center><a class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="<%=Row[0]%>" data-nombre="<%=Row[1]%>" data-creador="<%=Row[3]%>"><span class="glyphicon glyphicon-remove"></span></a></center></td>
-                                <td><center><a href="ModificarEvento.jsp?CodigoEvento=<%=Row[0]%>&Aprobar=true"><span class="glyphicon glyphicon-ok"></span></a></center></td>
-                                <td><center><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>&Pendiente=true"><span class="glyphicon glyphicon-log-in"></span></a><center></td>
-                            </tr>
-                            <%}%>
+                        <tbody id="contenido-eventos-pendientes">
                         </tbody>
                     </table>
                 </div>
@@ -165,29 +148,84 @@ String[][] ListaEvento = usu.getBuscarDatosPrincipalesEventoPendiente();
     
     <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
-        $(".modal-desactivarevento").click(function(){
-            var Id = $(this).data('id');
-            var Name = $(this).data('nombre');
-            $(".modal-body #CodigoEvento").val( Id );
-            $(".modal-title #NombreEvento").text( Name );
-        });
-    	$('#table1').dataTable({
-    		"sPaginationType": "bs_normal"
-                // "sPaginationType": "bs_four_button"
-                // "sPaginationType": "bs_full"
-                // "sPaginationType": "bs_two_button"
-            }); 
-    	$('#table1').each(function(){
-    		var datatable = $(this);
-                // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-                var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-                search_input.attr('placeholder', 'Buscar');
-                search_input.addClass('form-control input-sm');
-                // LENGTH - Inline-Form control
-                var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                length_sel.addClass('form-control input-sm');
+        function eventospendientes(){
+            $("#contenido-eventos-pendientes").html('<tr><td colspan="9"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+            $.ajax({
+                type: 'POST',
+                url: '/TriggerEvent/Contr_Help',
+                data: {"accion": 'geteventospendientes'},
+                success: function(data){
+                    var datos = jQuery.parseJSON(data);
+                    var items = [];
+                    $.each(datos, function(key, val){
+                        items.push('<tr>');
+                        items.push('<td><img src="ImagenEvento.jsp?Codigo='+val.codigo+'" class="img-responsive imgseleccion"/></td>');
+                        items.push('<td>'+val.nombre+'</td>');
+                        items.push('<td>'+val.fecha+'</td>');
+                        items.push('<td>'+val.hora+'</td>');
+                        items.push('<td>'+val.creador+'</td>');
+                        items.push('<td>'+val.ciudad+'</td>');
+                        items.push('<td><center><a title="Desaprobar" class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="'+val.codigo+'" data-nombre="'+val.nombre+'" data-creador="'+val.creador+'"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
+                        items.push('<td><center><a class="aprobarevento" title="Aprobar" data-id='+val.codigo+'><span class="glyphicon glyphicon-ok"></span></a></center></td>');
+                        items.push('<td><center><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento='+val.codigo+'&Pendiente=true"><span class="glyphicon glyphicon-log-in"></span></a><center></td>');
+                        items.push('</tr>');    
+                    });
+                    $("#contenido-eventos-pendientes").html(items.join(""));
+                }
+            }).done(function(){
+                $('#table1').dataTable({
+                    "sPaginationType": "bs_normal",
+                    // "sPaginationType": "bs_four_button"
+                    // "sPaginationType": "bs_full"
+                    // "sPaginationType": "bs_two_button"
+                    "bRetrieve": true
+                }); 
+                $('#table1').each(function(){
+                    var datatable = $(this);
+                    // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+                    var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                    search_input.attr('placeholder', 'Buscar');
+                    search_input.addClass('form-control input-sm');
+                    // LENGTH - Inline-Form control
+                    var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+                    length_sel.addClass('form-control input-sm');
+                });
+                $(".modal-desactivarevento").click(function(){
+                    var Id = $(this).data('id');
+                    var Name = $(this).data('nombre');
+                    $(".modal-body #CodigoEvento").val( Id );
+                    $(".modal-title #NombreEvento").text( Name );
+                });
+                $(".aprobarevento").click(function(){
+                    var Id = $(this).data('id');
+                    document.body.style.cursor='wait';
+                    $.ajax({
+                        type: 'POST',
+                        url: '/TriggerEvent/Contr_Help',
+                        data: {"accion": 'aprobarevento', "codigoevento": Id},
+                        success: function(data){
+                            var datos = jQuery.parseJSON(data);
+                            $.each(datos, function(key, val){
+                                if(val.tipomensaje === "NODio")
+                                {
+                                    alertify.error(val.mensaje);
+                                }
+                                else if(val.tipomensaje === "Dio")
+                                {
+                                    alertify.success(val.mensaje);
+                                }
+                            });
+                        }
+                    }).done(function(){
+                        document.body.style.cursor='default';
+                        eventospendientes();
+                    });
+                });
             });
+        }
+        
+    $(document).ready(function() {
+    	eventospendientes();
     });
     </script>
     <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

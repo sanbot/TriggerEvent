@@ -255,7 +255,7 @@ public class Evento {
         ResultSet rs = null;
         String sql = "Select Count(Codigo) Cantidad "
                 + "From  tb_evento"
-                + " Where Estado = 'Pendiente'";
+                + " Where Estado = 'Pendiente' AND Fecha > CURDATE()";
         try {
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
