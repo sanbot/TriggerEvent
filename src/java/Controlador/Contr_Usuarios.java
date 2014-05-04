@@ -419,6 +419,47 @@ public class Contr_Usuarios extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println(obj);
             out.close();
+        } else if (request.getParameter("accion").equals("loginmodal")) {
+            correo = request.getParameter("correo");
+            Contrasenia = request.getParameter("contrasenia");
+            JSONObject obj = new JSONObject();
+            JSONObject ob = new JSONObject();
+            b = usu.getlogin(correo, Contrasenia);
+            if (b) {
+                Codigo = usu.getCodigo();
+                Tipo_Documento = usu.getTipo_Documento();
+                No_Documento = usu.getNo_Documento();
+                Nombre = usu.getNombre();
+                Telefono = usu.getTelefono();
+                Direccion = usu.getDireccion();
+                celular = usu.getCelular();
+                Rol = usu.getTipo();
+                Ciudad = usu.getCiudad();
+                Departamento = usu.getDepartamento();
+
+                session.setAttribute("Codigo", Codigo);
+                session.setAttribute("Rol", Rol);
+                session.setAttribute("Tipo_Documento", Tipo_Documento);
+                session.setAttribute("No_Documento", No_Documento);
+                session.setAttribute("Nombre", Nombre);
+                session.setAttribute("Telefono", Telefono);
+                session.setAttribute("Celular", celular);
+                session.setAttribute("Correo", correo);
+                session.setAttribute("Direccion", Direccion);
+                session.setAttribute("Ciudad", Ciudad);
+                session.setAttribute("Departamento", Departamento);
+                obj.put("1", b);
+                PrintWriter out = response.getWriter();
+                out.println(obj);
+                out.close();
+            } else {
+                obj.put("mensaje", usu.getMensaje());
+                ob.put("0", obj);
+                PrintWriter out = response.getWriter();
+                out.println(ob);
+                out.close();
+            }
+
         } else {
             url = "View/login.jsp";
             response.sendRedirect(url);

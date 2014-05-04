@@ -6,6 +6,10 @@
   -o-background-size: cover;
   background-size: cover;
 }
+/*mouse*/
+.calificacionevento:hover{
+    cursor: pointer;
+}
 
 /*aligncerar*/
 .aligncerar{
@@ -110,6 +114,10 @@
   margin-bottom: 45%;
   opacity: 0.8;
   background: rgba(51, 44, 44, 0.86);
+}
+.modal-login {
+  margin-top:10%;
+  margin-bottom: 10%;
 }
 .form-group.last { margin-bottom:0px; }
 

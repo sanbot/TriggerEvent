@@ -229,12 +229,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="Fecha">Fecha: <%=Row[2]%></label> <label for="Hora">Hora: <%=Row[6]%></label>
+                                    <label for="Fecha">Fecha: <%=Row[2]%></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="Hora">Hora: <%=Row[6]%></label>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <label for="Calificacion">Calificaci&oacute;n: <%if(Row[5]==null){%>0<%}else{%><%=Row[5]%><%}%></label>
+                            <label for="Espacio"> </label>
+                            <p class="pull-right calificacionevento" data-id="<%=Row[0]%>">
+                                <span title="Calificaci&oacute;n" class="glyphicon glyphicon-star"><%if(Row[5]==null){%>0<%}else{%><%=Row[5]%><%}%></span>
+                                <span title="Comentarios" class="glyphicon glyphicon-comment"><%if(Row[7]==null){%>0<%}else{%><%=Row[7]%><%}%></span>
+                            </p>
                         </div>
                     </div>
                 <%}%>
@@ -275,12 +284,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="Fecha">Fecha: <%=Row[2]%></label> <label for="Hora">Hora: <%=Row[6]%></label>
+                                    <label for="Fecha">Fecha: <%=Row[2]%></label>
+                                </div>
+                            </div>
+                                <div class="row">
+                                <div class="col-md-12">
+                                    <label for="Hora">Hora: <%=Row[6]%></label>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <label for="Calificacion">Comentarios: <%=Row[5]%></label>
+                            <label for="Fecha"> </label>
+                            <p class="pull-right calificacionevento" data-id="<%=Row[0]%>">
+                                <span title="Calificaci&oacute;n" class="glyphicon glyphicon-star"><%if(Row[7]==null){%>0<%}else{%><%=Row[7]%><%}%></span>
+                                <span tile="Comentarios" class="glyphicon glyphicon-comment"><%if(Row[5]==null){%>0<%}else{%><%=Row[5]%><%}%></span>
+                            </p>
                         </div>
                     </div>
                 <%}%>
@@ -323,12 +341,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
+                                    <label for="Fecha">Fecha: <%=Row[2]%></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <label for="Hora">Hora: <%=Row[5]%></label>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <label for="Fecha">Fecha: <%=Row[2]%></label>
+                            <label for="Espacio"> </label>
+                            <p class="pull-right calificacionevento" data-id="<%=Row[0]%>">
+                                <span title="Calificaci&oacute;n" class="glyphicon glyphicon-star"><%if(Row[6]==null){%>0<%}else{%><%=Row[6]%><%}%></span>
+                                <span title="Comentarios" class="glyphicon glyphicon-comment"><%if(Row[7]==null){%>0<%}else{%><%=Row[7]%><%}%></span>
+                            </p>
                         </div>
                     </div>
                 <%}%>
@@ -379,6 +406,9 @@
                     <div class="modal-body">
                         <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
                             <div class="row">
+                                <input type="hidden" id="codigoeventomodal"/>
+                            </div>
+                            <div class="row">
                                 <div class="col-xs-offset-2 col-xs-8">
                                     <div class="form-group">
                                         <label for="CorreoRecordar">
@@ -398,6 +428,74 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Modal-Login" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Inicio de session
+                        </h4>
+                    </div>
+                    <div class="modal-body" id="body">
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1">
+                                <div class="panel panel-default modal-login">
+                                    <div class="panel-heading">
+                                        <span class="glyphicon glyphicon-lock"></span> Inicio de sesi&oacute;n
+                                    </div>
+                                    <div class="panel-body">
+                                        <form id="formulario-modal-login" class="form-horizontal" data-validate="parsley">
+                                            <div class="form-group">
+                                                <label for="Correo" class="col-sm-3 control-label" >
+                                                    Correo
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="email" class="form-control" id="txtCorreoModal" name="correo" placeholder="e-mail" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Contrasenia" class="col-sm-3 control-label">
+                                                    Contrase&ntilde;a
+                                                </label>
+                                                <div class="col-sm-9" id="target-2">
+                                                    <input type="password" class="form-control" id="txtPasswordModal" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[8,50]">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" >
+                                                <div class="col-sm-offset-3 col-sm-9">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"/>
+                                                            Recordarme
+                                                        </label>
+                                                    </div>
+                                                    <a id="modal-oldive" href="#modal-container-Olvide" role="button" data-toggle="modal">Olvid&eacute; la contrase&ntilde;a</a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group last" >
+                                                <div class="col-sm-offset-3 col-sm-9">
+                                                    <a id="btn-login" class="btn btn-success btn-sm" >
+                                                        Ingresar
+                                                    </a>
+                                                    <button type="reset" class="btn btn-default btn-sm" id="target-3">
+                                                        Limpiar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="panel-footer" >
+                                        ¿No está registrado? 
+                                        <a href="RegistrarUsuario.jsp">Regístrese aquí</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -514,6 +612,42 @@
     $("#guia").click(function(){
         localStorage.removeItem("welcome");
         location.reload();
+    });
+    $(".calificacionevento").click(function(){
+        var Id = $(this).data('id');
+        <%if(Rol.equals("") || Rol.equals(null)){%>
+            $("#codigoeventomodal").val(Id);
+            $('#Modal-Login').modal('show');
+        <%}else{%>
+            window.location.replace("http://localhost:8080/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento="+Id+"#titulo-opinion");
+        <%}%>
+    });
+    $("#modal-oldive").click(function(){
+        $('#Modal-Login').modal('hide');
+    });
+    $("#btn-login").click(function(){
+        var correo = $("#txtCorreoModal").val();
+        var contrasenia = $("#txtPasswordModal").val();
+        $.ajax({
+            type: 'POST',
+            url: '/TriggerEvent/Contr_Usuarios',
+            data: {"accion": 'loginmodal', "correo": correo, "contrasenia": contrasenia},
+            success: function(data){
+                var datos = jQuery.parseJSON(data);
+                console.log(data);
+                $.each(datos, function(key, val){
+                    if(key === "1")
+                    {
+                        var CodigoEvento = $("#codigoeventomodal").val();
+                        window.location.replace("http://localhost:8080/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento="+CodigoEvento+"#titulo-opinion");
+                    }
+                    else
+                    {
+                        alertify.error(val.mensaje);
+                    }
+                });
+            }
+        });
     });
 </script>
 

@@ -125,26 +125,6 @@ public class Contr_Consultar {
         return b;
     }
 
-    public boolean AprobarDesaprobarEvento(String CodigoEvento) {
-        Evento eve = new Evento();
-        Mensajeria sms = new Mensajeria();
-        boolean b;
-
-        b = eve.setCambioEstadoEvento(CodigoEvento, "Aprobado");
-        if (b) {
-            String[] Datos = eve.BuscarEventoParaMensaje(CodigoEvento);
-            if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Aprobado")) {
-                this.setMensaje("Se aprobó el evento satisfactoriamente.");
-            } else {
-                this.setMensaje("Se aprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
-            }
-        } else {
-            this.setMensaje("Ocurrió un error al agregar el gusto a su cuenta. Estamos trabajando para solucionar este problema.");
-        }
-
-        return b;
-    }
-
     public boolean AprobarDesaprobarSeleccion(String CodigoSeleccion, String Accion) {
         Seleccion sel = new Seleccion();
         boolean b;

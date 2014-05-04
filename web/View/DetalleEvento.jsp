@@ -244,7 +244,7 @@ int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
                         <div class="col-xs-12 opinion-div contenidoborde">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <h3 class="titulo-opinion"><center>DAR UNA OPINI&Oacute;N</center></h3>
+                                    <h3 class="titulo-opinion" id="titulo-opinion"><center>DAR UNA OPINI&Oacute;N</center></h3>
                                 </div>
                             </div>
                             <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
@@ -303,7 +303,7 @@ int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
                             <div class="col-xs-12 opinion-div contenidoborde">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <h3 class="titulo-opinion"><center>DAR UNA OPINI&Oacute;N</center></h3>
+                                        <h3 class="titulo-opinion" id="titulo-opinion"><center>DAR UNA OPINI&Oacute;N</center></h3>
                                     </div>
                                 </div>
                                 <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
