@@ -216,6 +216,51 @@ public class Contr_Help extends HttpServlet {
                     i++;
                 }
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("getseleccion")) {
+                Seleccion sel = new Seleccion();
+                String[][] Datos = sel.getDatosSeleccion();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("tipo", row[2]);
+                    ob.put("estado", row[3]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("aprobarseleccion")) {
+                String CodigoSeleccion = request.getParameter("idseleccion");
+                Seleccion sel = new Seleccion();
+                JSONObject obj = new JSONObject();
+                boolean b;
+                b = sel.AprobarSeleccion(CodigoSeleccion);
+                if (b) {
+                    obj.put("1", "Se aprobó el gusto/ambiente satisfactoriamente.");
+                } else {
+                    obj.put("0", sel.getMensaje());
+                }
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("desaprobarseleccion")) {
+                String CodigoSeleccion = request.getParameter("idseleccion");
+                Seleccion sel = new Seleccion();
+                JSONObject obj = new JSONObject();
+                boolean b = sel.CantidadUsoAmbienteGusto(CodigoSeleccion);
+                if (b) {
+                    b = sel.DesaprobarSeleccion(CodigoSeleccion);
+                    if (b) {
+                        obj.put("1", "El gusto o ambiente ha sido desaprobado satisfactoriamente.");
+                    } else {
+                        obj.put("0", sel.getMensaje());
+                    }
+                } else {
+                    obj.put("0", "No se puede desaprobar, porque hay usuarios o eventos usando este ambiente o gusto.");
+                }
+                out.print(obj);
             } else {
                 response.sendRedirect("View/index.jsp");
             }

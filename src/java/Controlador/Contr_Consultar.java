@@ -56,12 +56,6 @@ public class Contr_Consultar {
         return Datos;
     }
 
-    public String[][] BuscarDatosSeleccion() {
-        Seleccion sel = new Seleccion();
-        String Datos[][] = sel.getDatosSeleccion();
-        return Datos;
-    }
-
     public Blob BuscarImagenes(String Codigo) {
         Seleccion sel = new Seleccion();
         Blob Datos = sel.getImagenSeleccion(Codigo);
@@ -84,32 +78,6 @@ public class Contr_Consultar {
         Seleccion sel = new Seleccion();
         String Datos[][] = sel.getClasificacionEvento(Codigo);
         return Datos;
-    }
-
-    public boolean AprobarDesaprobarSeleccion(String CodigoSeleccion, String Accion) {
-        Seleccion sel = new Seleccion();
-        boolean b;
-        if (Accion.equals("Aprobar")) {
-            b = sel.AprobarSeleccion(CodigoSeleccion);
-            if (b) {
-                this.setMensaje("Se aprobó el gusto/ambiente satisfactoriamente.");
-            } else {
-                this.setMensaje(sel.getMensaje());
-            }
-        } else {
-            b = sel.CantidadUsoAmbienteGusto(CodigoSeleccion);
-            if (b) {
-                b = sel.DesaprobarSeleccion(CodigoSeleccion);
-                if (b) {
-                    this.setMensaje("El gusto o ambiente ha sido desaprobado satisfactoriamente.");
-                } else {
-                    this.setMensaje(sel.getMensaje());
-                }
-            } else {
-                this.setMensaje("No se puede desaprobar, porque hay usuarios o eventos usando este ambiente o gusto.");
-            }
-        }
-        return b;
     }
 
     public boolean AddClasificacionEvento(String CodigoSeleccion, String Accion, String CodigoEvento) {

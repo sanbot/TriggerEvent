@@ -169,9 +169,11 @@ public class Seleccion {
                 + "From  tb_seleccion_usuario "
                 + "Where Estado = 'Activo'"
                 + " AND Id_Seleccion = ? ";
-        String sqldos = "Select Count(Codigo) Cantidad "
-                + "From  tb_seleccion_evento Where Estado = 'Activo'"
-                + " AND ID_Seleccion = ?";
+        String sqldos = "Select Count(se.Codigo) Cantidad "
+                + "From  tb_seleccion_evento se "
+                + "Join tb_evento e on se.Id_Evento = e.Codigo "
+                + "Where se.Estado = 'Activo' "
+                + " AND se.Id_Seleccion = ? AND e.Fecha > CURDATE()";
         try {
             pr = conn.prepareStatement(sqluno);
             pr.setString(1, codigoSeleccion);

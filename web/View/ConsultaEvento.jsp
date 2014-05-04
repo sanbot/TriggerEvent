@@ -45,7 +45,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
 	<br/>
 	<br/>
         <div class="row clearfix">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 <ol class="breadcrumb">
                     <li><a href="index.jsp">Inicio</a></li>
                     <li class="active">Eventos</a></li>
@@ -78,9 +78,8 @@ int Cantidad = usu.getCantidadEventosPendientes();
                         <%if(i ==1) { %>
                         <%if(x==1){%><div id="<%=pag%>" class="row paginacion"><%}%>
                             <div class="col-xs-12">
-                                <div class="row">
                         <%}%>
-                            <div class="col-xs-4">
+                            <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-4">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
@@ -131,10 +130,9 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                 {
                                     for(int j = 1 ; j<= (3-ListaEventos.length%3);j++)
                                     {%>
-                                        <div class="col-md-4"></div>
+                                        <div class="col-xs-10 col-sm-6 col-sm-offset-0 col-md-4"></div>
 
                                     <%}%>
-                                    </div>
                                 </div>
                             </div><%
                                 } 
