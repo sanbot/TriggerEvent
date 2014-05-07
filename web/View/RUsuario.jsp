@@ -1,21 +1,9 @@
-<%-- 
-Document   : RegistrarUsuario
-Created on : 11/03/2014, 08:28:24 AM
-Author     : santi_000
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
     Contr_Consultar usu = new Contr_Consultar();
     String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
-    String Cantidad = usu.getCantidadPendientes();
-    if (session.getAttribute("TipoMensaje").equals("Aprobar")) {
-        session.setAttribute("TipoMensaje", "Dio");
-    } else if (session.getAttribute("TipoMensaje").equals("AprobarNO")) {
-        session.setAttribute("TipoMensaje", "NODio");
-    }
 %>
 <!DOCTYPE html>
 <html lang="en">

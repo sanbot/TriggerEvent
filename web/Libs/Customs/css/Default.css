@@ -1,10 +1,10 @@
 /*Imagen del body en la parte inicial*/
 #body { 
-  background: url(../images/Concierto.png) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url(../images/Concierto.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 /*mouse*/
 .calificacionevento:hover, 
@@ -32,12 +32,12 @@
 }
 /*Mostrar imagenes*/
 .imgseleccion{
-  width: 100px;
-  height: 40px;
+    width: 100px;
+    height: 40px;
 }
 .imgevento{
-  width: 280px;
-  height: 150px;
+    width: 280px;
+    height: 150px;
 }
 /*Color grafico*/
 .graficocolor{
@@ -52,75 +52,75 @@
 }
 /*Esconder el div para paginacion*/
 .hide{
-  display: none;
+    display: none;
 }
 
 /*Sin estilo la lista para mapa del sitio*/
 .lista{
-  list-style: none;
+    list-style: none;
 }
 /*Color de las estrellas de puntuacion*/
 .rating{
-  margin: 20px 0;
-  font-size: 24px;
-  /*color: #1F5DAA;*/
+    margin: 20px 0;
+    font-size: 24px;
+    /*color: #1F5DAA;*/
 }
 
 .ratinggrafico{
-  margin: 20px 0;
-  font-size: 16px;
-  color: black;
-  padding-left: 10px;
+    margin: 20px 0;
+    font-size: 16px;
+    color: black;
+    padding-left: 10px;
 }
 #imagen{
-  margin-top: 25%;
-  margin-left: 20%;
+    margin-top: 25%;
+    margin-left: 20%;
 }
 #imagen1{
-  margin-top: 25%;
-  margin-left: 10%;
+    margin-top: 25%;
+    margin-left: 10%;
 }
 
 /*Color de los botones*/
 .defecto{
-  color: #fff;
-  background-color: #1F5DAA;
+    color: #fff;
+    background-color: #1F5DAA;
 }
 .defecto:hover{
-  color: #fff;
+    color: #fff;
 }
 /*Justificacion del texto*/
 .Justify{
-  text-align: justify;
-  color: white;
-  font-size: 18px
+    text-align: justify;
+    color: white;
+    font-size: 18px
 }
 /*Texto centrado*/
 .Center, .texto-centrado{
-  text-align: center;
+    text-align: center;
 }
 /*Link ver mas*/
 .vermascomentarios{
-  text-decoration: none;
+    text-decoration: none;
 }
 
 /*google-play-disponible*/
 .google-play-disponible
 {
- margin-left: 35px;   
+    margin-left: 35px;   
 }
 
 /*Panel de bootstrap*/
 .panel-default {
-  opacity: 0.9;
-  margin-top:25%;
-  margin-bottom: 45%;
-  opacity: 0.8;
-  background: rgba(51, 44, 44, 0.86);
+    opacity: 0.9;
+    margin-top:25%;
+    margin-bottom: 45%;
+    opacity: 0.8;
+    background: rgba(51, 44, 44, 0.86);
 }
 .modal-login {
-  margin-top:10%;
-  margin-bottom: 10%;
+    margin-top:10%;
+    margin-bottom: 10%;
 }
 .form-group.last { margin-bottom:0px; }
 
@@ -129,42 +129,42 @@
 .parsley-error-list
 {
 
-  padding-left: 0 !important;
+    padding-left: 0 !important;
 }
 input.parsley-error, textarea.parsley-error, select.parsley-error
 {
-  color: #000 !important;
-  background-color: #F2DEDE !important;
-  border: 1px solid #EED3D7 !important;
+    color: #000 !important;
+    background-color: #F2DEDE !important;
+    border: 1px solid #EED3D7 !important;
 }
 
 input.parsley-success, textarea.parsley-success, select.parsley-success 
 {
-  color: #000 !important;
-  background-color: #fff !important;
-  border: 1px solid #46FF5C !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    border: 1px solid #46FF5C !important;
 }
 p
 {
-  text-align:justify;
-  text-justify:inter-word;
+    text-align:justify;
+    text-justify:inter-word;
 }
 /*item del menu*/
 .negro{
-  color: #000;
-  display: inline;
+    color: #000;
+    display: inline;
 }
 .glyphiconuno{
-  width: 60px;
-  padding-left: 20px;
-  padding-right: 40px;
+    width: 60px;
+    padding-left: 20px;
+    padding-right: 40px;
 }
 /*Eventos estilos*/
 .contenidoborde
 {
     padding: 0;
 }
-  .eventoborde{
+.eventoborde{
     background-color : #2F4154;
     color: #fff;
     height: 549px;
@@ -289,190 +289,190 @@ p
 }
 
 @-moz-keyframes ringing{
-	0%{
-		-moz-transform:rotate(-15deg)
-	}
+    0%{
+        -moz-transform:rotate(-15deg)
+    }
 
-	2%{
-		-moz-transform:rotate(15deg)
-	}
+    2%{
+        -moz-transform:rotate(15deg)
+    }
 
-	4%{
-		-moz-transform:rotate(-18deg)
-	}
+    4%{
+        -moz-transform:rotate(-18deg)
+    }
 
-	6%{
-		-moz-transform:rotate(18deg)
-	}
+    6%{
+        -moz-transform:rotate(18deg)
+    }
 
-	8%{
-		-moz-transform:rotate(-22deg)
-	}
+    8%{
+        -moz-transform:rotate(-22deg)
+    }
 
-	10%{
-		-moz-transform:rotate(22deg)
-	}
+    10%{
+        -moz-transform:rotate(22deg)
+    }
 
-	12%{
-		-moz-transform:rotate(-18deg)
-	}
+    12%{
+        -moz-transform:rotate(-18deg)
+    }
 
-	14%{
-		-moz-transform:rotate(18deg)
-	}
+    14%{
+        -moz-transform:rotate(18deg)
+    }
 
-	16%{
-		-moz-transform:rotate(-12deg)
-	}
+    16%{
+        -moz-transform:rotate(-12deg)
+    }
 
-	18%{
-		-moz-transform:rotate(12deg)
-	}
+    18%{
+        -moz-transform:rotate(12deg)
+    }
 
-	20%{
-		-moz-transform:rotate(0deg)
-	}
+    20%{
+        -moz-transform:rotate(0deg)
+    }
 
 }
 
 @-webkit-keyframes ringing{
-	0%{
-		-webkit-transform:rotate(-15deg)
-	}
+    0%{
+        -webkit-transform:rotate(-15deg)
+    }
 
-	2%{
-		-webkit-transform:rotate(15deg)
-	}
+    2%{
+        -webkit-transform:rotate(15deg)
+    }
 
-	4%{
-		-webkit-transform:rotate(-18deg)
-	}
+    4%{
+        -webkit-transform:rotate(-18deg)
+    }
 
-	6%{
-		-webkit-transform:rotate(18deg)
-	}
+    6%{
+        -webkit-transform:rotate(18deg)
+    }
 
-	8%{
-		-webkit-transform:rotate(-22deg)
-	}
+    8%{
+        -webkit-transform:rotate(-22deg)
+    }
 
-	10%{
-		-webkit-transform:rotate(22deg)
-	}
+    10%{
+        -webkit-transform:rotate(22deg)
+    }
 
-	12%{
-		-webkit-transform:rotate(-18deg)
-	}
+    12%{
+        -webkit-transform:rotate(-18deg)
+    }
 
-	14%{
-		-webkit-transform:rotate(18deg)
-	}
+    14%{
+        -webkit-transform:rotate(18deg)
+    }
 
-	16%{
-		-webkit-transform:rotate(-12deg)
-	}
+    16%{
+        -webkit-transform:rotate(-12deg)
+    }
 
-	18%{
-		-webkit-transform:rotate(12deg)
-	}
+    18%{
+        -webkit-transform:rotate(12deg)
+    }
 
-	20%{
-		-webkit-transform:rotate(0deg)
-	}
+    20%{
+        -webkit-transform:rotate(0deg)
+    }
 
 }
 
 @-ms-keyframes ringing{
-	0%{
-		-ms-transform:rotate(-15deg)
-	}
+    0%{
+        -ms-transform:rotate(-15deg)
+    }
 
-	2%{
-		-ms-transform:rotate(15deg)
-	}
+    2%{
+        -ms-transform:rotate(15deg)
+    }
 
-	4%{
-		-ms-transform:rotate(-18deg)
-	}
+    4%{
+        -ms-transform:rotate(-18deg)
+    }
 
-	6%{
-		-ms-transform:rotate(18deg)
-	}
+    6%{
+        -ms-transform:rotate(18deg)
+    }
 
-	8%{
-		-ms-transform:rotate(-22deg)
-	}
+    8%{
+        -ms-transform:rotate(-22deg)
+    }
 
-	10%{
-		-ms-transform:rotate(22deg)
-	}
+    10%{
+        -ms-transform:rotate(22deg)
+    }
 
-	12%{
-		-ms-transform:rotate(-18deg)
-	}
+    12%{
+        -ms-transform:rotate(-18deg)
+    }
 
-	14%{
-		-ms-transform:rotate(18deg)
-	}
+    14%{
+        -ms-transform:rotate(18deg)
+    }
 
-	16%{
-		-ms-transform:rotate(-12deg)
-	}
+    16%{
+        -ms-transform:rotate(-12deg)
+    }
 
-	18%{
-		-ms-transform:rotate(12deg)
-	}
+    18%{
+        -ms-transform:rotate(12deg)
+    }
 
-	20%{
-		-ms-transform:rotate(0deg)
-	}
+    20%{
+        -ms-transform:rotate(0deg)
+    }
 
 }
 
 @keyframes ringing{
-	0%{
-		transform:rotate(-15deg)
-	}
+    0%{
+        transform:rotate(-15deg)
+    }
 
-	2%{
-		transform:rotate(15deg)
-	}
+    2%{
+        transform:rotate(15deg)
+    }
 
-	4%{
-		transform:rotate(-18deg)
-	}
+    4%{
+        transform:rotate(-18deg)
+    }
 
-	6%{
-		transform:rotate(18deg)
-	}
+    6%{
+        transform:rotate(18deg)
+    }
 
-	8%{
-		transform:rotate(-22deg)
-	}
+    8%{
+        transform:rotate(-22deg)
+    }
 
-	10%{
-		transform:rotate(22deg)
-	}
+    10%{
+        transform:rotate(22deg)
+    }
 
-	12%{
-		transform:rotate(-18deg)
-	}
+    12%{
+        transform:rotate(-18deg)
+    }
 
-	14%{
-		transform:rotate(18deg)
-	}
+    14%{
+        transform:rotate(18deg)
+    }
 
-	16%{
-		transform:rotate(-12deg)
-	}
+    16%{
+        transform:rotate(-12deg)
+    }
 
-	18%{
-		transform:rotate(12deg)
-	}
+    18%{
+        transform:rotate(12deg)
+    }
 
-	20%{
-		transform:rotate(0deg)
-	}
+    20%{
+        transform:rotate(0deg)
+    }
 
 }
 
@@ -491,7 +491,7 @@ p
 }
 
 /*Perfil diseño*/
-  .perfil-contenido{
+.perfil-contenido{
     background-color : #2F4154;
     color: #fff;
 }

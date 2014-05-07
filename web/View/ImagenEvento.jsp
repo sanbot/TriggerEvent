@@ -23,9 +23,9 @@
             //buscamos la imagen en la base de datos por medio de la capa logica
             imagen = img.BuscarImagenesEvento(CodigoImg);
             //de el blob sacamos los bits
-            byte[] imgData = imagen.getBytes(1,(int)imagen.length());
+            byte[] imgData = imagen.getBytes(1, (int) imagen.length());
             //enviamos el tipo de imagen que vamos a mostrar
-            response.setContentType("image/gif");            
+            response.setContentType("image/gif");
 
             //creamos una variable para tipo salida para imprimir la imagen
             OutputStream o = response.getOutputStream();

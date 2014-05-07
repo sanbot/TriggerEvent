@@ -54,8 +54,8 @@ public class Contr_Evento extends HttpServlet {
             Mensajeria sms = new Mensajeria();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
-            //urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
-            urlsalidaimg = "D:\\IMGTE\\";
+            urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
+            //urlsalidaimg = "D:\\IMGTE\\";
 
             /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();

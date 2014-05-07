@@ -1,10 +1,4 @@
-<%-- 
-    Document   : RClasificacionEvento
-    Created on : 09-abr-2014, 14:15:47
-    Author     : ADSI
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministradorEmpresa.jspf" %>
 <%
@@ -31,10 +25,10 @@
     <body>
 
         <%
-        if (Rol.equals("Administrador")) {%>
+            if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
         <%
-    } else if (Rol.equals("Cliente")) {%>
+        } else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
         <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
@@ -56,12 +50,12 @@
             <div class="row clearfix">
                 <div class="col-xs-12">
                     <h1 class="Center">Clasificar Evento</h1>
-                    <h5 id="titulo-completo" class="Center hide"><i>Nota: Seleccione al menos un gusto y un ambiente para completar el registro</i></h5>
+                    <h5 id="titulo-completo" class="Center"><i>Nota: Seleccione al menos un gusto y un ambiente para completar el registro</i></h5>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                    <div class="table-responsive">
+                    <div id="contenido-tabla" class="table-responsive">
                         <table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -108,7 +102,7 @@
         <script type="text/javascript">
             function getclasificacion()
             {
-                $("#contenido-clasificaciones").html('<tr><td colspan="4"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+                $("#contenido-tabla").html('<tr><td colspan="4"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
                 var Codigo = '<%=Codigo%>';
                 $.ajax({
                     type: 'POST',
@@ -117,6 +111,16 @@
                     success: function(data) {
                         var datos = jQuery.parseJSON(data);
                         var items = [];
+                        items.push('<table id="table" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">');
+                        items.push('<thead>');
+                        items.push('<tr>');
+                        items.push('<th>Nombre</th>');
+                        items.push('<th>Tipo</th>');
+                        items.push('<th>Imagen</th>');
+                        items.push('<th></th>');
+                        items.push('</tr>');
+                        items.push('</thead>');
+                        items.push('<tbody id="contenido-clasificaciones">');
                         $.each(datos, function(key, val) {
                             items.push('<tr>');
                             items.push('<td>' + val.nombre + '</td>');
@@ -125,26 +129,12 @@
                             items.push('<td><center><a title="Agregar" class="agregarclasificacion" data-idseleccion="' + val.codigo + '" data-idevento="<%=Codigo%>"><span class="glyphicon glyphicon-ok"></span></a><center></td>');
                             items.push('</tr>');
                         });
-                        $("#contenido-clasificaciones").html(items.join(""));
+                        items.push('</tbody>');
+                        items.push('</table>');
+                        $("#contenido-tabla").html(items.join(""));
                     }
+
                 }).done(function() {
-                    $('#table').dataTable({
-                        "sPaginationType": "bs_normal",
-                        // "sPaginationType": "bs_four_button"
-                        // "sPaginationType": "bs_full"
-                        // "sPaginationType": "bs_two_button"
-                        "bRetrieve": true
-                    });
-                    $('#table').each(function() {
-                        var datatable = $(this);
-                        // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-                        var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-                        search_input.attr('placeholder', 'Buscar');
-                        search_input.addClass('form-control input-sm');
-                        // LENGTH - Inline-Form control
-                        var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-                        length_sel.addClass('form-control input-sm');
-                    });
                     $(".agregarclasificacion").click(function() {
                         document.body.style.cursor = 'wait';
                         var IdEvento = $(this).data('idevento');
@@ -167,7 +157,7 @@
                                     else if (key === "2")
                                     {
                                         $("#btn-finalizar").removeClass('hide');
-                                        $("#titulo-completo").removeClass('hide');
+                                        $("#titulo-completo").addClass('hide');
                                     }
                                 });
                             }
@@ -175,6 +165,24 @@
                             document.body.style.cursor = 'default';
                         });
                     });
+                    $('#table').dataTable({
+                        "sPaginationType": "bs_normal",
+                        // "sPaginationType": "bs_four_button"
+                        // "sPaginationType": "bs_full"
+                        // "sPaginationType": "bs_two_button"
+                        "bRetrieve": true
+                    });
+                    $('#table').each(function() {
+                        var datatable = $(this);
+                        // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+                        var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                        search_input.attr('placeholder', 'Buscar');
+                        search_input.addClass('form-control input-sm');
+                        // LENGTH - Inline-Form control
+                        var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+                        length_sel.addClass('form-control input-sm');
+                    });
+
                 });
 
             }

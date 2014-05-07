@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -158,7 +159,13 @@ public class Evento {
 
     public boolean ValidarDosDiasFecha(Date FechaInicial) {
         Date FechaSistema = new Date();
-        if (FechaInicial.getDate() >= FechaSistema.getDate() + 2) {
+        Calendar calendar = Calendar.getInstance();
+        Calendar calendar1 = Calendar.getInstance();
+        calendar.setTime(FechaSistema); // Configuramos la fecha que se recibe
+        calendar1.setTime(FechaInicial);
+        calendar.add(Calendar.DAY_OF_YEAR, 2);
+
+        if (calendar1.getTime().after(calendar.getTime())) {
             return true;
         }
         return false;

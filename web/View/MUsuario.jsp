@@ -1,9 +1,3 @@
-<%-- 
-Document   : ConsultaUsuario
-Created on : 18-mar-2014, 14:17:00
-Author     : ADSI
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
@@ -260,11 +254,7 @@ Author     : ADSI
         </script>
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
-
-        <%
-            if (!session.getAttribute("TipoMensaje").equals("Aprobar") && !session.getAttribute("TipoMensaje").equals("AprobarNO")) {
-                session.setAttribute("Mensaje", "");
-        }%>
+        <%session.setAttribute("Mensaje", "");%>
     </body>
 </html>
 

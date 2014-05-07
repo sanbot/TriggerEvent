@@ -48,8 +48,8 @@ public class Contr_Seleccion extends HttpServlet {
             Seleccion sel = new Seleccion();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
-            //urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
-            urlsalidaimg = "D:\\IMGTE\\";
+            urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
+            //urlsalidaimg = "D:\\IMGTE\\";
 
             /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
@@ -57,7 +57,7 @@ public class Contr_Seleccion extends HttpServlet {
             /*ServletFileUpload esta clase convierte los input file a FileItem*/
             ServletFileUpload servlet_up = new ServletFileUpload(file_factory);
             /*sacando los FileItem del ServletFileUpload en una lista */
-
+            servlet_up.setHeaderEncoding("UTF-8");
             List items = servlet_up.parseRequest(request);
             Iterator it = items.iterator();
 

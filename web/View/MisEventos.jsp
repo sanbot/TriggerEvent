@@ -1,9 +1,3 @@
-<%-- 
-Document   : ConsultaUsuario
-Created on : 18-mar-2014, 14:17:00
-Author     : ADSI
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionEmpresa.jspf" %>
@@ -11,7 +5,6 @@ Author     : ADSI
 Contr_Consultar usu = new Contr_Consultar();
 String nit = (String) session.getAttribute("No_Documento");
 String[][] ListaEventos = usu.getBuscarDatosMisEventos(nit);
-int Cantidad = usu.getCantidadEventosPendientes();
 %>
 <!DOCTYPE html>
 <html lang="en">

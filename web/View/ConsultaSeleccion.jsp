@@ -1,9 +1,3 @@
-<%-- 
-Document   : ConsultaUsuario
-Created on : 18-mar-2014, 14:17:00
-Author     : ADSI
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
@@ -71,7 +65,7 @@ Author     : ADSI
                 </div>
             </div>
             <div class="row">
-                <form data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
+                <form accept-charset="ISO-8859-1" data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
                     <div class="col-xs-12">
                         <div class="modal fade" id="modal-container-Registrar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -122,7 +116,7 @@ Author     : ADSI
                 </form>
             </div>
             <div class="row">
-                <form data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
+                <form accept-charset="ISO-8859-1" data-validate="parsley" method="post" enctype="multipart/form-data" action="/TriggerEvent/Contr_Seleccion">
                     <div class="col-md-12">
                         <div class="modal fade" id="modal-container-Modificar" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -249,6 +243,62 @@ Author     : ADSI
                         $("#contenido-selecciones").html(items.join(""));
                     }
                 }).done(function() {
+
+                    $(".desaprobarseleccion").click(function() {
+                        var Codigo = $(this).data('id');
+                        $.ajax({
+                            type: 'POST',
+                            url: '/TriggerEvent/Contr_Help',
+                            data: {"accion": 'desaprobarseleccion', "idseleccion": Codigo},
+                            success: function(data) {
+                                var datos = jQuery.parseJSON(data);
+                                $.each(datos, function(key, val) {
+                                    if (key === "1")
+                                    {
+                                        alertify.success(val);
+                                        getseleccion();
+                                    }
+                                    else {
+                                        alertify.error(val);
+                                    }
+                                });
+                                document.body.style.cursor = 'default';
+                            }
+                        });
+                    });
+                    $(".aprobarseleccion").click(function() {
+                        var Codigo = $(this).data('id');
+                        $.ajax({
+                            type: 'POST',
+                            url: '/TriggerEvent/Contr_Help',
+                            data: {"accion": 'aprobarseleccion', "idseleccion": Codigo},
+                            success: function(data) {
+                                var datos = jQuery.parseJSON(data);
+                                $.each(datos, function(key, val) {
+                                    if (key === "1")
+                                    {
+                                        alertify.success(val);
+                                        getseleccion();
+                                    }
+                                    else {
+                                        alertify.error(val);
+                                    }
+                                });
+                                document.body.style.cursor = 'default';
+                            }
+                        });
+                    });
+                    $(".modal-Modifica").click(function() {
+                        var Id = $(this).data('id');
+                        var Name = $(this).data('nombre');
+                        var Tipo = $(this).data('tipo');
+                        var Estado = $(this).data('estado');
+                        $(".modal-body #CodigoSeleccion").val(Id);
+                        $(".modal-body #NombreSeleccion").val(Name);
+                        $(".modal-body #TipoSeleccion").val(Tipo);
+                        $(".modal-body #ImgActual").attr("src", "Imagen.jsp?Codigo=" + Id);
+                        $('#EstadoSeleccion [value=' + Estado + ']').prop('selected', true);
+                    });
                     $('#table1').dataTable({
                         "sPaginationType": "bs_normal",
                         // "sPaginationType": "bs_four_button"
@@ -265,61 +315,6 @@ Author     : ADSI
                         // LENGTH - Inline-Form control
                         var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
                         length_sel.addClass('form-control input-sm');
-                    });
-                    $(".modal-Modifica").click(function() {
-                        var Id = $(this).data('id');
-                        var Name = $(this).data('nombre');
-                        var Tipo = $(this).data('tipo');
-                        var Estado = $(this).data('estado');
-                        $(".modal-body #CodigoSeleccion").val(Id);
-                        $(".modal-body #NombreSeleccion").val(Name);
-                        $(".modal-body #TipoSeleccion").val(Tipo);
-                        $(".modal-body #ImgActual").attr("src", "Imagen.jsp?Codigo=" + Id);
-                        $('#EstadoSeleccion [value=' + Estado + ']').prop('selected', true);
-                    });
-                    $(".desaprobarseleccion").click(function(){
-                        var Codigo = $(this).data('id');
-                        $.ajax({
-                            type: 'POST',
-                            url: '/TriggerEvent/Contr_Help',
-                            data: {"accion": 'desaprobarseleccion',"idseleccion": Codigo},
-                            success: function(data){
-                                var datos = jQuery.parseJSON(data);
-                                $.each(datos, function(key, val){
-                                    if(key === "1")
-                                    {
-                                        alertify.success(val);
-                                        getseleccion();
-                                    }
-                                    else{
-                                        alertify.error(val);
-                                    }
-                                });
-                                document.body.style.cursor='default';
-                            }
-                        });
-                    });
-                    $(".aprobarseleccion").click(function(){
-                        var Codigo = $(this).data('id');
-                        $.ajax({
-                            type: 'POST',
-                            url: '/TriggerEvent/Contr_Help',
-                            data: {"accion": 'aprobarseleccion',"idseleccion": Codigo},
-                            success: function(data){
-                                var datos = jQuery.parseJSON(data);
-                                $.each(datos, function(key, val){
-                                    if(key === "1")
-                                    {
-                                        alertify.success(val);
-                                        getseleccion();
-                                    }
-                                    else{
-                                        alertify.error(val);
-                                    }
-                                });
-                                document.body.style.cursor='default';
-                            }
-                        });
                     });
                 });
 

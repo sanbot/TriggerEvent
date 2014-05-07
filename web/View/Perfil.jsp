@@ -1,51 +1,43 @@
-<%-- 
-    Document   : RUsuario
-    Created on : 28-feb-2014, 15:14:34
-    Author     : Sanser
-    --%>
-
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
-String Tipo = (String)  session.getAttribute("Tipo_Documento");
-String Documento = (String)session.getAttribute("No_Documento");
-String Telefono = (String) session.getAttribute("Telefono");
-String Celular = (String) session.getAttribute("Celular");
-String Correo = (String) session.getAttribute("Correo");
-String Direccion = (String) session.getAttribute("Direccion");
-String Ciudad = (String) session.getAttribute("Ciudad");
-String Departamento = (String) session.getAttribute("Departamento");
+    String Tipo = (String) session.getAttribute("Tipo_Documento");
+    String Documento = (String) session.getAttribute("No_Documento");
+    String Telefono = (String) session.getAttribute("Telefono");
+    String Celular = (String) session.getAttribute("Celular");
+    String Correo = (String) session.getAttribute("Correo");
+    String Direccion = (String) session.getAttribute("Direccion");
+    String Ciudad = (String) session.getAttribute("Ciudad");
+    String Departamento = (String) session.getAttribute("Departamento");
 %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<title>Trigger Event</title>
-	<meta name="description" content="Eventos musicales" />
-	<meta name="keywords" content="Eventos, musical, Trigger Event" />
-	<meta name="author" content="Sanser Soft" />
-	<link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Trigger Event</title>
+        <meta name="description" content="Eventos musicales" />
+        <meta name="keywords" content="Eventos, musical, Trigger Event" />
+        <meta name="author" content="Sanser Soft" />
+        <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-	<script src="../Libs/Customs/js/modernizr.custom.js"></script>
-	<title>Trigger Event</title>
-	
-</head>
-<body>
-	<%
-        if(Rol.equals("Administrador"))
-        {%>
+        <script src="../Libs/Customs/js/modernizr.custom.js"></script>
+        <title>Trigger Event</title>
+
+    </head>
+    <body>
+        <%
+            if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
         <%
-        }else if(Rol.equals("Cliente"))
-        {%>
+        } else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
-        <%}else if(Rol.equals("Empresa")){%>
+        <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
         <%}%>
-	<div class="container">
+        <div class="container">
             <br/>
             <br/>
             <br/>
@@ -59,10 +51,10 @@ String Departamento = (String) session.getAttribute("Departamento");
             </div>
             <div class="row clearfix">
                 <div class="col-md-12">
-                        <h1 class="Center">Mi perfil</h1>
+                    <h1 class="Center">Mi perfil</h1>
                 </div>
             </div>
-	
+
             <div class="row">
                 <div class="col-xs-1"></div>
                 <div class="col-xs-10">
@@ -262,22 +254,22 @@ String Departamento = (String) session.getAttribute("Departamento");
                 </div>
             </footer>
         </div>
-      <!-- Bootstrap core JavaScript
-      ================================================== -->
-      <!-- Placed at the end of the document so the pages load faster -->
-      <!--Bootstrap-->
-      <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
-      <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
-      <script src="../Libs/Bootstrap/js/holder.js"></script>
-      <!--Parsley-->
-      <script src="../Libs/Customs/js/Parsley.js"></script>    
-      <script src="../Libs/Customs/js/classie.js"></script>
-      <script src="../Libs/Customs/js/gnmenu.js"></script>
-      <script>
-      new gnMenu( document.getElementById( 'gn-menu' ) );
-      </script>
-      <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-      <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
-      <%session.setAttribute("Mensaje", "");%>
-  </body>
-  </html>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!--Bootstrap-->
+        <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
+        <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
+        <script src="../Libs/Bootstrap/js/holder.js"></script>
+        <!--Parsley-->
+        <script src="../Libs/Customs/js/Parsley.js"></script>    
+        <script src="../Libs/Customs/js/classie.js"></script>
+        <script src="../Libs/Customs/js/gnmenu.js"></script>
+        <script>
+            new gnMenu(document.getElementById('gn-menu'));
+        </script>
+        <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
+        <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
+        <%session.setAttribute("Mensaje", "");%>
+    </body>
+</html>
