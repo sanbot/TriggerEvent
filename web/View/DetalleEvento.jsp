@@ -406,20 +406,11 @@
         <script src="../Libs/Customs/js/Parsley.js"></script>    
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
-        <script src="../Libs/Customs/DatePicker/js/moment.min.js"></script>
-        <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.es.js.js"></script>
-
-        <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.js"></script>
         <script>
             new gnMenu(document.getElementById('gn-menu'));
         </script>
 
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-        <script type="text/javascript">
-            $(function() {
-                $('#datetimepicker1').datetimepicker();
-            });
-        </script>
         <script type="text/javascript" src="../Libs/Customs/js/Rating.js" ></script>
         <script type="text/javascript" src="../Libs/Customs/js/graficos.js" ></script>
         <script>

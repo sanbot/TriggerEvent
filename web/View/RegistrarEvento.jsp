@@ -167,7 +167,7 @@
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
         <script src="../Libs/Customs/DatePicker/js/moment.min.js"></script>
-        <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.es.js.js"></script>
+        <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.es.js"></script>
 
         <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.js"></script>
         <script>
