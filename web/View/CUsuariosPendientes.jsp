@@ -91,7 +91,7 @@
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <script type="text/javascript">
             function usuariospendientes() {
-                $("#contenido-tabla").html('<tr><td colspan="8"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+                $("#contenido-usuarios-pendientes").html('<tr><td colspan="8"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Usuarios',

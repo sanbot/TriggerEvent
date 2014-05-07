@@ -102,7 +102,7 @@
         <script type="text/javascript">
             function getclasificacion()
             {
-                $("#contenido-tabla").html('<tr><td colspan="4"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+                $("#contenido-clasificaciones").html('<tr><td colspan="4"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
                 var Codigo = '<%=Codigo%>';
                 $.ajax({
                     type: 'POST',

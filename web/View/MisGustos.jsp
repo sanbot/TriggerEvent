@@ -100,7 +100,7 @@
         <script type="text/javascript">
             function misgustos()
             {
-                $("#contenido-tabla").html('<tr><td colspan="4"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+                $("#contenido-mis-gustos").html('<tr><td colspan="4"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
                 var Codigo = '<%=Codigo%>';
                 $.ajax({
                     type: 'POST',

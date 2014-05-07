@@ -234,6 +234,23 @@ public class Contr_Help extends HttpServlet {
                 }
                 out.print(obj);
             } else if (request.getParameter("accion").equals("getclasificacion")) {
+                String Codigo = request.getParameter("idevento");
+                Seleccion sel = new Seleccion();
+                String Datos[][] = sel.getClasificacionEvento(Codigo);
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("tipo", row[2]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("getclasificacion")) {
                 Seleccion sel = new Seleccion();
                 String Codigo = request.getParameter("idevento");
                 String[][] Datos = sel.getClasificacionNuevos(Codigo);

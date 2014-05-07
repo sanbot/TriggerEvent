@@ -221,7 +221,7 @@
         <script type="text/javascript">
             function getseleccion()
             {
-                $("#contenido-tabla").html('<tr><td colspan="7"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+                $("#contenido-selecciones").html('<tr><td colspan="7"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Help',
