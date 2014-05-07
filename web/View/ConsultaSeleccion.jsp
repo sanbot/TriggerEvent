@@ -45,7 +45,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                    <div class="table-responsive">
+                    <div id="contenido-tabla" class="table-responsive">
                         <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -221,7 +221,7 @@
         <script type="text/javascript">
             function getseleccion()
             {
-                $("#contenido-selecciones").html('<tr><td colspan="7"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+                $("#contenido-tabla").html('<tr><td colspan="7"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Help',
@@ -229,6 +229,19 @@
                     success: function(data) {
                         var datos = jQuery.parseJSON(data);
                         var items = [];
+                        items.push('<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">');
+                        items.push('<thead>');
+                        items.push('<tr>');
+                        items.push('<th>Nombre</th>');
+                        items.push('<th>Tipo</th>');
+                        items.push('<th>Imagen</th>');
+                        items.push('<th>Estado</th>');
+                        items.push('<th></th>');
+                        items.push('<th></th>');
+                        items.push('<th></th>');
+                        items.push('</tr>');
+                        items.push('</thead>');
+                        items.push('<tbody id="contenido-selecciones">');
                         $.each(datos, function(key, val) {
                             items.push('<tr>');
                             items.push('<td><img src="Imagen.jsp?Codigo=' + val.codigo + '" class="img-responsive imgseleccion"></td>');
@@ -240,7 +253,9 @@
                             items.push('<td><center><a class="aprobarseleccion" data-id="' + val.codigo + '" title="Aprobar"><span class="glyphicon glyphicon-ok"></span></a></center></td>');
                             items.push('</tr>');
                         });
-                        $("#contenido-selecciones").html(items.join(""));
+                        items.push('</tbody>');
+                        items.push('</table>');
+                        $("#contenido-tabla").html(items.join(""));
                     }
                 }).done(function() {
 

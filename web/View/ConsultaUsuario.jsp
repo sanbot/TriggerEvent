@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-offset-4 col-md-2">
                     <div class="form-group">
-                        <a href="CUsuariosPendientes.jsp"class="btn btn-block defecto">Usuarios pendientes <span class="badge pull-right animacion-bell"><%=Cantidad%></span></a>
+                        <a href="CUsuariosPendientes.jsp"class="btn btn-block defecto">Empresas pendientes <span class="badge pull-right animacion-bell"><%=Cantidad%></span></a>
                     </div>
                 </div>
                 <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-md-offset-0 col-md-2">

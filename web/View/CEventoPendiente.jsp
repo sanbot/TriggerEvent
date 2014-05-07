@@ -50,7 +50,23 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div id="contenido-tabla" class="table-responsive">
-
+                        <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Creador</th>
+                                    <th>Ciudad</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="contenido-eventos-pendientes">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="row">

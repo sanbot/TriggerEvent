@@ -42,7 +42,23 @@
                 <div class="col-md-12">
                     <div id="contenido-tabla" class="table-responsive">
 
+                        <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>NOMBRE</th>
+                                    <th>TIPO USUARIO</th>
+                                    <th>TIPO DOCUMENTO</th>
+                                    <th>NÚMERO DOCUMENTO</th>
+                                    <th>ESTADO</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="contenido-usuarios-pendientes">
 
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
