@@ -696,7 +696,7 @@ public class Evento {
         }
         return null;
     }
-
+    
     public String[][] BuscarDatosMisEventos(String nit) {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
@@ -918,6 +918,31 @@ public class Evento {
         }
         this.setMensaje("Ocurrió un problema inesperado al desaprobar el evento,  Estamos trabajando para solucionar este problema..");
         return false;
+    }
+
+    public int getCantidadEventoIncompleto(String NIT) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "Select Count(Estado) Cantidad FROM tb_evento Where Estado = 'Incompleto' AND NIT = ?";
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, NIT);
+            rs = pr.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Cantidad");
+            }
+        } catch (Exception ex) {
+            ex.getMessage().toString();
+        } finally {
+            try {
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return 0;
     }
 
 }

@@ -271,7 +271,7 @@ public class Contr_Help extends HttpServlet {
                     i++;
                 }
                 out.print(obj);
-            } else if (request.getParameter("accion").equals("getclasificacion")) {
+            } else if (request.getParameter("accion").equals("getclasificacionnuevos")) {
                 Seleccion sel = new Seleccion();
                 String Codigo = request.getParameter("idevento");
                 String[][] Datos = sel.getClasificacionNuevos(Codigo);

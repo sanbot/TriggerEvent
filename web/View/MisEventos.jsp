@@ -20,11 +20,9 @@
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
-        <%
-        if (Rol.equals("Administrador")) {%>
+        <%if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <%
-    } else if (Rol.equals("Cliente")) {%>
+        <%} else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
         <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
@@ -46,8 +44,8 @@
                     <h1 class="Center">Eventos</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-5 col-md-offset-5 col-md-2">
+            <div id="unbtn" class="row">
+                <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-offset-4 col-md-4">
                     <div class="form-group">
                         <a href="RegistrarEvento.jsp" role="button" class="btn btn-block defecto">Registrar Evento</a>
                     </div>
@@ -56,23 +54,6 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div id="contenido-tabla" class="table-responsive">
-                        <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Imagen</th>
-                                    <th>Nombre</th>
-                                    <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Creador</th>
-                                    <th>Ciudad</th>
-                                    <th>Eestado</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="contenido-mis-eventos">
-                            </tbody>
-                        </table>
                     </div>			
                 </div>
             </div>
@@ -142,7 +123,7 @@
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <script type="text/javascript">
             var getmiseventos = function() {
-                $("#contenido-mis-eventos").html('<tr><td colspan="9"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
+                $("#contenido-tabla").html('<center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center>');
                 var Codigo = '<%=nit%>';
                 $.ajax({
                     type: 'POST',
@@ -151,6 +132,22 @@
                     success: function(data) {
                         var datos = jQuery.parseJSON(data);
                         var items = [];
+                        items.push('<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">');
+                        items.push('<thead>');
+                        items.push('<tr>');
+                        items.push('<th>Imagen</th>');
+                        items.push('<th>Nombre</th>');
+                        items.push('<th>Fecha</th>');
+                        items.push('<th>Hora</th>');
+                        items.push('<th>Creador</th>');
+                        items.push('<th>Ciudad</th>');
+                        items.push('<th>Eestado</th>');
+                        items.push('<th></th>');
+                        items.push('<th></th>');
+                        items.push('<th></th>');
+                        items.push('</tr>');
+                        items.push('</thead>');
+                        items.push('<tbody id="contenido-mis-eventos">');
                         $.each(datos, function(key, val) {
                             items.push('<tr>');
                             items.push('<td><img src="ImagenEvento.jsp?Codigo=' + val.codigo + '" class="img-responsive imgseleccion"/></td>');
@@ -160,11 +157,14 @@
                             items.push('<td>' + val.creador + '</td>');
                             items.push('<td>' + val.ciudad + '</td>');
                             items.push('<td>' + val.estado + '</td>');
-                            items.push('<td><center><a href="DetalleEvento.jsp?CodigoEvento=' + val.codigo + '&Pendiente=true"><span class="glyphicon glyphicon-log-in"></span></a><center></td>');
-                            items.push('<td><center><a class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="' + val.codigo + '" data-nombre="' + val.nombre + '" data-creador="' + val.creador + '"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
+                            items.push('<td><center><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=' + val.codigo + '&Pendiente=true"><span class="glyphicon glyphicon-log-in"></span></a><center></td>');
+                            items.push('<td><center><a title="Clasificar evento" href="RClasificacionEvento.jsp?CodigoEvento=' + val.codigo + '"><span class="glyphicon glyphicon-list"></span></a><center></td>');
+                            items.push('<td><center><a title="Cancelar evento" class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="' + val.codigo + '" data-nombre="' + val.nombre + '" data-creador="' + val.creador + '"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
                             items.push('</tr>');
                         });
-                        $("#contenido-mis-eventos").html(items.join(""));
+                        items.push('</tbody>');
+                        items.push('<table>');
+                        $("#contenido-tabla").html(items.join(""));
                     }
                 }).done(function() {
                     $(".modal-desactivarevento").click(function() {
@@ -191,8 +191,29 @@
                     });
                 });
             };
+            var cantidadincompletos = function() {
+                var Codigo = '<%=nit%>';
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Help',
+                    data: {"accion": 'getcantidadeventoincompleto', "nit": Codigo},
+                    success: function(data) {
+                        var num = parseInt(data);
+                        if (num > 0)
+                        {
+                            $("#dosbtn").removeClass('hide');
+                            $("#badge").append('<span  class="badge pull-right animacion-bell">' + num + '</span>');
+                        }
+                        else
+                        {
+                            $("#unbtn").removeClass('hide');
+                        }
+                    }
+                });
+            };
             $(document).ready(function() {
                 getmiseventos();
+                cantidadincompletos();
             });
         </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

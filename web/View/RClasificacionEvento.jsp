@@ -107,7 +107,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Help',
-                    data: {"accion": 'getclasificacion', "idevento": Codigo},
+                    data: {"accion": 'getclasificacionnuevos', "idevento": Codigo},
                     success: function(data) {
                         var datos = jQuery.parseJSON(data);
                         var items = [];
