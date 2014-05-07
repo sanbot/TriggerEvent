@@ -68,12 +68,6 @@ public class Contr_Consultar {
         return Datos;
     }
 
-    public String[][] getClasificacionEvento(String Codigo) {
-        Seleccion sel = new Seleccion();
-        String Datos[][] = sel.getClasificacionEvento(Codigo);
-        return Datos;
-    }
-
     public String getCantidadPendientes() {
         Usuario usu = new Usuario();
         String Dato = usu.getCantidadPendientes();
@@ -125,12 +119,6 @@ public class Contr_Consultar {
     public int[] getCalificacionEvento(String CodigoEvento) {
         Evento eve = new Evento();
         int[] Datos = eve.getCalificacionEvento(CodigoEvento);
-        return Datos;
-    }
-
-    public String[][] getBuscarDatosMisEventos(String nit) {
-        Evento eve = new Evento();
-        String[][] Datos = eve.BuscarDatosMisEventos(nit);
         return Datos;
     }
 

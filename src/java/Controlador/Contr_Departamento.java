@@ -32,7 +32,7 @@ public class Contr_Departamento extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String Nombre, Codigo, Mensaje, url;
         Departamento dep = new Departamento();
         HttpSession session = request.getSession(true);

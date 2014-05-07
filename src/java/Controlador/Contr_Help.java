@@ -151,6 +151,27 @@ public class Contr_Help extends HttpServlet {
                     i++;
                 }
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("getmiseventos")) {
+                String nit = request.getParameter("nit");
+                Evento eve = new Evento();
+                JSONObject obj = new JSONObject();
+                String[][] Datos = eve.BuscarDatosMisEventos(nit);
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("creador", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("estado", row[5]);
+                    ob.put("hora", row[6]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.print(obj);
             } else if (request.getParameter("accion").equals("agregargusto")) {
                 Seleccion sel = new Seleccion();
                 String Codigo = request.getParameter("codigo");
