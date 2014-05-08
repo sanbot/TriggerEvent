@@ -205,7 +205,7 @@
                             opcion.push('<tr>');
                             opcion.push('<td>' + val.ciudad + '</td>');
                             opcion.push('<td>' + val.nomdepto + '</td>');
-                            opcion.push('<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="' + val.codigo + '" data-depid="' + val.iddepto + '" data-dep="' + val.nomdepto + '" data-nombre="' + val.ciudad + '"><span class="glyphicon glyphicon-edit"></span><center></td>');
+                            opcion.push('<td><center><a title="Ver m&aacute;s" class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="' + val.codigo + '" data-depid="' + val.iddepto + '" data-dep="' + val.nomdepto + '" data-nombre="' + val.ciudad + '"><span class="glyphicon glyphicon-edit"></span><center></td>');
                             opcion.push('</tr>');
 
                         });

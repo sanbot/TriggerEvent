@@ -10,6 +10,10 @@
 .calificacionevento:hover, 
 .desaprobarseleccion:hover, 
 .agregarclasificacion:hover, 
+.aprobarevento:hover, 
+.removergusto:hover, 
+.agregargusto:hover, 
+.estadousuario:hover, 
 .aprobarseleccion:hover{
     cursor: pointer;
 }

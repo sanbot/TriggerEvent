@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button name="DesactivarEvento" type="submit" class="btn defecto">Desactivar</button> 
+                                        <button name="DesactivarEventoEmpresa" type="submit" class="btn defecto">Desactivar</button> 
                                     </div>
                                 </div>
                             </div>
@@ -166,8 +166,8 @@
                                 items.push('<td><center><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=' + val.codigo + '"><span class="glyphicon glyphicon-log-in"></span></a><center></td>');
                             }
                             
-                            items.push('<td><center><a title="Clasificar evento" href="RClasificacionEvento.jsp?CodigoEvento=' + val.codigo + '"><span class="glyphicon glyphicon-list"></span></a><center></td>');
-                            items.push('<td><center><a title="Cancelar evento" class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="' + val.codigo + '" data-nombre="' + val.nombre + '" data-creador="' + val.creador + '"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
+                            items.push('<td><center><a title="Clasificar" href="RClasificacionEvento.jsp?CodigoEvento=' + val.codigo + '"><span class="glyphicon glyphicon-list"></span></a><center></td>');
+                            items.push('<td><center><a title="Cancelar" class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="' + val.codigo + '" data-nombre="' + val.nombre + '" data-creador="' + val.creador + '"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
                             items.push('</tr>');
                         });
                         items.push('</tbody>');

@@ -166,7 +166,7 @@
                         $.each(datos, function(key, val) {
                             opcion.push('<tr>');
                             opcion.push('<td>' + val.departamento + '</td>');
-                            opcion.push('<td><center><a class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="' + val.codigo + '" data-nombre="' + val.departamento + '"><span class="glyphicon glyphicon-edit"></span><center></td>');
+                            opcion.push('<td><center><a title="Ver m&aacute;s" class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="' + val.codigo + '" data-nombre="' + val.departamento + '"><span class="glyphicon glyphicon-edit"></span><center></td>');
                             opcion.push('</tr>');
                         });
                         $("#contenido-departamentos").html(opcion.join(""));

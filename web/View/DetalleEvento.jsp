@@ -11,15 +11,6 @@
         response.sendRedirect("ConsultarEventos.jsp");
     }
 
-    boolean pendiente = false;
-    try {
-        if (request.getParameter("Pendiente") != null) {
-            pendiente = Boolean.parseBoolean((String) request.getParameter("Pendiente"));
-        }
-    } catch (Exception ex) {
-        response.sendRedirect("ConsultarEventos.jsp");
-    }
-
     String Datos[] = usu.getBuscarDatosDetalladosEvento(CodigoEvento);
     int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
 %>
@@ -183,7 +174,6 @@
                                     <%=Datos[9]%>
                                 </div>
                             </div>
-                            <%if (!pendiente) {%>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
@@ -209,7 +199,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -217,8 +206,7 @@
             </div>
 
             <br/>
-            <%if (!pendiente) {%>
-            <%if ((Rol.equals("Cliente") || Rol.equals("Administrador")) && !pendiente) {
+            <%if (Rol.equals("Cliente") || Rol.equals("Administrador")) {
                     if (usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario") && usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
             <div class="row">
                 <div class="col-xs-1"></div>
@@ -383,7 +371,6 @@
                     </div>
                     <!-- /widget --> 
                 </div>
-                <%}%>
             </div>
             <footer>
                 <div class="row">

@@ -7,13 +7,11 @@ package Controlador;
 
 import Modelo.Departamento;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -33,6 +31,7 @@ public class Contr_Departamento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String Nombre, Codigo, Mensaje, url;
         Departamento dep = new Departamento();
         HttpSession session = request.getSession(true);

@@ -128,10 +128,10 @@
                             items.push('<td>' + val.tipodocumento + '</td>');
                             items.push('<td>' + val.numerodocumento + '</td>');
                             items.push('<td>' + val.estado + '</td>');
-                            items.push('<td><center><a href="MUsuario.jsp?Codigo=' + val.codigo + '"><span class="glyphicon glyphicon-edit"></span></center></td>');
+                            items.push('<td><center><a title="Modificar" href="MUsuario.jsp?Codigo=' + val.codigo + '"><span class="glyphicon glyphicon-edit"></span></center></td>');
                             items.push('<td><center><a title="Desaprobar" class="estadousuario" data-id="' + val.codigo + '" data-estado="Desaprobado"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
                             items.push('<td><center><a title="Aprobar" class="estadousuario" data-id="' + val.codigo + '" data-estado="Aprobado"><span class="glyphicon glyphicon-ok"></span></a></center></td>');
-                            items.push('<td><center><a href="CUsuario.jsp?Codigo=' + val.codigo + '"><span class="glyphicon glyphicon-log-in"></span><center></td>');
+                            items.push('<td><center><a title="Ver m&aacute;s" href="CUsuario.jsp?Codigo=' + val.codigo + '"><span class="glyphicon glyphicon-log-in"></span><center></td>');
                             items.push('</tr>');
                         });
                         $("#contenido-usuarios").html(items.join(""));

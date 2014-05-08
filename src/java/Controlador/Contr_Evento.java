@@ -137,6 +137,36 @@ public class Contr_Evento extends HttpServlet {
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                         response.sendRedirect("View/CEventoPendiente.jsp");
+                    } else if (name.equals("DesactivarEventoAdmin")) {
+                        if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
+                            String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
+                            if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
+                                session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
+                                session.setAttribute("TipoMensaje", "Dio");
+                            } else {
+                                session.setAttribute("Mensaje", "Se desaprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                                session.setAttribute("TipoMensaje", "NODio");
+                            }
+                        } else {
+                            session.setAttribute("Mensaje", "Ocurrió un error al desaprobar el evento. Estamos trabajando para solucionar este problema.");
+                            session.setAttribute("TipoMensaje", "NODio");
+                        }
+                        response.sendRedirect("View/ConsultaTodosEventos.jsp");
+                    } else if (name.equals("DesactivarEventoEmpresa")) {
+                        if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
+                            String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
+                            if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
+                                session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
+                                session.setAttribute("TipoMensaje", "Dio");
+                            } else {
+                                session.setAttribute("Mensaje", "Se desaprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                                session.setAttribute("TipoMensaje", "NODio");
+                            }
+                        } else {
+                            session.setAttribute("Mensaje", "Ocurrió un error al desaprobar el evento. Estamos trabajando para solucionar este problema.");
+                            session.setAttribute("TipoMensaje", "NODio");
+                        }
+                        response.sendRedirect("View/MisEventos.jsp");
                     }
 
                 } else {

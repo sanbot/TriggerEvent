@@ -200,7 +200,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <%=Row[1]%>
-                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a><%}%>
+                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a><%}%>
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -255,7 +255,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <%=Row[1]%>
-                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close  aligncerar"></span></a><%}%>
+                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close  aligncerar"></span></a><%}%>
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -308,7 +308,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <%=Row[1]%>
-                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close  aligncerar"></span></a><%}%>
+                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close  aligncerar"></span></a><%}%>
                             </h3>
                         </div>
                         <div class="panel-body">

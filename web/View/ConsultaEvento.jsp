@@ -52,13 +52,13 @@ int Cantidad = usu.getCantidadEventosPendientes();
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             Eventos 
-                            <%if(Rol.equals("Administrador") || Rol.equals("Empresa"))
+                            <%if(Rol.equals("Administrador"))
                             {%>
-                            <a href="RegistrarEvento.jsp" role="button" class="close alignregistrar normalcerrar">Registrar    </a>
+                            <a title="Todos los eventos" href="ConsultaTodosEventos.jsp" class="pull-right"><span class="glyphicon glyphicon-book aligncerar"></span></a>
                             <%}%>
                             <%if(Cantidad!=0 && Rol.equals("Administrador"))
                             {%>
-                            <a href="CEventoPendiente.jsp" class="pull-right" ><span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes"></span><span class="badge"><%=Cantidad%></span></a>
+                                 <a title="Eventos pendientes" href="CEventoPendiente.jsp" class="pull-right" ><span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes"><span class="badge"><%=Cantidad%></span></span>  </a>
                             <%}%>
                         </h3>
                     </div>
@@ -78,7 +78,7 @@ int Cantidad = usu.getCantidadEventosPendientes();
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
                                             <%=Row[1]%>
-                                            <a href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a>
+                                            <a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a>
                                         </h3>
                                     </div>
                                     <div class="panel-body">
