@@ -578,6 +578,61 @@ public class Evento {
         }
         return null;
     }
+//    también sirve para eventos incompletos
+    public String[] BuscarDatosDetalladosEventosPendiente(String codigoEvento) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Rango_Precios, "
+                + "c.Codigo_Departamento CodigoDepartamento, d.Nombre NombreDepartamento, "
+                + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
+                + "e.Motivo, e.Estado \n"
+                + "FROM  `tb_evento` e \n"
+                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
+                + "JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento \n"
+                + "Where Fecha >= ? AND e.Codigo = ?";
+
+        try {
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            pr = conn.prepareStatement(sql);
+            pr.setTimestamp(1, sqlDate);
+            pr.setString(2, codigoEvento);
+            rs = pr.executeQuery();
+
+            String[] Datos = new String[13];
+            rs.beforeFirst();
+
+            while (rs.next()) {
+                Datos[0] = rs.getString("NombreEmpresa");
+                Datos[1] = rs.getString("Nombre");
+                Datos[2] = rs.getString("Rango_Precios");
+                Datos[3] = rs.getString("CodigoDepartamento");
+                Datos[4] = rs.getString("NombreDepartamento");
+                Datos[5] = rs.getString("CodigoCiudad");
+                Datos[6] = rs.getString("NombreCiudad");
+                Datos[7] = rs.getString("Direccion");
+                Datos[8] = rs.getDate("Fecha").toString();
+                Datos[9] = rs.getString("Descripcion");
+                Datos[10] = rs.getTime("Fecha").toString();
+                Datos[11] = rs.getString("Motivo");
+                Datos[12] = rs.getString("Estado");
+            }
+            return Datos;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return null;
+    }
 
     public int[] getCalificacionEvento(String codigoEvento) {
         Connection conn = conexion.conectar();

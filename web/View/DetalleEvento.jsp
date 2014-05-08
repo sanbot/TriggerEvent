@@ -40,11 +40,9 @@
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
-        <%
-        if (Rol.equals("Administrador")) {%>
+        <%if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <%
-    } else if (Rol.equals("Cliente")) {%>
+        <%} else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
         <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
@@ -221,7 +219,7 @@
             <br/>
             <%if (!pendiente) {%>
             <%if ((Rol.equals("Cliente") || Rol.equals("Administrador")) && !pendiente) {
-                if (usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario") && usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
+                    if (usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario") && usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
             <div class="row">
                 <div class="col-xs-1"></div>
                 <div class="col-xs-10">
@@ -242,7 +240,7 @@
                                     </div>
                                     <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="Comentario">Comentario</label>
+                                            <label for="Comentario">Opini&oacute;n</label>
                                             <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,250]"></textarea>
                                         </div>
                                     </div>
@@ -295,7 +293,7 @@
                                 <div class="row">
                                     <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-5 col-lg-5">
                                         <div class="form-group texto-justificado">
-                                            <label for="Comentario">Comentario</label>
+                                            <label for="Comentario">Opini&oacute;n</label>
                                             <br/>
                                             <%if (!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")) {%>
                                             <%=usu.getComentarioOCalificacion("Comentario", CodigoUsuario)%>

@@ -32,13 +32,17 @@ public class Contr_Usuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //se encodifica las peticiones
         response.setContentType("text/html;charset=UTF-8");
+        //se instancia las clases necesarias
         Usuario usu = new Usuario();
         Mensajeria msm = new Mensajeria();
+        //se declaran las variables necesarias
         String script, Nombre, Codigo, Tipo_Documento, Estado, No_Documento, Telefono, Direccion, correo, celular, url, CodVer, CodigoVerificacion, Ciudad, Departamento;
         String Password, REPassword, Rol, Contrasenia;
+        //se crea una variable para manejar las sesiones
         HttpSession session = request.getSession(true);
-
+        //se declara un boolean para los resultados
         boolean b = false;
         if (request.getParameter("login") != null) {
             correo = request.getParameter("correo");
@@ -107,7 +111,7 @@ public class Contr_Usuarios extends HttpServlet {
                 url = "View/Perfil.jsp";
                 response.sendRedirect(url);
             } else {
-                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar sus datos.");
+                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/ModificarPerfil.jsp";
                 response.sendRedirect(url);
@@ -130,7 +134,7 @@ public class Contr_Usuarios extends HttpServlet {
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
             } else {
-                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al enviar el código de verificación.");
+                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al enviar el código de verificación. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
@@ -148,7 +152,7 @@ public class Contr_Usuarios extends HttpServlet {
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
             } else {
-                session.setAttribute("Mensaje", "currió un problema inesperado al enviar el código de verificación.");
+                session.setAttribute("Mensaje", "currió un problema inesperado al enviar el código de verificación. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
@@ -223,7 +227,7 @@ public class Contr_Usuarios extends HttpServlet {
                     url = "View/index.jsp";
                     response.sendRedirect(url);
                 } else {
-                    session.setAttribute("Mensaje", "Ocurrió un problema inesperado al enviar su contraseña.");
+                    session.setAttribute("Mensaje", "Ocurrió un problema inesperado al enviar su contraseña. Estamos trabajando para solucionar este problema.");
                     session.setAttribute("TipoMensaje", "NODio");
                     url = "View/index.jsp";
                     response.sendRedirect(url);
@@ -256,7 +260,7 @@ public class Contr_Usuarios extends HttpServlet {
                 url = "View/ConsultaUsuario.jsp";
                 response.sendRedirect(url);
             } else {
-                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar sus datos.");
+                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/MUsuario.jsp?Codigo=" + Codigo;
                 response.sendRedirect(url);
@@ -312,7 +316,7 @@ public class Contr_Usuarios extends HttpServlet {
                         session.setAttribute("TipoMensaje", "Dio");
                     } else {
                         //session.setAttribute("Mensaje", usu.getMensaje());
-                        session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar la contraseña");
+                        session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar la contraseña. Estamos trabajando para solucionar este problema.");
                         session.setAttribute("TipoMensaje", "NODio");
                     }
                 } else {
@@ -362,7 +366,7 @@ public class Contr_Usuarios extends HttpServlet {
                     }
                 }
             } else {
-                ob.put("mensaje", "Ocurrio un error al modificar el estado del usuario.");
+                ob.put("mensaje", "Ocurrio un error al modificar el estado del usuario. Estamos trabajando para solucionar este problema.");
                 ob.put("tipomensaje", "NODio");
             }
             PrintWriter out = response.getWriter();

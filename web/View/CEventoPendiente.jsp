@@ -172,7 +172,7 @@
                             items.push('<td>' + val.ciudad + '</td>');
                             items.push('<td><center><a title="Desaprobar" class="modal-desactivarevento" href="#modal-container-Desactivar" role="button" data-toggle="modal" data-id="' + val.codigo + '" data-nombre="' + val.nombre + '" data-creador="' + val.creador + '"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
                             items.push('<td><center><a class="aprobarevento" title="Aprobar" data-id=' + val.codigo + '><span class="glyphicon glyphicon-ok"></span></a></center></td>');
-                            items.push('<td><center><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=' + val.codigo + '&Pendiente=true"><span class="glyphicon glyphicon-log-in"></span></a><center></td>');
+                            items.push('<td><center><a title="Ver m&aacute;s" href="DetalleEventoPendiente.jsp?CodigoEvento=' + val.codigo + '"><span class="glyphicon glyphicon-log-in"></span></a><center></td>');
                             items.push('</tr>');
                         });
                         items.push('</tbody>');

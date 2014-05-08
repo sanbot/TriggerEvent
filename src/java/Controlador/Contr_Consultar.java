@@ -115,6 +115,12 @@ public class Contr_Consultar {
         String[] Datos = eve.BuscarDatosDetalladosEventos(CodigoEvento);
         return Datos;
     }
+    
+    public String[] getBuscarDatosDetalladosEventoPendiente(String CodigoEvento) {
+        Evento eve = new Evento();
+        String[] Datos = eve.BuscarDatosDetalladosEventosPendiente(CodigoEvento);
+        return Datos;
+    }
 
     public int[] getCalificacionEvento(String CodigoEvento) {
         Evento eve = new Evento();

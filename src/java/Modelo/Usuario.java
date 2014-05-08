@@ -578,7 +578,7 @@ public class Usuario {
 
             }
         }
-        this.setMensaje("Ocurrió un problema inesperado al registrar los datos del usuario.");
+        this.setMensaje("Ocurrió un problema inesperado al registrar los datos del usuario. Estamos trabajando para solucionar este problema.");
         return false;
     }
 
