@@ -162,7 +162,6 @@
                     </div>
                 </div>
             </form>
-
             <div class="modal" id="modal-container-361414" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -174,9 +173,7 @@
                             <button id="btn-agregar-ubicacion" type="button" class="btn btn-primary" data-dismiss="modal">Agregar ubicaci&oacute;n</button>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <footer>
                 <div class="row">

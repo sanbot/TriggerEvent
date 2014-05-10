@@ -65,4 +65,18 @@ var crearmapa = function() {
             $("#btn-registrar").addClass("hide");
         }
     });
-};
+}
+var mostrarmapa = function(latitud, longitud, nombre) {
+    var streets = L.tileLayer(mapboxUrl, {id: 'examples.map-9ijuk24y', attribution: mapboxAttribution});
+
+    var lat = parseFloat(latitud);
+    var lon = parseFloat(longitud);
+    var map = L.map('map', {
+        center: [lat, lon],
+        zoom: 13,
+        layers: [streets]
+    });
+    var ubicacion = {lat: latitud, lng: longitud};
+    L.marker(ubicacion).addTo(map)
+            .bindPopup("Evento: "+nombre).openPopup();
+}

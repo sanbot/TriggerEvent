@@ -12,10 +12,10 @@
     }
 }(function (moment) {
     return moment.lang('es', {
-        months : "Enero_Febrero_Marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre".split("_"),
-        monthsShort : "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
-        weekdays : "domingo_lunes_martes_miércoles_jueves_viernes_sábado".split("_"),
-        weekdaysShort : "dom._lun._mar._mié._jue._vie._sáb.".split("_"),
+        months : "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre".split("_"),
+        monthsShort : "Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic".split("_"),
+        weekdays : "Domingo_Lunes_Martes_Miércoles_Jueves_Viernes_Sábado".split("_"),
+        weekdaysShort : "Dom_Lun_Mar_Mié_Jue_Vie_Sáb".split("_"),
         weekdaysMin : "Do_Lu_Ma_Mi_Ju_Vi_Sá".split("_"),
         longDateFormat : {
             LT : "H:mm",
@@ -26,16 +26,16 @@
         },
         calendar : {
             sameDay : function () {
-                return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+                return '[Hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
             },
             nextDay : function () {
-                return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+                return '[Mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
             },
             nextWeek : function () {
                 return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
             },
             lastDay : function () {
-                return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+                return '[Ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
             },
             lastWeek : function () {
                 return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';

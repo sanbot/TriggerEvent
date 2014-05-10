@@ -16,9 +16,16 @@
 .removergusto:hover, 
 .agregargusto:hover, 
 .estadousuario:hover, 
+#mostrarubicacion:hover,
 #PopOverMapa,
 .aprobarseleccion:hover{
     cursor: pointer;
+}
+
+/*color mostrar ubicacion icono*/
+#mostrarubicacion{
+    color: green;
+    font-size: 18px;
 }
 
 /*aligncerar*/

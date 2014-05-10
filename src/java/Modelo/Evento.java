@@ -553,7 +553,10 @@ public class Evento {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Rango_Precios, c.Codigo_Departamento CodigoDepartamento, d.Nombre NombreDepartamento, c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion \n"
+        String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Rango_Precios, "
+                + "c.Codigo_Departamento CodigoDepartamento, d.Nombre NombreDepartamento, "
+                + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
+                + "e.Latitud, e.Longitud \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -568,7 +571,7 @@ public class Evento {
             pr.setString(2, codigoEvento);
             rs = pr.executeQuery();
 
-            String[] Datos = new String[11];
+            String[] Datos = new String[13];
             rs.beforeFirst();
 
             while (rs.next()) {
@@ -583,6 +586,8 @@ public class Evento {
                 Datos[8] = rs.getDate("Fecha").toString();
                 Datos[9] = rs.getString("Descripcion");
                 Datos[10] = rs.getTime("Fecha").toString();
+                Datos[11] = rs.getString("Latitud");
+                Datos[12] = rs.getString("Longitud");
             }
             return Datos;
         } catch (Exception ex) {
