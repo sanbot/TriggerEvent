@@ -611,7 +611,7 @@ public class Evento {
         String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Rango_Precios, "
                 + "c.Codigo_Departamento CodigoDepartamento, d.Nombre NombreDepartamento, "
                 + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
-                + "e.Motivo, e.Estado \n"
+                + "e.Motivo, e.Estado, e.Latitud, e.Longitud \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -626,7 +626,7 @@ public class Evento {
             pr.setString(2, codigoEvento);
             rs = pr.executeQuery();
 
-            String[] Datos = new String[13];
+            String[] Datos = new String[15];
             rs.beforeFirst();
 
             while (rs.next()) {
@@ -643,6 +643,8 @@ public class Evento {
                 Datos[10] = rs.getTime("Fecha").toString();
                 Datos[11] = rs.getString("Motivo");
                 Datos[12] = rs.getString("Estado");
+                Datos[13] = rs.getString("Latitud");
+                Datos[14] = rs.getString("Longitud");
             }
             return Datos;
         } catch (Exception ex) {

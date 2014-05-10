@@ -26,7 +26,8 @@
         <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
         <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/style.css" />
-        <link type="text/css" rel="stylesheet" href="../Libs/Customs/DatePicker/css/bootstrap-datetimepicker.css">
+        <link href="../Libs/Customs/css/leaflet.css" rel="stylesheet" type="text/css"/>
+        <link href="../Libs/Customs/css/leaflet.draw.css" rel="stylesheet" type="text/css"/>
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
@@ -129,7 +130,10 @@
                                 </div>
                                 <div class="col-xs-6 contenido_dos">
                                     <div class="contenido">
-                                        <label for="DireccionEvento"><%=Datos[7]%></label>
+                                        <label for="DireccionEvento">
+                                            <%=Datos[7]%>
+                                            <span id="mostrarubicacion" class="glyphicon glyphicon-screenshot"></span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -192,6 +196,18 @@
                 </div>
                 <div class="col-xs-1"></div>
             </div>
+            <div class="modal" id="modal-container-361414" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div id="map"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer>
                 <div class="row">
                     <div class="col-xs-12">
@@ -210,8 +226,20 @@
         <!--Parsley-->
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
+        <script src="../Libs/Customs/js/leaflet.js" type="text/javascript"></script>
+        <script src="../Libs/Customs/js/leaflet.draw.js" type="text/javascript"></script>
+        <script src="../Libs/Customs/js/funcionmapa.js" type="text/javascript"></script>
         <script>
             new gnMenu(document.getElementById('gn-menu'));
+            $(document).ready(function(){
+                $("#mostrarubicacion").click(function() {
+                    $("#modal-container-361414").modal('show');
+                    var latitud = '<%=Datos[13]%>';
+                    var longitud = '<%=Datos[14]%>';
+                    var nombre = '<%=Datos[1]%>';
+                    mostrarmapa(latitud, longitud, nombre);
+                });
+            });
         </script>
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

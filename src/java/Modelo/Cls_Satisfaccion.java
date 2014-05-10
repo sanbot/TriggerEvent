@@ -17,6 +17,7 @@ import java.util.Date;
  */
 public class Cls_Satisfaccion {
 
+    /*Se crean las variables necesarias y se les hace el metodo set y get además se instancia la clase conexion*/
     String Codigo;
     String Id_Evento;
     String Id_Usuario;
@@ -78,12 +79,16 @@ public class Cls_Satisfaccion {
         Connection conn = conexion.conectar();
     }
 
+    /*Metodo para registrar la calificacion y comentario de la satisfaccion del usuario*/
     public boolean setRegistrarCalificacionYComentarioSatisfaccion(String codigoUsuario, String codigoEvento, String Rating, String comentario) {
-        //incializamos los valores necesarios
+        //incializamos los valores necesarios 
+        /*Se un numero para crar el codigo primario*/
         int numerocodigo = this.CantidadRegistroSatisfaccion();
+        /*Se conecta a la base de datos*/
         Connection conn = conexion.conectar();
+        /*Se crea la variable para la sentenica preparada y para recorrer los resultados*/
         PreparedStatement pr = null;
-        ResultSet rs;
+        /*Se crea el codio con el numero retornado por el metodo*/
         String codigo = "SAT";
         codigo += numerocodigo;
 
@@ -115,26 +120,32 @@ public class Cls_Satisfaccion {
                 return false;
             }
         } catch (SQLException ex) {
+            /*Se retorna el mensaje de error*/
             this.setMensaje(ex.getMessage().toString());
         } finally {
             try {
+                /*Finalmente se cierra la sentenica preparada y la conexion*/
                 pr.close();
                 conn.close();
             } catch (Exception ex) {
                 this.setMensaje(ex.getMessage().toString());
             }
         }
-
+        /*Se retorna un mensaje de error en caso de fallar*/
         this.setMensaje("Ocurrió un problema inesperado al registrar la crítica.  Estamos trabajando para solucionar este problema.");
         return false;
     }
-
+    /*Registrar la calificacion a un evento*/
     public boolean setRegistrarCalificacionSatisfaccion(String codigoUsuario, String codigoEvento, String Rating) {
         //incializamos los valores necesarios
+        /*Se un numero para crar el codigo primario*/
         int numerocodigo = this.CantidadRegistroSatisfaccion();
+        /*Se conecta a la base de datos*/
         Connection conn = conexion.conectar();
+        /*Se crea la variable para la sentenica preparada y para recorrer los datos*/
         PreparedStatement pr = null;
         ResultSet rs;
+        /*Se crea el codigo para el registro*/
         String codigo = "SAT";
         codigo += numerocodigo;
 
@@ -191,26 +202,32 @@ public class Cls_Satisfaccion {
                 }
             }
         } catch (SQLException ex) {
+            /*Si hay algun error se muestra*/
             this.setMensaje(ex.getMessage().toString());
         } finally {
             try {
+                /*Se cierran todas las conexiones y la sentencia preparada*/
                 pr.close();
                 conn.close();
             } catch (Exception ex) {
                 this.setMensaje(ex.getMessage().toString());
             }
         }
-
+        /*Se muestra un mensaje de error y se retorna false*/
         this.setMensaje("Ocurrió un problema inesperado al registrar la puntuación al evento. Estamos trabajando para solucionar este problema.");
         return false;
     }
 
+    /*Metodo para registrar el comentario*/
     public boolean setRegistrarComentarioSatisfaccion(String codigoUsuario, String codigoEvento, String comentario) {
         //incializamos los valores necesarios
         int numerocodigo = this.CantidadRegistroSatisfaccion();
+        /*Se conecta a la base de datos*/
         Connection conn = conexion.conectar();
+        /*Se crea una variable para la sentencia preparada y recorrer los datos*/
         PreparedStatement pr = null;
         ResultSet rs;
+        /*Se crea el codigo para el registro*/
         String codigo = "SAT";
         codigo += numerocodigo;
 
@@ -219,6 +236,7 @@ public class Cls_Satisfaccion {
         String insert = "Insert into tb_satisfaccion (Codigo, Id_Evento, Id_Usuario, Comentario, Fecha) Values(?,?,?,?,?)";
         String update = "UPDATE tb_satisfaccion SET Comentario = ?, Fecha = ? Where Codigo = ?";
 
+        /*Se convierte la fecha*/
         Date fecha = new Date();
         java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
 
@@ -273,23 +291,29 @@ public class Cls_Satisfaccion {
                 }
             }
         } catch (SQLException ex) {
+            /*Se muestra el mensaje encaso de error en la ejecucion*/
             this.setMensaje(ex.getMessage().toString());
         } finally {
             try {
+                /*Se cierra la conexion y ademas se cierra la sentencia preparada*/
                 pr.close();
                 conn.close();
             } catch (Exception ex) {
                 this.setMensaje(ex.getMessage().toString());
             }
         }
-
+        /*Se muestra un  mensaje de error y se retorna false*/
         this.setMensaje("Ocurrió un problema inesperado al registrar el comentario al evento. Estamos trabajando para solucionar este problema.");
         return false;
     }
 
+    /*metodo para contar los registros de satisfaccion*/
     public int CantidadRegistroSatisfaccion() {
         //inicializamos la variables necesarias
+        
+        /*Se conecta a la base de datos*/
         Connection conn = conexion.conectar();
+        /*Se crea las variables de la sentencia preparada y para recorrer los resultados*/
         PreparedStatement pr = null;
         ResultSet rs = null;
         int i = 0;
@@ -329,7 +353,6 @@ public class Cls_Satisfaccion {
 
     public boolean ComprobarCalificacionRegistrada(String codigoEvento, String codigoUsuario, String tipo) {
         //incializamos los valores necesarios
-        int numerocodigo = this.CantidadRegistroSatisfaccion();
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
@@ -390,10 +413,13 @@ public class Cls_Satisfaccion {
         return false;
     }
 
+    /*Metodo para buscar comentarios aleatorios*/
     public String[][] BuscarComentariosAleatorios() {
+        /*Se crean las variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea el string para la consulta*/
         String sql = "SELECT u.Nombre NombreUsuario, (Select Nombre From tb_evento Where Codigo = sa.Id_Evento) NombreEmpresa, sa.Comentario \n"
                 + "FROM  `tb_satisfaccion` sa \n"
                 + "JOIN tb_usuario u on u.Codigo = sa.Id_Usuario "
@@ -401,6 +427,7 @@ public class Cls_Satisfaccion {
                 + "Where e.Fecha >= ? AND sa.Comentario IS NOT NULL Order by Rand() LIMIT 0,5";
 
         try {
+            /*Se convierta la fecha, se prepara la consulta, se le envian los datos y se ejecuta*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
             pr = conn.prepareStatement(sql);
@@ -408,25 +435,29 @@ public class Cls_Satisfaccion {
             rs = pr.executeQuery();
 
             int rows = 0;
+            /*Se cuentan los registros retornados para crear una rray*/
             while (rs.next()) {
                 rows++;
             }
+            
+            /*Se crea un array*/
             String[][] Datos = new String[rows][3];
             rs.beforeFirst();
             rows = 0;
+            /*Se guardan los datos en el array*/
             while (rs.next()) {
-                Evento eve = new Evento();
                 Datos[rows][0] = rs.getString("NombreUsuario");
                 Datos[rows][1] = rs.getString("NombreEmpresa");
                 Datos[rows][2] = rs.getString("Comentario");
                 rows++;
-
             }
+            /*Se retornan los resultados*/
             return Datos;
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             try {
+                /**Se cierra todo*/
                 rs.close();
                 pr.close();
                 conn.close();
@@ -434,19 +465,24 @@ public class Cls_Satisfaccion {
 
             }
         }
+        /*Se retorna null en caso de error*/
         return null;
     }
 
+    /*Metodo para buscar los comentarios de los eventos*/
     public String[][] BuscarComentariosEvento(String codigoEvento, int Limite, int cantidad) {
+        /*Se crean e instancias las clases y variables necesarioas*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea el string para la consulta*/
         String sql = "SELECT u.Nombre NombreUsuario, (Select Nombre From tb_evento Where Codigo = sa.Id_Evento) NombreEmpresa, sa.Comentario \n"
                 + "FROM  `tb_satisfaccion` sa \n"
                 + "JOIN tb_usuario u on u.Codigo = sa.Id_Usuario "
                 + "Where sa.Comentario IS NOT NULL AND sa.Id_Evento = ? Order by sa.Fecha LIMIT ?,?";
 
         try {
+            /*Se prepara la sentenica y se enviar los datos necesarios para ejecutarla posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigoEvento);
             pr.setInt(2, Limite);
@@ -454,12 +490,15 @@ public class Cls_Satisfaccion {
             rs = pr.executeQuery();
 
             int rows = 0;
+            /*Se cuentan los resultados para crear el array*/
             while (rs.next()) {
                 rows++;
             }
+            /*Se crea el array*/
             String[][] Datos = new String[rows][3];
             rs.beforeFirst();
             rows = 0;
+            /*Se llena el array despues de volver antes del primer valor del result set*/
             while (rs.next()) {
                 Datos[rows][0] = rs.getString("NombreUsuario");
                 Datos[rows][1] = rs.getString("NombreEmpresa");
@@ -467,11 +506,14 @@ public class Cls_Satisfaccion {
                 rows++;
 
             }
+            /*Se retorna el array con los datos*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra  un mensaje en caso de tenerlo*/
             ex.printStackTrace();
         } finally {
             try {
+                /*Se cierra todo*/
                 rs.close();
                 pr.close();
                 conn.close();
@@ -479,31 +521,40 @@ public class Cls_Satisfaccion {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
 
+    /*Metodo para contar los comentarios del evento*/
     public int getCantidadComentariosEvento(String codigoEvento) {
+        /*Se crean e instancias las variables y clases necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea un string ocn la consulta*/
         String sql = "SELECT Count(Codigo) Cantidad From tb_satisfaccion "
                 + "Where Comentario IS NOT NULL AND Id_Evento = ? Order by Fecha";
 
         try {
+            /**Se prepara la sentencia y ademas se envia los datos para ejecutarla luego*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigoEvento);
 
             rs = pr.executeQuery();
 
+            /*Se guarda el resultado*/
             int rows = 0;
             if (rs.next()) {
                 rows = rs.getInt("Cantidad");
             }
+            /*retornamos la cuenta*/
             return rows;
         } catch (Exception ex) {
+            /*En caso de error se muestra*/
             ex.printStackTrace();
         } finally {
             try {
+                /*Se cierra todo*/
                 rs.close();
                 pr.close();
                 conn.close();
@@ -511,32 +562,42 @@ public class Cls_Satisfaccion {
 
             }
         }
+        /*En caso de error retornamos 0*/
         return 0;
     }
 
+    /*Obtener el cometnario o la calificacion de un usuario*/
     public String getComentarioOCalificacion(String tipo, String codigoUsuario) {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea un string para la consulta*/
         String sql = "Select " + tipo + " FROM tb_satisfaccion Where Id_Usuario = ? ";
         try {
+            /*Se prepara la sentencia y se le envian los datos para ejecutarlo posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigoUsuario);
             rs = pr.executeQuery();
+            /*Se retorna el resultado*/
             if (rs.next()) {
                 return rs.getString(tipo);
             }
+            /*En caso de error se retorna null*/
             return null;
         } catch (Exception ex) {
+            /*Se muestra el error*/
             ex.printStackTrace();
         } finally {
             try {
+            /*Se cierra todo*/
                 pr.close();
                 conn.close();
             } catch (Exception ex) {
 
             }
         }
+        /*En caso de error se muestra un mensaje y se retorna null*/
         this.setMensaje("Ocurruó un problema al buscar el/la " + tipo + " del evento. Estamos trabajando para solucionar este problema.");
         return null;
     }
