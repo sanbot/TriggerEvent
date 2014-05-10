@@ -39,6 +39,24 @@ public class Evento {
     String Ciudad;
     String Estado;
     String Motivo;
+    String Latitud;
+    String Longitud;
+
+    public String getLatitud() {
+        return Latitud;
+    }
+
+    public void setLatitud(String Latitud) {
+        this.Latitud = Latitud;
+    }
+
+    public String getLongitud() {
+        return Longitud;
+    }
+
+    public void setLongitud(String Longitud) {
+        this.Longitud = Longitud;
+    }
 
     public String getMotivo() {
         return Motivo;
@@ -146,9 +164,9 @@ public class Evento {
 
     public boolean ConvertirFecha(String FechaDate) {
         try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
+            SimpleDateFormat formatoDeFecha = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
             Date nuevaFecha;
-            nuevaFecha = formatoFecha.parse(FechaDate);
+            nuevaFecha = formatoDeFecha.parse(FechaDate);
             this.setFechaDate(nuevaFecha);
             return true;
         } catch (ParseException ex) {
@@ -171,7 +189,7 @@ public class Evento {
         return false;
     }
 
-    public boolean setRegistrarEvento(String imagen, String nombre, Date fecha, String descripcion, String rango, String creador, String ciudad, String direccion) {
+    public boolean setRegistrarEvento(String imagen, String nombre, Date fecha, String descripcion, String rango, String creador, String ciudad, String direccion, String latitud, String longitud) {
 
         String Est = "Incompleto";
         PreparedStatement pr = null;
@@ -181,8 +199,8 @@ public class Evento {
         Connection conn = conexion.conectar();
         this.setCodigo(codigo);
         pr = null;
-        String sql = "INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Codigo_Ciudad, Direccion, Estado)";
-        sql += "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Codigo_Ciudad, Direccion, Estado, Latitud, Longitud)";
+        sql += "VALUES(?,?,?,?,?,?,?,?,?,?, ?,?)";
 
         FileInputStream is = null;
 
@@ -205,6 +223,8 @@ public class Evento {
             pr.setString(8, ciudad);
             pr.setString(9, direccion);
             pr.setString(10, Est);
+            pr.setString(11, latitud);
+            pr.setString(12, longitud);
 
             if (pr.executeUpdate() == 1) {
                 return true;

@@ -100,8 +100,8 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <label for="Fecha">Fecha y hora</label>
-                                <div class='input-group date' id='datetimepicker1' data-date-format="MM/DD/YYYY hh:ii">
-                                    <input type='text' name="Fecha" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" data-rangelength="[18,19]" readonly/>
+                                <div class='input-group date' id='datetimepicker1' data-date-format="MM/DD/YYYY hh:mm A">
+                                    <input type='text' name="Fecha" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" readonly/>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
@@ -135,14 +135,26 @@
                         </div>
                     </div>
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                        <label for="Direccion">Direcci&oacute;n</label>
+                        <label for="Direccion">Direcci&oacute;n o lugar</label>
                         <div class="input-group">
                             <input name="Direccion" class="form-control" data-required="true" data-notblank="true" data-rangelength="[8,100]"/>
                             <a id="PopOverMapa" class="input-group-addon" ><span class="glyphicon glyphicon-screenshot"></span></a>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row hide">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtlat" name="Latitud"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtlng" name="Longitud"/>
+                        </div>
+                    </div>
+                </div>
+                <div id="btn-registrar" class="row hide">
                     <div class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-5 col-md-offset-5 col-md-2">
                         <div class="form-group">
                             <button name="RegistrarEvento" type="submit" class="btn btn-block defecto" id="RegistrarEvento">Registrar</button>
@@ -150,7 +162,7 @@
                     </div>
                 </div>
             </form>
-                        
+
             <div class="modal" id="modal-container-361414" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -159,7 +171,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Agregar ubicaci&oacute;n</button>
+                            <button id="btn-agregar-ubicacion" type="button" class="btn btn-primary" data-dismiss="modal">Agregar ubicaci&oacute;n</button>
                         </div>
                     </div>
 
@@ -185,10 +197,9 @@
         <script src="../Libs/Customs/js/Parsley.js"></script>    
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
-        <script src="../Libs/Customs/DatePicker/js/moment.min.js"></script>
-        <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.es.js"></script>
-
-        <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.js"></script>
+        <script src="../Libs/Customs/DatePicker/js/moment.min.js" type="text/javascript"></script>
+        <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.es.js" type="text/javascript"></script>
         <script src="../Libs/Customs/js/leaflet.js" type="text/javascript"></script>
         <script src="../Libs/Customs/js/leaflet.draw.js" type="text/javascript"></script>
         <script src="../Libs/Customs/js/funcionmapa.js" type="text/javascript"></script>
@@ -229,19 +240,21 @@
                     }
                 });
             }
-            
+
             $(document).ready(function() {
                 getdepartamentos();
                 $("select#departamentoevento", this).change(function() {
                     var index = $(this).val();
                     getciudades(index);
                 });
-                $("#PopOverMapa").click(function(){
+                $("#PopOverMapa").click(function() {
                     $("#modal-container-361414").modal('show');
                     crearmapa();
                 });
-                $('#datetimepicker1').datetimepicker();
-                
+
+            });
+            $(function() {
+                $('#datetimepicker1').datetimepicker({ language: 'es'});
             });
         </script>
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>

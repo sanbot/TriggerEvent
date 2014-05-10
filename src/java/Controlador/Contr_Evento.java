@@ -44,6 +44,7 @@ public class Contr_Evento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
 
         boolean b;
@@ -52,8 +53,8 @@ public class Contr_Evento extends HttpServlet {
             Mensajeria sms = new Mensajeria();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
-            //urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
-            urlsalidaimg = "D:\\IMGTE\\";
+            urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
+            //urlsalidaimg = "D:\\IMGTE\\";
 
             /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
@@ -89,11 +90,15 @@ public class Contr_Evento extends HttpServlet {
                         eve.setDireccion(item.getString());
                     } else if (name.equals("Motivo")) {
                         eve.setMotivo(item.getString());
+                    } else if (name.equals("Latitud")) {
+                        eve.setLatitud(item.getString());
+                    } else if (name.equals("Longitud")) {
+                        eve.setLongitud(item.getString());
                     } else if (name.equals("RegistrarEvento")) {
                         if (eve.ConvertirFecha(eve.getFecha())) {
                             if (eve.ValidarDosDiasFecha(eve.getFechaDate())) {
                                 if (!eve.getImagen().equals("")) {
-                                    b = eve.setRegistrarEvento(eve.getImagen(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador(), eve.getCiudad(), eve.getDireccion());
+                                    b = eve.setRegistrarEvento(eve.getImagen(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador(), eve.getCiudad(), eve.getDireccion(), eve.getLatitud(), eve.getLongitud());
                                     if (b) {
                                         session.setAttribute("Mensaje", "Se registro el evento satisfactoriamente.");
                                         session.setAttribute("TipoMensaje", "Dio");
@@ -191,11 +196,15 @@ public class Contr_Evento extends HttpServlet {
                     }
                 }
             }
-            response.sendRedirect("View/index.jsp");
+
+            response.sendRedirect(
+                    "View/index.jsp");
         } catch (FileUploadException ex) {
             System.out.print(ex.getMessage().toString());
+
         } catch (Exception ex) {
-            Logger.getLogger(Contr_Seleccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Contr_Seleccion.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
