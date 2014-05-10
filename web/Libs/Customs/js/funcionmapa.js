@@ -1,0 +1,66 @@
+var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+var mapboxUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';
+var crearmapa = function() {
+    var streets = L.tileLayer(mapboxUrl, {id: 'examples.map-9ijuk24y', attribution: mapboxAttribution});
+
+    var map = L.map('map', {
+        center: [04, -74],
+        zoom: 5,
+        layers: [streets]
+    });
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    var drawControl = new L.Control.Draw({
+        draw: {
+            rectangle: false,
+            polyline: false,
+            polygon: false,
+            circle: false,
+            marker: true
+        },
+        edit: {
+            featureGroup: drawnItems,
+            edit: false,
+            remove: true
+        }
+    });
+
+    map.addControl(drawControl);
+    map.on('draw:created', function(e) {
+
+        var objectMap = map.getPanes();
+        var objMakerPane = objectMap.markerPane;
+        var countMaker = objMakerPane['childElementCount'];
+
+
+        if (countMaker <= 2) {
+            var type = e.layerType,
+                    layer = e.layer;
+
+            if (type === 'marker') {
+                layer.bindPopup('A popup!');
+            }
+            var layerobj = e.layer;
+            $("#txtlat").val(layerobj._latlng['lat']);
+            $("#txtlng").val(layerobj._latlng['lng']);
+            drawnItems.addLayer(layer);
+        } else {
+            alert('No se puede crear otra ubicación, por favor elimine la anterior');
+        }
+
+
+    });
+    map.on('draw:deleted', function() {
+
+        var objectMap = map.getPanes();
+        var objMakerPane = objectMap.markerPane;
+        var countMaker = objMakerPane['childElementCount'];
+        if (countMaker === 0) {
+            $("#txtlat").val('');
+            $("#txtlng").val('');
+        }
+    });
+};

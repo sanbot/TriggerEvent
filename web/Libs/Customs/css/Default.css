@@ -6,6 +6,8 @@
     -o-background-size: cover;
     background-size: cover;
 }
+/*Mapa*/
+#map { height: 400px; }
 /*mouse*/
 .calificacionevento:hover, 
 .desaprobarseleccion:hover, 
@@ -14,6 +16,7 @@
 .removergusto:hover, 
 .agregargusto:hover, 
 .estadousuario:hover, 
+#PopOverMapa,
 .aprobarseleccion:hover{
     cursor: pointer;
 }
@@ -78,7 +81,7 @@
 }
 #imagen{
     margin-top: 25%;
-    margin-left: 20%;
+    height: 325px;
 }
 #imagen1{
     margin-top: 25%;

@@ -9,7 +9,6 @@ import Modelo.Evento;
 import Modelo.Mensajeria;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,7 +24,6 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -54,8 +52,8 @@ public class Contr_Evento extends HttpServlet {
             Mensajeria sms = new Mensajeria();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
-            urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
-            //urlsalidaimg = "D:\\IMGTE\\";
+            //urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
+            urlsalidaimg = "D:\\IMGTE\\";
 
             /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();

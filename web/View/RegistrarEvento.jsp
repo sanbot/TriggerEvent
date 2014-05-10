@@ -22,14 +22,16 @@
         <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
         <link type="text/css" rel="stylesheet" href="../Libs/Customs/DatePicker/css/bootstrap-datetimepicker.css">
+        <link href="../Libs/Customs/css/leaflet.css" rel="stylesheet" type="text/css"/>
+        <link href="../Libs/Customs/css/leaflet.draw.css" rel="stylesheet" type="text/css"/>
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
         <%
-        if (Rol.equals("Administrador")) {%>
+            if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
         <%
-    } else if (Rol.equals("Cliente")) {%>
+        } else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
         <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
@@ -86,28 +88,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <label for="Departamento">Departamento</label>
-                            <select id="departamentoevento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <label for="Ciudad">Ciudad</label>
-                            <select id="ciudadevento" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <label for="Direccion">Direcci&oacute;n</label>
-                            <input name="Direccion" class="form-control" data-required="true" data-notblank="true" data-rangelength="[8,100]"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-4 col-lg-4">
                         <div class="row">
                             <div class="col-xs-12">
@@ -140,6 +120,29 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label for="Departamento">Departamento</label>
+                            <select id="departamentoevento" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label for="Ciudad">Ciudad</label>
+                            <select id="ciudadevento" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                        <label for="Direccion">Direcci&oacute;n</label>
+                        <div class="input-group">
+                            <input name="Direccion" class="form-control" data-required="true" data-notblank="true" data-rangelength="[8,100]"/>
+                            <a id="PopOverMapa" class="input-group-addon" ><span class="glyphicon glyphicon-screenshot"></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-5 col-md-offset-5 col-md-2">
                         <div class="form-group">
                             <button name="RegistrarEvento" type="submit" class="btn btn-block defecto" id="RegistrarEvento">Registrar</button>
@@ -147,6 +150,22 @@
                     </div>
                 </div>
             </form>
+                        
+            <div class="modal" id="modal-container-361414" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div id="map"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Agregar ubicaci&oacute;n</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
             <footer>
                 <div class="row">
                     <div class="col-xs-12">
@@ -170,6 +189,9 @@
         <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.es.js"></script>
 
         <script src="../Libs/Customs/DatePicker/js/bootstrap-datetimepicker.js"></script>
+        <script src="../Libs/Customs/js/leaflet.js" type="text/javascript"></script>
+        <script src="../Libs/Customs/js/leaflet.draw.js" type="text/javascript"></script>
+        <script src="../Libs/Customs/js/funcionmapa.js" type="text/javascript"></script>
         <script>
             new gnMenu(document.getElementById('gn-menu'));
         </script>
@@ -207,20 +229,22 @@
                     }
                 });
             }
+            
             $(document).ready(function() {
                 getdepartamentos();
                 $("select#departamentoevento", this).change(function() {
                     var index = $(this).val();
                     getciudades(index);
                 });
+                $("#PopOverMapa").click(function(){
+                    $("#modal-container-361414").modal('show');
+                    crearmapa();
+                });
+                $('#datetimepicker1').datetimepicker();
+                
             });
         </script>
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-        <script type="text/javascript">
-            $(function() {
-                $('#datetimepicker1').datetimepicker();
-            });
-        </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
         <%session.setAttribute("Mensaje", "");%>
     </body>
