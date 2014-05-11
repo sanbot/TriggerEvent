@@ -491,7 +491,7 @@
                 },
                 {
                     value: <%=Calificacion[3]%>,
-                    color: "#FF0F02"
+                    color: "#ff9f02"
                 },
                 {
                     value: <%=Calificacion[4]%>,

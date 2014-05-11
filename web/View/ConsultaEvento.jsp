@@ -2,280 +2,226 @@
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
-Contr_Consultar usu = new Contr_Consultar();
-String[][] ListaEventos = usu.getBuscarDatosPrincipalesEvento();
-int Cantidad = usu.getCantidadEventosPendientes();
+    Contr_Consultar usu = new Contr_Consultar();
+    int Cantidad = usu.getCantidadEventosPendientes();
 %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Trigger Event</title>
-    <meta name="description" content="Eventos musicales" />
-    <meta name="keywords" content="Eventos, musical, Trigger Event" />
-    <meta name="author" content="Sanser Soft" />
-    <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
-    <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-    <script src="../Libs/Customs/js/modernizr.custom.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Trigger Event</title>
+        <meta name="description" content="Eventos musicales" />
+        <meta name="keywords" content="Eventos, musical, Trigger Event" />
+        <meta name="author" content="Sanser Soft" />
+        <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
+        <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
+        <script src="../Libs/Customs/js/modernizr.custom.js"></script>
 
-</head>
-<body>
-    <%
-    if(Rol.equals("Administrador"))
-    {%>
-    <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-    <%
-    }else if(Rol.equals("Cliente"))
-    {%>
-    <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
-    <%}else if(Rol.equals("Empresa")){%>
-    <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
-    <%}%>
-	
-    <div class="container">
-        <br/>
-	<br/>
-	<br/>
-        <div class="row clearfix">
-            <div class="col-xs-12">
-                <ol class="breadcrumb">
-                    <li><a href="index.jsp">Inicio</a></li>
-                    <li class="active">Eventos</a></li>
-                </ol>
+    </head>
+    <body>
+        <%if (Rol.equals("Administrador")) {%>
+        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+        <%} else if (Rol.equals("Cliente")) {%>
+        <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
+        <%} else if (Rol.equals("Empresa")) {%>
+        <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
+        <%}%>
+
+        <div class="container">
+            <br/>
+            <br/>
+            <br/>
+            <div class="row clearfix">
+                <div class="col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="index.jsp">Inicio</a></li>
+                        <li class="active">Eventos</a></li>
+                    </ol>
+                </div>
             </div>
-        </div>
-        <div class="row" >
-            <div class="col-xs-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Eventos 
-                            <%if(Rol.equals("Administrador"))
-                            {%>
-                            <a title="Todos los eventos" href="ConsultaTodosEventos.jsp" class="pull-right"><span class="glyphicon glyphicon-book aligncerar"></span></a>
-                            <%}%>
-                            <%if(Cantidad!=0 && Rol.equals("Administrador"))
-                            {%>
-                                 <a title="Eventos pendientes" href="CEventoPendiente.jsp" class="pull-right" ><span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes"><span class="badge"><%=Cantidad%></span></span>  </a>
-                            <%}%>
-                        </h3>
+            <div class="row" >
+                <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Eventos 
+                                <%if (Rol.equals("Administrador")) {%>
+                                <a title="Todos los eventos" href="ConsultaTodosEventos.jsp" class="pull-right"><span class="glyphicon glyphicon-book aligncerar"></span></a>
+                                    <%}%>
+                                    <%if (Cantidad != 0 && Rol.equals("Administrador")) {%>
+                                <a title="Eventos pendientes" href="CEventoPendiente.jsp" class="pull-right" ><span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes"><span class="badge"><%=Cantidad%></span></span>  </a>
+                                        <%}%>
+                            </h3>
+                        </div>
                     </div>
                 </div>
-                <%
-                    int i = 1;
-                    int x = 1;
-                    int field = 1;
-                    int pag = 1;
-                    for(String[] Row : ListaEventos){%>
-                        <%if(i ==1) { %>
-                        <%if(x==1){%><div id="<%=pag%>" class="row paginacion"><%}%>
-                            <div class="col-xs-12">
-                        <%}%>
-                            <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-4">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">
-                                            <%=Row[1]%>
-                                            <a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a>
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <center><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/></center>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="Creador">Creador: <%=Row[3]%></label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="Ciudad">Ciudad: <%=Row[4]%></label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="Hora">Hora: <%=Row[5]%></label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="Fecha">Fecha: <%=Row[2]%></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer">
-                                            <label for="Espacio"> </label>
-                                            <p class="pull-right calificacionevento" data-id="<%=Row[0]%>">
-                                                <span title="Calificaci&oacute;n" class="glyphicon glyphicon-star"><%if(Row[6]==null){%>0<%}else{%><%=Row[6]%><%}%></span>
-                                                <span title="Comentarios" class="glyphicon glyphicon-comment"><%if(Row[7]==null){%>0<%}else{%><%=Row[7]%><%}%></span>
-                                            </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <%
-
-                            if(ListaEventos.length==field){
-                                if(ListaEventos.length%3 > 0)
-                                {
-                                    for(int j = 1 ; j<= (3-ListaEventos.length%3);j++)
-                                    {%>
-                                        <div class="col-xs-10 col-sm-6 col-sm-offset-0 col-md-4"></div>
-
-                                    <%}%>
-                                </div>
-                            </div><%
-                                } 
-                            }
-                            field++;
-                           if(i == 3) { 
-                                i=0;
-                                %></div></div><%
-                                if(x==3){%></div><%
-                                    x=0;
-                                    pag++;
-                                }
-                                x++;
-
-                            }
-                            i++;
-                        }%>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="pagination">
-                    <li><a id="previo">Previo</a></li>
-                    <%for(i = 1; i<=pag;i++){%>
-                    <li <%if(i==1){%>class="active"<%}%>><a class="pag"><%=i%></a></li>
-                    <%}%>
-                    <li><a id="siguiente">Siguiente</a></li>
-                </ul>            
             </div>
-        </div>            
-        <footer>
             <div class="row">
-                <div class="col-xs-12">
-                    <hr class="featurette-divider">
-                    <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                <div id="contenido-eventos" class="col-xs-12">
+
                 </div>
             </div>
-        </footer>
-    </div>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--Bootstrap-->
-    <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
-    <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
-    <script src="../Libs/Bootstrap/js/holder.js"></script>
-    <!--Parsley-->
-    <script src="../Libs/Customs/js/Parsley.js"></script>    
-    <script src="../Libs/Customs/js/classie.js"></script>
-    <script src="../Libs/Customs/js/gnmenu.js"></script>
-    <script>
-    	new gnMenu( document.getElementById( 'gn-menu' ) );
-    </script>
-    <script>
-    $(document).ready(function () {
-        $(".paginacion").addClass("hide");
-        $("#1").removeClass("hide");
-        
-        $("li").nextAll().each( function() {
-            if ($(this).hasClass("active")) {
-                if($(this).prev().find("a").text()===$("#previo").text())
-                {
-                    $("#previo").parent("li").addClass("disabled");
-                }
-                if($(this).next().find("a").text()===$("#siguiente").text()){
-                    $("#siguiente").parent("li").addClass("disabled");
-                }
-            }
-        });
-        $(".pag").click(function(){
-            $("li.active").removeClass("active");
-            $(this).parent().addClass("active");
-            $(".paginacion").addClass("hide");
-            var idpag = "#"+$(this).text();
-            $(idpag).removeClass("hide");
-            $(".disabled").removeClass("disabled");
-            $("li").nextAll().each( function() {
-                if ($(this).hasClass("active")) {
-                    if($(this).prev().find("a").text()===$("#previo").text())
-                    {
-                        $("#previo").parent("li").addClass("disabled");
+
+            <footer>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <hr class="featurette-divider">
+                        <p><center>&copy; 2014 Sergio Rivera Ballesteros, Santiago Botero Ru&iacute;z. Aprendices Tecn&oacute;logos en An&aacute;lisis y Desarrollo de Sistemas de Informaci&oacute;n, SENA CESGE regional Antioquia</center></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!--Bootstrap-->
+        <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
+        <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
+        <!--Parsley-->
+        <script src="../Libs/Customs/js/classie.js"></script>
+        <script src="../Libs/Customs/js/gnmenu.js"></script>
+        <script>
+            new gnMenu(document.getElementById('gn-menu'));
+        </script>
+        <script>
+            var eventos = 0;
+            var cantidad = 0;
+            var estado = "cargando";
+            var geteventos = function(limite, cantidad) {
+                console.log("me ejecutaron");
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Help',
+                    data: {"accion": 'eventodatosprincipales', "limite": limite, "cantidad": cantidad},
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+                        var items = [];
+                        var fila = 0;
+                        $.each(datos, function(key, val) {
+                            fila++;
+                            if (fila == 1)
+                            {
+                                items.push('<div class="row">');
+                                items.push('<div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0">');
+                                items.push('<div class="row">');
+                            }
+                            if (fila === 3) {
+                                items.push('<div class="soy-un-evento col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">');
+                            } else {
+                                items.push('<div class="soy-un-evento col-xs-12 col-sm-6 col-sm-offset-0 col-md-4">');
+                            }
+                            items.push('<div class="panel panel-primary">');
+                            items.push('<div class="panel-heading">');
+                            items.push('<h3 class="panel-title">');
+                            items.push(val.nombre);
+                            items.push('<a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=' + val.codigo + '"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a>');
+                            items.push('</h3>');
+                            items.push('</div>');
+                            items.push('<div class="panel-body">');
+                            items.push('<div class="row">');
+                            items.push('<div class="col-md-12">');
+                            items.push('<center><img src="ImagenEvento.jsp?Codigo=' + val.codigo + '" class="img-thumbnail imgevento"/></center>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class="row">');
+                            items.push('<div class="col-md-12">');
+                            items.push('<label for="Creador">Creador: ' + val.creador + '</label>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class="row">');
+                            items.push('<div class="col-md-12">');
+                            items.push('<label for="Ciudad">Ciudad: ' + val.ciudad + '</label>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class="row">');
+                            items.push('<div class="col-md-12">');
+                            items.push('<label for="Hora">Hora: ' + val.hora + '</label>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class="row">');
+                            items.push('<div class="col-md-12">');
+                            items.push('<label for="Fecha">Fecha: ' + val.fecha + '</label>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class="panel-footer">');
+                            items.push('<label for="Espacio"> </label>');
+                            items.push('<p class="pull-right calificacionevento" data-id="' + val.codigo + '">');
+                            var comentario, calificacion;
+                            val.comentario == null ? comentario = 0 : comentario = val.comentario;
+                            val.calificacion == null ? calificacion = 0 : calificacion = val.calificacion;
+                            items.push('<span title="Calificaci&oacute;n" class="glyphicon glyphicon-star">' + calificacion + '</span>');
+                            items.push('<span title="Comentarios" class="glyphicon glyphicon-comment">' + comentario + '</span>');
+                            items.push('</p>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('</div>');
+
+                            if (fila == 3)
+                            {
+                                fila = 0;
+                                items.push('</div>');
+                                items.push('</div>');
+                                items.push('</div>');
+                            }
+                        });
+                        if (fila < 3 && fila > 0)
+                        {
+                            for (var i = fila; i < 3; i++)
+                            {
+                                items.push('<div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-4">');
+                                items.push('</div>');
+                            }
+                            items.push('</div>');
+                            items.push('</div>');
+                        }
+                        $("#contenido-eventos").append(items.join(""));
                     }
-                    if($(this).next().find("a").text()===$("#siguiente").text()){
-                        $("#siguiente").parent("li").addClass("disabled");
+                }).done(function() {
+                    $(".calificacionevento").click(function() {
+                        var Id = $(this).data('id');
+                        window.location.replace("/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento=" + Id + "#titulo-opinion");
+                    });
+                    var i = 0;
+                    $(".soy-un-evento").each(function() {
+                        i++;
+                    });
+                    eventos = i;
+                    estado = "listo";
+                });
+            };
+            $(window).scroll(function() {
+                if ($(window).scrollTop() >= ($(document).height() - $(window).height()) * 0.3) {
+                    if (estado === "listo")
+                    {
+                        if (eventos < cantidad)
+                        {
+                            estado = "cargando";
+                            geteventos(eventos, "9");
+                        }
                     }
                 }
             });
-        });
-        $("#previo").click(function(){
-            if($("li.disabled:first").find("a").text()!== $("#previo").text())
-            {
-                var activo = $("li.active").prev();
-                var textoactivo =$("li.active").prev().find("a").text();
-                $("li.active").removeClass("active");
-                $(".paginacion").addClass("hide");
-                activo.addClass("active");
-                $(".disabled").removeClass("disabled");
-                $("#"+textoactivo).removeClass("hide");
-                $("li").nextAll().each( function() {
-                    if ($(this).hasClass("active")) {
-                        if($(this).prev().find("a").text()===$("#previo").text())
-                        {
-                            $("#previo").parent("li").addClass("disabled");
-                        }
-                        if($(this).next().find("a").text()===$("#siguiente").text()){
-                            $("#siguiente").parent("li").addClass("disabled");
-                        }
+            var totalevento = function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Help',
+                    data: {"accion": 'totalevento'},
+                    success: function(data) {
+                        cantidad = parseInt(data);
                     }
                 });
-            }
-            
-        });
-        $("#siguiente").click(function(){
-            if($("li.disabled:last").find("a").text()!== $("#siguiente").text())
-            {
-                var activo = $("li.active").next();
-                var textoactivo =$("li.active").next().find("a").text();
-                $("li.active").removeClass("active");
-                $(".paginacion").addClass("hide");
-                activo.addClass("active");
-                $("#"+textoactivo).removeClass("hide");
-                $(".disabled").removeClass("disabled");
-                $("li").nextAll().each( function() {
-                    if ($(this).hasClass("active")) {
-                        if($(this).prev().find("a").text()===$("#previo").text())
-                        {
-                            $("#previo").parent("li").addClass("disabled");
-                        }
-                        if($(this).next().find("a").text()===$("#siguiente").text()){
-                            $("#siguiente").parent("li").addClass("disabled");
-                        }
-                    }
-                });
-            }
-        });
-        $(".calificacionevento").click(function(){
-            var Id = $(this).data('id');
-            window.location.replace("http://localhost:8080/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento="+Id+"#titulo-opinion");
-        });
-        $(".modal-Modifica").click(function(){
-            var Id = $(this).data('id');
-            var Name = $(this).data('nombre');
-            $(".modal-body #ConCodigo").val( Id );
-            $(".modal-body #ConNombre").val( Name );
-        });
-    });
-    </script>
-    <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-    <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
-    <%session.setAttribute("Mensaje", "");%>
-</body>
+            };
+            $(document).ready(function() {
+                geteventos("0", "9");
+                totalevento();
+            });
+        </script>
+        <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
+        <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
+        <%session.setAttribute("Mensaje", "");%>
+    </body>
 </html>
 

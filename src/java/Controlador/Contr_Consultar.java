@@ -80,12 +80,6 @@ public class Contr_Consultar {
         return Dato;
     }
 
-    public String[][] getBuscarDatosPrincipalesEvento() {
-        Evento eve = new Evento();
-        String[][] Datos = eve.BuscarDatosPrincipalesEventos();
-        return Datos;
-    }
-
     public String[][] getBuscarDatosEventosProximos() {
         Evento eve = new Evento();
         String[][] Datos = eve.BuscarDatosEventosProximos();

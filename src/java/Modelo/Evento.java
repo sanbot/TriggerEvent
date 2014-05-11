@@ -250,16 +250,16 @@ public class Evento {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "Select * "
+        String sql = "Select Count(Codigo) Cantidad "
                 + "From  tb_evento";
         try {
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
 
             int i = 0;
-            while (rs.next()) {
+            if (rs.next()) {
 
-                i++;
+                i = rs.getInt("Cantidad");
             }
             return i + 1;
         } catch (Exception ex) {
@@ -325,6 +325,69 @@ public class Evento {
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
+            rs = pr.executeQuery();
+
+            int rows = 0;
+            while (rs.next()) {
+                rows++;
+            }
+            String[][] Datos = new String[rows][8];
+            rs.beforeFirst();
+            rows = 0;
+            while (rs.next()) {
+                Evento eve = new Evento();
+                eve.setCodigo(rs.getString("Codigo"));
+                eve.setNombre(rs.getString("Nombre"));
+                eve.setFecha(rs.getString("Fecha"));
+                eve.setCreador(rs.getString("NombreEmpresa"));
+                eve.setCiudad(rs.getString("NombreCiudad"));
+                Datos[rows][0] = eve.getCodigo();
+                Datos[rows][1] = eve.getNombre();
+                Datos[rows][2] = rs.getDate("Fecha").toString();
+                Datos[rows][3] = eve.getCreador();
+                Datos[rows][4] = eve.getCiudad();
+                Datos[rows][5] = rs.getTime("Fecha").toString();
+                Datos[rows][6] = rs.getString("Calificacion");
+                Datos[rows][7] = rs.getString("Comentarios");
+
+                rows++;
+
+            }
+            return Datos;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return null;
+    }
+    
+    public String[][] BuscarDatosPrincipalesEventos(int Limite, int Cantidad) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
+                + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
+                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
+                + "FROM  `tb_evento` e \n"
+                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
+                + "Where e.Estado = 'Aprobado' AND "
+                + "Fecha >= ? ORDER BY Fecha LIMIT ?,?";
+
+        try {
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            pr = conn.prepareStatement(sql);
+            pr.setTimestamp(1, sqlDate);
+            pr.setInt(2, Limite);
+            pr.setInt(3, Cantidad);
             rs = pr.executeQuery();
 
             int rows = 0;
