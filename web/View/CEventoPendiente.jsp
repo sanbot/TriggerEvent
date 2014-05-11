@@ -35,7 +35,7 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <ol class="breadcrumb">
-                            <li><a href="index.jsp">Inicio</a></li>
+                            <li><a href="EventoRecomendado.jsp">Inicio</a></li>
                             <li><a href="ConsultaEvento.jsp">Eventos</a></li>
                             <li class="active">Consultar eventos pendientes</a></li>
                         </ol>

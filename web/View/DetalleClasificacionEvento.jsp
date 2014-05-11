@@ -44,9 +44,9 @@
             <div class="row clearfix">
                 <div class="col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="index.jsp">Inicio</a></li>
+                        <li><a href="EventoRecomendado.jsp">Inicio</a></li>
                         <li><a href="ConsultaEvento.jsp">Eventos</a></li>
-                        <li><a href="DetalleEvento.jsp?CodigoEvento=<%=Codigo%>">Eventos</a></li>
+                        <li><a href="DetalleEvento.jsp?CodigoEvento=<%=Codigo%>">Evento anterior</a></li>
                         <li class="active">Clasificaci&oacute;n de evento</a></li>
                     </ol>
                 </div>

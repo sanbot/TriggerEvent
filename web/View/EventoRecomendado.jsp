@@ -1,9 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
-    Contr_Consultar usu = new Contr_Consultar();
-    int Cantidad = usu.getCantidadEventosPendientes();
+    String Codigo = (String)session.getAttribute("Codigo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,8 +35,7 @@
             <div class="row clearfix">
                 <div class="col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="EventoRecomendado.jsp">Inicio</a></li>
-                        <li class="active">Eventos</a></li>
+                        <li class="active" >Inicio</li>
                     </ol>
                 </div>
             </div>
@@ -46,20 +44,14 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                Eventos 
-                                <%if (Rol.equals("Administrador")) {%>
-                                <a title="Todos los eventos" href="ConsultaTodosEventos.jsp" class="pull-right"><span class="glyphicon glyphicon-book aligncerar"></span></a>
-                                    <%}%>
-                                    <%if (Cantidad != 0 && Rol.equals("Administrador")) {%>
-                                <a title="Eventos pendientes" href="CEventoPendiente.jsp" class="pull-right" ><span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes"><span class="badge"><%=Cantidad%></span></span>  </a>
-                                        <%}%>
+                                Eventos recomendados
                             </h3>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div id="contenido-eventos" class="col-xs-12">
+                <div id="contenido-eventos-recomendados" class="col-xs-12">
 
                 </div>
             </div>
@@ -94,7 +86,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Help',
-                    data: {"accion": 'eventodatosprincipales', "limite": limite, "cantidad": cantidad},
+                    data: {"accion": 'eventodatosrecomendados', "idusuario": '<%=Codigo%>', "limite": limite, "cantidad": cantidad},
                     success: function(data) {
                         var datos = jQuery.parseJSON(data);
                         var items = [];
@@ -177,7 +169,7 @@
                             items.push('</div>');
                             items.push('</div>');
                         }
-                        $("#contenido-eventos").append(items.join(""));
+                        $("#contenido-eventos-recomendados").append(items.join(""));
                     }
                 }).done(function() {
                     $(".calificacionevento").click(function() {
@@ -208,7 +200,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Help',
-                    data: {"accion": 'totalevento'},
+                    data: {"accion": 'totaleventorecomendado', "idusuario": '<%=Codigo%>'},
                     success: function(data) {
                         cantidad = parseInt(data);
                     }
@@ -224,4 +216,5 @@
         <%session.setAttribute("Mensaje", "");%>
     </body>
 </html>
+
 

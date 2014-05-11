@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <ol class="breadcrumb">
-                        <li><a href="index.jsp">Inicio</a></li>
+                        <li><a href="EventoRecomendado.jsp">Inicio</a></li>
                         <li><a href="ConsultaEvento.jsp">Eventos</a></li>
                         <li class="active">Detalle Evento</li>
                     </ol>

@@ -41,7 +41,7 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <ol class="breadcrumb">
-                            <li><a href="index.jsp">Inicio</a></li>
+                            <li><a href="EventoRecomendado.jsp">Inicio</a></li>
                             <li class="active">Mi perfil</a></li>
                         </ol>
                     </div>

@@ -72,7 +72,7 @@ public class Contr_Usuarios extends HttpServlet {
                 session.setAttribute("Ciudad", Ciudad);
                 session.setAttribute("Departamento", Departamento);
 
-                url = "View/index.jsp";
+                url = "View/EventoRecomendado.jsp";
                 response.sendRedirect(url);
             } else {
                 session.setAttribute("Mensaje", usu.getMensaje());
@@ -465,7 +465,7 @@ public class Contr_Usuarios extends HttpServlet {
             }
 
         } else {
-            url = "View/login.jsp";
+            url = "View/index.jsp";
             response.sendRedirect(url);
         }
     }

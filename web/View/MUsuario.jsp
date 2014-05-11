@@ -40,8 +40,8 @@
             <div class="row clearfix">
                 <div class="col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="index.jsp">Inicio</a></li>
-                        <li><a href="index.jsp">Registrar y consultar usuarios</a></li>
+                        <li><a href="EventoRecomendado.jsp">Inicio</a></li>
+                        <li><a href="CUsuario.jsp">Registrar y consultar usuarios</a></li>
                         <li class="active">Modificar usuario</a></li>
                     </ol>
                 </div>

@@ -1147,4 +1147,142 @@ public class Evento {
         return 0;
     }
 
+    public String[][] geteventosRecomendados(String codigoUsuario, int Limite, int Cantidad) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "SELECT Id_Seleccion FROM tb_seleccion_usuario \n" +
+                     "Where Id_Usuario = ? And Estado = 'Activo'";
+        String sqlevento = "SELECT DISTINCT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
+                + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
+                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
+                + "FROM  `tb_evento` e \n"
+                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
+                + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
+                + "Where e.Estado = 'Aprobado' AND "
+                + "Fecha >= ? AND se.Id_Seleccion IN (";
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigoUsuario);
+            rs = pr.executeQuery();
+
+            int row = 0;
+            while (rs.next()) {
+                row ++;
+            }
+            int i = 0;
+            rs.beforeFirst();
+            while (rs.next())
+            {
+                i++;
+                if(i==row)
+                {
+                    sqlevento += "'" + rs.getString("Id_Seleccion") +"'";
+                }
+                else
+                {
+                    sqlevento += "'" + rs.getString("Id_Seleccion") +"',";
+                }
+            }
+            sqlevento += ") ORDER BY Fecha LIMIT ?,?";
+
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            pr = conn.prepareStatement(sqlevento);
+            pr.setTimestamp(1, sqlDate);
+            pr.setInt(2, Limite);
+            pr.setInt(3, Cantidad);
+            rs = pr.executeQuery();
+            int rows = 0;
+            while (rs.next()) {
+                rows++;
+            }
+            String[][] Datos = new String[rows][8];
+            rs.beforeFirst();
+            rows = 0;
+            while (rs.next()) {
+                Datos[rows][0] = rs.getString("Codigo");
+                Datos[rows][1] = rs.getString("Nombre");
+                Datos[rows][2] = rs.getDate("Fecha").toString();
+                Datos[rows][3] = rs.getString("NombreEmpresa");
+                Datos[rows][4] = rs.getString("NombreCiudad");
+                Datos[rows][5] = rs.getTime("Fecha").toString();
+                Datos[rows][6] = rs.getString("Calificacion");
+                Datos[rows][7] = rs.getString("Comentarios");
+                rows++;
+            }
+            return Datos;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return null;
+    }
+    
+    public int getcantidadeventosRecomendados(String codigoUsuario) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "SELECT Id_Seleccion FROM tb_seleccion_usuario \n" +
+                     "Where Id_Usuario = ? And Estado = 'Activo'";
+        String sqlevento = "SELECT Count(e.Codigo) Cantidad "
+                + "FROM  `tb_evento` e \n"
+                + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
+                + "Where e.Estado = 'Aprobado' AND "
+                + "Fecha >= ? AND se.Id_Seleccion IN (";
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigoUsuario);
+            rs = pr.executeQuery();
+
+            int row = 0;
+            while (rs.next()) {
+                row ++;
+            }
+            int i = 0;
+            rs.beforeFirst();
+            while (rs.next())
+            {
+                i++;
+                if(i==row)
+                {
+                    sqlevento += "'" + rs.getString("Id_Seleccion") +"'";
+                }
+                else
+                {
+                    sqlevento += "'" + rs.getString("Id_Seleccion") +"',";
+                }
+            }
+            sqlevento += ") ORDER BY Fecha";
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            pr = conn.prepareStatement(sqlevento);
+            pr.setTimestamp(1 , sqlDate);
+            rs = pr.executeQuery();
+            int rows = 0;
+            if (rs.next()) {
+                rows = rs.getInt("Cantidad");
+            }return rows;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return 0;
+    }
+
 }

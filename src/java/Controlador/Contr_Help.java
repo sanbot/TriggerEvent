@@ -65,8 +65,14 @@ public class Contr_Help extends HttpServlet {
                 out.println(row);
             } else if (request.getParameter("accion").equals("totalevento")) {
                 Evento eve = new Evento();
+                String codigoUsuario = request.getParameter("idusuario");
+                int row = eve.getcantidadeventosRecomendados(codigoUsuario);
+                out.println(row);
+
+            } else if (request.getParameter("accion").equals("totaleventorecomendado")) {
+                Evento eve = new Evento();
                 int row = eve.CantidadRegistroEvento();
-                out.println(row-1);
+                out.println(row - 1);
             } else if (request.getParameter("accion").equals("getciudad")) {
                 Ciudad ciu = new Ciudad();
                 String[][] Datos = ciu.BuscarDatosCiudadTodos(request.getParameter("codigodepartamento"));
@@ -371,6 +377,30 @@ public class Contr_Help extends HttpServlet {
                 int limite = Integer.parseInt(request.getParameter("limite"));
                 int cantidad = Integer.parseInt(request.getParameter("cantidad"));
                 String[][] Datos = eve.BuscarDatosPrincipalesEventos(limite, cantidad);
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("creador", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("hora", row[5]);
+                    ob.put("calificacion", row[6]);
+                    ob.put("comentario", row[7]);
+                    obj.put(Integer.toString(i), ob);
+
+                    i++;
+                }
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("eventodatosrecomendados")) {
+                Evento eve = new Evento();
+                int limite = Integer.parseInt(request.getParameter("limite"));
+                int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+                String codigoUsuario = request.getParameter("idusuario");
+                String[][] Datos = eve.geteventosRecomendados(codigoUsuario, limite, cantidad);
                 JSONObject obj = new JSONObject();
                 int i = 0;
                 for (String row[] : Datos) {

@@ -843,7 +843,7 @@ public class Usuario {
         }
         return false;
     }
-
+    
     public boolean setCambioContrasenia(String codigo, String contra) {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;

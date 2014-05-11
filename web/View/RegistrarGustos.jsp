@@ -38,7 +38,7 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <ol class="breadcrumb">
-                            <li><a href="index.jsp">Inicio</a></li>
+                            <li><a href="EventoRecomendado.jsp">Inicio</a></li>
                             <li><a href="MisGustos.jsp">Mis gustos</a></li>
                             <li class="active">Agregar Gustos</a></li>
                         </ol>

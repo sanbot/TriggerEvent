@@ -8,7 +8,7 @@
                 <div class="gn-scroller">
                     <ul class="gn-menu">
                         <li>
-                            <a href="index.jsp">
+                            <a href="EventoRecomendado.jsp">
                                 <span class="glyphicon glyphicon-home glyphiconuno"></span>
                                 <div class="negro">Inicio</div>
                             </a>

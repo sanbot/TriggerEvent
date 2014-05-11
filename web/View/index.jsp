@@ -12,6 +12,10 @@
     String[][] ListaEventosDestacados = usu.getBuscarDatosEventosDestacados();
     String[][] ListaEventosComentados = usu.getBuscarDatosEventosComentado();
     String[][] Comentarios = usu.getBuscarComentariosAleatorios();
+    if(!Rol.equals("") && !Rol.equals(null))
+    {
+        response.sendRedirect("EventoRecomendado.jsp");
+    }
 %>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -30,16 +34,8 @@
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
-        <%if (Rol.equals("Administrador")) {%>
-        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <%} else if (Rol.equals("Cliente")) {%>
-        <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
-        <%} else if (Rol.equals("Empresa")) {%>
-        <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
-        <%} else if (Rol.equals("") || Rol.equals(null)) {%>
+        
         <%@include file="../WEB-INF/jspf/Menu.jspf" %>
-        <%}%>
-        <%if (Rol == "" || Rol == null) {%>
         <div id="body" class="container" style="width: 100%;">
             <br/>
             <br/>
@@ -178,14 +174,8 @@
                 </div>
             </div>
         </div>
-        <%}%>
         <div class="container">
             <br/>
-            <%if (Rol != "" && Rol != null) {%>
-
-            <br/>
-            <br/>
-            <%}%>
             <div class="row clearfix" >
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
                     <div class="panel panel-primary" id="target-4">
@@ -514,7 +504,6 @@
 
             $(function() {
 
-            <%if (Rol.equals("") || Rol.equals(null)) {%>
                 guidely.add({
                     attachTo: '#target-2'
                     , anchor: 'bottom-left'
@@ -557,35 +546,6 @@
                     , text: 'En Trigger Event, tenemos en cuenta los comentarios de nuestros usuarios. Estos son algunos de ellos.'
                 });
 
-            <%} else {%>
-                guidely.add({
-                    attachTo: '#target-4'
-                    , anchor: 'bottom-left'
-                    , title: 'Lo más destacado'
-                    , text: 'Estos son los eventos con mejor calificación (dada por nuestros usuarios).'
-                });
-
-                guidely.add({
-                    attachTo: '#target-5'
-                    , anchor: 'bottom-left'
-                    , title: 'Los más comentados'
-                    , text: 'Estos son los eventos más polémicos. Le damos la oportunidad a nuestros usuarios de expresar su opinión.'
-                });
-
-                guidely.add({
-                    attachTo: '#target-6'
-                    , anchor: 'bottom-left'
-                    , title: 'Próximos eventos'
-                    , text: 'Estos son los eventos más cercanos con respecto al día actual.'
-                });
-
-                guidely.add({
-                    attachTo: '#target-7'
-                    , anchor: 'bottom-right'
-                    , title: 'Algunos comentarios'
-                    , text: 'En Trigger Event, tenemos en cuenta los comentarios de nuestros usuarios. Estos son algunos de ellos.'
-                });
-            <%}%>
                 if (!localStorage.getItem("welcome"))
                 {
                     guidely.init({welcome: true, startTrigger: false});
@@ -596,17 +556,12 @@
         </script>
         <script>
             $("#guia").click(function() {
-                localStorage.removeItem("welcome");
-                location.reload();
+                guidely.init({welcome: true, startTrigger: false});
             });
             $(".calificacionevento").click(function() {
                 var Id = $(this).data('id');
-            <%if (Rol.equals("") || Rol.equals(null)) {%>
                 $("#codigoeventomodal").val(Id);
                 $('#Modal-Login').modal('show');
-            <%} else {%>
-                window.location.replace("/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento=" + Id + "#titulo-opinion");
-            <%}%>
             });
             $("#modal-oldive").click(function() {
                 $('#Modal-Login').modal('hide');
