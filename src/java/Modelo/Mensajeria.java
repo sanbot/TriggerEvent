@@ -21,6 +21,7 @@ public class Mensajeria {
     private final Properties properties = new Properties();
     private Session sess;
 
+    /*Variables necesarias para mandar un mensaje*/
     public void Init() {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.starttls.enable", "true");
@@ -32,8 +33,9 @@ public class Mensajeria {
         sess = Session.getDefaultInstance(properties);
     }
 
+    /*metodo para recordar la contraseña*/
     public boolean recordarcontrasenia(String correo, String Contra, String Nombre) {
-
+        /*Se crea el cuerdo del mensaje */
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
@@ -71,7 +73,7 @@ public class Mensajeria {
 
         try {
             Init();
-
+            /*Se manda el mensaje despues de estructurarlo*/
             MimeMessage message = new MimeMessage(sess);
             message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
@@ -81,15 +83,19 @@ public class Mensajeria {
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
             t.sendMessage(message, message.getAllRecipients());
             t.close();
+            /*Se retorna true en caso de funcionar*/
             return true;
         } catch (MessagingException me) {
             System.out.print(me.toString());
         }
+        /*Se retorna false en caso de error*/
         return false;
     }
 
+    /*Metodo para notificar el cambio de estado de un evento (aprobado)*/
     public boolean EnviarMensajeCambioEstadoEvento(String[] Datos, String Estado) {
 
+        /*Se crea el contenido del mensaje en un string*/
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
@@ -119,7 +125,7 @@ public class Mensajeria {
 
         try {
             Init();
-
+            /*Se crea la estructura y se envia el correo*/
             MimeMessage message = new MimeMessage(sess);
             message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(Datos[4]));
@@ -129,15 +135,19 @@ public class Mensajeria {
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
             t.sendMessage(message, message.getAllRecipients());
             t.close();
+            /*Se retorna tru en caso de funcionar*/
             return true;
         } catch (MessagingException me) {
             System.out.print(me.toString());
         }
+        /*se retorna falso en caso de error*/
         return false;
     }
 
+    /*Metodo para notificar el cambio de estado del evento (desaprobado)*/
     public boolean EnviarMensajeCambioEstadoEvento(String[] Datos, String Estado, String Motivo) {
 
+        /*Se crea el contenido del mensaje*/
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
@@ -168,7 +178,7 @@ public class Mensajeria {
 
         try {
             Init();
-
+            /*Se crea la estructura del mensaje y se envia*/
             MimeMessage message = new MimeMessage(sess);
             message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(Datos[4]));
@@ -178,15 +188,19 @@ public class Mensajeria {
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
             t.sendMessage(message, message.getAllRecipients());
             t.close();
+            /*Se retorna true en caso de funcionar*/
             return true;
         } catch (MessagingException me) {
             System.out.print(me.toString());
         }
+        /*Se retorna false en caso de error*/
         return false;
     }
 
+    /*Metodo para notiifcar al usuario el codigo de verificacion*/
     public boolean EnviarCodVer(String correo, String Numero, String Nombre, String CodVer) {
 
+        /*Se crea el contenido del mensaje*/
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
@@ -249,7 +263,7 @@ public class Mensajeria {
 
         try {
             Init();
-
+            /*Se crea la estructura del mensaje y se envia*/
             MimeMessage message = new MimeMessage(sess);
             message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
@@ -259,6 +273,7 @@ public class Mensajeria {
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
             t.sendMessage(message, message.getAllRecipients());
             t.close();
+            /*Se retorna tru en caso de funcionar*/
             return true;
         } catch (MessagingException me) {
                         //Aqui se deberia o mostrar un mensaje de error o en lugar  
@@ -266,10 +281,13 @@ public class Mensajeria {
             //superior la capture y avise al usuario con un popup, por ejemplo. 
             System.out.print(me.toString());
         }
+        /*Se retorna false e caso de error*/
         return false;
     }
 
+    /*Metodo para notificar al usuario que se le aprobo la cuenta*/
     public boolean setMensajeModificarAprobar(String correo, String celular, String Nombre, String Tipo_Documento, String No_Documento, String Telefono, String Direccion) {
+        /*Se crea el contenido del mensaje*/
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
@@ -356,6 +374,7 @@ public class Mensajeria {
         try {
             Init();
 
+            /*Se estructura y envia el mensaje*/
             MimeMessage message = new MimeMessage(sess);
             message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
@@ -365,17 +384,18 @@ public class Mensajeria {
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
             t.sendMessage(message, message.getAllRecipients());
             t.close();
+            /*En caso de funcionar se retorna true*/
             return true;
         } catch (MessagingException me) {
-                        //Aqui se deberia o mostrar un mensaje de error o en lugar  
-            //de no hacer nada con la excepcion, lanzarla para que el modulo  
-            //superior la capture y avise al usuario con un popup, por ejemplo. 
             System.out.print(me.toString());
         }
+        /*En caso de error retonra false*/
         return false;
     }
 
+    /*Metodo para notificar al usuario que se desaprobo la cuenta*/
     public boolean setMensajeModificarDesaprobar(String correo, String celular, String Nombre, String Tipo_Documento, String No_Documento, String Telefono, String Direccion) {
+        /*Se crea el contenido del mensaje*/
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
@@ -462,6 +482,7 @@ public class Mensajeria {
         try {
             Init();
 
+            /*Se estructura el mensaje y se envia*/
             MimeMessage message = new MimeMessage(sess);
             message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
@@ -471,18 +492,19 @@ public class Mensajeria {
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
             t.sendMessage(message, message.getAllRecipients());
             t.close();
+            /*Se retorna true en caso de funcionar*/
             return true;
-        } catch (MessagingException me) {
-                        //Aqui se deberia o mostrar un mensaje de error o en lugar  
-            //de no hacer nada con la excepcion, lanzarla para que el modulo  
-            //superior la capture y avise al usuario con un popup, por ejemplo. 
+        } catch (MessagingException me) { 
             System.out.print(me.toString());
         }
+        /*Se retorna false en caso de error*/
         return false;
     }
 
+    /*Metodo para el contactenos del sitio web*/
     public boolean contactenos(String contenido, String asunto, String Nombre) {
 
+        /*Se crea el contenido del mensaje*/
         String msgBody = "<table style=\"width:100%;border:0;padding:0;font-family:Arial,Helvetica,sans-serif;border-spacing:0;font-size:13px;color:#333333\">"
                 + "<tbody>"
                 + "<tr>"
@@ -512,6 +534,7 @@ public class Mensajeria {
         try {
             Init();
 
+            /*Se estructura el mensaje y se envia*/
             MimeMessage message = new MimeMessage(sess);
             message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress((String) properties.get("mail.smtp.user")));
@@ -521,13 +544,12 @@ public class Mensajeria {
             t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
             t.sendMessage(message, message.getAllRecipients());
             t.close();
+            /*Se retorna true en caso de funcionar*/
             return true;
         } catch (MessagingException me) {
-                        //Aqui se deberia o mostrar un mensaje de error o en lugar  
-            //de no hacer nada con la excepcion, lanzarla para que el modulo  
-            //superior la capture y avise al usuario con un popup, por ejemplo. 
             System.out.print(me.toString());
         }
+        /*Se retorna false en caso de error*/
         return false;
     }
 }

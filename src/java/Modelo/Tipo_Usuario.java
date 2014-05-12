@@ -14,6 +14,7 @@ import java.sql.ResultSet;
  */
 public class Tipo_Usuario {
 
+    /*Se crean los metodos set y get las varibales y la clase de conexion necesarias*/
     cone conexion = new cone();
 
     public Tipo_Usuario() {
@@ -48,34 +49,41 @@ public class Tipo_Usuario {
         this.Tipo_Usuario = Tipo_Usuario;
     }
 
+    /*MEtodo para buscar todos los datos de tipos de usuario*/
     public String[][] BuscarDatosTipoUsuarioTodos() {
+        /*Se crea e instancia las variables y clases de conxion necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se traen todos los datos de tipos de usuario con esta sentenica*/
         String sql = "Select * "
                 + "From  tb_tipo_usuario";
 
         try {
+            /*Se prepara la sentencia y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
             int rows = 0;
+            /*Se cuentan los registros para crear un array posteriormente*/
             while (rs.next()) {
                 rows++;
             }
             rs.beforeFirst();
+            /*Se crea el array y se guardan los datos*/
             String[][] Datos = new String[rows][2];
             rows = 0;
             while (rs.next()) {
-
                 Datos[rows][0] = rs.getString("Codigo");
                 Datos[rows][1] = rs.getString("Tipo");
-
                 rows++;
             }
+            /*Se retornan los resultados*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestran los resultados*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -84,6 +92,7 @@ public class Tipo_Usuario {
 
             }
         }
+        /*Se retorna null en caso de error*/
         return null;
     }
 }

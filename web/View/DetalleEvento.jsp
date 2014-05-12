@@ -183,7 +183,7 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-sm-4 contenido-2">
-                                            <div class="rating-evento">
+                                            <div id="puntuacionevento" class="rating-evento">
                                                 <span class="glyphicon glyphicon-star star-rating five-star"></span>5 Votos: <%=Calificacion[0]%>
                                                 <br/>
                                                 <span class="glyphicon glyphicon-star star-rating four-star"></span>4 Votos: <%=Calificacion[1]%>

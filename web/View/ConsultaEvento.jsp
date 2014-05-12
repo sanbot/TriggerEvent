@@ -90,7 +90,6 @@
             var cantidad = 0;
             var estado = "cargando";
             var geteventos = function(limite, cantidad) {
-                console.log("me ejecutaron");
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Help',

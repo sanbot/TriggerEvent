@@ -16,6 +16,7 @@ import java.util.Random;
  */
 public class Usuario {
 
+    /*Creacion de las variables, instancia de las clases necesarias y metodos set y get*/
     String Celular;
     String Correo;
     String Tipo;
@@ -149,10 +150,13 @@ public class Usuario {
         this.Direccion = Direccion;
     }
 
+    /*Metodo para iniciar sesion*/
     public boolean getlogin(String correo, String contrasenia) {
+        /*Se crean las varariables para la conexion, la sentenica preprarada y para recorrer los resultados*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Sentencia pra traer todos los datos del usuario que se logea*/
         String sql = "Select u.Codigo codigo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,u.Nombre nombre, u.Telefono telefono,"
                 + " u.No_Celular Celular, c.Nombre NombreCiudad , d.Nombre NombreDepartamento, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n"
                 + "From  tb_usuario u Join tb_tipo_usuario tu on u.Codigo_Tipo = tu.Codigo "
@@ -160,11 +164,12 @@ public class Usuario {
                 + " Join tb_departamento d on d.Codigo = c.Codigo_Departamento \n"
                 + "Where u.Correo = ? AND u.Contrasenia = ?";
         try {
-
+            /*Se prepara la sentencia y se le mandan los valores*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, correo);
             pr.setString(2, contrasenia);
             rs = pr.executeQuery();
+            /*Se guardan los datos en la clase*/
             while (rs.next()) {
 
                 this.setCodigo(rs.getString("Codigo"));
@@ -180,9 +185,11 @@ public class Usuario {
                 this.setDireccion(rs.getString("direccion"));
                 this.setEstado(rs.getString("Estado"));
 
+                /*Se evaluan la condicion del estado para ver si puede entrar al aplicativo*/
                 if (this.getCorreo().equals(correo) && this.getEstado().equals("Aprobado")) {
                     return true;
                 }
+                /*Se guarda el mensaje en la clase y se retorna false*/
                 if (this.getEstado().equals("Desaprobado")) {
                     this.setMensaje("Lo sentimos, no puede ingresar al aplicativo, su cuenta fue desaprobada.");
                     return false;
@@ -192,8 +199,10 @@ public class Usuario {
                 }
             }
         } catch (Exception ex) {
+            /*En caso de error se muestra el error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -202,24 +211,31 @@ public class Usuario {
                 ex.getMessage();
             }
         }
+        /*Se envia un mensaje de error a la clase y se retorna false*/
         this.setMensaje("La dirección de correo electrónico o la contraseña que ha introducido no son correctas.");
         return false;
     }
 
+    /*Metodo para guardar los datos del usuario, y mandar un mensaje 
+    posteriormente al cambiar el estado de este*/
     public boolean getDatosParaEstado(String Codigo) {
+        /*Se instancia la clase necesaria, las variables para
+        la sentencia preparada y para recorrer los datos*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea la sentencia en un string*/
         String sql = "Select Tipo_Documento tipo_documento, No_Documento documento ,Nombre nombre, Telefono telefono,"
                 + " No_Celular Celular, Correo Correo, Direccion direccion \n"
                 + "From  tb_usuario \n"
                 + "Where Codigo = ? ";
         try {
-
+            /*Se prepara la sentencia y se le envian los valores necesarios*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, Codigo);
             rs = pr.executeQuery();
-            while (rs.next()) {
+            /*Se guardan los datos en la clase y se retorna true*/
+            if (rs.next()) {
 
                 this.setTipo_Documento(rs.getString("tipo_documento"));
                 this.setNo_Documento(rs.getString("documento"));
@@ -228,13 +244,13 @@ public class Usuario {
                 this.setCelular(rs.getString("Celular"));
                 this.setCorreo(rs.getString("Correo"));
                 this.setDireccion(rs.getString("direccion"));
-
                 return true;
-
             }
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -243,13 +259,17 @@ public class Usuario {
                 ex.getMessage();
             }
         }
+        /*Se retorna false en caso de error*/
         return false;
     }
 
+    /*Metodo para obtener los datos del usuario que inicio sesion*/
     public String[] getDatosUsuario(String Codigo) {
+        /*Se crean e instancian las clases y varaibles necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea la sentenica en un string*/
         String sql = "Select u.Codigo codigo, u.Codigo_Tipo CodigoTipo, tu.Tipo Tipo, u.Tipo_Documento tipo_documento, u.No_Documento documento ,u.Nombre nombre, u.Telefono telefono,"
                 + " u.No_Celular Celular, u.codigo_ciudad CodCiudad, c.nombre NombreCiudad, d.Codigo CodigoDepartamento, d.Nombre NombreDepartamento, u.Correo Correo,u.Direccion direccion, u.Estado Estado\n"
                 + "From  tb_usuario u"
@@ -257,12 +277,14 @@ public class Usuario {
                 + " Join tb_ciudad c on c.codigo = u.codigo_ciudad "
                 + " Join tb_departamento d on c.Codigo_Departamento = d.Codigo \n"
                 + "Where u.Codigo = ?";
+        /*Se crea un array*/
         String[] Usuario = new String[15];
         try {
-
+            /*Se prepara la sentenica, se le envian los valores necesarios y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, Codigo);
             rs = pr.executeQuery();
+            /*Se almacenan los datos en el array*/
             while (rs.next()) {
                 Usuario[0] = rs.getString("Codigo");
                 Usuario[1] = rs.getString("CodigoTipo");
@@ -281,10 +303,13 @@ public class Usuario {
                 Usuario[14] = rs.getString("CodCiudad");
 
             }
+            /*Se retorna el array*/
             return Usuario;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -293,33 +318,41 @@ public class Usuario {
                 ex.getMessage();
             }
         }
+        /*Se retorna null en caso de error*/
         return null;
     }
 
+    /*MEtodo para obtener los datos para posteriormente mandar un mensaje de recuperacion de la contraseña*/
     public boolean getrecordarContrasenia(String correo) {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia en un string*/
         String sql = "Select Nombre Nombre, Contrasenia Contrasenia\n"
                 + "From  tb_usuario\n"
                 + "Where Correo = ?";
         try {
-
+            /*Se prepara la sentenica, se le envian los datos y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, correo);
             rs = pr.executeQuery();
             int i = 0;
+            /*Se guardan los datos en la clase*/
             while (rs.next()) {
                 this.setNombre(rs.getString("Nombre"));
                 this.setContrasenia(rs.getString("Contrasenia"));
                 i++;
             }
+            /*Se retorna verdadero en caso de encontrar registros*/
             if (i > 0) {
                 return true;
             }
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /**Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -328,16 +361,21 @@ public class Usuario {
 
             }
         }
+        /*Se retorna false en caso de no encontrar nada o en caso de error*/
         return false;
     }
 
+    /*Metodo para actualizar los datos de un usuario*/
     public boolean actualizardatos(String Codigo, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Ciudad) {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        /*Se crea la sentencia en un string*/
         String sql = "UPDATE tb_usuario SET Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?  , Correo= ? , Direccion = ? ";
         sql += "WHERE Codigo=?";
         ResultSet rs = null;
         try {
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, Tipo_Documento);
             pr.setString(2, No_Documento);
@@ -348,25 +386,31 @@ public class Usuario {
             pr.setString(7, Correo);
             pr.setString(8, Direccion);
             pr.setString(9, Codigo);
+            /*Se ejecuta la consulta*/
             int i = pr.executeUpdate();
 
+            /*Se verifica si la consulta ejecuto correctamente*/
             if (i == 1) {
+                /*Se traen los datos actualizados del usuario*/
                 pr = conn.prepareStatement("Select c.Nombre NombreCiudad, d.Nombre NombreDepartamento "
                         + "From tb_ciudad  c "
                         + "Join tb_departamento d on d.Codigo = c.Codigo_Departamento "
                         + " Where c.Codigo = ?");
                 pr.setString(1, Ciudad);
                 rs = pr.executeQuery();
-
+                /*Se guardan los datos en la case*/
                 while (rs.next()) {
                     this.setCiudad(rs.getString("NombreCiudad"));
                     this.setDepartamento(rs.getString("NombreDepartamento"));
                 }
+                /*Se retorna verdadero si todo funciona*/
                 return true;
             }
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             System.out.printf(ex.toString());
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -374,72 +418,32 @@ public class Usuario {
 
             }
         }
+        /*Se retorna false en caso de error*/
         return false;
     }
 
-    public boolean setdesaprobarUsaurio(String Codigo) {
-        Connection conn = conexion.conectar();
-        PreparedStatement pr = null;
-        String sql = "UPDATE tb_usuario SET Estado = 'Desaprobado' ";
-        sql += "WHERE Codigo=?";
-        try {
-            pr = conn.prepareStatement(sql);
-            pr.setString(1, Codigo);
-            if (pr.executeUpdate() == 1) {
-                return true;
-            }
-        } catch (Exception ex) {
-            System.out.printf(ex.toString());
-        } finally {
-            try {
-                pr.close();
-                conn.close();
-            } catch (Exception ex) {
-
-            }
-        }
-        return false;
-    }
-
-    public boolean setaprobarUsaurio(String Codigo) {
-        Connection conn = conexion.conectar();
-        PreparedStatement pr = null;
-        String sql = "UPDATE tb_usuario SET Estado = 'Aprobado' ";
-        sql += "WHERE Codigo=?";
-        try {
-            pr = conn.prepareStatement(sql);
-            pr.setString(1, Codigo);
-            if (pr.executeUpdate() == 1) {
-                return true;
-            }
-        } catch (Exception ex) {
-            System.out.printf(ex.toString());
-        } finally {
-            try {
-                pr.close();
-                conn.close();
-            } catch (Exception ex) {
-
-            }
-        }
-        return false;
-    }
-    
+    /*Metodo apra cambiar el estado del usaurio*/
     public boolean setCambiarEstadoUsaurio(String Codigo, String Estado) {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        /*Se crea la sentencia sql en un string*/
         String sql = "UPDATE tb_usuario SET Estado = ? ";
         sql += "WHERE Codigo=?";
         try {
+            /*Se prepara la sentenica, se le envian los datos y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, Estado);
             pr.setString(2, Codigo);
+            /*Si se ejecuta correctamente se retorna verdadero*/
             if (pr.executeUpdate() == 1) {
                 return true;
             }
         } catch (Exception ex) {
+            /*Se muesta un mensaje en caso de error*/
             System.out.printf(ex.toString());
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -447,14 +451,17 @@ public class Usuario {
 
             }
         }
+        /*En caso de error se retorna falso*/
         return false;
     }
 
+    /*Metodo apra generar un numero de codigo de verificacion aleatorio*/
     public String CodVer() {
         String cadenaAleatoria = "";
         long milis = new java.util.GregorianCalendar().getTimeInMillis();
         Random r = new Random(milis);
         int i = 0;
+        /*Se concatenan 4 numeros aleatorios de un calendario*/
         while (i < 4) {
             char c = (char) r.nextInt(255);
             if (c >= '0' && c <= '9') {
@@ -462,28 +469,37 @@ public class Usuario {
                 i++;
             }
         }
+        /*Se retorna el codigo de verificacion*/
         return cadenaAleatoria;
     }
 
+    /*Se consulta la cantidad de usuarios que hay en el sistema*/
     public int CantidadRegistroUsuario() {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea la sentencia sql en un string*/
         String sql = "Select * "
                 + "From  tb_usuario";
         try {
+            /*Se prepara la sentencia y se ejecuta*/
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
 
+            /*Se cuentan todos los datos*/
             int i = 0;
             while (rs.next()) {
 
                 i++;
             }
+            //*Se retorna la cantidad de usuarios mas uno para el registro nuevo*/
             return i + 1;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -492,31 +508,38 @@ public class Usuario {
 
             }
         }
+        /*Se retorna 0 en caso de error*/
         return 0;
     }
 
+    /*MEtodo para obtener el tipo de usuario segun un codigo*/
     public String getEstadoUsuario(String Rol) {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
-        String Est = "";
+        String rol = "";
+        /*Se crea la sentencia sql en un string*/
         String preconsulta = "Select Tipo From tb_tipo_usuario Where Codigo = ?";
         PreparedStatement pr = null;
         ResultSet rs = null;
         try {
-
+            /*Se prepara la sentenica, se le envian los datos necesarios y se ejecuta posteriormetne*/
             pr = conn.prepareStatement(preconsulta);
             pr.setString(1, Rol);
             rs = pr.executeQuery();
 
+            /*Se guarda el estado en una variable*/
             while (rs.next()) {
                 if (!rs.getString("Tipo").equals("Empresa")) {
-                    Est = "Aprobado";
+                    rol = "Aprobado";
                 } else {
-                    Est = "Pendiente";
+                    rol = "Pendiente";
                 }
             }
         } catch (SQLException ex) {
+            //*En caso de error se retorna nulo*/
             return null;
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -524,21 +547,26 @@ public class Usuario {
 
             }
         }
-        return Est;
+        /*Se retorna el Rol*/
+        return rol;
     }
 
+    /*Metodo para registrar un usuario (administrador)*/
     public boolean ingresarUsuario(String Rol, String Tipo_Documento, String No_Documento, String Nombre, String Telefono, String Celular, String Correo, String Direccion, String Password, String Ciudad) {
-
+        /*Se crean e instancia las clases y variables necesarias*/
         String Est = this.getEstadoUsuario(Rol);
         String Codi = "USU";
         int numerocodigo = this.CantidadRegistroUsuario();
+        /*Se concatena el codigo para el nuevo registro*/
         Codi += numerocodigo;
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        /*Se crea la sentencia sql en un string*/
         String sql = "INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Codigo_Ciudad, Correo, Direccion, Estado)";
         sql += "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
+            /*Se prepara la sentencia, se envian los datos y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, Codi);
             pr.setString(2, Rol);
@@ -553,10 +581,12 @@ public class Usuario {
             pr.setString(11, Direccion);
             pr.setString(12, Est);
 
+            /*En caso de funcionar correctamente se retorna verdadero*/
             if (pr.executeUpdate() == 1) {
                 return true;
             }
         } catch (SQLException ex) {
+            /*Si hay un error se evalua el motivo*/
             if (ex.toString().indexOf("Duplicate") > 0) {
                 if (ex.toString().indexOf("No_Documento") > 0) {
                     this.setMensaje("Ya existe una cuenta registrada con este número de documento.");
@@ -569,8 +599,10 @@ public class Usuario {
                 }
             }
 
+            /*Se retorna falso e caso de error*/
             return false;
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -578,27 +610,34 @@ public class Usuario {
 
             }
         }
+        /*Se guarda un mensaje y se retorna falso en caso de error*/
         this.setMensaje("Ocurrió un problema inesperado al registrar los datos del usuario. Estamos trabajando para solucionar este problema.");
         return false;
     }
 
+    /*Metodo para buscar los datos de los usuarios pendientes*/
     public String[][] BuscarDatosUsuarioPendienteTodos() {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea un string con la sentencia sql*/
         String sql = "SELECT u.Codigo, tu.Tipo, u.Tipo_Documento, u.No_Documento, u.Nombre, u.Contrasenia, u.Telefono, u.No_Celular, c.Nombre Ciudad, u.Correo, u.Direccion, u.Estado\n"
                 + "FROM  `tb_usuario` u\n"
                 + "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo "
                 + "Join tb_ciudad c on c.codigo = u.codigo_ciudad Where u.Estado != 'Pendiente'";
 
         try {
+            /*Se prepara la sentencia y se ejecuta posterioemente*/
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
 
             int rows = 0;
+            /*Se cuentan los registros para crear un array posteriormente*/
             while (rs.next()) {
                 rows++;
             }
+            /*Se crea un array y se guardan los datos en este*/
             String[][] Datos = new String[rows][11];
             rs.beforeFirst();
             rows = 0;
@@ -626,14 +665,15 @@ public class Usuario {
                 Datos[rows][8] = usu.getCorreo();
                 Datos[rows][9] = usu.getDireccion();
                 Datos[rows][10] = usu.getEstado();
-
                 rows++;
-
             }
+            /*Se retorna el array*/
             return Datos;
         } catch (Exception ex) {
+            /*En caso de error se muestra*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -642,26 +682,33 @@ public class Usuario {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
 
+    /*Metodo para buscar los datos de la emrpesa para crear un evento a su nombre el administrador*/
     public String[][] BuscarDatosEmpresa() {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en uns tring*/
         String sql = "SELECT u.No_Documento, u.Nombre \n"
                 + "FROM  `tb_usuario` u\n"
                 + "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo And tu.Tipo = 'Empresa' "
                 + "Where u.Estado = 'Aprobado'";
 
         try {
+            /*Se prepara la sentencia sql y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
 
             int rows = 0;
+            /*Se cuenta los resultado de la consulta para crear un array posteriormente*/
             while (rs.next()) {
                 rows++;
             }
+            /*Se crea un array y se guardan los resultados*/
             String[][] Datos = new String[rows][2];
             rs.beforeFirst();
             rows = 0;
@@ -671,13 +718,15 @@ public class Usuario {
                 usu.setNombre(rs.getString("Nombre"));
                 Datos[rows][0] = usu.getCodigo();
                 Datos[rows][1] = usu.getNombre();
-
                 rows++;
             }
+            /*Se retorna el array*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra un emsnaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -686,13 +735,17 @@ public class Usuario {
 
             }
         }
+        /*Se retorna nulo en caso de error */
         return null;
     }
 
+    /*Metodo para obtener los datos de los usuarios pendientes*/
     public String[][] BuscarDatosUsuarioPendientes() {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en uns tring*/
         String sql = "SELECT u.Codigo, tu.Tipo, u.Tipo_Documento, u.No_Documento, u.Nombre, u.Contrasenia, u.Telefono, u.No_Celular, c.Nombre Ciudad, u.Correo, u.Direccion, u.Estado\n"
                 + "FROM  `tb_usuario` u\n"
                 + "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo "
@@ -700,13 +753,16 @@ public class Usuario {
                 + " Where u.Estado = 'Pendiente'";
 
         try {
+            /*Se prepara la sentencia y se ejecuta*/
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
 
             int rows = 0;
+            /*Se cuentan los regsistros para hacer un array posteriormente*/
             while (rs.next()) {
                 rows++;
             }
+            /*Se crea un array y se guardan los datos en este*/
             String[][] Datos = new String[rows][11];
             rs.beforeFirst();
             rows = 0;
@@ -734,14 +790,15 @@ public class Usuario {
                 Datos[rows][8] = usu.getCorreo();
                 Datos[rows][9] = usu.getDireccion();
                 Datos[rows][10] = usu.getEstado();
-
                 rows++;
-
             }
+            /*Se retorna el array*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -750,15 +807,20 @@ public class Usuario {
 
             }
         }
+        /*Se retorna nulo en caso de error*/
         return null;
     }
 
+    /*Modificar los datos de un usuario*/
     public boolean actualizardatosUsuario(String Codigo, String Nombre, String Rol, String Tipo_Documento, String No_Documento, String Telefono, String celular, String correo, String Direccion, String Estado, String Ciudad) {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        /*Se crea una sentencia sql en uns tring*/
         String sql = "UPDATE tb_usuario SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?, Correo= ? , Direccion = ?, Estado = ? ";
         sql += "WHERE Codigo=?";
         try {
+            /*Se prepara la sentencia, se envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, Rol);
             pr.setString(2, Tipo_Documento);
@@ -771,12 +833,15 @@ public class Usuario {
             pr.setString(9, Direccion);
             pr.setString(10, Estado);
             pr.setString(11, Codigo);
+            /*Si se ejecuta correctamente se retorna verdadero*/
             if (pr.executeUpdate() == 1) {
                 return true;
             }
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             System.out.printf(ex.toString());
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -784,25 +849,33 @@ public class Usuario {
 
             }
         }
+        /*Se retorna falso en caso de error*/
         return false;
     }
 
+    /*Metodo para obtner la candidad de usuarios pendientes*/
     public String getCantidadPendientes() {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en uns tring*/
         String sql = "Select Count(Codigo) Cantidad "
                 + "From  tb_usuario Where Estado = 'Pendiente'";
         try {
+            /*Se prepara la sentencia y se ejecuta*/
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
 
+            /*Si funciona correctamente se retorna verdaero*/
             if (rs.next()) {
                 return rs.getString("Cantidad");
             }
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Finalmente se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -811,28 +884,36 @@ public class Usuario {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
 
+    /*MEtodo para verificar las contraseñas del modificar contraseña del usuario*/
     public boolean getConfirmarContrasenia(String codigo, String contra) {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en uns tring*/
         String sql = "Select Contrasenia "
                 + "From  tb_usuario Where Codigo = ?";
         try {
+            /*Se prepara la sentencia, se envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigo);
             rs = pr.executeQuery();
 
+            /*Si todo funciona correctamente se retorna verdadero*/
             if (rs.next()) {
                 if (contra.equals(rs.getString("Contrasenia"))) {
                     return true;
                 }
             }
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -841,23 +922,30 @@ public class Usuario {
 
             }
         }
+        /*En caso de error se retorna falso*/
         return false;
     }
     
+    /*Metodo para cambiar la contraseña*/
     public boolean setCambioContrasenia(String codigo, String contra) {
+        /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        /*Se crea una sentencia sql en uns string*/
         String sql = "UPDATE tb_usuario SET Contrasenia = ? "
                 + "Where Codigo = ?";
         try {
+            /*Se prepara la sentencia, se envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, contra);
             pr.setString(2, codigo);
 
+            /*Si todo funciona correctamente se retorna un verdadero*/
             if (pr.executeUpdate() == 1) {
                 return true;
             }
         } catch (Exception ex) {
+            /*Se guarda un mensaje en la clase en caso de error*/
             this.setMensaje(ex.toString());
         } finally {
             try {
@@ -867,6 +955,7 @@ public class Usuario {
 
             }
         }
+        /*Se retorna falaso en caso de error*/
         return false;
     }
 }

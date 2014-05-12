@@ -1151,8 +1151,6 @@ public class Evento {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "SELECT Id_Seleccion FROM tb_seleccion_usuario \n" +
-                     "Where Id_Usuario = ? And Estado = 'Activo'";
         String sqlevento = "SELECT DISTINCT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
@@ -1161,38 +1159,17 @@ public class Evento {
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
                 + "Where e.Estado = 'Aprobado' AND "
-                + "Fecha >= ? AND se.Id_Seleccion IN (";
+                + "Fecha >= ? AND se.Id_Seleccion IN (Select Id_Seleccion From tb_seleccion_usuario WHERE"
+                + " Id_Usuario = ? AND Estado = 'Activo') ORDER BY Fecha LIMIT ?,?";
         try {
-            pr = conn.prepareStatement(sql);
-            pr.setString(1, codigoUsuario);
-            rs = pr.executeQuery();
-
-            int row = 0;
-            while (rs.next()) {
-                row ++;
-            }
-            int i = 0;
-            rs.beforeFirst();
-            while (rs.next())
-            {
-                i++;
-                if(i==row)
-                {
-                    sqlevento += "'" + rs.getString("Id_Seleccion") +"'";
-                }
-                else
-                {
-                    sqlevento += "'" + rs.getString("Id_Seleccion") +"',";
-                }
-            }
-            sqlevento += ") ORDER BY Fecha LIMIT ?,?";
 
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
             pr = conn.prepareStatement(sqlevento);
             pr.setTimestamp(1, sqlDate);
-            pr.setInt(2, Limite);
-            pr.setInt(3, Cantidad);
+            pr.setString(2, codigoUsuario);
+            pr.setInt(3, Limite);
+            pr.setInt(4, Cantidad);
             rs = pr.executeQuery();
             int rows = 0;
             while (rs.next()) {
@@ -1231,41 +1208,18 @@ public class Evento {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "SELECT Id_Seleccion FROM tb_seleccion_usuario \n" +
-                     "Where Id_Usuario = ? And Estado = 'Activo'";
         String sqlevento = "SELECT Count(e.Codigo) Cantidad "
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
                 + "Where e.Estado = 'Aprobado' AND "
-                + "Fecha >= ? AND se.Id_Seleccion IN (";
+                + "Fecha >= ? AND se.Id_Seleccion IN (Select Id_Seleccion From tb_seleccion_usuario WHERE"
+                + " Id_Usuario = ? AND Estado = 'Activo') ORDER BY Fecha ";
         try {
-            pr = conn.prepareStatement(sql);
-            pr.setString(1, codigoUsuario);
-            rs = pr.executeQuery();
-
-            int row = 0;
-            while (rs.next()) {
-                row ++;
-            }
-            int i = 0;
-            rs.beforeFirst();
-            while (rs.next())
-            {
-                i++;
-                if(i==row)
-                {
-                    sqlevento += "'" + rs.getString("Id_Seleccion") +"'";
-                }
-                else
-                {
-                    sqlevento += "'" + rs.getString("Id_Seleccion") +"',";
-                }
-            }
-            sqlevento += ") ORDER BY Fecha";
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
             pr = conn.prepareStatement(sqlevento);
             pr.setTimestamp(1 , sqlDate);
+            pr.setString(2, codigoUsuario);
             rs = pr.executeQuery();
             int rows = 0;
             if (rs.next()) {

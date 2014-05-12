@@ -77,7 +77,6 @@
 .rating{
     margin: 20px 0;
     font-size: 24px;
-    /*color: #1F5DAA;*/
 }
 
 .ratinggrafico{
@@ -248,29 +247,6 @@ p
 
 #myChart {
     margin-top: 10px;
-}
-
-.five-star {
-    color: #88b131;
-}
-
-.four-star {
-    color: #99cc00;
-}
-
-.three-starr {
-    color: #ffcf02;
-}
-
-.two-star {
-    color: #ff9f02;
-}
-.one-star
-{
-    color: #ff6f31;
-}
-.three-star {
-    color: #ffcf02;
 }
 
 .contenido_medio {
@@ -539,4 +515,19 @@ p
 {
     height: 60px;
     width: 60px;
+}
+.one-star ,#stars span:nth-child(1){
+    color: #ff6f31!important;
+}
+.two-star, #stars span:nth-child(2){
+    color: #ff9f02!important;
+}
+.three-star, #stars span:nth-child(3){
+    color: #ffcf02!important;
+}
+.four-star, #stars span:nth-child(4){
+    color: #99cc00!important;
+}
+.five-star, #stars span:nth-child(5){
+    color: #88b131!important;
 }
