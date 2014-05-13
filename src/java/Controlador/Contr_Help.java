@@ -73,7 +73,7 @@ public class Contr_Help extends HttpServlet {
                 Evento eve = new Evento();
                 String codigoUsuario = request.getParameter("idusuario");
                 int row = eve.getcantidadeventosRecomendados(codigoUsuario);
-                out.println(row - 1);
+                out.println(row);
             } else if (request.getParameter("accion").equals("getciudad")) {
                 Ciudad ciu = new Ciudad();
                 String[][] Datos = ciu.BuscarDatosCiudadTodos(request.getParameter("codigodepartamento"));

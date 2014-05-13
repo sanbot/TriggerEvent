@@ -25,6 +25,7 @@ import java.util.logging.Logger;
  */
 public class Evento {
 
+    /*Se crean las variables con metodos set y get y se instancian las clases necesarias*/
     String Codigo;
     String Mensaje;
     String Nombre;
@@ -162,46 +163,63 @@ public class Evento {
         this.Rango = Rango;
     }
 
+    /*Metodo para convertir la fecha de string a date*/
     public boolean ConvertirFecha(String FechaDate) {
         try {
+            /*Se le da el formato a la fecha*/
             SimpleDateFormat formatoDeFecha = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
+            /*Se crea la variable para la nueva fecha*/
             Date nuevaFecha;
+            /*Se gurda la nueva fecha con el formato*/
             nuevaFecha = formatoDeFecha.parse(FechaDate);
             this.setFechaDate(nuevaFecha);
+            /*Se retorna verdadero*/
             return true;
         } catch (ParseException ex) {
+            /*En caso de error se muestra*/
             Logger.getLogger(Evento.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 
+    /*Metodo para validar dos dias antes del inicio del evento*/
     public boolean ValidarDosDiasFecha(Date FechaInicial) {
+        /**
+         * Se fecha una fecha para traer la fecha del sistema
+         */
         Date FechaSistema = new Date();
+        /*Se establece un calendario para guardar las fechas*/
         Calendar calendar = Calendar.getInstance();
         Calendar calendar1 = Calendar.getInstance();
         calendar.setTime(FechaSistema); // Configuramos la fecha que se recibe
         calendar1.setTime(FechaInicial);
+        /*Se le agregan dos dias a la fecha*/
         calendar.add(Calendar.DAY_OF_YEAR, 2);
 
+        /*Se evelua los dos dias y encaso de ser verdadero se retorna true*/
         if (calendar1.getTime().after(calendar.getTime())) {
             return true;
         }
         return false;
     }
 
+    /*MEtodo para registrar un evento*/
     public boolean setRegistrarEvento(String imagen, String nombre, Date fecha, String descripcion, String rango, String creador, String ciudad, String direccion, String latitud, String longitud) {
-
+        /*Se crean variables necesarias*/
         String Est = "Incompleto";
         PreparedStatement pr = null;
         String codigo = "EVE";
+        /*se concatena el codigo para nuevos registros*/
         int numerocodigo = this.CantidadRegistroEvento();
         codigo += numerocodigo;
         Connection conn = conexion.conectar();
         this.setCodigo(codigo);
         pr = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Codigo_Ciudad, Direccion, Estado, Latitud, Longitud)";
         sql += "VALUES(?,?,?,?,?,?,?,?,?,?, ?,?)";
 
+        /*Se guarda el archivo de imagen en FileInputStream*/
         FileInputStream is = null;
 
         try {
@@ -211,6 +229,7 @@ public class Evento {
         }
 
         try {
+            /*Se crea la zona de tiempo, se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigo);
@@ -226,15 +245,18 @@ public class Evento {
             pr.setString(11, latitud);
             pr.setString(12, longitud);
 
+            /*Si se ejecuta correctamente se retorna true*/
             if (pr.executeUpdate() == 1) {
                 return true;
             }
         } catch (SQLException ex) {
+            /*En caso de error se evalua el porque y se retorna falso*/
             if (ex.toString().indexOf("uk_nombre_codigociudad_fecha") > 0) {
                 this.setMensaje("No se puede registrar este evento porque existe otro con el mismo nombre, la misma fecha y en la misma ciudad");
             }
             return false;
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -242,29 +264,40 @@ public class Evento {
 
             }
         }
+        /*Se guarda el mensaje de error en la clase y se retorna falso*/
         this.setMensaje("Ocurrió un problema inesperado al registrar el evento.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
+    /*Metodo para contar la cantidad de registros*/
     public int CantidadRegistroEvento() {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "Select Count(Codigo) Cantidad "
                 + "From  tb_evento";
         try {
+            /*Se prepra la sentenica y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
 
+            /*Se guarda la cantidad retornada por la consulta en un int*/
             int i = 0;
             if (rs.next()) {
-
                 i = rs.getInt("Cantidad");
             }
+            /*Se retorna el entero +1 para el nuevo registro (Se llama este metodo la mayoria de ocaciones
+             para un nuevo registro)*/
             return i + 1;
         } catch (Exception ex) {
+            /*Se muestra un mensaje de error*/
             ex.printStackTrace();
         } finally {
+            /**
+             * Se cierra todo
+             */
             try {
                 rs.close();
                 pr.close();
@@ -273,29 +306,37 @@ public class Evento {
 
             }
         }
+        /*Se retorna 0 en caso de error*/
         return 0;
     }
 
+    /*Metodo para contar la cantidad de eventos pendientes*/
     public int CantidadEventoPendiente() {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "Select Count(Codigo) Cantidad "
                 + "From  tb_evento"
                 + " Where Estado = 'Pendiente' AND Fecha > CURDATE()";
         try {
+            /*Se prepara la sentencia y se ejecuta*/
             pr = conn.prepareStatement(sql);
             rs = pr.executeQuery();
 
+            /*Se guarda el valor en un estero*/
             int i = 0;
             if (rs.next()) {
-
                 i = Integer.parseInt(rs.getString("Cantidad"));
             }
+            /*Se retorna el valor*/
             return i;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -304,13 +345,17 @@ public class Evento {
 
             }
         }
+        /*Se retorna 0 en caso de error*/
         return 0;
     }
 
+    /*Metodo para buscar los datos principales de los evento*/
     public String[][] BuscarDatosPrincipalesEventos() {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
@@ -321,16 +366,20 @@ public class Evento {
                 + "Fecha >= ? ORDER BY Fecha";
 
         try {
+            /*Se crea una variable date para la fecha*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             rs = pr.executeQuery();
 
+            /*Se ceuntan los registros que tiene la sentencia*/
             int rows = 0;
             while (rs.next()) {
                 rows++;
             }
+            /*Se crea un array y se guardan los datos*/
             String[][] Datos = new String[rows][8];
             rs.beforeFirst();
             rows = 0;
@@ -349,14 +398,17 @@ public class Evento {
                 Datos[rows][5] = rs.getTime("Fecha").toString();
                 Datos[rows][6] = rs.getString("Calificacion");
                 Datos[rows][7] = rs.getString("Comentarios");
-
                 rows++;
-
             }
+            /*Se retornan los datos*/
             return Datos;
         } catch (Exception ex) {
+            /*En caso de error se muestra el mensaje*/
             ex.printStackTrace();
         } finally {
+            /**
+             * Se cierra todo
+             */
             try {
                 rs.close();
                 pr.close();
@@ -365,13 +417,17 @@ public class Evento {
 
             }
         }
+        /*Se retorna nulo en caso de error */
         return null;
     }
-    
+
+    /*Metodo para buscar los principales datos de los eventos con limite*/
     public String[][] BuscarDatosPrincipalesEventos(int Limite, int Cantidad) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
@@ -382,8 +438,10 @@ public class Evento {
                 + "Fecha >= ? ORDER BY Fecha LIMIT ?,?";
 
         try {
+            /*Se crea una variable fecha para la fecha del sistema*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             pr.setInt(2, Limite);
@@ -391,12 +449,14 @@ public class Evento {
             rs = pr.executeQuery();
 
             int rows = 0;
+            /*Se cuentan los registros para crear un array*/
             while (rs.next()) {
                 rows++;
             }
             String[][] Datos = new String[rows][8];
             rs.beforeFirst();
             rows = 0;
+            /*Despues de crear el array se guardan los datos*/
             while (rs.next()) {
                 Evento eve = new Evento();
                 eve.setCodigo(rs.getString("Codigo"));
@@ -412,14 +472,15 @@ public class Evento {
                 Datos[rows][5] = rs.getTime("Fecha").toString();
                 Datos[rows][6] = rs.getString("Calificacion");
                 Datos[rows][7] = rs.getString("Comentarios");
-
                 rows++;
-
             }
+            /*Se retorna el array*/
             return Datos;
         } catch (Exception ex) {
+            /*En caso de error se muestra el mensaje*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -428,13 +489,17 @@ public class Evento {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
 
+    /*Metodo para buscar los datos de los eventos cercanos a la fecha de hoy*/
     public String[][] BuscarDatosEventosProximos() {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
@@ -445,19 +510,18 @@ public class Evento {
                 + "Fecha >= ? Order by Fecha LIMIT 0,3";
 
         try {
+            /*Se crea una variable para capturar la fecha de hoy*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentenica, se le envian datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             rs = pr.executeQuery();
 
             int rows = 0;
-            while (rs.next()) {
-                rows++;
-            }
-            String[][] Datos = new String[rows][8];
+            String[][] Datos = new String[3][8];
             rs.beforeFirst();
-            rows = 0;
+            /*Se guardan los datos*/
             while (rs.next()) {
                 Evento eve = new Evento();
                 eve.setCodigo(rs.getString("Codigo"));
@@ -473,14 +537,15 @@ public class Evento {
                 Datos[rows][5] = rs.getTime("Fecha").toString();
                 Datos[rows][6] = rs.getString("Calificacion");
                 Datos[rows][7] = rs.getString("Comentarios");
-
                 rows++;
-
             }
+            /*Se retorna el array*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -489,13 +554,17 @@ public class Evento {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
 
+    /*Metodo para buscar los datos mas destacados*/
     public String[][] BuscarDatosEventosDestacados() {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
@@ -505,19 +574,18 @@ public class Evento {
                 + "Order by Calificacion DESC Limit 0,3 ";
 
         try {
+            /*Se crea una variable fecha para guardar la fecha del sistema*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             rs = pr.executeQuery();
 
             int rows = 0;
-            while (rs.next()) {
-                rows++;
-            }
-            String[][] Datos = new String[rows][8];
+            /*Se crea un array para guardar los datos posteriormente*/
+            String[][] Datos = new String[3][8];
             rs.beforeFirst();
-            rows = 0;
             while (rs.next()) {
                 Evento eve = new Evento();
                 eve.setCodigo(rs.getString("Codigo"));
@@ -533,14 +601,15 @@ public class Evento {
                 Datos[rows][5] = rs.getString("Calificacion");
                 Datos[rows][6] = rs.getTime("Fecha").toString();
                 Datos[rows][7] = rs.getString("Comentarios");
-
                 rows++;
-
             }
+            /*Se retornan los datos del array*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -549,13 +618,17 @@ public class Evento {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
 
+    /*MEtodo apra buscar los datos de los eventos mas comentados*/
     public String[][] BuscarDatosEventosComentado() {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
@@ -565,19 +638,22 @@ public class Evento {
                 + "Order by Comentarios DESC Limit 0,3 ";
 
         try {
+            /**
+             * Se crea una variable fecha para capturar la fecha del sistema
+             */
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /**
+             * Se prepara la sentenica, se envian los datos y se ejecuta
+             */
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             rs = pr.executeQuery();
 
             int rows = 0;
-            while (rs.next()) {
-                rows++;
-            }
-            String[][] Datos = new String[rows][8];
+            /*Se crea un array y se guardan los datos posteriormente*/
+            String[][] Datos = new String[3][8];
             rs.beforeFirst();
-            rows = 0;
             while (rs.next()) {
                 Evento eve = new Evento();
                 eve.setCodigo(rs.getString("Codigo"));
@@ -593,29 +669,33 @@ public class Evento {
                 Datos[rows][5] = rs.getString("Comentarios");
                 Datos[rows][6] = rs.getTime("Fecha").toString();
                 Datos[rows][7] = rs.getString("Calificacion");
-
                 rows++;
-
             }
+            /*Se retornan los datos*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
                 conn.close();
             } catch (Exception ex) {
-
             }
         }
+        /*Se retorna nulo*/
         return null;
     }
 
+    /*Metodo para buscar todos los datos de un evento*/
     public String[] BuscarDatosDetalladosEventos(String codigoEvento) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Rango_Precios, "
                 + "c.Codigo_Departamento CodigoDepartamento, d.Nombre NombreDepartamento, "
                 + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
@@ -627,13 +707,16 @@ public class Evento {
                 + "Where Fecha >= ? AND e.Codigo = ?";
 
         try {
+            /*Se crea una variable fecha para guardar la fecha del sistema*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentenica, se le envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             pr.setString(2, codigoEvento);
             rs = pr.executeQuery();
 
+            /*Se crea un array para guardar los datos posteriormente*/
             String[] Datos = new String[13];
             rs.beforeFirst();
 
@@ -652,10 +735,13 @@ public class Evento {
                 Datos[11] = rs.getString("Latitud");
                 Datos[12] = rs.getString("Longitud");
             }
+            /*Se guardan los datos en un array*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -664,13 +750,18 @@ public class Evento {
 
             }
         }
+        /*Se retorna nulo en caso de error*/
         return null;
     }
 //    también sirve para eventos incompletos
+    /*Metodo para buscar todos los datos de los eventos pendientes e incompletos*/
+
     public String[] BuscarDatosDetalladosEventosPendiente(String codigoEvento) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Rango_Precios, "
                 + "c.Codigo_Departamento CodigoDepartamento, d.Nombre NombreDepartamento, "
                 + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
@@ -682,13 +773,16 @@ public class Evento {
                 + "Where Fecha >= ? AND e.Codigo = ?";
 
         try {
+            /*Se crea una variable fecha para guardar la fecha del sistema*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la setnencia, se le envian los datos y se ejecuta posteriormetne*/
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             pr.setString(2, codigoEvento);
             rs = pr.executeQuery();
 
+            /*Se crea un array y se guardan los datos*/
             String[] Datos = new String[15];
             rs.beforeFirst();
 
@@ -709,10 +803,13 @@ public class Evento {
                 Datos[13] = rs.getString("Latitud");
                 Datos[14] = rs.getString("Longitud");
             }
+            /*Se retornan los datos*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra el error en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -721,30 +818,42 @@ public class Evento {
 
             }
         }
+        /*Se retorna nulo en caso de error*/
         return null;
     }
 
+    /**
+     * Metodo para obtener la califiacion de un evento
+     */
     public int[] getCalificacionEvento(String codigoEvento) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una serie de sentencias sql en string*/
+        /*Sentencia para 5*/
         String sqluno = "SELECT Count(Calificacion) Cantidad \n"
                 + "FROM  `tb_satisfaccion` e \n"
                 + "Where Calificacion = '5' AND Id_Evento = ?";
+        /*Sentencia para 4*/
         String sqldos = "SELECT Count(Calificacion) Cantidad \n"
                 + "FROM  `tb_satisfaccion` e \n"
                 + "Where Calificacion = '4' AND Id_Evento = ?";
+        /*Sentencia para 3*/
         String sqltres = "SELECT Count(Calificacion) Cantidad \n"
                 + "FROM  `tb_satisfaccion` e \n"
                 + "Where Calificacion = '3' AND Id_Evento = ?";
+        /*Sentencia para 2*/
         String sqlcua = "SELECT Count(Calificacion) Cantidad \n"
                 + "FROM  `tb_satisfaccion` e \n"
                 + "Where Calificacion = '2' AND Id_Evento = ?";
+        /*Sentencia para 1*/
         String sqlcin = "SELECT Count(Calificacion) Cantidad \n"
                 + "FROM  `tb_satisfaccion` e \n"
                 + "Where Calificacion = '1' AND Id_Evento = ?";
         int uno = 0, dos = 0, tres = 0, cua = 0, cin = 0;
 
+        /*Se crea un array  para guardar los datos despuues de ejecutar cada consulta*/
         int[] Datos = new int[5];
         try {
             pr = conn.prepareStatement(sqluno);
@@ -788,8 +897,10 @@ public class Evento {
             Datos[3] = cua;
             Datos[4] = cin;
 
+            /*Se retorna el array con los datos*/
             return Datos;
         } catch (Exception ex) {
+            /*En caso de error se muestra un mensaje*/
             ex.printStackTrace();
         } finally {
             try {
@@ -800,23 +911,31 @@ public class Evento {
 
             }
         }
+        /**
+         * En caso de error se retorna null
+         */
         return null;
     }
 
+    /*Metodo para obtener los datos del evento para enviar un mensaje al cambio de estado*/
     public String[] BuscarEventoParaMensaje(String codigoEvento) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Direccion, e.Fecha, u.Correo \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "Where e.Codigo = ?";
 
         try {
+            /*Se prepara la sentencia, se envia los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigoEvento);
             rs = pr.executeQuery();
 
+            /*Se crea un array y se guardan los datos*/
             String[] Datos = new String[5];
             rs.beforeFirst();
 
@@ -827,10 +946,15 @@ public class Evento {
                 Datos[3] = rs.getString("Fecha");
                 Datos[4] = rs.getString("Correo");
             }
+            /**
+             * Se guarda el array
+             */
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -839,13 +963,19 @@ public class Evento {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
-    
+
+    /**
+     * Metodo para buscar los datos de los eventos que ha creado la empresa
+     */
     public String[][] BuscarDatosMisEventos(String nit) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, e.Estado \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
@@ -853,17 +983,23 @@ public class Evento {
                 + "Where Fecha >= ? AND NIT = ?";
 
         try {
+            /*Se guarda la fecha en una variable tipo date*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /**
+             * Se prepara la sentencia, se le envian los datos y se ejecuta
+             */
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             pr.setString(2, nit);
             rs = pr.executeQuery();
 
+            /*Se cuenta los registros para luego crear un array*/
             int rows = 0;
             while (rs.next()) {
                 rows++;
             }
+            /*Se crea un array para guardar los datos*/
             String[][] Datos = new String[rows][7];
             rs.beforeFirst();
             rows = 0;
@@ -881,14 +1017,19 @@ public class Evento {
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = eve.getEstado();
                 Datos[rows][6] = rs.getTime("Fecha").toString();
-
                 rows++;
-
             }
+            /**
+             * Se retornan los datos
+             */
             return Datos;
         } catch (Exception ex) {
+            /**
+             * Se muestra un mensaje en caso de error
+             */
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -897,30 +1038,43 @@ public class Evento {
 
             }
         }
+        /**
+         * Se retorna nulo en caso de error
+         */
         return null;
     }
-    
+
+    /**
+     * Metodo para buscar todos los datos de un evento
+     */
     public String[][] BuscarDatosTodosEventos() {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, e.Estado \n"
+        /*Se crea una sentencia sql en string*/
+        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, "
+                + "c.Nombre NombreCiudad, e.Estado \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where Fecha >= ? Order by Fecha";
 
         try {
+            /*Se guarda la fecha en la variable date*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             rs = pr.executeQuery();
 
+            /*Se cuentan los resultados para crear el array*/
             int rows = 0;
             while (rs.next()) {
                 rows++;
             }
+            /*Se crea el array y se guardan los datos*/
             String[][] Datos = new String[rows][7];
             rs.beforeFirst();
             rows = 0;
@@ -938,14 +1092,14 @@ public class Evento {
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = eve.getEstado();
                 Datos[rows][6] = rs.getTime("Fecha").toString();
-
                 rows++;
-
             }
             return Datos;
         } catch (Exception ex) {
+            /*en caso de error se muestra el mensaje*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -954,13 +1108,17 @@ public class Evento {
 
             }
         }
+        /*Se retorna nulo en caso de error*/
         return null;
     }
 
+    /*Metodo para buscar los principales datos de los eventos pendientes*/
     public String[][] BuscarDatosPrincipalesEventosPendientes() {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
@@ -969,16 +1127,22 @@ public class Evento {
                 + "Fecha >= ?";
 
         try {
+            /*Se guarda la fecha en una variable date*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se envia los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
             rs = pr.executeQuery();
 
             int rows = 0;
+            /*Se cuenta la cantidad de registros para luego crear un array*/
             while (rs.next()) {
                 rows++;
             }
+            /**
+             * Se crea el array y se guardan los datos
+             */
             String[][] Datos = new String[rows][6];
             rs.beforeFirst();
             rows = 0;
@@ -994,44 +1158,55 @@ public class Evento {
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = rs.getTime("Fecha").toString();
-
                 rows++;
-
             }
+            /*Se retornan los datos*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra el error en caso de error*/
             ex.printStackTrace();
         } finally {
+            /**
+             * Se cierra todo
+             */
             try {
                 rs.close();
                 pr.close();
                 conn.close();
             } catch (Exception ex) {
-
             }
         }
+        /*Se retorna nulo en caso de error*/
         return null;
     }
 
     public Blob getImagenEvento(String codigo) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "Select Imagen "
                 + "From  tb_evento Where Codigo = ?";
+        /*Se crea una variable blob para guardar la imagen*/
         Blob Datos = null;
         try {
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigo);
             rs = pr.executeQuery();
 
+            /*Se guarda la imagen en la variable*/
             while (rs.next()) {
                 Datos = rs.getBlob("Imagen");
             }
+            /*Se retorna la imagen*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra la imagen en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -1040,24 +1215,37 @@ public class Evento {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
 
+    /*MEtodo para cambiar el estado del evento a pendiente*/
     public boolean setEstadoPendiente(String codigoEvento) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "UPDATE tb_evento SET Estado = 'Pendiente' "
                 + "Where Codigo = ?";
         try {
+            /*Se prepara la sentencia, se le envia los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigoEvento);
+            /**
+             * Se ejecuta y si funciona bien se retorna verdadero
+             */
             if (pr.executeUpdate() == 1) {
                 return true;
             }
+            /*sino se retorna falso*/
             return false;
         } catch (Exception ex) {
+            /**
+             * Se muestra un mensaje en caso de error
+             */
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -1065,25 +1253,37 @@ public class Evento {
 
             }
         }
+        /*Se guarda un mensaje en la clase en caso de error y se retorna falso*/
         this.setMensaje("Ocurruó un problema al completar el registro del evento.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
+    /*MEtodo para cambiar el estado del evento*/
     public boolean setCambioEstadoEvento(String codigoEvento, String estado) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "UPDATE tb_evento SET Estado = ? ";
         sql += "WHERE Codigo = ? ";
         try {
+            /**
+             * Se prepara la sentenica, se le envian los datos y se ejecuta
+             */
             pr = conn.prepareStatement(sql);
             pr.setString(1, estado);
             pr.setString(2, codigoEvento);
+            /**
+             * Si se ejecuta correctamente se retorna verdadero
+             */
             if (pr.executeUpdate() == 1) {
                 return true;
             }
         } catch (Exception ex) {
+            /*En caso de error se muestra un mensaje*/
             ex.getMessage().toString();
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -1091,26 +1291,34 @@ public class Evento {
 
             }
         }
+        /*En caso de error se guarda el mensaje en la clase y se retorna falso*/
         this.setMensaje("Ocurrió un problema inesperado al modificar el evento.  Estamos trabajando para solucionar este problema.");
         return false;
     }
 
+    /*Metodo para desaprobar un evento*/
     public boolean setDesaprobarEvento(String codigoEvento, String motivo) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "UPDATE tb_evento SET Motivo = ?, Estado = ? ";
         sql += "WHERE Codigo = ? ";
         try {
+            /*Se prepara la sentenci, se le envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, motivo);
             pr.setString(2, "Desaprobado");
             pr.setString(3, codigoEvento);
+            /*Si se ejecuta correctamente se retorna verdadero*/
             if (pr.executeUpdate() == 1) {
                 return true;
             }
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.getMessage().toString();
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -1118,16 +1326,21 @@ public class Evento {
 
             }
         }
+        /*Se guarda un mensaje en caso de error y se retorna flaso*/
         this.setMensaje("Ocurrió un problema inesperado al desaprobar el evento,  Estamos trabajando para solucionar este problema..");
         return false;
     }
 
+    /*MEtodo para obtener la camtidad de eventos incompletos*/
     public int getCantidadEventoIncompleto(String NIT) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sql = "Select Count(Estado) Cantidad FROM tb_evento Where Estado = 'Incompleto' AND NIT = ?";
         try {
+            /*Se prepara la sentencia, se le envia los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, NIT);
             rs = pr.executeQuery();
@@ -1135,8 +1348,10 @@ public class Evento {
                 return rs.getInt("Cantidad");
             }
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.getMessage().toString();
         } finally {
+            /*Se cierra todo*/
             try {
                 pr.close();
                 conn.close();
@@ -1144,13 +1359,17 @@ public class Evento {
 
             }
         }
+        /*Se retorna 0 en caso de error*/
         return 0;
     }
 
+    /*Metodo apra obtener los eventos recomendatos*/
     public String[][] geteventosRecomendados(String codigoUsuario, int Limite, int Cantidad) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sqlevento = "SELECT DISTINCT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
@@ -1163,18 +1382,22 @@ public class Evento {
                 + " Id_Usuario = ? AND Estado = 'Activo') ORDER BY Fecha LIMIT ?,?";
         try {
 
+            /*Se guarda la fecha en un date*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sqlevento);
             pr.setTimestamp(1, sqlDate);
             pr.setString(2, codigoUsuario);
             pr.setInt(3, Limite);
             pr.setInt(4, Cantidad);
             rs = pr.executeQuery();
+            /*Se cuenta la cantidad de resultados para crear un array*/
             int rows = 0;
             while (rs.next()) {
                 rows++;
             }
+            /*Se crea un array y se guardan los datos*/
             String[][] Datos = new String[rows][8];
             rs.beforeFirst();
             rows = 0;
@@ -1189,10 +1412,13 @@ public class Evento {
                 Datos[rows][7] = rs.getString("Comentarios");
                 rows++;
             }
+            /*Se retornan los datos*/
             return Datos;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -1201,13 +1427,17 @@ public class Evento {
 
             }
         }
+        /*En caso de error se retorna nulo*/
         return null;
     }
-    
+
+    /*Metodo apra contar la cantidad de eventos recomendados*/
     public int getcantidadeventosRecomendados(String codigoUsuario) {
+        /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
         String sqlevento = "SELECT Count(e.Codigo) Cantidad "
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
@@ -1215,19 +1445,26 @@ public class Evento {
                 + "Fecha >= ? AND se.Id_Seleccion IN (Select Id_Seleccion From tb_seleccion_usuario WHERE"
                 + " Id_Usuario = ? AND Estado = 'Activo') ORDER BY Fecha ";
         try {
+            /*Se guarda la fecha del sistema en un date*/
             Date fecha = new Date();
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se envia los datos a la sentencia y se ejceuta*/
             pr = conn.prepareStatement(sqlevento);
-            pr.setTimestamp(1 , sqlDate);
+            pr.setTimestamp(1, sqlDate);
             pr.setString(2, codigoUsuario);
             rs = pr.executeQuery();
             int rows = 0;
+            /*Se guarda el dato en un string*/
             if (rs.next()) {
                 rows = rs.getInt("Cantidad");
-            }return rows;
+            }
+            /*Se retorna el entero*/
+            return rows;
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
+            /*Se cierra todo*/
             try {
                 rs.close();
                 pr.close();
@@ -1236,6 +1473,7 @@ public class Evento {
 
             }
         }
+        /*En caso de error se retorna cero*/
         return 0;
     }
 
