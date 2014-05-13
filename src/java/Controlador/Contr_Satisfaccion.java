@@ -101,6 +101,7 @@ public class Contr_Satisfaccion extends HttpServlet {
             }
 
         } else {
+            /*Se redirecciona si no se realizo ninguna peticion*/
             response.sendRedirect("View/ConsultaEvento.jsp");
         }
     }

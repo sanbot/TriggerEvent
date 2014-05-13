@@ -7,13 +7,11 @@ package Controlador;
 
 import Modelo.Ciudad;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -33,47 +31,59 @@ public class Contr_Ciudad extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        /*Se detalla el contenido que tendra el servlet*/
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        /*Se declaran las variables necesarias*/
         String Nombre, Codigo, Mensaje, url, Departamento;
         Ciudad ciu = new Ciudad();
+        /*Se crea una variable para la sesion*/
         HttpSession session = request.getSession(true);
+        /*Se evalua cada una de las posibles peticiones*/
         if (request.getParameter("RegistrarCiudad") != null) {
 
+            /*Si se va a registrar una ciudad se guarda el nombre y el departamento*/
             Nombre = request.getParameter("Nombre");
             Departamento = request.getParameter("Departamento");
 
             boolean b = ciu.setRegistrarCiudad(Nombre, Departamento);
             if (b) {
-
+                /*Se retorna un mensaje por medio de la sesion y se redirecciona*/
                 session.setAttribute("Mensaje", "La ciudad se registró correctamente.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/ConsultaCiudad.jsp";
                 response.sendRedirect(url);
             } else {
+                /*Se retorna un mensaje por medio de la sesion y se redirecciona*/
                 session.setAttribute("Mensaje", ciu.getMensaje());
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/ConsultaCiudad.jsp";
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("ModificarCiudad") != null) {
+            /*Si se va a modificar se guardan las variables codigo nombre y departametno*/
             Codigo = request.getParameter("Codigo");
             Nombre = request.getParameter("Nombre");
             Departamento = request.getParameter("Departamento");
 
+            /*Se evalua el boolean que retorna el metodo de la clase modelo*/
             boolean b = ciu.actualizardatosCiudad(Codigo, Nombre, Departamento);
             if (b) {
+                /*Se retorna un mensaje por medio de la sesion y se redirecciona*/
 
                 session.setAttribute("Mensaje", "La ciudad ha sido modificada correctamente.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/ConsultaCiudad.jsp";
                 response.sendRedirect(url);
             } else {
+                /*Se retorna un mensaje por medio de la sesion y se redirecciona*/
                 session.setAttribute("Mensaje", ciu.getMensaje());
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/ConsultaCiudad.jsp";
                 response.sendRedirect(url);
             }
         } else {
+            /*Si no es ninguna de las anteriores peticiones de redirecciona al index.jsp*/
             url = "index.jsp";
             response.sendRedirect(url);
         }
