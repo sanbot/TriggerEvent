@@ -44,9 +44,13 @@ public class Contr_Usuarios extends HttpServlet {
         HttpSession session = request.getSession(true);
         //se declara un boolean para los resultados
         boolean b = false;
+        /*Se evalua cada una de las posibles peticiones*/
         if (request.getParameter("login") != null) {
+
+            //se declaran las variables necesarias y se obtienen los datos
             correo = request.getParameter("correo");
             Contrasenia = request.getParameter("contrasenia");
+            /*Se ejecuta el metodo para iniciar sesion de la clase modelo*/
             b = usu.getlogin(correo, Contrasenia);
             if (b) {
                 Codigo = usu.getCodigo();
@@ -60,6 +64,7 @@ public class Contr_Usuarios extends HttpServlet {
                 Ciudad = usu.getCiudad();
                 Departamento = usu.getDepartamento();
 
+                /*Se guardan los datos del usuario en la sesion*/
                 session.setAttribute("Codigo", Codigo);
                 session.setAttribute("Rol", Rol);
                 session.setAttribute("Tipo_Documento", Tipo_Documento);
@@ -75,6 +80,8 @@ public class Contr_Usuarios extends HttpServlet {
                 url = "View/EventoRecomendado.jsp";
                 response.sendRedirect(url);
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", usu.getMensaje());
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/index.jsp";
@@ -82,6 +89,7 @@ public class Contr_Usuarios extends HttpServlet {
             }
 
         } else if (request.getParameter("ModificarPerfil") != null) {
+            //se declaran las variables necesarias y se obtienen los datos
             Nombre = request.getParameter("Nombre");
             Codigo = (String) session.getAttribute("Codigo");
             Tipo_Documento = request.getParameter("Tipo_Documento");
@@ -93,8 +101,10 @@ public class Contr_Usuarios extends HttpServlet {
             Rol = request.getParameter("TipoUsuario");
             Ciudad = request.getParameter("Ciudad");
 
+            /*Se ejecuta el metodo actualizar datos de la clase modelo*/
             b = usu.actualizardatos(Codigo, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Ciudad);
             if (b) {
+                /*Se guardan los datos del usuario en la sesion*/
                 session.setAttribute("Rol", Rol);
                 session.setAttribute("Tipo_Documento", Tipo_Documento);
                 session.setAttribute("No_Documento", No_Documento);
@@ -106,67 +116,87 @@ public class Contr_Usuarios extends HttpServlet {
                 session.setAttribute("Ciudad", usu.getCiudad());
                 session.setAttribute("Departamento", usu.getDepartamento());
 
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Sus datos han sido modificados correctamente");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/Perfil.jsp";
                 response.sendRedirect(url);
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/ModificarPerfil.jsp";
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("EnviarCodigoVer") != null) {
+            //se declaran las variables necesarias y se obtienen los datos
             Nombre = request.getParameter("Nombre");
             celular = request.getParameter("Celular");
             correo = request.getParameter("Correo");
             CodVer = usu.CodVer();
 
+            /*Se ejecuta el metodo para enviar codigo de verifiacion de la clase modelo*/
             b = msm.EnviarCodVer(correo, celular, Nombre, CodVer);
             if (b) {
+                /*Se envian datos a la session para poder que no cambien en el registro*/
                 session.setAttribute("Registrar_Nombre", Nombre);
                 session.setAttribute("Registrar_Celular", celular);
                 session.setAttribute("Registrar_Correo", correo);
                 session.setAttribute("Registrar_CodigoVer", CodVer);
 
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Verifique su correo, se le ha enviado el código de verificación.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Ocurrió un problema inesperado al enviar el código de verificación. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("REnviarCodigoVer") != null) {
+            //se declaran las variables necesarias y se obtienen los datos
             Nombre = (String) session.getAttribute("Registrar_Nombre");
             celular = (String) session.getAttribute("Registrar_Celular");
             correo = (String) session.getAttribute("Registrar_Correo");
             CodVer = (String) session.getAttribute("Registrar_CodigoVer");
 
+            /*Se ejecuta el metodo para enviar codigo de verifiacion de la clase modelo*/
             b = msm.EnviarCodVer(correo, celular, Nombre, CodVer);
             if (b) {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Verifique su correo, se le ha enviado el código de verificación.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "currió un problema inesperado al enviar el código de verificación. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("LimpiarDatosUsuario") != null) {
+            /**Se limpian los datos de la sesion*/
             session.setAttribute("Registrar_Nombre", null);
             session.setAttribute("Registrar_Celular", null);
             session.setAttribute("Registrar_Correo", null);
             session.setAttribute("Registrar_CodigoVer", null);
 
+            /*Se redirecciona*/
             url = "View/RegistrarUsuario.jsp";
             response.sendRedirect(url);
 
         } else if (request.getParameter("RegistrarUsuario") != null) {
+            //se declaran las variables necesarias y se obtienen los datos
 
             Nombre = (String) session.getAttribute("Registrar_Nombre");
             celular = (String) session.getAttribute("Registrar_Celular");
@@ -185,6 +215,7 @@ public class Contr_Usuarios extends HttpServlet {
 
             if (Password.equals(REPassword)) {
                 if (CodVer.equals(CodigoVerificacion)) {
+                    /*Se ejecuta el metodo para registrar al usuario de la clase modelo*/
                     b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
                     if (b) {
                         session.setAttribute("Registrar_Nombre", null);
@@ -192,47 +223,64 @@ public class Contr_Usuarios extends HttpServlet {
                         session.setAttribute("Registrar_Correo", null);
                         session.setAttribute("Registrar_CodigoVer", null);
 
+                        /*Se guarda un mensaje mediante las sesiones
+                         y se redirecciona*/
                         session.setAttribute("Mensaje", "Su cuenta ha sido creada satisfactoriamente.");
                         session.setAttribute("TipoMensaje", "Dio");
                         url = "View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
                     } else {
+                        /*Se guarda un mensaje mediante las sesiones
+                         y se redirecciona*/
                         session.setAttribute("Mensaje", usu.getMensaje());
                         session.setAttribute("TipoMensaje", "NODio");
                         url = "View/RegistrarUsuario.jsp";
                         response.sendRedirect(url);
                     }
                 } else {
+                    /*Se guarda un mensaje mediante las sesiones
+                     y se redirecciona*/
                     session.setAttribute("Mensaje", "El código de verificación no coincide con el enviado.");
                     session.setAttribute("TipoMensaje", "NODio");
                     url = "View/RegistrarUsuario.jsp";
                     response.sendRedirect(url);
                 }
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "ErrorPass");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/RegistrarUsuario.jsp";
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("recucontrasenia") != null) {
+            //se declaran las variables necesarias y se obtienen los datos
             correo = request.getParameter("correo");
             b = usu.getrecordarContrasenia(correo);
             if (b) {
                 String contra = usu.getContrasenia();
                 Nombre = usu.getNombre();
+                /*Se ejecuta el metodo para enviar la contraseña al correo, el metodo se encuentra
+                en la clase modelo*/
                 boolean c = msm.recordarcontrasenia(correo, contra, Nombre);
                 if (c) {
+                    /*Se guarda un mensaje mediante las sesiones
+                     y se redirecciona*/
                     session.setAttribute("Mensaje", "Verifique su correo, se le ha enviado su contraseña.");
                     session.setAttribute("TipoMensaje", "Dio");
                     url = "View/index.jsp";
                     response.sendRedirect(url);
                 } else {
+                    /*Se guarda un mensaje mediante las sesiones
+                     y se redirecciona*/
                     session.setAttribute("Mensaje", "Ocurrió un problema inesperado al enviar su contraseña. Estamos trabajando para solucionar este problema.");
                     session.setAttribute("TipoMensaje", "NODio");
                     url = "View/index.jsp";
                     response.sendRedirect(url);
                 }
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "El correo diligenciado no concuerda con ninguna cuenta registrada.");
                 session.setAttribute("TipoMensaje", "NODio");
 
@@ -240,6 +288,7 @@ public class Contr_Usuarios extends HttpServlet {
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("ModificarUsuarioTodos") != null) {
+            //se declaran las variables necesarias y se obtienen los datos
             Nombre = request.getParameter("Nombre");
             Codigo = request.getParameter("Codigo");
             Rol = request.getParameter("Tipo");
@@ -252,20 +301,26 @@ public class Contr_Usuarios extends HttpServlet {
             Estado = request.getParameter("Estado");
             Ciudad = request.getParameter("Ciudad");
 
+            /*Se ejecuta el metodo para acturalizar los datos del usario en la clase modelo*/
             b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado, Ciudad);
             if (b) {
 
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Sus datos han sido modificados correctamente.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/ConsultaUsuario.jsp";
                 response.sendRedirect(url);
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/MUsuario.jsp?Codigo=" + Codigo;
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("RegistrarTodoUsuario") != null) {
+            //se declaran las variables necesarias y se obtienen los datos
 
             Nombre = request.getParameter("Nombre");
             celular = request.getParameter("Celular");
@@ -281,6 +336,7 @@ public class Contr_Usuarios extends HttpServlet {
             Ciudad = request.getParameter("Ciudad");
 
             if (Password.equals(REPassword)) {
+                /*Se ejecuta el metodo para registrar los datos del usario en la clase modelo*/
                 b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
                 if (b) {
                     session.setAttribute("Registrar_Nombre", null);
@@ -288,53 +344,72 @@ public class Contr_Usuarios extends HttpServlet {
                     session.setAttribute("Registrar_Correo", null);
                     session.setAttribute("Registrar_CodigoVer", null);
 
+                    /*Se guarda un mensaje mediante las sesiones
+                     y se redirecciona*/
                     session.setAttribute("Mensaje", "El usuario ha sido registrado correctamente.");
                     session.setAttribute("TipoMensaje", "Dio");
                     url = "View/ConsultaUsuario.jsp";
                     response.sendRedirect(url);
                 } else {
+                    /*Se guarda un mensaje mediante las sesiones
+                     y se redirecciona*/
                     session.setAttribute("TipoMensaje", "NODio");
                     session.setAttribute("Mensaje", usu.getMensaje());
                     url = "View/ConsultaUsuario.jsp";
                     response.sendRedirect(url);
                 }
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Las contraseñas no coinciden.");
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/ConsultaUsuario.jsp";
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("CambiarContrasenia") != null) {
+            //se declaran las variables necesarias y se obtienen los datos
             Codigo = (String) session.getAttribute("Codigo");
             String Contr = request.getParameter("ContraseniaActual");
             String ContrNueva = request.getParameter("ContraseniaNueva");
             String ContrReContra = request.getParameter("ContraseniaRepetir");
             if (ContrNueva.equals(ContrReContra)) {
+                /*Se ejecuta el metodo para comprobar las contraseñas del usario en la clase modelo*/
                 if (usu.getConfirmarContrasenia(Codigo, Contr)) {
+                    /*Se ejecuta el metodo para cambiar la contraseña del usario en la clase modelo*/
                     if (usu.setCambioContrasenia(Codigo, ContrNueva)) {
                         session.setAttribute("Mensaje", "La contraseña ha sido modificada exitosamente.");
                         session.setAttribute("TipoMensaje", "Dio");
                     } else {
-                        //session.setAttribute("Mensaje", usu.getMensaje());
+                        /*Se guarda un mensaje mediante las sesiones
+                         y se redirecciona*/
                         session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar la contraseña. Estamos trabajando para solucionar este problema.");
                         session.setAttribute("TipoMensaje", "NODio");
                     }
                 } else {
+                    /*Se guarda un mensaje mediante las sesiones
+                     y se redirecciona*/
                     session.setAttribute("Mensaje", "La contraseña actual no coincide con su cuenta");
                     session.setAttribute("TipoMensaje", "NODio");
                 }
             } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
                 session.setAttribute("Mensaje", "Error al tratar de modificar la contraseña, las contraseñas no coinciden");
                 session.setAttribute("TipoMensaje", "NODio");
             }
+            /*Se redirecciona*/
             response.sendRedirect("View/Perfil.jsp");
         } else if (request.getParameter("accion").equals("cambiarestadousuario")) {
+            //se declaran las variables necesarias y se obtienen los datos
             Codigo = (String) request.getParameter("codigousuario");
             Estado = (String) request.getParameter("estadousuario");
+            /*Se declaran JSON Para imprimir los datos*/
             JSONObject obj = new JSONObject();
             JSONObject ob = new JSONObject();
+            /*Se ejecuta el metodo para cambiar el estado del usario en la clase modelo*/
             b = usu.setCambiarEstadoUsaurio(Codigo, Estado);
             if (b) {
+                /*Se ejecuta el metodo para obtener los datos del usario en la clase modelo*/
                 boolean p = usu.getDatosParaEstado(Codigo);
                 if (p) {
                     Tipo_Documento = usu.getTipo_Documento();
@@ -345,41 +420,52 @@ public class Contr_Usuarios extends HttpServlet {
                     celular = usu.getCelular();
                     correo = usu.getCorreo();
                     if (Estado.equals("Aprobado")) {
+                        /*Se ejecuta el metodo para enviar un correo al usario en la clase modelo*/
                         b = msm.setMensajeModificarAprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
                         if (b) {
+                            /*Se encodifica a JSON*/
                             ob.put("mensaje", "Se ha modificado el estado del usuario correctamente.");
                             ob.put("tipomensaje", "Dio");
 
                         } else {
+                            /*Se encodifica a JSON*/
                             ob.put("mensaje", "Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
                             ob.put("tipomensaje", "NODio");
                         }
                     } else if (Estado.equals("Desaprobado")) {
+                        /*Se ejecuta el metodo para enviar un correo al usario en la clase modelo*/
                         b = msm.setMensajeModificarDesaprobar(correo, celular, Nombre, Tipo_Documento, No_Documento, Telefono, Direccion);
                         if (b) {
+                            /*Se encodifica a JSON*/
                             ob.put("mensaje", "Se ha modificado el estado del usuario correctamente.");
                             ob.put("tipomensaje", "Dio");
                         } else {
+                            /*Se encodifica a JSON*/
                             ob.put("mensaje", "Se ha modificado el estado del usuario, pero no se logro mandar una notificación a dicho usuario.");
                             ob.put("tipomensaje", "NODio");
                         }
                     }
                 }
             } else {
+                /*Se encodifica a JSON*/
                 ob.put("mensaje", "Ocurrio un error al modificar el estado del usuario. Estamos trabajando para solucionar este problema.");
                 ob.put("tipomensaje", "NODio");
             }
+            /*Se declara lo necesario para imprimir el json y se imprime*/
             PrintWriter out = response.getWriter();
             obj.put("1", ob);
             out.print(obj);
             out.close();
         } else if (request.getParameter("accion").equals("usuariospendientes")) {
-            String[][] Datos = usu.BuscarDatosUsuarioPendientes();
+            //se declaran las variables necesarias y se obtienen los datos
             JSONObject obj = new JSONObject();
+            /*Se ejecuta el metodo para biscar los datos de los usarios pendientes en la clase modelo*/
+            String[][] Datos = usu.BuscarDatosUsuarioPendientes();
             int i = 0;
             for (String row[] : Datos) {
                 JSONObject ob = new JSONObject();
 
+                /*Se encodifica a JSON*/
                 ob.put("codigo", row[0]);
                 ob.put("tipo", row[1]);
                 ob.put("tipodocumento", row[2]);
@@ -395,16 +481,20 @@ public class Contr_Usuarios extends HttpServlet {
 
                 i++;
             }
+            /*Se declara lo necesario para imprimir el json y se imprime*/
             PrintWriter out = response.getWriter();
             out.println(obj);
             out.close();
         } else if (request.getParameter("accion").equals("todosusuarios")) {
-            String[][] Datos = usu.BuscarDatosUsuarioPendienteTodos();
+            //se declaran las variables necesarias y se obtienen los datos
             JSONObject obj = new JSONObject();
+            /*Se ejecuta el metodo para buscar todos los datos de los usarios en la clase modelo*/
+            String[][] Datos = usu.BuscarDatosUsuarioPendienteTodos();
             int i = 0;
             for (String row[] : Datos) {
                 JSONObject ob = new JSONObject();
 
+                /*Se encodifica a JSON*/
                 ob.put("codigo", row[0]);
                 ob.put("tipo", row[1]);
                 ob.put("tipodocumento", row[2]);
@@ -420,14 +510,18 @@ public class Contr_Usuarios extends HttpServlet {
 
                 i++;
             }
+            /*Se declara lo necesario para imprimir el json y se imprime*/
             PrintWriter out = response.getWriter();
             out.println(obj);
             out.close();
         } else if (request.getParameter("accion").equals("loginmodal")) {
+            //se declaran las variables necesarias y se obtienen los datos
             correo = request.getParameter("correo");
             Contrasenia = request.getParameter("contrasenia");
+            /*Se declaran JSON Para imprimir los datos*/
             JSONObject obj = new JSONObject();
             JSONObject ob = new JSONObject();
+            /*Se ejecuta el metodo para iniciar sesion de usario en la clase modelo*/
             b = usu.getlogin(correo, Contrasenia);
             if (b) {
                 Codigo = usu.getCodigo();
@@ -441,6 +535,7 @@ public class Contr_Usuarios extends HttpServlet {
                 Ciudad = usu.getCiudad();
                 Departamento = usu.getDepartamento();
 
+                /*Se guardan los del usuario en la sesion*/
                 session.setAttribute("Codigo", Codigo);
                 session.setAttribute("Rol", Rol);
                 session.setAttribute("Tipo_Documento", Tipo_Documento);
@@ -452,19 +547,24 @@ public class Contr_Usuarios extends HttpServlet {
                 session.setAttribute("Direccion", Direccion);
                 session.setAttribute("Ciudad", Ciudad);
                 session.setAttribute("Departamento", Departamento);
+                /*Se encodifica a JSON*/
                 obj.put("1", b);
+                /*Se declara lo necesario para imprimir el json y se imprime*/
                 PrintWriter out = response.getWriter();
                 out.println(obj);
                 out.close();
             } else {
+                /*Se encodifica a JSON*/
                 obj.put("mensaje", usu.getMensaje());
                 ob.put("0", obj);
+                /*Se declara lo necesario para imprimir el json y se imprime*/
                 PrintWriter out = response.getWriter();
                 out.println(ob);
                 out.close();
             }
 
         } else {
+            /*Se redirecciona sino se da ninguna de las peticiones anteriores*/
             url = "View/index.jsp";
             response.sendRedirect(url);
         }

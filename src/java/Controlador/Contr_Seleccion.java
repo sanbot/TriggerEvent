@@ -8,7 +8,6 @@ package Controlador;
 import Modelo.Seleccion;
 import java.io.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,13 +38,15 @@ public class Contr_Seleccion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /*Se detalla el contenido que tendra el servlet*/
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        /*Se crea una variable para la sesion*/
         HttpSession session = request.getSession(true);
-        PrintWriter out = response.getWriter();
 
         boolean b;
         try {
+            /*Se declaran las variables necesarias*/
             Seleccion sel = new Seleccion();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
@@ -62,6 +63,7 @@ public class Contr_Seleccion extends HttpServlet {
             List items = servlet_up.parseRequest(request);
             Iterator it = items.iterator();
 
+             /*Se evalua cada una de las posibles peticiones y los posibles campos que envien*/
             while (it.hasNext()) {
                 FileItem item = (FileItem) it.next();
                 if (item.isFormField()) {
@@ -69,21 +71,32 @@ public class Contr_Seleccion extends HttpServlet {
 
                     String name = item.getFieldName();
                     if (name.equals("Codigo")) {
+                        /*Se guarda el campo en la clase*/
                         sel.setCodigo(item.getString());
                     } else if (name.equals("Nombre")) {
+                        /**Se guarda el campo en la clase*/
                         sel.setNombre(item.getString());
                     } else if (name.equals("Tipo")) {
+                        /**Se guarda el campo en la clase*/
                         sel.setTipo(item.getString());
                     } else if (name.equals("Estado")) {
+                        /**Se guarda el campo en la clase*/
                         sel.setEstado(item.getString());
                     } else if (name.equals("RegistrarSeleccion")) {
+                        /*Se evalua si se mando una iamgen, cuando se va a registrar un evento*/
                         if (!sel.getImagen().equals("")) {
+                            /*Si se envia una imagen obtiene la imagen para eliminarla luego*/
                             File img = new File(sel.getImagen());
+                            /*Se ejecuta el metodo de registrar usuario que se encuentra, en la clase modelo
+                            con los datos que se encuentran en la clase*/
                             b = sel.setRegistrarSeleccion(sel.getNombre(), sel.getTipo(), sel.getImagen());
                             if (b) {
+                                /*Si se ejecuta correctamente se elimina*/
                                 if (!img.delete()) {
                                     String sda = "no";
                                 }
+                                /*Se guarda un mensaje mediante las sesiones
+                                y se redirecciona*/
                                 session.setAttribute("Mensaje", "El gusto o ambiente ha sido registrado correctamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                                 url = "View/ConsultaSeleccion.jsp";
@@ -92,40 +105,56 @@ public class Contr_Seleccion extends HttpServlet {
                                 if (!img.delete()) {
                                     String sda = "no";
                                 }
+                                /*Se guarda un mensaje de error mediante las sesiones
+                                y se redirecciona*/
                                 session.setAttribute("Mensaje", sel.getMensaje());
                                 session.setAttribute("TipoMensaje", "NODio");
                                 url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
                             }
                         } else {
+                            /*Se guarda un mensaje de error mediante las sesiones
+                            y se redirecciona*/
                             session.setAttribute("Mensaje", "Seleccione una imagen, para registrar el ambiente o gusto.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                     } else if (name.equals("ModificarSeleccion")) {
                         if (sel.getImagen().equals("")) {
                             File img = new File(sel.getImagen());
+                            /*Se ejecuta el metodo de actualizar los datos de la seleccion usuario que se encuentra, en la clase modelo
+                            con los datos que se encuentran en la clase*/
                             b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getEstado());
                             if (b) {
                                 img.delete();
+                                /*Se guarda un mensaje mediante las sesiones
+                                y se redirecciona*/
                                 session.setAttribute("Mensaje", "El gusto o ambiente ha sido registrada correctamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                                 url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
                             } else {
                                 img.delete();
+                                /*Se guarda un mensaje mediante las sesiones
+                                y se redirecciona*/
                                 session.setAttribute("Mensaje", sel.getMensaje());
                                 session.setAttribute("TipoMensaje", "NODio");
                                 url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
                             }
                         } else {
+                            /*Se ejecuta el metodo de actualizar los datos de la seleccion usuario que se encuentra, en la clase modelo
+                            con los datos que se encuentran en la clase*/
                             b = sel.actualizardatosSeleccion(sel.getCodigo(), sel.getNombre(), sel.getTipo(), sel.getImagen(), sel.getEstado());
                             if (b) {
+                                /*Se guarda un mensaje mediante las sesiones
+                                y se redirecciona*/
                                 session.setAttribute("Mensaje", "El gusto o ambiente ha sido modificado correctamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                                 url = "View/ConsultaSeleccion.jsp";
                                 response.sendRedirect(url);
                             } else {
+                                /*Se guarda un mensaje mediante las sesiones
+                                y se redirecciona*/
                                 session.setAttribute("Mensaje", sel.getMensaje());
                                 session.setAttribute("TipoMensaje", "NODio");
                                 url = "View/ConsultaSeleccion.jsp";
@@ -145,24 +174,33 @@ public class Contr_Seleccion extends HttpServlet {
                         long sizeInBytes = item.getSize();
 
                         if (sizeInBytes > 3145728) {
+                            /*Se muestra un mensaje en caso de pesar mas de 3 MB*/
                             session.setAttribute("Mensaje", "El tamaño límite de la imagen es: 3 MB");
                             session.setAttribute("TipoMensaje", "NODio");
+                            /*Se redirecciona*/
                             response.sendRedirect("View/ConsultaSeleccion.jsp");
                         } else {
+                            /*Se crea la imagne*/
                             File archivo_server = new File(urlsalidaimg + item.getName());
+                            /**Se guardael url de la imagen en la clase*/
                             sel.setImagen(urlsalidaimg + item.getName());
+                            /*Se guarda la imagen*/
                             item.write(archivo_server);
                         }
                     } else {
+                        /**Se guarda el url de la imagen en la clase*/
                         sel.setImagen("");
                     }
                 }
             }
 
+            /*Se redirecciona sino se recive ninguna peticion*/
             response.sendRedirect("View/index.jsp");
         } catch (FileUploadException ex) {
+            /*Se muestra un mensaje en caso de error*/
             System.out.print(ex.getMessage().toString());
         } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
             Logger.getLogger(Contr_Seleccion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
