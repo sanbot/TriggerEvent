@@ -1477,4 +1477,52 @@ public class Evento {
         return 0;
     }
 
+    /*Metodo apra obtener la ubicacion de los eventos*/
+    public String[][] getubicacioneventos() {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
+        String sqlevento = "SELECT Codigo, Nombre, Latitud, Longitud FROM tb_evento\n"
+                + "Where Fecha < last_day(period_add(CURDATE(), 1)) AND Fecha > CURDATE()";
+        try {
+
+            /*Se prepara la sentencia y se ejecuta*/
+            pr = conn.prepareStatement(sqlevento);
+            rs = pr.executeQuery();
+            /*Se cuenta la cantidad de resultados para crear un array*/
+            int rows = 0;
+            while (rs.next()) {
+                rows++;
+            }
+            /*Se crea un array y se guardan los datos*/
+            String[][] Datos = new String[rows][4];
+            rs.beforeFirst();
+            rows = 0;
+            while (rs.next()) {
+                Datos[rows][0] = rs.getString("Codigo");
+                Datos[rows][1] = rs.getString("Nombre");
+                Datos[rows][2] = rs.getString("Latitud");
+                Datos[rows][3] = rs.getString("Longitud");
+                rows++;
+            }
+            /*Se retornan los datos*/
+            return Datos;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*En caso de error se retorna nulo*/
+        return null;
+    }
 }

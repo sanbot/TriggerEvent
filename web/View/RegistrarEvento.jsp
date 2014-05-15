@@ -102,7 +102,7 @@
                                 <label for="Fecha">Fecha y hora</label>
                                 <div class='input-group date' id='datetimepicker1' data-date-format="MM/DD/YYYY hh:mm A">
                                     <input type='text' name="Fecha" id="FechaEvento" class="form-control" data-required="true" data-notblank="true" readonly/>
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    <span class="input-group-addon"><span title="Fecha y Hora" class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                         <label for="Direccion">Direcci&oacute;n o lugar</label>
                         <div class="input-group">
                             <input name="Direccion" class="form-control" data-required="true" data-notblank="true" data-rangelength="[8,100]"/>
-                            <a id="PopOverMapa" class="input-group-addon" ><span class="glyphicon glyphicon-screenshot"></span></a>
+                            <a id="PopOverMapa" title="Agregar ubicaci&oacute;n" class="input-group-addon" ><span class="glyphicon glyphicon-screenshot"></span></a>
                         </div>
                     </div>
                 </div>

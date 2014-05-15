@@ -818,7 +818,7 @@ public class Usuario {
         PreparedStatement pr = null;
         /*Se crea una sentencia sql en uns tring*/
         String sql = "UPDATE tb_usuario SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?, Correo= ? , Direccion = ?, Estado = ? ";
-        sql += "WHERE Codigo=?";
+        sql += "WHERE Codigo= ? ";
         try {
             /*Se prepara la sentencia, se envian los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
@@ -834,7 +834,8 @@ public class Usuario {
             pr.setString(10, Estado);
             pr.setString(11, Codigo);
             /*Si se ejecuta correctamente se retorna verdadero*/
-            if (pr.executeUpdate() == 1) {
+            int i = pr.executeUpdate();
+            if (i == 1) {
                 return true;
             }
         } catch (Exception ex) {

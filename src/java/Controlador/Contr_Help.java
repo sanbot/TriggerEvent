@@ -53,7 +53,7 @@ public class Contr_Help extends HttpServlet {
                 Cls_Satisfaccion sat = new Cls_Satisfaccion();
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos del metodo de modelo de los comentarios, se le pone un
-                limite y una cantidad para solo traer los datos que faltan*/
+                 limite y una cantidad para solo traer los datos que faltan*/
                 String[][] Datos = sat.BuscarComentariosEvento(request.getParameter("codigoevento"), Integer.parseInt(request.getParameter("limite")), Integer.parseInt(request.getParameter("cantidad")));
                 int i = 0;
                 /*Se encodifican los datos en JSON*/
@@ -102,7 +102,7 @@ public class Contr_Help extends HttpServlet {
                 JSONObject obj = new JSONObject();
                 /*Se obtiene los datos de la ciudad, del metodo de modelo*/
                 String[][] Datos = ciu.BuscarDatosCiudadTodos(request.getParameter("codigodepartamento"));
-                
+
                 int i = 0;
                 /*Se encodifican los datos en JSON*/
                 for (String row[] : Datos) {
@@ -498,7 +498,7 @@ public class Contr_Help extends HttpServlet {
                 int limite = Integer.parseInt(request.getParameter("limite"));
                 int cantidad = Integer.parseInt(request.getParameter("cantidad"));
                 /*Se ontienen todos los datos de los eventos principales con limtie y cantidad, 
-                en el metodo de modelo*/
+                 en el metodo de modelo*/
                 String[][] Datos = eve.BuscarDatosPrincipalesEventos(limite, cantidad);
                 int i = 0;
                 /*Se encodifican los datos en JSON*/
@@ -541,6 +541,27 @@ public class Contr_Help extends HttpServlet {
                     ob.put("hora", row[5]);
                     ob.put("calificacion", row[6]);
                     ob.put("comentario", row[7]);
+                    obj.put(Integer.toString(i), ob);
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("ubicacioneventos")) {
+                /*Si se realiza la peticion de obtener los datos de la ubicacion de los eventos*/
+                /*Se declaran las variables necesarias*/
+                Evento eve = new Evento();
+                JSONObject obj = new JSONObject();
+                /*Se obtienen los datos de la ubicacion de los eventos, en el metodo de modelo*/
+                String[][] Datos = eve.getubicacioneventos();
+                int i = 0;
+                /*Se encodifican los datos en JSON*/
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("latitud", row[2]);
+                    ob.put("longitud", row[3]);
                     obj.put(Integer.toString(i), ob);
                     i++;
                 }

@@ -78,5 +78,22 @@ var mostrarmapa = function(latitud, longitud, nombre) {
     });
     var ubicacion = {lat: latitud, lng: longitud};
     L.marker(ubicacion).addTo(map)
-            .bindPopup("Evento: "+nombre).openPopup();
+            .bindPopup("Evento: " + nombre).openPopup();
+}
+
+var mostrarubicacion = function(datos) {
+    var streets = L.tileLayer(mapboxUrl, {id: 'examples.map-9ijuk24y', attribution: mapboxAttribution});
+
+    var map = L.map('map', {
+        center: [04, -74],
+        zoom: 5,
+        layers: [streets]
+    });
+    var ubicacion;
+    $.each(datos, function(key, val) {
+        ubicacion = {lat: val.latitud, lng: val.longitud};
+        L.marker(ubicacion).addTo(map)
+                .bindPopup('<a href="DetalleEvento.jsp?CodigoEvento='+val.codigo+'">Evento: ' + val.nombre + '</a>').openPopup();
+    });
+
 }

@@ -10,7 +10,6 @@
         response.sendRedirect("ConsultaUsuario.jsp");
     }
 
-    String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
     String[] DatosUsuario = usu.BuscarDatosUsuario(codigoUsuario);
     if (DatosUsuario[0] == null) {
         response.sendRedirect("ConsultaUsuario.jsp");
@@ -41,7 +40,7 @@
                 <div class="col-xs-12">
                     <ol class="breadcrumb">
                         <li><a href="EventoRecomendado.jsp">Inicio</a></li>
-                        <li><a href="CUsuario.jsp">Registrar y consultar usuarios</a></li>
+                        <li><a href="ConsultaUsuario.jsp">Registrar y consultar usuarios</a></li>
                         <li class="active">Modificar usuario</a></li>
                     </ol>
                 </div>
@@ -57,7 +56,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <input name="Codigo" type="hidden" class="form-control" id="Nombre_MUsuario" readonly/>
+                                    <input name="Codigo" type="hidden" class="form-control" id="Nombre_MUsuario" value="<%=codigoUsuario%>" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -73,19 +72,13 @@
                                     <label for="Tipo_Documento">Tipo de documento</label>
                                     <select name="Tipo_Documento" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                         <option value="<%=DatosUsuario[3]%>"><%=DatosUsuario[3]%></option>
-                                        <option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>
-                                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                                        <option value="Cédula de Extranjería<">C&eacute;dula de Extranjer&iacute;a</option>
-                                        <option value="Pasaporte">Pasaporte</option>
-                                        <option value="DNI">Documento Nacional de Identificaci&oacute;n</option>
-                                        <option value="NIT">N&uacute;mero de Identificaci&oacute;n Tributaria</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label  for="Nombre">N&uacute;mero de documento</label>
-                                    <input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=DatosUsuario[4]%>"/>
+                                    <input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true" value="<%=DatosUsuario[4]%>" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -95,9 +88,6 @@
                                     <label for="Tipo">Tipo de usuario</label>
                                     <select name="Tipo" id="Tipos" class="form-control" data-required="true">
                                         <option value="<%=DatosUsuario[1]%>"><%=DatosUsuario[2]%></option>
-                                        <%for (String[] Row : ListaTipoUsuario) {%>
-                                        <option value="<%=Row[0]%>"><%=Row[1]%></option>
-                                        <%}%>
                                     </select>
                                 </div>
                             </div>

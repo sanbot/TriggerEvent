@@ -21,7 +21,9 @@
 .aprobarseleccion:hover{
     cursor: pointer;
 }
-
+.lista a {
+    text-decoration: none;
+}
 /*color mostrar ubicacion icono*/
 #mostrarubicacion{
     color: green;

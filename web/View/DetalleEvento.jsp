@@ -133,7 +133,7 @@
                                     <div class="contenido">
                                         <label for="DireccionEvento">
                                             <%=Datos[7]%> 
-                                            <span id="mostrarubicacion" class="glyphicon glyphicon-screenshot"></span>
+                                            <span title="Ubicaci&oacute;n" id="mostrarubicacion" class="glyphicon glyphicon-screenshot"></span>
                                         </label>
                                     </div>
                                 </div>
@@ -180,6 +180,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
+                                    <center><label>Calificaci&oacute;n</label></center>
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-sm-4 contenido-2">
