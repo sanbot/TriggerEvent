@@ -141,9 +141,9 @@ public class Contr_Consultar {
     }
 
     /*Metodo para obtener los comentarios o calificacion de un evento*/
-    public String getComentarioOCalificacion(String tipo, String CodigoUsuario) {
+    public String getComentarioOCalificacion(String tipo, String CodigoUsuario, String codigoEvento) {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        String dato = sat.getComentarioOCalificacion(tipo, CodigoUsuario);
+        String dato = sat.getComentarioOCalificacion(tipo, CodigoUsuario, codigoEvento);
         return dato;
     }
 }

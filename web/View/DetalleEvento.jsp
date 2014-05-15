@@ -289,7 +289,7 @@
                                             <label for="Comentario">Opini&oacute;n</label>
                                             <br/>
                                             <%if (!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")) {%>
-                                            <%=usu.getComentarioOCalificacion("Comentario", CodigoUsuario)%>
+                                            <%=usu.getComentarioOCalificacion("Comentario", CodigoUsuario,CodigoEvento)%>
                                             <%} else {%>
                                             <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,250]"></textarea>
                                             <%}%>
@@ -301,7 +301,7 @@
                                             <label for="Imagen">Puntuaci&oacute;n</label>
                                             <%if (!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
                                             <br/>
-                                            <span class="glyphicon glyphicon-star"></span> <%=usu.getComentarioOCalificacion("Calificacion", CodigoUsuario)%> puntos de calificaci&oacute;n
+                                            <span class="glyphicon glyphicon-star"></span> <%=usu.getComentarioOCalificacion("Calificacion", CodigoUsuario,CodigoEvento)%> puntos de calificaci&oacute;n
                                             <%} else {%>
                                             <div id="stars" class="starrr rating" data-rating="3">
                                             </div>

@@ -567,17 +567,18 @@ public class Cls_Satisfaccion {
     }
 
     /*Obtener el cometnario o la calificacion de un usuario*/
-    public String getComentarioOCalificacion(String tipo, String codigoUsuario) {
+    public String getComentarioOCalificacion(String tipo, String codigoUsuario, String codigoEvento) {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea un string para la consulta*/
-        String sql = "Select " + tipo + " FROM tb_satisfaccion Where Id_Usuario = ? ";
+        String sql = "Select " + tipo + " FROM tb_satisfaccion Where Id_Usuario = ? AND Id_Evento = ?";
         try {
             /*Se prepara la sentencia y se le envian los datos para ejecutarlo posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigoUsuario);
+            pr.setString(2, codigoEvento);
             rs = pr.executeQuery();
             /*Se retorna el resultado*/
             if (rs.next()) {
