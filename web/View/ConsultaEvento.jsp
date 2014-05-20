@@ -53,6 +53,7 @@
                                     <%if (Cantidad != 0 && Rol.equals("Administrador")) {%>
                                 <a title="Eventos pendientes" href="CEventoPendiente.jsp" class="pull-right" ><span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes"><span class="badge"><%=Cantidad%></span></span>  </a>
                                         <%}%>
+                                <a title="Ubicaci&oacute;n de eventos del mes" href="UbicacionEventos.jsp" class="pull-right"><span class="glyphicon glyphicon-screenshot aligncerar"></span></a>
                             </h3>
                         </div>
                     </div>

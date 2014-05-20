@@ -289,7 +289,7 @@
                                             <label for="Comentario">Opini&oacute;n</label>
                                             <br/>
                                             <%if (!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")) {%>
-                                            <%=usu.getComentarioOCalificacion("Comentario", CodigoUsuario,CodigoEvento)%>
+                                            <%=usu.getComentarioOCalificacion("Comentario", CodigoUsuario, CodigoEvento)%>
                                             <%} else {%>
                                             <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,250]"></textarea>
                                             <%}%>
@@ -301,7 +301,7 @@
                                             <label for="Imagen">Puntuaci&oacute;n</label>
                                             <%if (!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
                                             <br/>
-                                            <span class="glyphicon glyphicon-star"></span> <%=usu.getComentarioOCalificacion("Calificacion", CodigoUsuario,CodigoEvento)%> puntos de calificaci&oacute;n
+                                            <span class="glyphicon glyphicon-star"></span> <%=usu.getComentarioOCalificacion("Calificacion", CodigoUsuario, CodigoEvento)%> puntos de calificaci&oacute;n
                                             <%} else {%>
                                             <div id="stars" class="starrr rating" data-rating="3">
                                             </div>
@@ -401,8 +401,8 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <!--Bootstrap-->
-        <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
+        <!--Bootstrap-->   
+        <script src="../Libs/Bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
         <!--Parsley-->
         <script src="../Libs/Customs/js/Parsley.js"></script>    
@@ -444,11 +444,8 @@
                         });
 
                         $("#contenedor-mensajes").append(items.join(""));
-                        var cant = 0;
-                        $("li.from_user").each(function(index) {
-                            cant++;
-                        });
-                        if (cant > 5)
+
+                        if ($(".widget-content").height() >= 600)
                         {
                             $("#contenido").addClass("scrollcomentarios");
                         }
@@ -459,6 +456,10 @@
                             data: {"accion": 'total', "codigoevento": '<%=CodigoEvento%>'},
                             success: function(data) {
                                 total = data;
+                                var cant = 0;
+                                $("li.from_user").each(function(index) {
+                                    cant++;
+                                });
                                 if (cant > total)
                                 {
                                     $("#vermas").addClass("hidden");

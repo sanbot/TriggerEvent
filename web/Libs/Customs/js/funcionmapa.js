@@ -1,9 +1,7 @@
-var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>';
-var mapboxUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';
+var mapatribution = 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+var mapurl = 'http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}';
 var crearmapa = function() {
-    var streets = L.tileLayer(mapboxUrl, {id: 'examples.map-9ijuk24y', attribution: mapboxAttribution});
+    var streets = L.tileLayer(mapurl, {attribution: mapatribution});
 
     var map = L.map('map', {
         center: [04, -74],
@@ -67,7 +65,7 @@ var crearmapa = function() {
     });
 }
 var mostrarmapa = function(latitud, longitud, nombre) {
-    var streets = L.tileLayer(mapboxUrl, {id: 'examples.map-9ijuk24y', attribution: mapboxAttribution});
+    var streets = L.tileLayer(mapurl, {attribution: mapatribution});
 
     var lat = parseFloat(latitud);
     var lon = parseFloat(longitud);
@@ -82,7 +80,7 @@ var mostrarmapa = function(latitud, longitud, nombre) {
 }
 
 var mostrarubicacion = function(datos) {
-    var streets = L.tileLayer(mapboxUrl, {id: 'examples.map-9ijuk24y', attribution: mapboxAttribution});
+    var streets = L.tileLayer(mapurl, {attribution: mapatribution});
 
     var map = L.map('map', {
         center: [04, -74],
