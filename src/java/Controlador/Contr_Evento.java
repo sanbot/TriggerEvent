@@ -163,18 +163,18 @@ public class Contr_Evento extends HttpServlet {
                             if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
                                 /*Se guarda un mensaje mediante las sesiones
                                  y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
+                                session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                             } else {
                                 /*Se guarda un mensaje mediante las sesiones
                                  y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se desaprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                                session.setAttribute("Mensaje", "Se canceló el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
                                 session.setAttribute("TipoMensaje", "NODio");
                             }
                         } else {
                             /*Se guarda un mensaje mediante las sesiones
                              y se redirecciona*/
-                            session.setAttribute("Mensaje", "Ocurrió un error al desaprobar el evento. Estamos trabajando para solucionar este problema.");
+                            session.setAttribute("Mensaje", "Ocurrió un error al cancelar el evento. Estamos trabajando para solucionar este problema.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                         response.sendRedirect("View/CEventoPendiente.jsp");
@@ -209,18 +209,18 @@ public class Contr_Evento extends HttpServlet {
                             if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
                                 /*Se guarda un mensaje mediante las sesiones
                                  y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
+                                session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
                             } else {
                                 /*Se guarda un mensaje mediante las sesiones
                                  y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se desaprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                                session.setAttribute("Mensaje", "Se canceló el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
                                 session.setAttribute("TipoMensaje", "NODio");
                             }
                         } else {
                             /*Se guarda un mensaje mediante las sesiones
                              y se redirecciona*/
-                            session.setAttribute("Mensaje", "Ocurrió un error al desaprobar el evento. Estamos trabajando para solucionar este problema.");
+                            session.setAttribute("Mensaje", "Ocurrió un error al cancelar el evento. Estamos trabajando para solucionar este problema.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                         response.sendRedirect("View/MisEventos.jsp");
