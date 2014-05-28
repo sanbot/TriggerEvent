@@ -567,6 +567,12 @@ public class Contr_Help extends HttpServlet {
                 }
                 /*Se imprime el resultado*/
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("cerrarsesion")) {
+
+                response.setHeader("Cache-Control",
+                        "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+                response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+                response.setDateHeader("Expires", 0);
             } else {
                 /*Si no se recibe alguna de las anteriores peticiones se retorna la vista de indece*/
                 response.sendRedirect("View/index.jsp");

@@ -1,5 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    session.invalidate();
-    response.sendRedirect("index.jsp");
-%>
+<html>
+    <head>
+        <meta http-equiv="Expires" content="0" />
+        <meta http-equiv="Pragma" content="no-cache" />
+    </head>
+    <body>
+        <%
+            session.invalidate();
+            response.sendRedirect("index.jsp");
+            
+        %>
+    </body>
+</html>

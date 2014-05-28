@@ -1,8 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" session="true"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
-    String Codigo = (String)session.getAttribute("Codigo");
+    String Codigo = (String) session.getAttribute("Codigo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@
         <meta name="author" content="Sanser Soft" />
         <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-        
+
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
         <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/guidely.css" />
     </head>
@@ -79,8 +79,9 @@
             new gnMenu(document.getElementById('gn-menu'));
         </script>
         <script src="../Libs/Customs/js/guidely.min.js" type="text/javascript"></script>
-        
+
         <script>
+            
             $("#guia").click(function() {
                 guidely.init({welcome: true, startTrigger: false});
             });
@@ -216,33 +217,33 @@
                 totalevento();
             });
         </script>
-        
+
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-        
+
         <script>
             $(function() {
-                
+
                 guidely.add({
                     attachTo: '#target-1'
                     , anchor: 'bottom-left'
                     , title: 'Al iniciar sesión'
                     , text: 'A continuación se le muestran los eventos recomendados por el sistema dependiendo de los gustos y ambientes agregados.'
                 });
-                
+
                 guidely.add({
                     attachTo: '#target-2'
                     , anchor: 'top-right'
                     , title: 'Ver más'
                     , text: 'Este ícono le permite profundizar la información de un evento.'
                 });
-                
+
                 guidely.add({
                     attachTo: '#target-3'
                     , anchor: 'top-left'
                     , title: 'Ver más'
                     , text: 'El panel muestra la información esencial de cada evento.'
                 });
-                
+
                 guidely.add({
                     attachTo: '#target-4'
                     , anchor: 'bottom-right'

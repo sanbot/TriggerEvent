@@ -12,8 +12,7 @@
     String[][] ListaEventosDestacados = usu.getBuscarDatosEventosDestacados();
     String[][] ListaEventosComentados = usu.getBuscarDatosEventosComentado();
     String[][] Comentarios = usu.getBuscarComentariosAleatorios();
-    if(!Rol.equals("") && !Rol.equals(null))
-    {
+    if (!Rol.equals("") && !Rol.equals(null)) {
         response.sendRedirect("EventoRecomendado.jsp");
     }
 %>
@@ -23,6 +22,8 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta http-equiv="Expires" content="0" />
+        <meta http-equiv="Pragma" content="no-cache" />
         <title>Trigger Event</title>
         <meta name="description" content="Eventos musicales" />
         <meta name="keywords" content="Eventos, musical, Trigger Event" />
@@ -31,10 +32,11 @@
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
         <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/style.css" />
         <link rel="stylesheet" type="text/css" href="../Libs/Customs/css/guidely.css" />
+        <link href="../Libs/Customs/css/validacionindex.css" rel="stylesheet" type="text/css"/>
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
-        
+
         <%@include file="../WEB-INF/jspf/Menu.jspf" %>
         <div id="body" class="container" style="width: 100%;">
             <br/>
@@ -73,7 +75,7 @@
                                         Contrase&ntilde;a
                                     </label>
                                     <div class="col-sm-9" id="target-2">
-                                        <input type="password" class="form-control" id="txtPassWordInicio" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[8,50]">
+                                        <input type="password" class="form-control" id="txtPassWordInicio" name="contrasenia" placeholder="password" data-required="true">
                                     </div>
                                 </div>
                                 <div class="form-group" >
@@ -89,9 +91,9 @@
                                 </div>
                                 <div class="form-group last" >
                                     <div class="col-sm-offset-3 col-sm-9">
-                                        <button type="submit" name="login" class="btn btn-success btn-sm" >
+                                        <a id="loginingresar" class="btn btn-success btn-sm" >
                                             Ingresar
-                                        </button>
+                                        </a>
                                         <button type="reset" class="btn btn-default btn-sm" id="target-3">
                                             Limpiar
                                         </button>
@@ -134,7 +136,7 @@
                                     <div class="col-sm-offset-3 col-sm-9">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox"/>
+                                                <input type="checkbox" data-group="signup"/>
                                                 Recordarme
                                             </label>
                                         </div>
@@ -442,7 +444,7 @@
                                                         Contrase&ntilde;a
                                                     </label>
                                                     <div class="col-sm-9" id="target-2">
-                                                        <input type="password" class="form-control" id="txtPasswordModal" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[8,50]">
+                                                        <input type="password" class="form-control" id="txtPasswordModal" name="contrasenia" placeholder="password" data-required="true" data-rangelength="[3,30]">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" >
@@ -488,9 +490,9 @@
                 </div>
             </footer>
         </div>
-        <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>
+        <script src="../Libs/Bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
-        <script src="../Libs/Bootstrap/js/holder.js"></script>
+        <script src="../Libs/Customs/js/Parsley.js" type="text/javascript"></script>
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
         <script>
@@ -553,10 +555,59 @@
                 }
             });
 
+
         </script>
         <script>
+            var ValidarCamposinical = function() {
+                var contra = $("#txtPassWordInicio").parsley('validate');
+                var corre = $("#txtCorreoInicio1").parsley('validate');
+                if (contra && corre)
+                {
+                    return true;
+                }
+                return false;
+            }
+            var ValidarCamposmodal = function() {
+                var contra = $("#txtPasswordModal").parsley('validate');
+                var corre = $("#txtCorreoModal").parsley('validate');
+                if (contra && corre)
+                {
+                    return true;
+                }
+                return false;
+            }
+            var loginusuario = function(correo, contrasenia, url) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Usuarios',
+                    data: {"accion": 'loginmodal', "correo": correo, "contrasenia": contrasenia},
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+                        $.each(datos, function(key, val) {
+                            if (key === "1")
+                            {
+                                window.location.replace(url);
+                            }
+                            else
+                            {
+                                alertify.error(val.mensaje);
+                            }
+                        });
+                    }
+                });
+            }
             $("#guia").click(function() {
                 guidely.init({welcome: true, startTrigger: false});
+            });
+
+            $("#loginingresar").click(function() {
+
+                if (ValidarCamposinical()) {
+                    var correo = $("#txtCorreoInicio1").val();
+                    var contrasenia = $("#txtPassWordInicio").val();
+                    var url = "/TriggerEvent/View/EventoRecomendado.jsp";
+                    loginusuario(correo, contrasenia, url);
+                }
             });
             $(".calificacionevento").click(function() {
                 var Id = $(this).data('id');
@@ -567,28 +618,13 @@
                 $('#Modal-Login').modal('hide');
             });
             $("#btn-login").click(function() {
-                var correo = $("#txtCorreoModal").val();
-                var contrasenia = $("#txtPasswordModal").val();
-                $.ajax({
-                    type: 'POST',
-                    url: '/TriggerEvent/Contr_Usuarios',
-                    data: {"accion": 'loginmodal', "correo": correo, "contrasenia": contrasenia},
-                    success: function(data) {
-                        var datos = jQuery.parseJSON(data);
-                        console.log(data);
-                        $.each(datos, function(key, val) {
-                            if (key === "1")
-                            {
-                                var CodigoEvento = $("#codigoeventomodal").val();
-                                window.location.replace("/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento + "#titulo-opinion");
-                            }
-                            else
-                            {
-                                alertify.error(val.mensaje);
-                            }
-                        });
-                    }
-                });
+                if (ValidarCamposmodal()) {
+                    var correo = $("#txtCorreoModal").val();
+                    var contrasenia = $("#txtPasswordModal").val();
+                    var CodigoEvento = $("#codigoeventomodal").val();
+                    var url = "/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento + "#titulo-opinion";
+                    loginusuario(correo, contrasenia, url);
+                }
             });
         </script>
 
