@@ -193,7 +193,7 @@
                                 <%if (!Rol.equals(null) && !Rol.equals("")) {%><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a><%}%>
                             </h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="target-6">
                             <div class="row">
                                 <div class="col-md-12">
                                     <center>
@@ -286,7 +286,7 @@
                     <%}%>
                 </div>
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
-                    <div class="panel panel-primary" id="target-6">
+                    <div class="panel panel-primary" id="target-7">
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 PR&Oacute;XIMOS EVENTOS
@@ -498,7 +498,7 @@
         </script>
         <!--Pines Notify -->
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-        <script src="../Libs/Customs/js/guidely.min.js"></script>
+        <script src="../Libs/Customs/js/guidely.min.js" type="text/javascript"></script>
         <script>
 
 
@@ -534,7 +534,7 @@
 
                 guidely.add({
                     attachTo: '#target-6'
-                    , anchor: 'bottom-left'
+                    , anchor: 'bottom-right'
                     , title: 'Próximos eventos'
                     , text: 'Estos son los eventos más cercanos con respecto al día actual.'
                 });

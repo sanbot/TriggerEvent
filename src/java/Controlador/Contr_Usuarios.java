@@ -34,6 +34,7 @@ public class Contr_Usuarios extends HttpServlet {
             throws ServletException, IOException {
         //se encodifica las peticiones
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         //se instancia las clases necesarias
         Usuario usu = new Usuario();
         Mensajeria msm = new Mensajeria();

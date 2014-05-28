@@ -17,7 +17,6 @@
         <meta name="author" content="Sanser Soft" />
         <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
-
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
 
     </head>
@@ -26,13 +25,16 @@
         if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
         <%
-    } else if (Rol.equals("Cliente")) {%>
+        } else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
-        <%} else if (Rol.equals("Empresa")) {%>
+        <%
+        } else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
-        <%} else {%>
+        <%
+        } else {%>
         <%@include file="../WEB-INF/jspf/Menu.jspf" %>    
-        <%}%>
+        <%
+        }%>
         <br/>
         <br/>
         <br/>
@@ -46,14 +48,14 @@
                 </div>
             </div>
             <div class="row clearfix">
-                <div class="col-xs-12">
+                <div class="col-xs-12" id="target-1">
                     <h1 class="Center">Cont&aacute;ctenos</h1>
                 </div>
             </div>
             <div class="row">
                 <form id="search" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Contacto">
                     <div class="row">
-                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4" id="target-3">
                             <div class="form-group">
                                 <label for="Nombre">Nombre</label>
                                 <input name="Nombre" type="text" class="form-control" id="Nombre" data-rangelength="[3,30]" data-notblank="true" data-required="true" <%if (!Rol.equals("") && !Rol.equals(null)) {%> value="<%=Nombre%>" readonly<%}%>/>
@@ -65,7 +67,7 @@
                                 <input name="Correo" type="email" class="form-control" data-type="email" id="Correo" data-maxlength="100" data-notblank="true" data-required="true" <%if (!Rol.equals("") && !Rol.equals(null)) {%> value="<%=DatosUsuario[8]%>" readonly<%}%>/>
                             </div>
                         </div>
-                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4" id="target-2">
                             <div class="form-group">
                                 <label for="Categoria">Categor&iacute;a del tema</label>
                                 <select name="Categoria" tabindex="1" data-placeholder="" class="form-control" data-required="true">
@@ -85,14 +87,14 @@
                                 <input name="Asunto" type="text" class="form-control" id="Asunto" data-notblank="true" data-rangelength="[3,30]" data-required="true"/>
                             </div>
                         </div>
-                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                            <div class="form-group">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4" id="target-3">
+                            <div class="form-group" >
                                 <label for="Departamento">Departamento</label>
                                 <select id="departamentocontactenos" name="Departametno" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4" id="target-4">
                             <div class="form-group">
                                 <label for="Ciudad">Ciudad</label>
                                 <select name="Ciudad" id="ciudadcontactenos" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
@@ -101,8 +103,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">              
-                        <div class="col-xs-10 col-xs-offset-1">
+                    <div class="row" >              
+                        <div class="col-xs-10 col-xs-offset-1" >
                             <div class="form-group">
                                 <label for="Comentario">Comentario</label>
                                 <textarea name="Comentario" class="form-control" rows="7" data-notblank="true" data-rangelength="[10,500]" data-required="true"></textarea>
@@ -110,7 +112,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-4 col-xs-offset-4 col-sm-offset-4 col-sm-4 col-md-offset-5 col-md-2 col-lg-2">
+                        <div class="col-xs-4 col-xs-offset-4 col-sm-offset-4 col-sm-4 col-md-offset-5 col-md-2 col-lg-2" id="target-5">
                             <div class="form-group">
                                 <button type="submit" class="btn defecto btn-block" id="Contactenos" name="Contactenos">Enviar</button>
                             </div>
@@ -132,19 +134,19 @@
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <!--Bootstrap-->
-        <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
+        <script src="../Libs/Bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
         <script src="../Libs/Bootstrap/js/holder.js"></script>
         <!--Parsley-->
         <script src="../Libs/Customs/js/Parsley.js"></script>    
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
-        <script type="text/javascript" src="../Libs/Customs/DataTables/js/jquery.dataTables.js" charset="UTF-8"></script>
-        <script type="text/javascript" src="../Libs/Customs/DataTables/js/datatables.js" charset="UTF-8"></script>
         <script>
             new gnMenu(document.getElementById('gn-menu'));
         </script>
-
+        <script type="text/javascript" src="../Libs/Customs/DataTables/js/jquery.dataTables.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="../Libs/Customs/DataTables/js/datatables.js" charset="UTF-8"></script>
+        
         <script>
             function getdepartamentos() {
                 $.ajax({

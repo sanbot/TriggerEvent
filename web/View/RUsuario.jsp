@@ -18,7 +18,6 @@
         <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
         <link type="text/css" rel="stylesheet" href="../Libs/Customs/DataTables/css/datatables.css" media="all">
-
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
 
     </head>
@@ -173,7 +172,7 @@
             new gnMenu(document.getElementById('gn-menu'));
         </script>
 
-        <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
+        <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>            
         <script>
             function getdepartamentos() {
                 $.ajax({
