@@ -53,6 +53,7 @@
             <div class="row clearfix">
                 <div class="col-xs-12">
                     <h1 class="Center">Registrar evento</h1>
+                    <center><label for="Nota" style="font-size: 12px;"><i>Nota: Aseg&uacute;rese de tener todos los datos correctos antes de registrar el evento. No podr&aacute; modificarlos m&aacute;s adelante. </i></label></center>
                 </div>
             </div>
             <form accept-charset="ISO-8859-1" id="search" data-validate="parsley" enctype="multipart/form-data" method="post" action="/TriggerEvent/Contr_Evento">

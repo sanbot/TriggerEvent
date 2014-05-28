@@ -34,6 +34,7 @@ public class Contr_Ciudad extends HttpServlet {
         /*Se detalla el contenido que tendra el servlet*/
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
         /*Se declaran las variables necesarias*/
         String Nombre, Codigo, Mensaje, url, Departamento;
         Ciudad ciu = new Ciudad();
