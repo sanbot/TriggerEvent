@@ -225,6 +225,12 @@
             });
         </script>
         <script>
+            <%if (Rol.equals("Administrador")) {%>
+            var mensajeguia = "El ícono a la izquierda le permite conocer la ubicación geográfica de los eventos del mes, mientras que el ícono derecho le permite consultar todos los eventos registrados hasta el momento. Nota: en caso de haber eventos pendientes aparecerá otro ícono junto con un número que indica la cantidad de eventos por aprobación.";
+            <%} else {%>
+                var mensajeguia = "El ícono le permite conocer la ubicación geográfica de los eventos del mes.";
+            <%}%>
+                
             $(function() {
 
                 guidely.add({
@@ -238,7 +244,7 @@
                     attachTo: '#target-2'
                     , anchor: 'bottom-right'
                     , title: 'Ubicación y Todos los eventos'
-                    , text: 'El ícono a la izquierda le permite conocer la ubicación geográfica de los eventos del mes, mientras que el ícono derecho le permite consultar todos los eventos registrados hasta el momento.'
+                    , text: mensajeguia
                 });
 
                 guidely.add({
