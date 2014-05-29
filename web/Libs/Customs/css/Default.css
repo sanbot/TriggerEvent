@@ -91,8 +91,18 @@
     margin-top: 25%;
     height: 325px;
 }
+
+#imagen-sm-xs{
+    margin-top: 5%;
+    height: 325px;
+}
+
 #imagen1{
     margin-top: 25%;
+    margin-left: 10%;
+}
+#imagen1-sm-xs{
+    margin-top: 10%;
     margin-left: 10%;
 }
 
@@ -132,6 +142,10 @@
     margin-bottom: 45%;
     opacity: 0.8;
     background: rgba(51, 44, 44, 0.86);
+}
+.panel-sm-xs {
+    margin-top:10%;
+    margin-bottom: 5%;
 }
 .modal-login {
     margin-top:10%;
@@ -532,4 +546,8 @@ p
 }
 .five-star, #stars span:nth-child(5){
     color: #88b131!important;
+}
+/*Letra login dispositivos pequeños*/
+label[for=IndexContrasenia], label[for=IndexCorreo]{
+    color: #FFF;
 }

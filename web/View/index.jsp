@@ -36,7 +36,6 @@
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
-
         <%@include file="../WEB-INF/jspf/MenuCustom.jspf" %>
         <div id="body" class="container" style="width: 100%;">
             <br/>
@@ -63,7 +62,7 @@
                         <div class="panel-body">
                             <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
                                 <div class="form-group">
-                                    <label for="Correo" class="col-sm-3 control-label" >
+                                    <label for="IndexCorreo" class="col-sm-3 control-label" >
                                         Correo
                                     </label>
                                     <div class="col-sm-9">
@@ -71,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Contrasenia" class="col-sm-3 control-label">
+                                    <label for="IndexContrasenia" class="col-sm-3 control-label">
                                         Contrase&ntilde;a
                                     </label>
                                     <div class="col-sm-9" id="target-2">
@@ -110,14 +109,14 @@
             </div>
             <div class="row visible-xs visible-sm">
                 <div class="col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-sm-xs">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-lock"></span> Inicio de sesi&oacute;n
                         </div>
                         <div class="panel-body">
                             <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">
                                 <div class="form-group">
-                                    <label for="Correo" class="col-sm-3 control-label" >
+                                    <label for="IndexCorreo" class="col-sm-3 control-label" >
                                         Correo
                                     </label>
                                     <div class="col-sm-9">
@@ -125,7 +124,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Contrasenia" class="col-sm-3 control-label">
+                                    <label for="IndexContrasenia" class="col-sm-3 control-label">
                                         Contrase&ntilde;a
                                     </label>
                                     <div class="col-sm-9" id="target-2">
@@ -162,10 +161,10 @@
                     </div>
                 </div>            
                 <div class="col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">
-                    <center><img id="imagen" class="img-responsive" src="../Libs/Customs/images/logoteblanco.png"/></center>
+                    <center><img id="imagen-sm-xs" class="img-responsive" src="../Libs/Customs/images/logoteblanco.png"/></center>
                 </div>
                 <div class="col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">
-                    <label id="imagen1" class="control-label Justify">
+                    <label id="imagen1-sm-xs" class="control-label Justify">
                         <h1 class="Center">EVENTOS AL ALCANCE DE SU MANO</h1>
                         Tendencias musicales en cualquier dispositivo, actualizamos sus eventos diariamente, promocione su "evento" f&aacute;cilmente.
                     </label>
