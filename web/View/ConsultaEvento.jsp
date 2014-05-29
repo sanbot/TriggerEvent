@@ -22,11 +22,11 @@
     </head>
     <body>
         <%if (Rol.equals("Administrador")) {%>
-        <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
+        <%@include file="../WEB-INF/jspf/MenuAdministradorCustom.jspf" %>
         <%} else if (Rol.equals("Cliente")) {%>
-        <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
+        <%@include file="../WEB-INF/jspf/MenuClienteCustom.jspf" %>
         <%} else if (Rol.equals("Empresa")) {%>
-        <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
+        <%@include file="../WEB-INF/jspf/MenuEmpresaCustom.jspf" %>
         <%}%>
 
         <div class="container">

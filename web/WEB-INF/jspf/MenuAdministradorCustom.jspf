@@ -38,10 +38,43 @@
                             </a>
                         </li>
                         <li>
+                            <a href="RegistrarEvento.jsp">
+                                <span class="glyphicon glyphicon-list-alt glyphiconuno"></span>
+                                <div class="negro">Registrar Evento</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ConsultaUsuario.jsp">
+                                <span class="glyphicon glyphicon-phone glyphiconuno"></span>
+                                <div class="negro">Usuarios</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ConsultaSeleccion.jsp">
+                                <span class="glyphicon glyphicon-music glyphiconuno"></span>
+                                <div class="negro">Gustos y Ambientes</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ConsultaDepartamento.jsp">
+                                <span class="glyphicon glyphicon-tower glyphiconuno"></span>
+                                <div class="negro">Departamentos</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ConsultaCiudad.jsp">
+                                <span class="glyphicon glyphicon-tree-deciduous glyphiconuno"></span>
+                                <div class="negro">Ciudades</div>
+                            </a>
+                        </li>
+                        <li>
                             <a href="MapaSitio.jsp">
                                 <span class="glyphicon glyphicon-globe glyphiconuno"></span>
                                 <div class="negro">Mapa del Sitio</div>
                             </a>
+                        </li>
+                        <li>
+                            <a id="guia" class="gn-icon gn-icon-cog"><div class="negro">Ayuda en l&iacute;nea</div></a>
                         </li>
                         <li>
                             <a class="gn-icon gn-icon-help"  href="Contactenos.jsp"><div class="negro">Cont&aacute;ctenos</div></a>
@@ -58,4 +91,3 @@
         </li>
     </ul>
 </div><!-- /container -->
-

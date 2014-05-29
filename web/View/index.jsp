@@ -37,7 +37,7 @@
     </head>
     <body>
 
-        <%@include file="../WEB-INF/jspf/Menu.jspf" %>
+        <%@include file="../WEB-INF/jspf/MenuCustom.jspf" %>
         <div id="body" class="container" style="width: 100%;">
             <br/>
             <br/>

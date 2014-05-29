@@ -38,13 +38,22 @@
                             </a>
                         </li>
                         <li>
+                            <a href="MisEventos.jsp">
+                                <span class="glyphicon glyphicon-list-alt glyphiconuno"></span>
+                                <div class="negro">Mis Eventos</div>
+                            </a>
+                        </li>
+                        <li>
                             <a href="MapaSitio.jsp">
                                 <span class="glyphicon glyphicon-globe glyphiconuno"></span>
                                 <div class="negro">Mapa del Sitio</div>
                             </a>
                         </li>
                         <li>
-                            <a class="gn-icon gn-icon-help"  href="Contactenos.jsp"><div class="negro">Cont&aacute;ctenos</div></a>
+                            <a id="guia" class="gn-icon gn-icon-cog"><div class="negro">Ayuda en l&iacute;nea</div></a>
+                        </li>
+                        <li>
+                            <a class="gn-icon gn-icon-help" href="Contactenos.jsp"><div class="negro">Cont&aacute;ctenos</div></a>
                         </li>
                     </ul>
                 </div><!-- /gn-scroller -->
@@ -58,4 +67,5 @@
         </li>
     </ul>
 </div><!-- /container -->
+
 

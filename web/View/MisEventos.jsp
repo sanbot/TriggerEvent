@@ -66,7 +66,7 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         <h4 class="modal-title" id="myModalLabel">
-                                            <center>Desactivar el evento: <span id="NombreMis_Evento"></span></center>
+                                            <center>Cancelar evento: <span id="NombreMis_Evento"></span></center>
                                         </h4>
                                     </div>
                                     <div class="modal-body">
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button name="DesactivarEventoEmpresa" type="submit" class="btn defecto">Desactivar</button> 
+                                        <button name="DesactivarEventoEmpresa" type="submit" class="btn defecto">Cancelar</button> 
                                     </div>
                                 </div>
                             </div>

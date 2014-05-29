@@ -204,19 +204,9 @@ public class Contr_Evento extends HttpServlet {
                     } else if (name.equals("DesactivarEventoEmpresa")) {
                         /*Se ejecuta el metodo de desaprobar evento, en la clase modelo
                          con los datos que se encuentran en la clase(Empresa)*/
-                        if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
-                            String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
-                            if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
-                                /*Se guarda un mensaje mediante las sesiones
-                                 y se redirecciona*/
+                        if (eve.setCancelarEvento(eve.getCodigo(), eve.getMotivo())) {
                                 session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
                                 session.setAttribute("TipoMensaje", "Dio");
-                            } else {
-                                /*Se guarda un mensaje mediante las sesiones
-                                 y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se canceló el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
-                                session.setAttribute("TipoMensaje", "NODio");
-                            }
                         } else {
                             /*Se guarda un mensaje mediante las sesiones
                              y se redirecciona*/

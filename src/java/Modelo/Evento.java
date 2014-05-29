@@ -1330,6 +1330,41 @@ public class Evento {
         this.setMensaje("Ocurrió un problema inesperado al desaprobar el evento,  Estamos trabajando para solucionar este problema..");
         return false;
     }
+    
+    /*Metodo para desaprobar un evento*/
+    public boolean setCancelarEvento(String codigoEvento, String motivo) {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        /*Se crea una sentencia sql en string*/
+        String sql = "UPDATE tb_evento SET Motivo = ?, Estado = ? ";
+        sql += "WHERE Codigo = ? ";
+        try {
+            /*Se prepara la sentenci, se le envian los datos y se ejecuta*/
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, motivo);
+            pr.setString(2, "Cancelado");
+            pr.setString(3, codigoEvento);
+            /*Si se ejecuta correctamente se retorna verdadero*/
+            if (pr.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.getMessage().toString();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*Se guarda un mensaje en caso de error y se retorna flaso*/
+        this.setMensaje("Ocurrió un problema inesperado al desaprobar el evento,  Estamos trabajando para solucionar este problema..");
+        return false;
+    }
 
     /*MEtodo para obtener la camtidad de eventos incompletos*/
     public int getCantidadEventoIncompleto(String NIT) {

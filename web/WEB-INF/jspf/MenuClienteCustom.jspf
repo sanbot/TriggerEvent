@@ -44,6 +44,9 @@
                             </a>
                         </li>
                         <li>
+                            <a id="guia" class="gn-icon gn-icon-cog"><div class="negro">Ayuda en l&iacute;nea</div></a>
+                        </li>
+                        <li>
                             <a class="gn-icon gn-icon-help"  href="Contactenos.jsp"><div class="negro">Cont&aacute;ctenos</div></a>
                         </li>
                     </ul>
