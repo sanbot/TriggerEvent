@@ -147,7 +147,7 @@
                                         <button type="submit" name="login" class="btn btn-success btn-sm" >
                                             Ingresar
                                         </button>
-                                        <button type="reset" class="btn btn-default btn-sm" id="target-3">
+                                        <button type="reset" class="btn btn-default btn-sm">
                                             Limpiar
                                         </button>
                                     </div>
