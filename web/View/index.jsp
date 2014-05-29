@@ -73,7 +73,7 @@
                                     <label for="IndexContrasenia" class="col-sm-3 control-label">
                                         Contrase&ntilde;a
                                     </label>
-                                    <div class="col-sm-9" id="target-2">
+                                    <div class="col-sm-9" id="target-1">
                                         <input type="password" class="form-control" id="txtPassWordInicio" name="contrasenia" placeholder="password" data-required="true">
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                         <a id="loginingresar" class="btn btn-success btn-sm" >
                                             Ingresar
                                         </a>
-                                        <button type="reset" class="btn btn-default btn-sm" id="target-3">
+                                        <button type="reset" class="btn btn-default btn-sm" id="target-2">
                                             Limpiar
                                         </button>
                                     </div>
@@ -179,7 +179,7 @@
             <br/>
             <div class="row clearfix" >
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
-                    <div class="panel panel-primary" id="target-4">
+                    <div class="panel panel-primary" id="target-3">
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 LO M&Aacute;S DESTACADO
@@ -194,7 +194,7 @@
                                 <%if (!Rol.equals(null) && !Rol.equals("")) {%><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a><%}%>
                             </h3>
                         </div>
-                        <div class="panel-body" id="target-6">
+                        <div class="panel-body" id="target-4">
                             <div class="row">
                                 <div class="col-md-12">
                                     <center>
@@ -287,7 +287,7 @@
                     <%}%>
                 </div>
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
-                    <div class="panel panel-primary" id="target-7">
+                    <div class="panel panel-primary" id="target-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 PR&Oacute;XIMOS EVENTOS
@@ -347,8 +347,8 @@
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                     <!-- /widget -->
-                    <div class="widget">
-                        <div class="widget-header" id="target-7">
+                    <div class="widget" id="target-7">
+                        <div class="widget-header">
                             <h3>Algunos comentarios de nuestros usuarios</h3>
                         </div>
                         <!-- /widget-header -->
@@ -501,50 +501,55 @@
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <script src="../Libs/Customs/js/guidely.min.js" type="text/javascript"></script>
         <script>
-
-
             $(function() {
 
                 guidely.add({
-                    attachTo: '#target-2'
+                    attachTo: '#target-1'
                     , anchor: 'bottom-left'
                     , title: 'Correo y contraseña'
                     , text: 'Debe diligenciar completa y correctamente los campos que se muestran.'
                 });
 
                 guidely.add({
-                    attachTo: '#target-3'
+                    attachTo: '#target-2'
                     , anchor: 'bottom-left'
                     , title: 'Iniciar sesión o limpiar campos'
                     , text: 'Puede, ya sea ingresar al aplicativo o limpiar los campos diligenciados.'
                 });
 
                 guidely.add({
-                    attachTo: '#target-4'
+                    attachTo: '#target-3'
                     , anchor: 'bottom-left'
                     , title: 'Lo más destacado'
                     , text: 'Estos son los eventos con mejor calificación (dada por nuestros usuarios).'
                 });
 
                 guidely.add({
+                    attachTo: '#target-4'
+                    , anchor: 'bottom-right'
+                    , title: 'Comentarios y/o Calificación'
+                    , text: 'En todos los eventos habrán comentarios y/o calificaciones. Recuerde que para visualizarlos debe iniciar sesión.'
+                });
+
+                guidely.add({
                     attachTo: '#target-5'
                     , anchor: 'bottom-left'
                     , title: 'Los más comentados'
-                    , text: 'Estos son los eventos más polémicos. Le damos la oportunidad a nuestros usuarios de expresar su opinión.'
+                    , text: 'Estos son los eventos más polémicos.'
                 });
 
                 guidely.add({
                     attachTo: '#target-6'
-                    , anchor: 'bottom-right'
+                    , anchor: 'bottom-left'
                     , title: 'Próximos eventos'
-                    , text: 'Estos son los eventos más cercanos con respecto al día actual.'
+                    , text: 'Estos son los eventos más próximos con respecto a la fecha actual.'
                 });
 
                 guidely.add({
                     attachTo: '#target-7'
-                    , anchor: 'bottom-right'
+                    , anchor: 'top-right'
                     , title: 'Algunos comentarios'
-                    , text: 'En Trigger Event, tenemos en cuenta los comentarios de nuestros usuarios. Estos son algunos de ellos.'
+                    , text: 'Estos son algunos comentarios dados por nuestros usuarios acerca de los eventos.'
                 });
 
                 if (!localStorage.getItem("welcome"))
@@ -553,7 +558,6 @@
                     localStorage.setItem("welcome", true);
                 }
             });
-
 
         </script>
         <script>

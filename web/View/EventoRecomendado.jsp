@@ -79,9 +79,7 @@
             new gnMenu(document.getElementById('gn-menu'));
         </script>
         <script src="../Libs/Customs/js/guidely.min.js" type="text/javascript"></script>
-
         <script>
-            
             $("#guia").click(function() {
                 guidely.init({welcome: true, startTrigger: false});
             });

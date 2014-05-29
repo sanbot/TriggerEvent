@@ -17,8 +17,8 @@
         <meta name="author" content="Sanser Soft" />
         <link rel="shortcut icon" href="../Libs/Customs/images/logoteazul.ico">
         <%@include file="../WEB-INF/jspf/EstilosCSS.jspf" %>
+        <link href="../Libs/Customs/css/guidely.css" rel="stylesheet" type="text/css"/>
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
-
     </head>
     <body>
         <%if (Rol.equals("Administrador")) {%>
@@ -42,9 +42,9 @@
                 </div>
             </div>
             <div class="row" >
-                <div class="col-xs-12">
+                <div class="col-xs-12" id="target-1">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
+                        <div class="panel-heading" id="target-2">
                             <h3 class="panel-title">
                                 Eventos 
                                 <%if (Rol.equals("Administrador")) {%>
@@ -86,7 +86,12 @@
         <script>
             new gnMenu(document.getElementById('gn-menu'));
         </script>
+        <script src="../Libs/Customs/js/guidely.min.js" type="text/javascript"></script>
+
         <script>
+            $("#guia").click(function() {
+                guidely.init({welcome: true, startTrigger: false});
+            });
             var eventos = 0;
             var cantidad = 0;
             var estado = "cargando";
@@ -110,7 +115,7 @@
                             if (fila === 3) {
                                 items.push('<div class="soy-un-evento col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">');
                             } else {
-                                items.push('<div class="soy-un-evento col-xs-12 col-sm-6 col-sm-offset-0 col-md-4">');
+                                items.push('<div id="target-3" class="soy-un-evento col-xs-12 col-sm-6 col-sm-offset-0 col-md-4">');
                             }
                             items.push('<div class="panel panel-primary">');
                             items.push('<div class="panel-heading">');
@@ -121,7 +126,7 @@
                             items.push('</div>');
                             items.push('<div class="panel-body">');
                             items.push('<div class="row">');
-                            items.push('<div class="col-md-12">');
+                            items.push('<div id="target-4" class="col-md-12">');
                             items.push('<center><img src="ImagenEvento.jsp?Codigo=' + val.codigo + '" class="img-thumbnail imgevento"/></center>');
                             items.push('</div>');
                             items.push('</div>');
@@ -146,7 +151,7 @@
                             items.push('</div>');
                             items.push('</div>');
                             items.push('</div>');
-                            items.push('<div class="panel-footer">');
+                            items.push('<div id="target-5" class="panel-footer">');
                             items.push('<label for="Espacio"> </label>');
                             items.push('<p class="pull-right calificacionevento" data-id="' + val.codigo + '">');
                             var comentario, calificacion;
@@ -217,6 +222,45 @@
             $(document).ready(function() {
                 geteventos("0", "9");
                 totalevento();
+            });
+        </script>
+        <script>
+            $(function() {
+
+                guidely.add({
+                    attachTo: '#target-1'
+                    , anchor: 'bottom-left'
+                    , title: 'Todos los eventos'
+                    , text: 'A continuación se le muestran todos los eventos registrados. Estos eventos aparecen sin importar los gustos y ambientes musicales que haya escogido.'
+                });
+
+                guidely.add({
+                    attachTo: '#target-2'
+                    , anchor: 'bottom-right'
+                    , title: 'Ubicación y Todos los eventos'
+                    , text: 'El ícono a la izquierda le permite conocer la ubicación geográfica de los eventos del mes, mientras que el ícono derecho le permite consultar todos los eventos registrados hasta el momento.'
+                });
+
+                guidely.add({
+                    attachTo: '#target-3'
+                    , anchor: 'top-right'
+                    , title: 'Ver más'
+                    , text: 'Este ícono le permite profundizar la información de un evento.'
+                });
+
+                guidely.add({
+                    attachTo: '#target-4'
+                    , anchor: 'top-left'
+                    , title: 'Ver más'
+                    , text: 'El panel muestra la información esencial de cada evento.'
+                });
+
+                guidely.add({
+                    attachTo: '#target-5'
+                    , anchor: 'bottom-right'
+                    , title: 'Ver más'
+                    , text: 'Estos íconos le permiten ver los comentarios y la calificación de un evento.'
+                });
             });
         </script>
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
