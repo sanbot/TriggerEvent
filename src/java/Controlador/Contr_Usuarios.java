@@ -186,7 +186,9 @@ public class Contr_Usuarios extends HttpServlet {
                 response.sendRedirect(url);
             }
         } else if (request.getParameter("LimpiarDatosUsuario") != null) {
-            /**Se limpian los datos de la sesion*/
+            /**
+             * Se limpian los datos de la sesion
+             */
             session.setAttribute("Registrar_Nombre", null);
             session.setAttribute("Registrar_Celular", null);
             session.setAttribute("Registrar_Correo", null);
@@ -262,7 +264,7 @@ public class Contr_Usuarios extends HttpServlet {
                 String contra = usu.getContrasenia();
                 Nombre = usu.getNombre();
                 /*Se ejecuta el metodo para enviar la contraseña al correo, el metodo se encuentra
-                en la clase modelo*/
+                 en la clase modelo*/
                 boolean c = msm.recordarcontrasenia(correo, contra, Nombre);
                 if (c) {
                     /*Se guarda un mensaje mediante las sesiones
@@ -564,6 +566,172 @@ public class Contr_Usuarios extends HttpServlet {
                 out.close();
             }
 
+        } else if (request.getParameter("accion").equals("login_android")) {
+            //se declaran las variables necesarias y se obtienen los datos
+            correo = request.getParameter("correo");
+            Contrasenia = request.getParameter("contrasenia");
+            /*Se declaran JSON Para imprimir los datos*/
+            JSONObject obj = new JSONObject();
+            JSONObject ob = new JSONObject();
+            /*Se ejecuta el metodo para iniciar sesion de usario en la clase modelo*/
+            b = usu.getlogin(correo, Contrasenia);
+            if (b) {
+                Codigo = usu.getCodigo();
+                Tipo_Documento = usu.getTipo_Documento();
+                No_Documento = usu.getNo_Documento();
+                Nombre = usu.getNombre();
+                Telefono = usu.getTelefono();
+                Direccion = usu.getDireccion();
+                celular = usu.getCelular();
+                Rol = usu.getTipo();
+                Estado = usu.getEstado();
+
+                /*Se encodifica a JSON*/
+                obj.put("Codigo", Codigo);
+                obj.put("Tipo", Rol);
+                obj.put("Tipo_Documento", Tipo_Documento);
+                obj.put("No_Documento", No_Documento);
+                obj.put("Nombre", Nombre);
+                obj.put("Contrasenia", Contrasenia);
+                obj.put("Telefono", Telefono);
+                obj.put("No_Celular", celular);
+                obj.put("Direccion", Direccion);
+                obj.put("Estado", Estado);
+                /*Se declara lo necesario para imprimir el json y se imprime*/
+                PrintWriter out = response.getWriter();
+                out.println(obj);
+                out.close();
+            } else {
+                /*Se declara lo necesario para imprimir el json y se imprime*/
+                PrintWriter out = response.getWriter();
+                out.println("null");
+                out.close();
+            }
+
+        } else if (request.getParameter("accion").equals("registro_android")) {
+            //se declaran las variables necesarias y se obtienen los datos
+
+            Rol = request.getParameter("tipo");
+            Tipo_Documento = request.getParameter("tipo_documento");
+            No_Documento = request.getParameter("no_documento");
+            Nombre = request.getParameter("nombre");
+            Password = request.getParameter("contrasenia");
+            Telefono = request.getParameter("telefono");
+            celular = request.getParameter("celular");
+            correo = request.getParameter("correo");
+            Direccion = request.getParameter("direccion");
+            Ciudad = request.getParameter("ciudad");
+
+            /*Se ejecuta el metodo para registrar los datos del usario en la clase modelo*/
+            b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
+            if (b) {
+                PrintWriter out = response.getWriter();
+                out.println("Se ha registrado exitosamente");
+                out.close();
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println(usu.getMensaje());
+                out.close();
+            }
+        } else if (request.getParameter("accion").equals("recup_contra_android")) {
+            //se declaran las variables necesarias y se obtienen los datos
+            correo = request.getParameter("correo");
+            b = usu.getrecordarContrasenia(correo);
+            if (b) {
+                String contra = usu.getContrasenia();
+                Nombre = usu.getNombre();
+                /*Se ejecuta el metodo para enviar la contraseña al correo, el metodo se encuentra
+                 en la clase modelo*/
+                boolean c = msm.recordarcontrasenia(correo, contra, Nombre);
+                if (c) {
+                    /*Se guarda un mensaje mediante las sesiones
+                     y se redirecciona*/
+                    PrintWriter out = response.getWriter();
+                    out.println("Verifique su correo, se le ha enviado su contraseña.");
+                    out.close();
+                } else {
+                    /*Se guarda un mensaje mediante las sesiones
+                     y se redirecciona*/
+                    PrintWriter out = response.getWriter();
+                    out.println("Ocurrió un problema inesperado al enviar su contraseña. Estamos trabajando para solucionar este problema.");
+                    out.close();
+                }
+            } else {
+                /*Se guarda un mensaje mediante las sesiones
+                 y se redirecciona*/
+                PrintWriter out = response.getWriter();
+                out.println("El correo diligenciado no coincide con ningún correo registrado.");
+                out.close();
+            }
+        } else if (request.getParameter("accion").equals("consultar_perfil_android")) {
+            //se declaran las variables necesarias y se obtienen los datos
+            Codigo = request.getParameter("codigo");
+            String[] Datos = usu.getDatosUsuario(Codigo);
+            JSONObject obj = new JSONObject();
+
+            obj.put("Tipo", Datos[2]);
+            obj.put("Tipo_Documento", Datos[3]);
+            obj.put("No_Documento", Datos[4]);
+            obj.put("Nombre", Datos[5]);
+            obj.put("Telefono", Datos[6]);
+            obj.put("No_Celular", Datos[7]);
+            obj.put("Correo", Datos[8]);
+            obj.put("Direccion", Datos[9]);
+            obj.put("NombreCiudad", Datos[11]);
+            obj.put("NombreDepartamento", Datos[13]);
+            obj.put("CodigoCiudad", Datos[14]);
+            obj.put("CodigoDepartamento", Datos[12]);
+
+            PrintWriter out = response.getWriter();
+            out.println(obj);
+            out.close();
+        } else if (request.getParameter("accion").equals("modificar_contra_android")) {
+            //se declaran las variables necesarias y se obtienen los datos
+            Codigo = request.getParameter("Codigo");
+            String Contr = request.getParameter("ContraseniaActual");
+            String ContrNueva = request.getParameter("ContraseniaNueva");
+            String ContrReContra = request.getParameter("ContraseniaRepetir");
+            if (ContrNueva.equals(ContrReContra)) {
+                /*Se ejecuta el metodo para comprobar las contraseñas del usario en la clase modelo*/
+                if (usu.getConfirmarContrasenia(Codigo, Contr)) {
+                    /*Se ejecuta el metodo para cambiar la contraseña del usario en la clase modelo*/
+                    if (usu.setCambioContrasenia(Codigo, ContrNueva)) {
+                        PrintWriter out = response.getWriter();
+                        out.println("La contraseña ha sido modificada exitosamente.");
+                        out.close();
+                    } else {
+                        PrintWriter out = response.getWriter();
+                        out.println("Ocurrió un problema inesperado al modificar la contraseña. Estamos trabajando para solucionar este problema.");
+                        out.close();
+                    }
+                } else {
+                    PrintWriter out = response.getWriter();
+                    out.println("La contraseña actual no coincide con su cuenta");
+                    out.close();
+                }
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println("Error al tratar de modificar la contraseña, las contraseñas no coinciden");
+                out.close();
+            }
+        } else if (request.getParameter("accion").equals("modificar_perfil_android")) {
+            //se declaran las variables necesarias y se obtienen los datos
+            Codigo = request.getParameter("Codigo");
+            Telefono = request.getParameter("Telefono");
+            Direccion = request.getParameter("Direccion");
+            Ciudad = request.getParameter("Ciudad");
+
+            /*Se ejecuta el metodo actualizar datos de la clase modelo*/
+            b = usu.actualizardatos(Codigo, Telefono, Direccion, Ciudad);
+            if (b) {
+                PrintWriter out = response.getWriter();
+                out.println("Sus datos han sido modificados correctamente");
+                out.close();
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println("Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
+                out.close();
+            }
         } else {
             /*Se redirecciona sino se da ninguna de las peticiones anteriores*/
             url = "View/index.jsp";

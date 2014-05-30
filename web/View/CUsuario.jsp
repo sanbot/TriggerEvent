@@ -144,7 +144,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="Departamento_USuario"><%=DatosUsuario[12]%></label>
+                                        <label for="Departamento_USuario"><%=DatosUsuario[13]%></label>
                                     </div>
                                 </div>
                             </div>

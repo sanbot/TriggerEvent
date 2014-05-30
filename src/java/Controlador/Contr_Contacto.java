@@ -6,6 +6,7 @@ package Controlador;
 
 import Modelo.Mensajeria;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,10 @@ public class Contr_Contacto extends HttpServlet {
         Mensajeria msm = new Mensajeria();
         /*Se evalua cada uno de las posibles peticiones que se le puedan hacer al servidor*/
         if (request.getParameter("Contactenos") != null) {
-            /**Para contactenos re toman los siguientes valores y se guardan en un string*/
+            /**
+             * Para contactenos re toman los siguientes valores y se guardan en
+             * un string
+             */
             Nombre = request.getParameter("Nombre");
             Correo = request.getParameter("Correo");
             Asunto = request.getParameter("Asunto");
@@ -54,7 +58,7 @@ public class Contr_Contacto extends HttpServlet {
             boolean b = msm.contactenos(Contenido, Asunto, "Administrador");
             if (b) {
                 /*Se retorna un mensaje por medio de la sesion y se redirecciona*/
-                session.setAttribute("Mensaje", "Tu correo ha sido enviado satisfactoriamente al administrador del sitio, te responderemos lo más pronto posible.");
+                session.setAttribute("Mensaje", "Su correo ha sido enviado satisfactoriamente al administrador del sitio, le responderemos lo más pronto posible.");
                 session.setAttribute("TipoMensaje", "Dio");
                 url = "View/index.jsp";
                 response.sendRedirect(url);
@@ -64,6 +68,31 @@ public class Contr_Contacto extends HttpServlet {
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/index.jsp";
                 response.sendRedirect(url);
+            }
+        } else if (request.getParameter("accion").equals("contactenos_android")) {
+            /**
+             * Para contactenos re toman los siguientes valores y se guardan en
+             * un string
+             */
+            Nombre = request.getParameter("nombre");
+            Correo = request.getParameter("correo");
+            Asunto = request.getParameter("asunto");
+            Categoria = request.getParameter("categoria");
+            Ciudad = request.getParameter("ciudad");
+            Comentario = request.getParameter("comentario");
+            /*Se crea la parte centrar del mensaje*/
+            Contenido = "Nuestro equipo técnico le notifica que el usuario " + Nombre + " de la ciudad de " + Ciudad + " con el correo " + Correo + " envió un(a): " + Categoria + " con el siguiente asunto " + Asunto
+                    + "<br/> El/La " + Categoria + " es la siguiente: \"" + Comentario + "\".";
+            /*Se manda a ejecutar en la clase de mensajeria y se evalua el resulado*/
+            boolean b = msm.contactenos(Contenido, Asunto, "Administrador");
+            if (b) {
+                PrintWriter out = response.getWriter();
+                out.println("Su correo ha sido enviado satisfactoriamente al administrador del sitio, le responderemos lo más pronto posible.");
+                out.close();
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println("Ocurrió un problema inesperado al enviar su mensaje. Estamos trabajando para solucionar este problema.");
+                out.close();
             }
         } else {
             /*Se redirecciona si no se realizo ninguna peticion*/

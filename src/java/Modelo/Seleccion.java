@@ -221,7 +221,7 @@ public class Seleccion {
                 dos = Integer.parseInt(rs.getString("Cantidad"));
             }
             /*Se determina si no hay usuarios o eventos que usen el gusto o ambiente y se retorna verdadero
-            en este caso*/
+             en este caso*/
             if (uno == 0 && dos == 0) {
                 return true;
             }
@@ -443,7 +443,9 @@ public class Seleccion {
             pr.setString(1, codigo);
             rs = pr.executeQuery();
 
-            /**Se cuantan los registros y se le da tamaño al array*/
+            /**
+             * Se cuantan los registros y se le da tamaño al array
+             */
             int i = 0;
             while (rs.next()) {
                 i++;
@@ -529,7 +531,7 @@ public class Seleccion {
         return null;
     }
 
-    /*Metodo para obtener los gustos del usaurio*/
+    /*Metodo para obtener los gustos del usuario*/
     public String[][] getMisGustos(String codigo) {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
@@ -569,7 +571,9 @@ public class Seleccion {
             /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
-            /**Se cierra todo*/
+            /**
+             * Se cierra todo
+             */
             try {
                 rs.close();
                 pr.close();
@@ -701,7 +705,7 @@ public class Seleccion {
         this.setMensaje("Ocurrió un problema inesperado al agregar el gusto a su cuenta.  Estamos trabajando para solucionar este problema.");
         return false;
     }
-    
+
     /*Metodo apra remover un gusto*/
     public boolean RemoveGusto(String codigoSeleccion, String CodigoUsuario) {
         /*Se crean e instancia las clases y variables necesarias*/
@@ -723,7 +727,7 @@ public class Seleccion {
             /*Se evalua si se trajo algun registro*/
             if (rs.next()) {
                 /*Se prepara la sentencia de modificar, se le envian los datos y se retorna verdadero
-                encaso de funcionar correctamente*/
+                 encaso de funcionar correctamente*/
                 pr = conn.prepareStatement(sqlu);
                 pr.setString(1, rs.getString("Codigo"));
                 if (pr.executeUpdate() == 1) {
@@ -784,10 +788,10 @@ public class Seleccion {
         /*En caso de error se retorna falso*/
         return 0;
     }
-
-    /*MEtodo ara contar la cantidad de gustos para verificar si al metos tiene uno antes de removerlo*/
+    
+    /*MEtodo para contar la cantidad de gustos para verificar si al menos tiene uno antes de removerlo*/
     public boolean CantidadGustosAmbientesPreRemove(String codigoSeleccion, String codigoUsuario) {
-        /*Se crean e instancia las clases y variables necesarias*/
+        /*Se crean e instancian las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
@@ -1064,7 +1068,7 @@ public class Seleccion {
                     pr = conn.prepareStatement(sqlb);
                     pr.setString(1, codigoevento);
                     rs = pr.executeQuery();
-                    
+
                     /*Se guanda los datos en este entero*/
                     int dos = 0;
                     if (rs.next()) {
@@ -1095,5 +1099,211 @@ public class Seleccion {
         }
         /*Se retorna falso en caso de error*/
         return false;
+    }
+
+    /*Metodo para obtener todos los gustos que no esten asociados a un usuario*/
+    public String[][] getGustosNuevosAndroid(String codigo, int cantidad) {
+        /*Se crean e instancia las clases y variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en un string*/
+        String sql = "Select Codigo, Nombre, Tipo, to_base64(Imagen) Imagen "
+                + "From  tb_seleccion "
+                + "Where Codigo NOT IN ("
+                + "select Id_Seleccion "
+                + "From tb_seleccion_usuario "
+                + "Where Id_Usuario = ? And Estado = 'Activo'"
+                + ") "
+                + "AND Estado = 'Aprobado' "
+                + "limit 0, ?";
+        /*Se crea un array para guardar los datos*/
+        String[][] Datos = null;
+        try {
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormetne*/
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            pr.setInt(2, cantidad);
+            rs = pr.executeQuery();
+
+            /**
+             * Se cuantan los registros y se le da tamaño al array
+             */
+            int i = 0;
+            while (rs.next()) {
+                i++;
+            }
+            Datos = new String[i][4];
+            rs.beforeFirst();
+            i = 0;
+            /*Se guardan los datos en el array*/
+            while (rs.next()) {
+                Datos[i][0] = rs.getString("Codigo");
+                Datos[i][1] = rs.getString("Nombre");
+                Datos[i][2] = rs.getString("Tipo");
+                Datos[i][3] = rs.getString("Imagen");
+                i++;
+            }
+            /*Se retorna los datos*/
+            return Datos;
+        } catch (Exception ex) {
+            /*En caso de error se muestra el mensaje*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*Se retorna nulo en caso de error*/
+        return null;
+    }
+    
+    /*Metodo para obtener los gustos del usuario*/
+    public String[][] getMisGustosAndroid(String codigo, int cantidad) {
+        /*Se crean e instancia las clases y variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea la sentencia sql en un string*/
+        String sql = "Select Codigo, Nombre, Tipo, to_base64(Imagen) Imagen "
+                + "From  tb_seleccion "
+                + "Where Codigo IN ("
+                + "select Id_Seleccion "
+                + "From tb_seleccion_usuario "
+                + "Where Id_Usuario = ? "
+                + "And Estado = 'Activo') "
+                + "Limit 0, ?";
+        /*Se crea un array para guardar los datos*/
+        String[][] Datos = null;
+        try {
+            /*Se prepara la sentencia, se le envian los datos y se ejecua posteriormente*/
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            pr.setInt(2, cantidad);
+            rs = pr.executeQuery();
+
+            /*Se cuenta la cantidad de registros*/
+            int i = 0;
+            while (rs.next()) {
+                i++;
+            }
+            /*Se le da un tamaño a el array y se guarda los datos*/
+            Datos = new String[i][4];
+            rs.beforeFirst();
+            i = 0;
+            while (rs.next()) {
+                Datos[i][0] = rs.getString("Codigo");
+                Datos[i][1] = rs.getString("Nombre");
+                Datos[i][2] = rs.getString("Tipo");
+                Datos[i][3] = rs.getString("Imagen");
+                i++;
+            }
+            /*Se retorna los datos*/
+            return Datos;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            /**
+             * Se cierra todo
+             */
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*Se retorna nulo en caso de error*/
+        return null;
+    }
+    /*Metodo para contar la cantidad de gustos*/
+    public int CantidadGustosNuevosAndroid(String codigo) {
+        /*Se crean e instancia las clases y variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea la sentencia sql en un string*/
+        String sql = "Select COUNT(Codigo) cantidad "
+                + "From  tb_seleccion "
+                + "Where Codigo NOT IN ("
+                + "select Id_Seleccion "
+                + "From tb_seleccion_usuario "
+                + "Where Id_Usuario = ?"
+                + " And Estado = 'Activo') "
+                + "AND Estado = 'Aprobado'";
+        try {
+            /*Se prepara la sentencia y se ejecuta*/
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            rs = pr.executeQuery();
+            /*Se cuentan los registros de la consulta*/
+            int i = 0;
+            if (rs.next()) {
+                i=rs.getInt("cantidad");
+            }
+            /*Se retorna la cantidad de registros*/
+            return i;
+        } catch (Exception ex) {
+            /*En caso de error se muestra el mensaje*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*En caso de error se retorna falso*/
+        return 0;
+    }
+    /*Metodo para contar la cantidad de gustos*/
+    public int CantidadGustosAndroid(String codigo) {
+        /*Se crean e instancia las clases y variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea la sentencia sql en un string*/
+        String sql = "SELECT COUNT(*) cantidad "
+                + "FROM tb_seleccion s "
+                + "JOIN tb_seleccion_usuario su ON su.Id_Seleccion = s.Codigo "
+                + "where su.Id_Usuario = ? "
+                + "and su.Estado = 'Activo'";
+        try {
+            /*Se prepara la sentencia y se ejecuta*/
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            rs = pr.executeQuery();
+            /*Se cuentan los registros de la consulta*/
+            int i = 0;
+            if (rs.next()) {
+                i=rs.getInt("cantidad");
+            }
+            /*Se retorna la cantidad de registros*/
+            return i;
+        } catch (Exception ex) {
+            /*En caso de error se muestra el mensaje*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*En caso de error se retorna falso*/
+        return 0;
     }
 }

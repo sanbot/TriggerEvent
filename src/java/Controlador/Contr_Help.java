@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -567,7 +568,202 @@ public class Contr_Help extends HttpServlet {
                 }
                 /*Se imprime el resultado*/
                 out.print(obj);
-            } else {
+            } else if (request.getParameter("accion").equals("ciudades_android")) {
+                /*Si se realiza la peticion de ver todas las ciudades*/
+                /*Se declaran las variables necesarias*/
+                Ciudad ciu = new Ciudad();
+                JSONArray list = new JSONArray();
+                /*Se obtiene los datos de la ciudad, del metodo de modelo*/
+                String[][] Datos = ciu.BuscarDatosCiudadTodos(request.getParameter("codigo_dept"));
+
+                int i = 0;
+                /*Se encodifican los datos en JSON*/
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("ciudad", row[1]);
+                    list.add(ob);
+
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                out.println(list);
+            } else if (request.getParameter("accion").equals("departamentos_android")) {
+                /*Si se realiza la peticion de ver todos los departamentos*/
+                /*Se declaran las variables necesarias*/
+                Departamento dep = new Departamento();
+                JSONArray list = new JSONArray();
+                /*Se obtiene los datos de los departamentos, del metodo de modelo*/
+                String[][] Datos = dep.BuscarDatosDepartamentoAndroid();
+                int i = 0;
+                /*Se encodifican los datos en JSON*/
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("departamento", row[1]);
+                    list.add(ob);
+
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                out.println(list);
+            } else if (request.getParameter("accion").equals("gustos_nuevos_android")) {
+                /*Si se realiza la peticion de obtener los gustos nuevos*/
+                /*Se declaran las variables necesarias*/
+                String Codigo = request.getParameter("codigo");
+                int Cantidad = Integer.parseInt(request.getParameter("cantidad"));
+                Seleccion sel = new Seleccion();
+                JSONObject obj = new JSONObject();
+                JSONArray list = new JSONArray();
+                /*Se obtienen los datos de los gustos nuevos, en el metodo de modelo*/
+                String[][] Datos = sel.getGustosNuevosAndroid(Codigo, Cantidad);
+                int i = 0;
+                /*Se encodifican los datos en JSON*/
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("Codigo", row[0]);
+                    ob.put("Nombre", row[1]);
+                    ob.put("Tipo", row[2]);
+                    ob.put("Imagen", row[3]);
+                    list.add(ob);
+
+                    i++;
+                }
+                obj.put("gustos", list);
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("mis_gustos_android")) {
+                
+                /*Si se realiza la peticion de obtener los gustos del usuario*/
+                /*Se declaran las variables necesarias*/
+                String Codigo = request.getParameter("codigo");
+                int Cantidad = Integer.parseInt(request.getParameter("cantidad"));
+                Seleccion sel = new Seleccion();
+                JSONObject obj = new JSONObject();
+                JSONArray list = new JSONArray();
+                
+                /*Se obtienen los datos de los gustos de un usuario, en el metodo de modelo*/
+                String[][] Datos = sel.getMisGustosAndroid(Codigo, Cantidad);
+                int i = 0;
+                out.print(Datos);
+                /*Se encodifican los datos en JSON*/
+                for (String row[] : Datos) {
+                    
+                    JSONObject ob = new JSONObject();
+                    
+                    ob.put("Codigo", row[0]);
+                    ob.put("Nombre", row[1]);
+                    ob.put("Tipo", row[2]);
+                    ob.put("Imagen", row[3]);
+                    list.add(ob);
+
+                    i++;
+                }
+                obj.put("gustos", list);
+                /*Se imprime el resultado*/
+                out.print(obj);
+                
+            } else if (request.getParameter("accion").equals("cantidad_gustos_nuevos_android")) {
+                /*Si se realiza la peticion de obtener la cantidad de gustos que puede tener el usuario*/
+                /*Se declaran las variables necesarias*/
+                String Codigo = request.getParameter("codigo");
+                Seleccion sel = new Seleccion();
+                /*Se obtienen los datos de la cantidad de gustos de un usuario, en el método de modelo*/
+                int Datos = sel.CantidadGustosNuevosAndroid(Codigo);
+                /*Se imprime el resultado*/
+                out.print(Datos);
+            } else if (request.getParameter("accion").equals("cantidad_gustos_android")) {
+                /*Si se realiza la peticion de obtener la cantidad de gustos del usuario*/
+                /*Se declaran las variables necesarias*/
+                String Codigo = request.getParameter("codigo");
+                Seleccion sel = new Seleccion();
+                /*Se obtienen los datos de la cantidad de gustos de un usuario, en el método de modelo*/
+                int Datos = sel.CantidadGustosAndroid(Codigo);
+                /*Se imprime el resultado*/
+                out.print(Datos);
+            } else if (request.getParameter("accion").equals("agregar_gusto_android")) {
+                /*Si se realiza la peticion de agregar un gusto*/
+                /*Se declaran las variables necesarias*/
+                Seleccion sel = new Seleccion();
+                JSONObject obj = new JSONObject();
+                String Codigo = request.getParameter("codigo");
+                String CodigoUsuario = request.getParameter("codigousuario");
+                boolean b;
+                /*Se agrega el gusto, en el metodo de modelo*/
+                b = sel.AddGusto(Codigo, CodigoUsuario);
+                if (b) {
+                    /*Se encodifican los datos en JSON*/
+                    obj.put("1", "Se agrego el gusto satisfactoriamente.");
+                } else {
+                    /*Se encodifican los datos en JSON*/
+                    obj.put("0", "Ocurrió un error al agregar el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
+                }
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("remover_gusto_android")) {
+                /*Si se realiza la peticion de remover un gusto*/
+                /*Se declaran las variables necesarias*/
+                Seleccion sel = new Seleccion();
+                JSONObject obj = new JSONObject();
+                String Codigo = request.getParameter("codigo");
+                String CodigoUsuario = request.getParameter("codigousuario");
+                boolean b;
+                /*Se verifica que se pueda remover un gusto, en el metodo de modelo*/
+                b = sel.CantidadGustosAmbientesPreRemove(Codigo, CodigoUsuario);
+                if (b) {
+                    /*Se remueve el gusto, en el metodo de modelo*/
+                    b = sel.RemoveGusto(Codigo, CodigoUsuario);
+                    if (b) {
+                        /*Se encodifican los datos en JSON*/
+                        obj.put("1", "Se quitó el gusto de tus gustos existosamente.");
+                    } else {
+                        /*Se encodifican los datos en JSON*/
+                        obj.put("0", "Ocurrió un error al remover el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
+                    }
+                } else {
+                    obj.put("0", sel.getMensaje());
+                }
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("cantidad_eventos_recomendados_android")) {
+                /*Si se realiza la peticion de total de eventos recomendados*/
+                /*Se declaran las variables necesarias*/
+                Evento eve = new Evento();
+                String codigoUsuario = request.getParameter("codigo");
+                int row = eve.getcantidadeventosRecomendados(codigoUsuario);
+                /*Se imprime el resultado*/
+                out.println(row);
+            } else if (request.getParameter("accion").equals("eventos_recomendados_android")) {
+                /*Si se realiza la peticion de obtener los datos de los eventos recomendados*/
+                /*Se declaran las variables necesarias*/
+                Evento eve = new Evento();
+                JSONObject obj = new JSONObject();
+                JSONArray list = new JSONArray();
+                int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+                String codigoUsuario = request.getParameter("codigo");
+                /*Se obtienen los datos de los eventos recomendados, en el metodo de modelo*/
+                String[][] Datos = eve.geteventosRecomendadosAndroid(codigoUsuario, cantidad);
+                int i = 0;
+                /*Se encodifican los datos en JSON*/
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("Codigo", row[0]);
+                    ob.put("Imagen", row[1]);
+                    ob.put("Nombre", row[2]);
+                    ob.put("Fecha", row[3]);
+                    ob.put("NombreCiudad", row[4]);
+                    ob.put("NombreDepto", row[5]);
+                    list.add(ob);
+                    i++;
+                }
+                obj.put("eventos", list);
+                /*Se imprime el resultado*/
+                out.print(obj);
+            }else {
                 /*Si no se recibe alguna de las anteriores peticiones se retorna la vista de indece*/
                 response.sendRedirect("View/index.jsp");
             }

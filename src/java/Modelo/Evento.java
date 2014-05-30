@@ -1330,7 +1330,7 @@ public class Evento {
         this.setMensaje("Ocurrió un problema inesperado al desaprobar el evento,  Estamos trabajando para solucionar este problema..");
         return false;
     }
-    
+
     /*Metodo para desaprobar un evento*/
     public boolean setCancelarEvento(String codigoEvento, String motivo) {
         /*Se crean variables necesarias*/
@@ -1473,12 +1473,15 @@ public class Evento {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en string*/
-        String sqlevento = "SELECT Count(e.Codigo) Cantidad "
+        String sqlevento = "SELECT Count(DISTINCT e.Codigo) Cantidad "
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
                 + "Where e.Estado = 'Aprobado' AND "
-                + "Fecha >= ? AND se.Id_Seleccion IN (Select Id_Seleccion From tb_seleccion_usuario WHERE"
-                + " Id_Usuario = ? AND Estado = 'Activo') ORDER BY Fecha ";
+                + "Fecha >= ? AND se.Id_Seleccion IN ("
+                + "Select Id_Seleccion "
+                + "From tb_seleccion_usuario "
+                + "WHERE Id_Usuario = ? AND Estado = 'Activo') "
+                + "ORDER BY Fecha ";
         try {
             /*Se guarda la fecha del sistema en un date*/
             Date fecha = new Date();
@@ -1560,4 +1563,71 @@ public class Evento {
         /*En caso de error se retorna nulo*/
         return null;
     }
+
+    /*Metodo apra obtener los eventos recomendatos*/
+    public String[][] geteventosRecomendadosAndroid(String codigoUsuario, int Cantidad) {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
+        String sqlevento = "SELECT DISTINCT e.Codigo, to_base64(e.Imagen) Imagen, e.Nombre, e.Fecha, c.Nombre NombreCiudad, d.Nombre NombreDepto\n"
+                + "FROM  `tb_evento` e \n"
+                + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
+                + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
+                + "JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento "
+                + "Where e.Estado = 'Aprobado' AND "
+                + "Fecha >= ? AND se.Id_Seleccion IN ("
+                + "Select Id_Seleccion "
+                + "From tb_seleccion_usuario "
+                + "WHERE Id_Usuario = ? AND Estado = 'Activo') "
+                + "ORDER BY Fecha  Limit 0,?";
+        try {
+
+            /*Se guarda la fecha en un date*/
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta*/
+            pr = conn.prepareStatement(sqlevento);
+            pr.setTimestamp(1, sqlDate);
+            pr.setString(2, codigoUsuario);
+            pr.setInt(3, Cantidad);
+            rs = pr.executeQuery();
+            /*Se cuenta la cantidad de resultados para crear un array*/
+            int rows = 0;
+            while (rs.next()) {
+                rows++;
+            }
+            /*Se crea un array y se guardan los datos*/
+            String[][] Datos = new String[rows][6];
+            rs.beforeFirst();
+            rows = 0;
+            while (rs.next()) {
+                Datos[rows][0] = rs.getString("Codigo");
+                Datos[rows][1] = rs.getString("Imagen");
+                Datos[rows][2] = rs.getString("Nombre");
+                Datos[rows][3] = rs.getString("Fecha");
+                Datos[rows][4] = rs.getString("NombreCiudad");
+                Datos[rows][5] = rs.getString("NombreDepto");
+                rows++;
+            }
+            /*Se retornan los datos*/
+            return Datos;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*En caso de error se retorna nulo*/
+        return null;
+    }
+
 }

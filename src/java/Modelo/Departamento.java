@@ -96,7 +96,7 @@ public class Departamento {
     }
     /*Metodo para contar los registros que se tienen en la base de  datos*/
     public int CantidadRegistroDepartamento() {
-        /*Se crea e intancia las vlases y variables necesarias*/
+        /*Se crea e intancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
@@ -180,6 +180,7 @@ public class Departamento {
         /*Se retorna null en caso de error**/
         return null;
     }
+    
     /*Metodo para actualizar los datos*/
     public boolean actualizardatosDepartamento(String codigo, String nombre) {
         /*Se crea e instancia las clases y variables necesarias*/
@@ -218,5 +219,57 @@ public class Departamento {
         /*Se muestra un mensaje en caso de error y se retorna false*/
         this.setMensaje("Ocurrió un problema inesperado al modificar el departamento. Estamos trabajando para solucionar este problema.");
         return false;
+    }
+    
+    /*Metodo para mostrar todos los datos */
+    public String[][] BuscarDatosDepartamentoAndroid() {
+        /*Se crea e instancia las clases y variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea un string para la sentencia*/
+        String sql = "SELECT Codigo, Nombre, CAST( SUBSTR( Codigo, 4, 10 ) AS SIGNED ) "
+                + "FROM tb_departamento "
+                + "ORDER BY 3";
+
+        try {
+            /**Se prepara y ejecuta la sentencia*/
+            pr = conn.prepareStatement(sql);
+            rs = pr.executeQuery();
+
+            int rows = 0;
+            /*Se cuentan los registros para crear un array*/
+            while (rs.next()) {
+                rows++;
+            }
+            /*Se crea el array para guardar los datos*/
+            String[][] Datos = new String[rows][2];
+            rs.beforeFirst();
+            rows = 0;
+            /*Se guardan los datos*/
+            while (rs.next()) {
+                Departamento dep = new Departamento();
+                dep.setCodigo(rs.getString("Codigo"));
+                dep.setNombre(rs.getString("Nombre"));
+                Datos[rows][0] = dep.getCodigo();
+                Datos[rows][1] = dep.getNombre();
+                rows++;
+            }
+            /*Se retorna el array*/
+            return Datos;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            try {
+                /*Se cierra todo*/
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+            }
+        }
+        /*Se retorna null en caso de error**/
+        return null;
     }
 }

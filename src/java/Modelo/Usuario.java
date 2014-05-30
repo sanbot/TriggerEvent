@@ -217,10 +217,10 @@ public class Usuario {
     }
 
     /*Metodo para guardar los datos del usuario, y mandar un mensaje 
-    posteriormente al cambiar el estado de este*/
+     posteriormente al cambiar el estado de este*/
     public boolean getDatosParaEstado(String Codigo) {
         /*Se instancia la clase necesaria, las variables para
-        la sentencia preparada y para recorrer los datos*/
+         la sentencia preparada y para recorrer los datos*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
@@ -352,7 +352,9 @@ public class Usuario {
             /*Se muestra un mensaje en caso de error*/
             ex.printStackTrace();
         } finally {
-            /**Se cierra todo*/
+            /**
+             * Se cierra todo
+             */
             try {
                 rs.close();
                 pr.close();
@@ -403,6 +405,46 @@ public class Usuario {
                     this.setCiudad(rs.getString("NombreCiudad"));
                     this.setDepartamento(rs.getString("NombreDepartamento"));
                 }
+                /*Se retorna verdadero si todo funciona*/
+                return true;
+            }
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            System.out.printf(ex.toString());
+        } finally {
+            /*Se cierra todo*/
+            try {
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*Se retorna false en caso de error*/
+        return false;
+    }
+
+    /*Metodo para actualizar los datos de un usuario*/
+    public boolean actualizardatos(String Codigo, String Telefono, String Direccion, String Ciudad) {
+        /*Se crean e instancia las clases y variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        /*Se crea la sentencia en un string*/
+        String sql = "UPDATE tb_usuario SET Telefono = ?, Codigo_Ciudad = ?, Direccion = ? ";
+        sql += "WHERE Codigo=?";
+        ResultSet rs = null;
+        try {
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, Telefono);
+            pr.setString(2, Ciudad);
+            pr.setString(3, Direccion);
+            pr.setString(4, Codigo);
+            /*Se ejecuta la consulta*/
+            int i = pr.executeUpdate();
+
+            /*Se verifica si la consulta ejecuto correctamente*/
+            if (i == 1) {
                 /*Se retorna verdadero si todo funciona*/
                 return true;
             }
@@ -562,7 +604,7 @@ public class Usuario {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         /*Se crea la sentencia sql en un string*/
-        String sql = "INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre,Contrasenia, Telefono, No_Celular, Codigo_Ciudad, Correo, Direccion, Estado)";
+        String sql = "INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre, Contrasenia, Telefono, No_Celular, Codigo_Ciudad, Correo, Direccion, Estado)";
         sql += "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
@@ -926,7 +968,7 @@ public class Usuario {
         /*En caso de error se retorna falso*/
         return false;
     }
-    
+
     /*Metodo para cambiar la contraseña*/
     public boolean setCambioContrasenia(String codigo, String contra) {
         /*Se crean e instancia las clases y variables necesarias*/
