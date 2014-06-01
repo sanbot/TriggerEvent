@@ -45,7 +45,7 @@
                 <div class="row">
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <label for="Nombre">Nombre</label>
+                            <label id="lblnombreRUsuario" for="Nombre">Nombre</label>
                             <input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true"/>
                         </div>
                     </div>
@@ -76,13 +76,11 @@
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="Imagen">Tipo de documento</label>
-                            <select name="Tipo_Documento" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                            <select name="Tipo_Documento" id="Tipo_DocumentoRUsuario" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                 <option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>
                                 <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                                 <option value="Cédula de Extranjería<">C&eacute;dula de Extranjer&iacute;a</option>
                                 <option value="Pasaporte">Pasaporte</option>
-                                <option value="DNI">Documento Nacional de Identificaci&oacute;n</option>
-                                <option value="NIT">N&uacute;mero de Identificaci&oacute;n Tributaria</option>
                             </select>
                         </div>
                     </div>
@@ -214,6 +212,24 @@
                 $("select#departamentoregistro", this).change(function() {
                     var index = $(this).val();
                     getciudades(index);
+                });
+                $("#Tipos").change(function() {
+                    var seleccion = $("#Tipos option:selected").val();
+                    var datos = [];
+                    if(seleccion == "Tip1")
+                    {      
+                        $("#lblnombreRUsuario").html("Nombres y apellidos");
+                        datos.push('<option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>');
+                        datos.push('<option value="Tarjeta de Identidad">Tarjeta de Identidad</option>');
+                        datos.push('<option value="Cédula de Extranjería">C&eacute;dula de Extranjer&iacute;a</option>');
+                        datos.push('<option value="Pasaporte">Pasaporte</option>');
+                    }
+                    else if (seleccion == "Tip2")
+                    {
+                        $("#lblnombreRUsuario").html("Nombre de la empresa");
+                        datos.push('<option value="NIT">N&uacute;mero de Identificaci&oacute;n Tributaria</option>');
+                    }
+                    $("#Tipo_DocumentoRUsuario").html(datos.join(""));
                 });
             });
         </script>

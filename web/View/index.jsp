@@ -198,7 +198,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <center>
-                                        <img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+                                        <img src="../Libs/Customs/images/Evento/<%=Row[0] + Row[8]%>" class="img-thumbnail imgevento"/>
                                     </center>
                                 </div>
                             </div>
@@ -252,7 +252,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <center><img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/></center>
+                                    <center><img src="../Libs/Customs/images/Evento/<%=Row[0] + Row[8]%>" class="img-thumbnail imgevento"/></center>
                                 </div>
                             </div>
                             <div class="row">
@@ -306,7 +306,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <center>
-                                        <img src="ImagenEvento.jsp?Codigo=<%=Row[0]%>" class="img-thumbnail imgevento"/>
+                                        <img src="../Libs/Customs/images/Evento/<%=Row[0] + Row[8]%>" class="img-thumbnail imgevento"/>
                                     </center>
                                 </div>
                             </div>
@@ -523,35 +523,36 @@
                     , title: 'Lo más destacado'
                     , text: 'Estos son los eventos con mejor calificación (dada por nuestros usuarios).'
                 });
+                if ($("#target-4").lenght) {
+                    guidely.add({
+                        attachTo: '#target-4'
+                        , anchor: 'bottom-right'
+                        , title: 'Comentarios y/o Calificación'
+                        , text: 'En todos los eventos habrán comentarios y/o calificaciones. Recuerde que para visualizarlos debe iniciar sesión.'
+                    });
 
-                guidely.add({
-                    attachTo: '#target-4'
-                    , anchor: 'bottom-right'
-                    , title: 'Comentarios y/o Calificación'
-                    , text: 'En todos los eventos habrán comentarios y/o calificaciones. Recuerde que para visualizarlos debe iniciar sesión.'
-                });
+                    guidely.add({
+                        attachTo: '#target-5'
+                        , anchor: 'bottom-left'
+                        , title: 'Los más comentados'
+                        , text: 'Estos son los eventos más polémicos.'
+                    });
 
-                guidely.add({
-                    attachTo: '#target-5'
-                    , anchor: 'bottom-left'
-                    , title: 'Los más comentados'
-                    , text: 'Estos son los eventos más polémicos.'
-                });
-
-                guidely.add({
-                    attachTo: '#target-6'
-                    , anchor: 'bottom-left'
-                    , title: 'Próximos eventos'
-                    , text: 'Estos son los eventos más próximos con respecto a la fecha actual.'
-                });
-
-                guidely.add({
-                    attachTo: '#target-7'
-                    , anchor: 'top-right'
-                    , title: 'Algunos comentarios'
-                    , text: 'Estos son algunos comentarios dados por nuestros usuarios acerca de los eventos.'
-                });
-
+                    guidely.add({
+                        attachTo: '#target-6'
+                        , anchor: 'bottom-left'
+                        , title: 'Próximos eventos'
+                        , text: 'Estos son los eventos más próximos con respecto a la fecha actual.'
+                    });
+                }
+                if ($("#target-7").lenght) {
+                    guidely.add({
+                        attachTo: '#target-7'
+                        , anchor: 'top-right'
+                        , title: 'Algunos comentarios'
+                        , text: 'Estos son algunos comentarios dados por nuestros usuarios acerca de los eventos.'
+                    });
+                }
                 if (!localStorage.getItem("welcome"))
                 {
                     guidely.init({welcome: true, startTrigger: false});

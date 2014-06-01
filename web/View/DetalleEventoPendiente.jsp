@@ -60,7 +60,7 @@
                                 <div class="col-md-12">
                                     <div class="margen-img"> 
                                         <center>
-                                            <img src="ImagenEvento.jsp?Codigo=<%=CodigoEvento%>" class="imgevento icon-animated-bell" alt="Nombre de la imagen">
+                                            <img src="../Libs/Customs/images/Evento/<%=CodigoEvento+Datos[15]%>" class="imgevento icon-animated-bell" alt="Nombre de la imagen">
                                         </center>
                                     </div>
                                 </div>    

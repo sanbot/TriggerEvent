@@ -11,8 +11,11 @@ import Modelo.Departamento;
 import Modelo.Evento;
 import Modelo.Mensajeria;
 import Modelo.Seleccion;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import sun.misc.BASE64Encoder;
+import java.io.ByteArrayOutputStream;
 
 /**
  *
@@ -205,6 +210,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("creador", row[3]);
                     ob.put("ciudad", row[4]);
                     ob.put("hora", row[5]);
+                    ob.put("image", row[0] + row[6]);
                     obj.put(Integer.toString(i), ob);
 
                     i++;
@@ -231,6 +237,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("ciudad", row[4]);
                     ob.put("estado", row[5]);
                     ob.put("hora", row[6]);
+                    ob.put("image", row[0] + row[7]);
                     obj.put(Integer.toString(i), ob);
 
                     i++;
@@ -256,6 +263,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("ciudad", row[4]);
                     ob.put("estado", row[5]);
                     ob.put("hora", row[6]);
+                    ob.put("image", row[0] + row[7]);
                     obj.put(Integer.toString(i), ob);
 
                     i++;
@@ -322,6 +330,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("codigo", row[0]);
                     ob.put("nombre", row[1]);
                     ob.put("tipo", row[2]);
+                    ob.put("image", row[0] + row[3]);
                     obj.put(Integer.toString(i), ob);
 
                     i++;
@@ -344,6 +353,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("codigo", row[0]);
                     ob.put("nombre", row[1]);
                     ob.put("tipo", row[2]);
+                    ob.put("image", row[0] + row[3]);
                     obj.put(Integer.toString(i), ob);
 
                     i++;
@@ -366,6 +376,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("nombre", row[1]);
                     ob.put("tipo", row[2]);
                     ob.put("estado", row[3]);
+                    ob.put("image", row[0] + row[4]);
                     obj.put(Integer.toString(i), ob);
 
                     i++;
@@ -388,6 +399,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("codigo", row[0]);
                     ob.put("nombre", row[1]);
                     ob.put("tipo", row[2]);
+                    ob.put("image", row[0] + row[3]);
                     obj.put(Integer.toString(i), ob);
 
                     i++;
@@ -410,6 +422,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("codigo", row[0]);
                     ob.put("nombre", row[1]);
                     ob.put("tipo", row[2]);
+                    ob.put("image", row[0] + row[3]);
                     obj.put(Integer.toString(i), ob);
 
                     i++;
@@ -514,6 +527,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("hora", row[5]);
                     ob.put("calificacion", row[6]);
                     ob.put("comentario", row[7]);
+                    ob.put("image", row[0] + row[8]);
                     obj.put(Integer.toString(i), ob);
                     i++;
                 }
@@ -542,6 +556,7 @@ public class Contr_Help extends HttpServlet {
                     ob.put("hora", row[5]);
                     ob.put("calificacion", row[6]);
                     ob.put("comentario", row[7]);
+                    ob.put("image", row[0] + row[8]);
                     obj.put(Integer.toString(i), ob);
                     i++;
                 }
@@ -636,7 +651,7 @@ public class Contr_Help extends HttpServlet {
                 /*Se imprime el resultado*/
                 out.print(obj);
             } else if (request.getParameter("accion").equals("mis_gustos_android")) {
-                
+
                 /*Si se realiza la peticion de obtener los gustos del usuario*/
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("codigo");
@@ -644,16 +659,16 @@ public class Contr_Help extends HttpServlet {
                 Seleccion sel = new Seleccion();
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();
-                
+
                 /*Se obtienen los datos de los gustos de un usuario, en el metodo de modelo*/
                 String[][] Datos = sel.getMisGustosAndroid(Codigo, Cantidad);
                 int i = 0;
                 out.print(Datos);
                 /*Se encodifican los datos en JSON*/
                 for (String row[] : Datos) {
-                    
+
                     JSONObject ob = new JSONObject();
-                    
+
                     ob.put("Codigo", row[0]);
                     ob.put("Nombre", row[1]);
                     ob.put("Tipo", row[2]);
@@ -665,7 +680,7 @@ public class Contr_Help extends HttpServlet {
                 obj.put("gustos", list);
                 /*Se imprime el resultado*/
                 out.print(obj);
-                
+
             } else if (request.getParameter("accion").equals("cantidad_gustos_nuevos_android")) {
                 /*Si se realiza la peticion de obtener la cantidad de gustos que puede tener el usuario*/
                 /*Se declaran las variables necesarias*/
@@ -763,7 +778,7 @@ public class Contr_Help extends HttpServlet {
                 obj.put("eventos", list);
                 /*Se imprime el resultado*/
                 out.print(obj);
-            }else {
+            } else {
                 /*Si no se recibe alguna de las anteriores peticiones se retorna la vista de indece*/
                 response.sendRedirect("View/index.jsp");
             }

@@ -127,7 +127,7 @@
                             items.push('<div class="panel-body">');
                             items.push('<div class="row">');
                             items.push('<div id="target-4" class="col-md-12">');
-                            items.push('<center><img src="ImagenEvento.jsp?Codigo=' + val.codigo + '" class="img-thumbnail imgevento"/></center>');
+                            items.push('<center><img src="../Libs/Customs/images/Evento/' + val.image + '" class="img-thumbnail imgevento"/></center>');
                             items.push('</div>');
                             items.push('</div>');
                             items.push('<div class="row">');

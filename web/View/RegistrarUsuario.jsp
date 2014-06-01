@@ -256,7 +256,7 @@
                         $("#lblnombre").html("Nombres y apellidos");
                         datos.push('<option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>');
                         datos.push('<option value="Tarjeta de Identidad">Tarjeta de Identidad</option>');
-                        datos.push('<option value="Cédula de Extranjería<">C&eacute;dula de Extranjer&iacute;a</option>');
+                        datos.push('<option value="Cédula de Extranjería">C&eacute;dula de Extranjer&iacute;a</option>');
                         datos.push('<option value="Pasaporte">Pasaporte</option>');
                     }
                     else if (seleccion == "Tip2")

@@ -7,13 +7,14 @@ package Modelo;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.Blob;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -28,6 +29,16 @@ public class Seleccion {
     String Tipo;
     String Imagen;
     String Estado;
+    String TypeImg;
+
+    public String getTypeImg() {
+        return TypeImg;
+    }
+
+    public void setTypeImg(String TypeImg) {
+        this.TypeImg = TypeImg;
+    }
+   
 
     public String getEstado() {
         return Estado;
@@ -94,23 +105,16 @@ public class Seleccion {
         int numerocodigo = this.CantidadRegistroSeleccion();
         /*Se concatena el codigo para el nuevo registro*/
         codigo += numerocodigo;
+        this.setCodigo(codigo);
         pr = null;
         /*Se crea una sentencia sql en un string*/
         String sql = "INSERT INTO tb_seleccion (Codigo, Imagen, Nombre, Tipo, Estado)";
         sql += "VALUES(?,?,?,?, ?)";
-
         try {
-            is = new FileInputStream(imagen);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Seleccion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        /*Se captura la imagen en un FileInput Stream*/
-        try {
-
             /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigo);
-            pr.setBlob(2, is);
+            pr.setString(2, imagen);
             pr.setString(3, nombre);
             pr.setString(4, tipo);
             pr.setString(5, estado);
@@ -251,7 +255,7 @@ public class Seleccion {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea un strin para la sentencia*/
-        String sql = "Select Codigo, Nombre, Tipo, Estado "
+        String sql = "Select Codigo, Nombre, Tipo, Estado, Imagen "
                 + "From  tb_seleccion";
         /*Se crea un array para guardar los datos*/
         String[][] Datos = null;
@@ -265,7 +269,7 @@ public class Seleccion {
             while (rs.next()) {
                 i++;
             }
-            Datos = new String[i][4];
+            Datos = new String[i][5];
             rs.beforeFirst();
             i = 0;
             /*Se guardan los datos en el array*/
@@ -274,6 +278,7 @@ public class Seleccion {
                 Datos[i][1] = rs.getString("Nombre");
                 Datos[i][2] = rs.getString("Tipo");
                 Datos[i][3] = rs.getString("Estado");
+                Datos[i][4] = rs.getString("Imagen");
                 i++;
             }
             /*Se retorna el array*/
@@ -382,20 +387,14 @@ public class Seleccion {
         PreparedStatement pr = null;
         FileInputStream is = null;
         /*Se crea la sentencia sql en un string*/
-        String sql = "UPDATE tb_seleccion SET Nombre = ?, Tipo = ?, Imagen = ? ";
+        String sql = "UPDATE tb_seleccion SET Nombre = ?, Tipo = ?, Imagen = ?, Estado = ?";
         sql += "WHERE Codigo = ?";
-        /*Se guarda la imagen en un FileInputStream*/
-        try {
-            is = new FileInputStream(imagen);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Seleccion.class.getName()).log(Level.SEVERE, null, ex);
-        }
         try {
             /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, nombre);
             pr.setString(2, tipo);
-            pr.setBlob(3, is);
+            pr.setString(3, imagen);
             pr.setString(4, estado);
             pr.setString(5, codigo);
             /*Si la sentencia se ejecuta correctamente se retorna verdadero*/
@@ -450,7 +449,7 @@ public class Seleccion {
             while (rs.next()) {
                 i++;
             }
-            Datos = new String[i][3];
+            Datos = new String[i][4];
             rs.beforeFirst();
             i = 0;
             /*Se guardan los datos en el array*/
@@ -458,6 +457,7 @@ public class Seleccion {
                 Datos[i][0] = rs.getString("Codigo");
                 Datos[i][1] = rs.getString("Nombre");
                 Datos[i][2] = rs.getString("Tipo");
+                Datos[i][3] = rs.getString("Imagen");
                 i++;
             }
             /*Se retorna los datos*/
@@ -486,7 +486,7 @@ public class Seleccion {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en un string*/
-        String sql = "Select Codigo, Nombre, Tipo "
+        String sql = "Select Codigo, Nombre, Tipo, Imagen "
                 + "From  tb_seleccion "
                 + "Where Codigo NOT IN (select Id_Seleccion From tb_seleccion_evento Where Id_Evento = ? And Estado = 'Activo')"
                 + "AND Estado = 'Aprobado'";
@@ -503,7 +503,7 @@ public class Seleccion {
             while (rs.next()) {
                 i++;
             }
-            Datos = new String[i][3];
+            Datos = new String[i][4];
             rs.beforeFirst();
             i = 0;
             /*Se guardan los datos en el array y se retorna*/
@@ -511,6 +511,7 @@ public class Seleccion {
                 Datos[i][0] = rs.getString("Codigo");
                 Datos[i][1] = rs.getString("Nombre");
                 Datos[i][2] = rs.getString("Tipo");
+                Datos[i][3] = rs.getString("Imagen");
                 i++;
             }
             return Datos;
@@ -538,7 +539,7 @@ public class Seleccion {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea la sentencia sql en un string*/
-        String sql = "Select Codigo, Nombre, Tipo "
+        String sql = "Select Codigo, Nombre, Tipo, Imagen "
                 + "From  tb_seleccion "
                 + "Where Codigo IN (select Id_Seleccion From tb_seleccion_usuario Where Id_Usuario = ?"
                 + " And Estado = 'Activo')";
@@ -556,13 +557,14 @@ public class Seleccion {
                 i++;
             }
             /*Se le da un tamaño a el array y se guarda los datos*/
-            Datos = new String[i][3];
+            Datos = new String[i][4];
             rs.beforeFirst();
             i = 0;
             while (rs.next()) {
                 Datos[i][0] = rs.getString("Codigo");
                 Datos[i][1] = rs.getString("Nombre");
                 Datos[i][2] = rs.getString("Tipo");
+                Datos[i][3] =rs.getString("Imagen");
                 i++;
             }
             /*Se retorna los datos*/
@@ -593,7 +595,7 @@ public class Seleccion {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en uns string*/
-        String sql = "Select Codigo, Nombre, Tipo "
+        String sql = "Select Codigo, Nombre, Tipo, Imagen "
                 + "From  tb_seleccion "
                 + "Where Codigo IN (select Id_Seleccion From tb_seleccion_evento Where Id_Evento = ?"
                 + " And Estado = 'Activo')";
@@ -611,13 +613,14 @@ public class Seleccion {
                 i++;
             }
             /*Se da un tamaño a el array y se guardan los datos*/
-            Datos = new String[i][3];
+            Datos = new String[i][4];
             rs.beforeFirst();
             i = 0;
             while (rs.next()) {
                 Datos[i][0] = rs.getString("Codigo");
                 Datos[i][1] = rs.getString("Nombre");
                 Datos[i][2] = rs.getString("Tipo");
+                Datos[i][3] = rs.getString("Imagen");
                 i++;
             }
             /*Se retornan los datos*/
@@ -788,7 +791,7 @@ public class Seleccion {
         /*En caso de error se retorna falso*/
         return 0;
     }
-    
+
     /*MEtodo para contar la cantidad de gustos para verificar si al menos tiene uno antes de removerlo*/
     public boolean CantidadGustosAmbientesPreRemove(String codigoSeleccion, String codigoUsuario) {
         /*Se crean e instancian las clases y variables necesarias*/
@@ -1162,15 +1165,16 @@ public class Seleccion {
         /*Se retorna nulo en caso de error*/
         return null;
     }
-    
+
     /*Metodo para obtener los gustos del usuario*/
     public String[][] getMisGustosAndroid(String codigo, int cantidad) {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
+        BASE64Encoder encoder = new BASE64Encoder();
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea la sentencia sql en un string*/
-        String sql = "Select Codigo, Nombre, Tipo, to_base64(Imagen) Imagen "
+        String sql = "Select Codigo, Nombre, Tipo, Imagen "
                 + "From  tb_seleccion "
                 + "Where Codigo IN ("
                 + "select Id_Seleccion "
@@ -1200,7 +1204,11 @@ public class Seleccion {
                 Datos[i][0] = rs.getString("Codigo");
                 Datos[i][1] = rs.getString("Nombre");
                 Datos[i][2] = rs.getString("Tipo");
-                Datos[i][3] = rs.getString("Imagen");
+                //Datos[i][3] = rs.getString("Imagen");
+                Blob imagen = rs.getBlob("Imagen");
+                byte[] imgData = imagen.getBytes(1, (int) imagen.length());
+                
+                 Datos[i][3] = encoder.encode(imgData);
                 i++;
             }
             /*Se retorna los datos*/
@@ -1224,6 +1232,7 @@ public class Seleccion {
         return null;
     }
     /*Metodo para contar la cantidad de gustos*/
+
     public int CantidadGustosNuevosAndroid(String codigo) {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
@@ -1246,7 +1255,7 @@ public class Seleccion {
             /*Se cuentan los registros de la consulta*/
             int i = 0;
             if (rs.next()) {
-                i=rs.getInt("cantidad");
+                i = rs.getInt("cantidad");
             }
             /*Se retorna la cantidad de registros*/
             return i;
@@ -1267,6 +1276,7 @@ public class Seleccion {
         return 0;
     }
     /*Metodo para contar la cantidad de gustos*/
+
     public int CantidadGustosAndroid(String codigo) {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
@@ -1286,7 +1296,7 @@ public class Seleccion {
             /*Se cuentan los registros de la consulta*/
             int i = 0;
             if (rs.next()) {
-                i=rs.getInt("cantidad");
+                i = rs.getInt("cantidad");
             }
             /*Se retorna la cantidad de registros*/
             return i;

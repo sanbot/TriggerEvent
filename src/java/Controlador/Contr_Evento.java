@@ -58,6 +58,7 @@ public class Contr_Evento extends HttpServlet {
             String urlsalidaimg;
             urlsalidaimg = "/media/santiago/Santiago/IMGTE/";
             //urlsalidaimg = "I:\\IMGTE\\";
+            String urlimgservidor = this.getServletContext().getRealPath("/Libs/Customs/images/Evento");
 
             /*FileItemFactory es una interfaz para crear FileItem*/
             FileItemFactory file_factory = new DiskFileItemFactory();
@@ -116,16 +117,22 @@ public class Contr_Evento extends HttpServlet {
                             if (eve.ValidarDosDiasFecha(eve.getFechaDate())) {
                                 /*Se evalua si se mando una iamgen*/
                                 if (!eve.getImagen().equals("")) {
+                                    /*Si se envia una imagen obtiene la imagen para eliminarla luego*/
+                                    File img = new File(eve.getImagen());
                                     /*Se ejecuta el metodo de registrar evento, en la clase modelo
                                      con los datos que se encuentran en la clase*/
-                                    b = eve.setRegistrarEvento(eve.getImagen(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador(), eve.getCiudad(), eve.getDireccion(), eve.getLatitud(), eve.getLongitud());
+
+                                    b = eve.setRegistrarEvento(eve.getTypeimg(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador(), eve.getCiudad(), eve.getDireccion(), eve.getLatitud(), eve.getLongitud());
                                     if (b) {
+                                        File imagedb = new File(urlimgservidor + "/" + eve.getCodigo() + eve.getTypeimg());
+                                        img.renameTo(imagedb);
                                         /*Se guarda un mensaje mediante las sesiones
                                          y se redirecciona*/
                                         session.setAttribute("Mensaje", "Se registro el evento satisfactoriamente.");
                                         session.setAttribute("TipoMensaje", "Dio");
                                         response.sendRedirect("View/RClasificacionEvento.jsp?CodigoEvento=" + eve.getCodigo());
                                     } else {
+                                        img.delete();
                                         /*Se guarda un mensaje mediante las sesiones
                                          y se redirecciona*/
                                         session.setAttribute("Mensaje", eve.getMensaje());
@@ -205,8 +212,8 @@ public class Contr_Evento extends HttpServlet {
                         /*Se ejecuta el metodo de desaprobar evento, en la clase modelo
                          con los datos que se encuentran en la clase(Empresa)*/
                         if (eve.setCancelarEvento(eve.getCodigo(), eve.getMotivo())) {
-                                session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
-                                session.setAttribute("TipoMensaje", "Dio");
+                            session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
+                            session.setAttribute("TipoMensaje", "Dio");
                         } else {
                             /*Se guarda un mensaje mediante las sesiones
                              y se redirecciona*/
@@ -233,14 +240,23 @@ public class Contr_Evento extends HttpServlet {
                             /*Se redirecciona*/
                             response.sendRedirect("View/ConsultaSeleccion.jsp");
                         } else {
-                            /*Se crea la imagne*/
-                            File archivo_server = new File(urlsalidaimg + item.getName());
-                            /**
-                             * Se guardael url de la imagen en la clase
-                             */
-                            eve.setImagen(urlsalidaimg + item.getName());
-                            /*Se guarda la imagen*/
-                            item.write(archivo_server);
+                            if (contentType.indexOf("jpeg") > 0 || contentType.indexOf("png") > 0) {
+                                if (contentType.indexOf("jpeg") > 0) {
+                                    contentType = ".jpg";
+                                } else {
+                                    contentType = ".png";
+                                }
+                                /*Se crea la imagne*/
+                                File archivo_server = new File(urlimgservidor + "/" + item.getName());
+                                /*Se guardael url de la imagen en la clase*/
+                                eve.setImagen(urlimgservidor + "/" + item.getName());
+                                eve.setTypeimg(contentType);
+                                /*Se guarda la imagen*/
+                                item.write(archivo_server);
+                            } else {
+                                session.setAttribute("Mensaje", "Solo se pueden registrar imagenes JPG o PNG");
+                                session.setAttribute("TipoMensaje", "NODio");
+                            }
                         }
                     } else {
                         /**

@@ -244,11 +244,11 @@
                         items.push('<tbody id="contenido-selecciones">');
                         $.each(datos, function(key, val) {
                             items.push('<tr>');
-                            items.push('<td><img src="Imagen.jsp?Codigo=' + val.codigo + '" class="img-responsive imgseleccion"></td>');
+                            items.push('<td><img src="../Libs/Customs/images/Seleccion/' + val.image + '" class="img-responsive imgseleccion"></td>');
                             items.push('<td>' + val.nombre + '</td>');
                             items.push('<td>' + val.tipo + '</td>');
                             items.push('<td>' + val.estado + '</td>');
-                            items.push('<td><center><a title="Modificar" class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="' + val.codigo + '" data-nombre="' + val.nombre + '" data-tipo="' + val.tipo + '" data-estado="' + val.estado + '"><span class="glyphicon glyphicon-edit"></span><center></td>');
+                            items.push('<td><center><a title="Modificar" class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="' + val.codigo + '" data-image="'+val.image+'" data-nombre="' + val.nombre + '" data-tipo="' + val.tipo + '" data-estado="' + val.estado + '"><span class="glyphicon glyphicon-edit"></span><center></td>');
                             items.push('<td><center><a class="desaprobarseleccion" data-id="' + val.codigo + '" title="Desaprobar"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
                             items.push('<td><center><a class="aprobarseleccion" data-id="' + val.codigo + '" title="Aprobar"><span class="glyphicon glyphicon-ok"></span></a></center></td>');
                             items.push('</tr>');
@@ -308,10 +308,11 @@
                         var Name = $(this).data('nombre');
                         var Tipo = $(this).data('tipo');
                         var Estado = $(this).data('estado');
+                        var Image = $(this).data('image');
                         $(".modal-body #CodigoSeleccion").val(Id);
                         $(".modal-body #NombreSeleccion").val(Name);
                         $(".modal-body #TipoSeleccion").val(Tipo);
-                        $(".modal-body #ImgActual").attr("src", "Imagen.jsp?Codigo=" + Id);
+                        $(".modal-body #ImgActual").attr("src", "../Libs/Customs/images/Seleccion/" + Image);
                         $('#EstadoSeleccion [value=' + Estado + ']').prop('selected', true);
                     });
                     $('#table1').dataTable({

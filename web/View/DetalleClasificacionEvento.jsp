@@ -124,7 +124,7 @@
                             items.push('<tr>');
                             items.push('<td>' + val.nombre + '</td>');
                             items.push('<td>' + val.tipo + '</td>');
-                            items.push('<td><img src="Imagen.jsp?Codigo=' + val.codigo + '" class="img-responsive imgseleccion"></td>');
+                            items.push('<td><img src="../Libs/Customs/images/Seleccion/' + val.image + '" class="img-responsive imgseleccion"></td>');
                             items.push('</tr>');
                         });
                         items.push('</tbody>');

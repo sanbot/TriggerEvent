@@ -42,6 +42,15 @@ public class Evento {
     String Motivo;
     String Latitud;
     String Longitud;
+    String Typeimg;
+
+    public String getTypeimg() {
+        return Typeimg;
+    }
+
+    public void setTypeimg(String Typeimg) {
+        this.Typeimg = Typeimg;
+    }
 
     public String getLatitud() {
         return Latitud;
@@ -219,21 +228,12 @@ public class Evento {
         String sql = "INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Codigo_Ciudad, Direccion, Estado, Latitud, Longitud)";
         sql += "VALUES(?,?,?,?,?,?,?,?,?,?, ?,?)";
 
-        /*Se guarda el archivo de imagen en FileInputStream*/
-        FileInputStream is = null;
-
-        try {
-            is = new FileInputStream(imagen);
-        } catch (FileNotFoundException ex) {
-            this.setMensaje(ex.getMessage().toString());
-        }
-
         try {
             /*Se crea la zona de tiempo, se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
             java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigo);
-            pr.setBlob(2, is);
+            pr.setString(2, imagen);
             pr.setString(3, nombre);
             pr.setTimestamp(4, sqlDate);
             pr.setString(5, descripcion);
@@ -430,7 +430,7 @@ public class Evento {
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
-                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
+                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -453,7 +453,7 @@ public class Evento {
             while (rs.next()) {
                 rows++;
             }
-            String[][] Datos = new String[rows][8];
+            String[][] Datos = new String[rows][9];
             rs.beforeFirst();
             rows = 0;
             /*Despues de crear el array se guardan los datos*/
@@ -472,6 +472,7 @@ public class Evento {
                 Datos[rows][5] = rs.getTime("Fecha").toString();
                 Datos[rows][6] = rs.getString("Calificacion");
                 Datos[rows][7] = rs.getString("Comentarios");
+                Datos[rows][8] = rs.getString("Imagen");
                 rows++;
             }
             /*Se retorna el array*/
@@ -502,7 +503,7 @@ public class Evento {
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
-                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
+                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -519,7 +520,13 @@ public class Evento {
             rs = pr.executeQuery();
 
             int rows = 0;
-            String[][] Datos = new String[3][8];
+             String[][] Datos = null;
+            while(rs.next())
+            {
+                rows++;
+            }
+            Datos = new String[rows][9];
+            rows = 0;
             rs.beforeFirst();
             /*Se guardan los datos*/
             while (rs.next()) {
@@ -537,6 +544,7 @@ public class Evento {
                 Datos[rows][5] = rs.getTime("Fecha").toString();
                 Datos[rows][6] = rs.getString("Calificacion");
                 Datos[rows][7] = rs.getString("Comentarios");
+                Datos[rows][8] = rs.getString("Imagen");
                 rows++;
             }
             /*Se retorna el array*/
@@ -567,7 +575,7 @@ public class Evento {
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
-                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
+                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
                 + "FROM  `tb_evento` e JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND Fecha >= ? \n"
@@ -584,7 +592,13 @@ public class Evento {
 
             int rows = 0;
             /*Se crea un array para guardar los datos posteriormente*/
-            String[][] Datos = new String[3][8];
+            String[][] Datos = null;
+            while(rs.next())
+            {
+                rows++;
+            }
+            Datos = new String[rows][9];
+            rows = 0;
             rs.beforeFirst();
             while (rs.next()) {
                 Evento eve = new Evento();
@@ -601,6 +615,7 @@ public class Evento {
                 Datos[rows][5] = rs.getString("Calificacion");
                 Datos[rows][6] = rs.getTime("Fecha").toString();
                 Datos[rows][7] = rs.getString("Comentarios");
+                Datos[rows][8] = rs.getString("Imagen");
                 rows++;
             }
             /*Se retornan los datos del array*/
@@ -631,7 +646,7 @@ public class Evento {
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
-                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
+                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
                 + "FROM  `tb_evento` e JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND Fecha >= ? \n"
@@ -652,7 +667,13 @@ public class Evento {
 
             int rows = 0;
             /*Se crea un array y se guardan los datos posteriormente*/
-            String[][] Datos = new String[3][8];
+             String[][] Datos = null;
+            while(rs.next())
+            {
+                rows++;
+            }
+            Datos = new String[rows][9];
+            rows = 0;
             rs.beforeFirst();
             while (rs.next()) {
                 Evento eve = new Evento();
@@ -669,6 +690,7 @@ public class Evento {
                 Datos[rows][5] = rs.getString("Comentarios");
                 Datos[rows][6] = rs.getTime("Fecha").toString();
                 Datos[rows][7] = rs.getString("Calificacion");
+                Datos[rows][8] = rs.getString("Imagen");
                 rows++;
             }
             /*Se retornan los datos*/
@@ -699,7 +721,7 @@ public class Evento {
         String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Rango_Precios, "
                 + "c.Codigo_Departamento CodigoDepartamento, d.Nombre NombreDepartamento, "
                 + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
-                + "e.Latitud, e.Longitud \n"
+                + "e.Latitud, e.Longitud, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -717,7 +739,7 @@ public class Evento {
             rs = pr.executeQuery();
 
             /*Se crea un array para guardar los datos posteriormente*/
-            String[] Datos = new String[13];
+            String[] Datos = new String[14];
             rs.beforeFirst();
 
             while (rs.next()) {
@@ -734,6 +756,7 @@ public class Evento {
                 Datos[10] = rs.getTime("Fecha").toString();
                 Datos[11] = rs.getString("Latitud");
                 Datos[12] = rs.getString("Longitud");
+                Datos[13] = rs.getString("Imagen");
             }
             /*Se guardan los datos en un array*/
             return Datos;
@@ -765,7 +788,7 @@ public class Evento {
         String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Rango_Precios, "
                 + "c.Codigo_Departamento CodigoDepartamento, d.Nombre NombreDepartamento, "
                 + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
-                + "e.Motivo, e.Estado, e.Latitud, e.Longitud \n"
+                + "e.Motivo, e.Estado, e.Latitud, e.Longitud, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -783,7 +806,7 @@ public class Evento {
             rs = pr.executeQuery();
 
             /*Se crea un array y se guardan los datos*/
-            String[] Datos = new String[15];
+            String[] Datos = new String[16];
             rs.beforeFirst();
 
             while (rs.next()) {
@@ -802,6 +825,7 @@ public class Evento {
                 Datos[12] = rs.getString("Estado");
                 Datos[13] = rs.getString("Latitud");
                 Datos[14] = rs.getString("Longitud");
+                Datos[15] = rs.getString("Imagen");
             }
             /*Se retornan los datos*/
             return Datos;
@@ -976,7 +1000,7 @@ public class Evento {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en string*/
-        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, e.Estado \n"
+        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, e.Estado, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -1000,7 +1024,7 @@ public class Evento {
                 rows++;
             }
             /*Se crea un array para guardar los datos*/
-            String[][] Datos = new String[rows][7];
+            String[][] Datos = new String[rows][8];
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
@@ -1017,6 +1041,7 @@ public class Evento {
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = eve.getEstado();
                 Datos[rows][6] = rs.getTime("Fecha").toString();
+                Datos[rows][7] = rs.getString("Imagen");
                 rows++;
             }
             /**
@@ -1054,7 +1079,7 @@ public class Evento {
         ResultSet rs = null;
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, "
-                + "c.Nombre NombreCiudad, e.Estado \n"
+                + "c.Nombre NombreCiudad, e.Estado, e.Imagen\n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -1075,7 +1100,7 @@ public class Evento {
                 rows++;
             }
             /*Se crea el array y se guardan los datos*/
-            String[][] Datos = new String[rows][7];
+            String[][] Datos = new String[rows][8];
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
@@ -1092,6 +1117,7 @@ public class Evento {
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = eve.getEstado();
                 Datos[rows][6] = rs.getTime("Fecha").toString();
+                Datos[rows][7] = rs.getString("Imagen");
                 rows++;
             }
             return Datos;
@@ -1119,7 +1145,7 @@ public class Evento {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en string*/
-        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad \n"
+        String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -1143,7 +1169,7 @@ public class Evento {
             /**
              * Se crea el array y se guardan los datos
              */
-            String[][] Datos = new String[rows][6];
+            String[][] Datos = new String[rows][7];
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
@@ -1158,6 +1184,7 @@ public class Evento {
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = rs.getTime("Fecha").toString();
+                Datos[rows][6] = rs.getString("Imagen");
                 rows++;
             }
             /*Se retornan los datos*/
@@ -1407,7 +1434,7 @@ public class Evento {
         /*Se crea una sentencia sql en string*/
         String sqlevento = "SELECT DISTINCT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
-                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
+                + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -1433,7 +1460,7 @@ public class Evento {
                 rows++;
             }
             /*Se crea un array y se guardan los datos*/
-            String[][] Datos = new String[rows][8];
+            String[][] Datos = new String[rows][9];
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
@@ -1445,6 +1472,7 @@ public class Evento {
                 Datos[rows][5] = rs.getTime("Fecha").toString();
                 Datos[rows][6] = rs.getString("Calificacion");
                 Datos[rows][7] = rs.getString("Comentarios");
+                Datos[rows][8] = rs.getString("Imagen");
                 rows++;
             }
             /*Se retornan los datos*/

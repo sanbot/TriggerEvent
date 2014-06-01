@@ -148,7 +148,7 @@
                         items.push('<tbody id="contenido-todos-eventos">');
                         $.each(datos, function(key, val) {
                             items.push('<tr>');
-                            items.push('<td><img src="ImagenEvento.jsp?Codigo=' + val.codigo + '" class="img-responsive imgseleccion"/></td>');
+                            items.push('<td><img src="../Libs/Customs/images/Evento/' + val.image + '" class="img-responsive imgseleccion"/></td>');
                             items.push('<td>' + val.nombre + '</td>');
                             items.push('<td>' + val.fecha + '</td>');
                             items.push('<td>' + val.hora + '</td>');
