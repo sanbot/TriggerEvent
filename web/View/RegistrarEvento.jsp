@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <label for="Rango">Rango</label>
+                            <label for="Rango">Rango de precios</label>
                             <input name="Rango" type="text" class="form-control" id="RangoEvento" placeholder="10000-2000000" data-required="true" data-notblank="true" data-rangelength="[12,13]" />
                         </div>
                     </div>
@@ -155,10 +155,10 @@
                         </div>
                     </div>
                 </div>
-                <div id="btn-registrar" class="row hide">
+                <div id="btn-registrar" class="row">
                     <div class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-5 col-md-offset-5 col-md-2">
                         <div class="form-group">
-                            <button name="RegistrarEvento" type="submit" class="btn btn-block defecto" id="RegistrarEvento">Registrar</button>
+                            <button name="RegistrarEvento" type="submit" disabled="true" class="btn btn-block defecto" id="RegistrarEvento">Registrar</button>
                         </div>
                     </div>
                 </div>

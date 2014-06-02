@@ -44,7 +44,7 @@ var crearmapa = function() {
             var layerobj = e.layer;
             $("#txtlat").val(layerobj._latlng['lat']);
             $("#txtlng").val(layerobj._latlng['lng']);
-            $("#btn-registrar").removeClass("hide");
+            $("#RegistrarEvento").removeAttr("disabled");
             drawnItems.addLayer(layer);
         } else {
             alert('No se puede crear otra ubicación, por favor elimine la anterior');
@@ -60,7 +60,7 @@ var crearmapa = function() {
         if (countMaker === 0) {
             $("#txtlat").val('');
             $("#txtlng").val('');
-            $("#btn-registrar").addClass("hide");
+            $("#RegistrarEvento").attr("disabled", true);
         }
     });
 }

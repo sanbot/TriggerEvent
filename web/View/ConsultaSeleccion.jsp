@@ -49,9 +49,9 @@
                         <table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Imagen</th>
                                     <th>Nombre</th>
                                     <th>Tipo</th>
-                                    <th>Imagen</th>
                                     <th>Estado</th>
                                     <th></th>
                                     <th></th>
@@ -232,9 +232,9 @@
                         items.push('<table id="table1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">');
                         items.push('<thead>');
                         items.push('<tr>');
+                        items.push('<th>Imagen</th>');
                         items.push('<th>Nombre</th>');
                         items.push('<th>Tipo</th>');
-                        items.push('<th>Imagen</th>');
                         items.push('<th>Estado</th>');
                         items.push('<th></th>');
                         items.push('<th></th>');

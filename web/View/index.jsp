@@ -66,7 +66,7 @@
                                         Correo
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control" id="txtCorreoInicio1" name="correo" placeholder="e-mail" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
+                                        <input type="email" class="form-control" id="txtCorreoInicio1"  name="correo" placeholder="e-mail" data-notblank="true" data-required="true" data-maxlength="100" autofocus>
                                     </div>
                                 </div>
                                 <div class="form-group">
