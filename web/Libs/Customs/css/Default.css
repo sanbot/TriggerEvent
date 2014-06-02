@@ -551,3 +551,6 @@ p
 label[for=IndexContrasenia], label[for=IndexCorreo]{
     color: #FFF;
 }
+span + p{
+    display: inline-block;
+}

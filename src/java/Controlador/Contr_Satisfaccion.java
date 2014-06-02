@@ -104,23 +104,40 @@ public class Contr_Satisfaccion extends HttpServlet {
             }
 
         } else if (request.getParameter("accion").equals("comentarios_aleatorios")) {
-                String Datos[][] = sat.BuscarComentariosAleatorios();
-                JSONObject obj = new JSONObject();
-                int i = 0;
-                for (String row[] : Datos) {
-                    JSONObject ob = new JSONObject();
+            String Datos[][] = sat.BuscarComentariosAleatorios();
+            JSONObject obj = new JSONObject();
+            int i = 0;
+            for (String row[] : Datos) {
+                JSONObject ob = new JSONObject();
 
-                    ob.put("usuario", row[0]);
-                    ob.put("evento", row[1]);
-                    ob.put("comentario", row[2]);
-                    obj.put(i, ob);
-                    i++;
-                }
-                /*Se imprime el resultado*/
-                PrintWriter out = response.getWriter();
-                out.print(obj);
-                out.close();
-            }else {
+                ob.put("usuario", row[0]);
+                ob.put("evento", row[1]);
+                ob.put("comentario", row[2]);
+                obj.put(i, ob);
+                i++;
+            }
+            /*Se imprime el resultado*/
+            PrintWriter out = response.getWriter();
+            out.print(obj);
+            out.close();
+        } else if (request.getParameter("accion").equals("calificacion_evento")) {
+            CodigoEvento = request.getParameter("id_evento");
+            int[] Datos = sat.getCalificacionEvento(CodigoEvento);
+            JSONObject obj = new JSONObject();
+            JSONObject ob = new JSONObject();
+
+            ob.put("uno", Datos[0]);
+            ob.put("dos", Datos[1]);
+            ob.put("tres", Datos[2]);
+            ob.put("cuatro", Datos[3]);
+            ob.put("cinco", Datos[4]);
+            
+            obj.put(1, ob);
+            
+            PrintWriter out = response.getWriter();
+            out.print(obj);
+            out.close();
+        } else {
             /*Se redirecciona si no se realizo ninguna peticion*/
             response.sendRedirect("View/ConsultaEvento.jsp");
         }

@@ -49,13 +49,6 @@ public class Contr_Consultar {
         return Datos;
     }
 
-    /*Metodo para obtener la calificacion de un evento*/
-    public int[] getCalificacionEvento(String CodigoEvento) {
-        Evento eve = new Evento();
-        int[] Datos = eve.getCalificacionEvento(CodigoEvento);
-        return Datos;
-    }
-
     /**Metodo apra comprobar la calificacion y comentarios de un evetno*/
     public boolean getComprobacionCalificacionYComentario(String CodigoEvento, String CodigoUsuario, String Tipo) {
         boolean b;

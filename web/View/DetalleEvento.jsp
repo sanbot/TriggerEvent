@@ -12,7 +12,6 @@
     }
 
     String Datos[] = usu.getBuscarDatosDetalladosEvento(CodigoEvento);
-    int Calificacion[] = usu.getCalificacionEvento(CodigoEvento);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +60,7 @@
                                 <div class="col-md-12">
                                     <div class="margen-img"> 
                                         <center>
-                                            <img src="../Libs/Customs/images/Evento/<%=CodigoEvento+Datos[13]%>" class="imgevento icon-animated-bell" alt="Nombre de la imagen">
+                                            <img src="../Libs/Customs/images/Evento/<%=CodigoEvento + Datos[13]%>" class="imgevento icon-animated-bell" alt="Nombre de la imagen">
                                         </center>
                                     </div>
                                 </div>    
@@ -185,15 +184,15 @@
                                         <div class="col-md-1"></div>
                                         <div class="col-sm-4 contenido-2">
                                             <div id="puntuacionevento" class="rating-evento">
-                                                <span class="glyphicon glyphicon-star star-rating five-star"></span>5 Votos: <%=Calificacion[0]%>
+                                                <span class="glyphicon glyphicon-star star-rating five-star"></span>5 Votos: <p id="txtcalicinco"></p>
                                                 <br/>
-                                                <span class="glyphicon glyphicon-star star-rating four-star"></span>4 Votos: <%=Calificacion[1]%>
+                                                <span class="glyphicon glyphicon-star star-rating four-star"></span>4 Votos: <p id="txtcalicuatro"></p>
                                                 <br/>
-                                                <span class="glyphicon glyphicon-star star-rating three-star"></span>3 Votos: <%=Calificacion[2]%>
+                                                <span class="glyphicon glyphicon-star star-rating three-star"></span>3 Votos: <p id="txtcalitres"></p>
                                                 <br/>
-                                                <span class="glyphicon glyphicon-star star-rating two-star"></span>2 Votos: <%=Calificacion[3]%>
+                                                <span class="glyphicon glyphicon-star star-rating two-star"></span>2 Votos: <p id="txtcalidos"></p>
                                                 <br/>
-                                                <span class="glyphicon glyphicon-star star-rating one-star"></span>1 Votos: <%=Calificacion[4]%>
+                                                <span class="glyphicon glyphicon-star star-rating one-star"></span>1 Votos: <p id="txtcaliuno"></p>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 contenido-2 visible-sm visible-md visible-lg contenido-2">
@@ -475,38 +474,38 @@
                     i++;
                 });
                 mascomentarios("5", i - 1);
-
-
             });
-            var data = [
-                {
-                    value: <%=Calificacion[0]%>,
-                    color: "#88B131"
-                },
-                {
-                    value: <%=Calificacion[1]%>,
-                    color: "#9C0"
-                },
-                {
-                    value: <%=Calificacion[2]%>,
-                    color: "#FFCF02"
-                },
-                {
-                    value: <%=Calificacion[3]%>,
-                    color: "#ff9f02"
-                },
-                {
-                    value: <%=Calificacion[4]%>,
-                    color: "#FF6F31"
-                }
-
-            ];
-            //Get context with jQuery - using jQuery's .get() method.
-            var ctx = $("#myChart").get(0).getContext("2d");
-            //This will get the first returned node in the jQuery collection.
-            var myNewChart = new Chart(ctx).Doughnut(data);
+            var llenargrafica = function() {
+                var idevento = "<%=CodigoEvento%>";
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Satisfaccion',
+                    data: {'accion': 'calificacion_evento', 'id_evento': idevento},
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+                        $.each(datos, function(key, val) {
+                            var data = [];
+                            $("#txtcalicinco").html(val.uno);
+                            $("#txtcalicuatro").html(val.dos);
+                            $("#txtcalitres").html(val.tres);
+                            $("#txtcalidos").html(val.cuatro);
+                            $("#txtcaliuno").html(val.cinco);
+                            data.push({value: val.uno, color: "#88B131"});
+                            data.push({value: val.dos, color: "#9C0"});
+                            data.push({value: val.tres, color: "#FFCF02"});
+                            data.push({value: val.cuatro, color: "#ff9f02"});
+                            data.push({value: val.cinco, color: "#FF6F31"});
+                            //Get context with jQuery - using jQuery's .get() method.
+                            var ctx = $("#myChart").get(0).getContext("2d");
+                            //This will get the first returned node in the jQuery collection.
+                            var myNewChart = new Chart(ctx).Doughnut(data);
+                        });
+                    }
+                });
+            }
 
             $(document).ready(function() {
+                llenargrafica();
                 mascomentarios("5", "0");
                 $("#mostrarubicacion").click(function() {
                     $("#modal-container-361414").modal('show');
