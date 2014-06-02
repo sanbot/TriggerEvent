@@ -1,11 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>    
 <%
     if (!Rol.equals("") && !Rol.equals(null)) {
         response.sendRedirect("index.jsp");
     }
 
-    Contr_Consultar usu = new Contr_Consultar();
     String nombre = "";
     String Correo = "";
     String Celular = "";
@@ -17,7 +16,6 @@
         Celular = (String) session.getAttribute("Registrar_Celular");
         CodVer = (String) session.getAttribute("Registrar_CodVer");
     }
-    String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,13 +92,6 @@
                                 <div class="form-group">
                                     <label for="Tipo">Tipo de usuario</label>
                                     <select name="Tipo_Usuario" id="Tipos" class="form-control" data-required="true">
-                                        <%
-                                            for (String[] Row : ListaTipoUsuario) {
-                                                if (!Row[1].equals("Administrador")) {%>
-                                        <option value="<%=Row[0]%>"><%=Row[1]%></option>
-                                        <%}
-
-                                            }%>
                                     </select>
                                 </div>
                             </div>
@@ -241,8 +232,26 @@
                     }
                 });
             }
-
+            var Tipos_Usuarios = function() {
+                $.ajax({
+                    type: 'POST',
+                    data: {'accion': 'tipos_usuarios'},
+                    url: '/TriggerEvent/Contr_Usuarios',
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+                        var items = [];
+                        $.each(datos, function(key, val) {
+                            if (val.tipo != "Administrador")
+                            {
+                                items.push('<option value="' + val.codigo + '">' + val.tipo + '</option>');
+                            }
+                        });
+                        $("#Tipos").html(items.join(""));
+                    }
+                });
+            }
             $(document).ready(function() {
+                Tipos_Usuarios();
                 getdepartamentos();
                 $("select#departamento", this).change(function() {
                     var index = $(this).val();
@@ -251,8 +260,8 @@
                 $("#Tipos").change(function() {
                     var seleccion = $("#Tipos option:selected").val();
                     var datos = [];
-                    if(seleccion == "Tip1")
-                    {      
+                    if (seleccion == "Tip1")
+                    {
                         $("#lblnombre").html("Nombres y apellidos");
                         datos.push('<option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>');
                         datos.push('<option value="Tarjeta de Identidad">Tarjeta de Identidad</option>');

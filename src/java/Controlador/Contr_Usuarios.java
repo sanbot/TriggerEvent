@@ -5,6 +5,7 @@
 package Controlador;
 
 import Modelo.Mensajeria;
+import Modelo.Tipo_Usuario;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -566,6 +567,23 @@ public class Contr_Usuarios extends HttpServlet {
                 out.close();
             }
 
+        } else if (request.getParameter("accion").equals("tipos_usuarios")) {
+            Tipo_Usuario Tusu = new Tipo_Usuario();
+            String[][] Datos = Tusu.BuscarDatosTipoUsuarioTodos();
+            /*Se declaran JSON Para imprimir los datos*/
+            JSONObject obj = new JSONObject();
+            
+            PrintWriter out = response.getWriter();
+            int i = 0;
+            for (String[] rows : Datos) {
+                JSONObject ob = new JSONObject();
+                ob.put("codigo", rows[0]);
+                ob.put("tipo", rows[1]);
+                obj.put(i, ob);
+                i++;
+            }
+            out.print(obj);
+            out.close();
         } else if (request.getParameter("accion").equals("login_android")) {
             //se declaran las variables necesarias y se obtienen los datos
             correo = request.getParameter("correo");

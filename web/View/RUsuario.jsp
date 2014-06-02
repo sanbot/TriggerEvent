@@ -1,10 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
-<%
-    Contr_Consultar usu = new Contr_Consultar();
-    String[][] ListaTipoUsuario = usu.BuscarDatosTipoUsuariosTodos();
-%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -45,7 +41,7 @@
                 <div class="row">
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <label id="lblnombreRUsuario" for="Nombre">Nombre</label>
+                            <label id="lblnombreRUsuario" for="Nombre">Nombres y apellidos</label>
                             <input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true"/>
                         </div>
                     </div>
@@ -67,9 +63,6 @@
                         <div class="form-group">
                             <label for="Tipo">Tipo de usuario</label>
                             <select name="Tipo_Usuario" id="Tipos" class="form-control" data-required="true">
-                                <%for (String[] Row : ListaTipoUsuario) {%>
-                                <option value="<%=Row[0]%>"><%=Row[1]%></option>
-                                <%}%>
                             </select>
                         </div>
                     </div>
@@ -205,9 +198,25 @@
                     }
                 });
             }
+            var Tipos_Usuarios = function() {
+                $.ajax({
+                    type: 'POST',
+                    data: {'accion': 'tipos_usuarios'},
+                    url: '/TriggerEvent/Contr_Usuarios',
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+                        var items = [];
+                        $.each(datos, function(key, val) {
+                            items.push('<option value="' + val.codigo + '">' + val.tipo + '</option>');
+                        });
+                        $("#Tipos").html(items.join(""));
+                    }
+                });
+            }
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
+                Tipos_Usuarios();
                 getdepartamentos();
                 $("select#departamentoregistro", this).change(function() {
                     var index = $(this).val();
@@ -216,8 +225,8 @@
                 $("#Tipos").change(function() {
                     var seleccion = $("#Tipos option:selected").val();
                     var datos = [];
-                    if(seleccion == "Tip1")
-                    {      
+                    if (seleccion == "Tip1")
+                    {
                         $("#lblnombreRUsuario").html("Nombres y apellidos");
                         datos.push('<option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>');
                         datos.push('<option value="Tarjeta de Identidad">Tarjeta de Identidad</option>');

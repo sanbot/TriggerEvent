@@ -35,14 +35,6 @@ public class Contr_Consultar {
         return Datos;
     }
 
-    /*Buscar datos de tipo de usuarios*/
-    //pendiente por pasar a ajax
-    public String[][] BuscarDatosTipoUsuariosTodos() {
-        Tipo_Usuario Tusu = new Tipo_Usuario();
-        String[][] Datos = Tusu.BuscarDatosTipoUsuarioTodos();
-        return Datos;
-    }
-
     /*Buscar los datos de una empresa*/
     public String[][] BuscarDatosEmpresa() {
         Usuario usu = new Usuario();
