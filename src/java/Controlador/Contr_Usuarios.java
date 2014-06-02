@@ -572,13 +572,29 @@ public class Contr_Usuarios extends HttpServlet {
             String[][] Datos = Tusu.BuscarDatosTipoUsuarioTodos();
             /*Se declaran JSON Para imprimir los datos*/
             JSONObject obj = new JSONObject();
-            
+
             PrintWriter out = response.getWriter();
             int i = 0;
             for (String[] rows : Datos) {
                 JSONObject ob = new JSONObject();
                 ob.put("codigo", rows[0]);
                 ob.put("tipo", rows[1]);
+                obj.put(i, ob);
+                i++;
+            }
+            out.print(obj);
+            out.close();
+        } else if (request.getParameter("accion").equals("listar_empresas")) {
+            String[][] Datos = usu.BuscarDatosEmpresa();
+            /*Se declaran JSON Para imprimir los datos*/
+            JSONObject obj = new JSONObject();
+
+            PrintWriter out = response.getWriter();
+            int i = 0;
+            for (String[] rows : Datos) {
+                JSONObject ob = new JSONObject();
+                ob.put("no_documento", rows[0]);
+                ob.put("nombre", rows[1]);
                 obj.put(i, ob);
                 i++;
             }

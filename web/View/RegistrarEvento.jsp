@@ -1,13 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministradorEmpresa.jspf" %>
 <%
-    Contr_Consultar usu = new Contr_Consultar();
     String Codigo = (String) session.getAttribute("No_Documento");
-    String[][] ListaEmpresa = null;
-    if (Rol.equals("Administrador")) {
-        ListaEmpresa = usu.BuscarDatosEmpresa();
-    }
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,18 +56,10 @@
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="Creador">Creador del evento</label>
-                            <%if (Rol.equals("Empresa")) {%>
-                            <select name="Creador" tabindex="1" data-placeholder="" class="form-control" data-required="true" >
+
+                            <select id="lista_empresas" name="Creador" tabindex="1" data-placeholder="" class="form-control" data-required="true" >
                                 <option value="<%=Codigo%>"><%=Nombre%></option>
                             </select>
-                            <%} else if (Rol.equals("Administrador")) {%>
-                            <select name="Creador" tabindex="1" data-placeholder="" class="form-control" data-required="true" >
-                                <%for (String Row[] : ListaEmpresa) {%>
-                                <option value="<%=Row[0]%>"><%=Row[1]%></option>
-                                <%}
-                                %>
-                            </select>
-                            <%}%>
                         </div>
                     </div>
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
@@ -238,9 +225,29 @@
                     }
                 });
             }
+            <%if (Rol.equals("Administrador")) {%>
+            var Listar_Empresas = function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Usuarios',
+                    data: {"accion": "listar_empresas"},
+                    success: function(data) {
+                        var items = [];
+                        var datos = jQuery.parseJSON(data);
 
+                        $.each(datos, function(key, value) {
+                            items.push('<option value="' + value.no_documento + '">' + value.nombre + '</option>');
+                        });
+                        $("#lista_empresas").html(items.join(""));
+                    }
+                });
+            }
+            <%}%>
             $(document).ready(function() {
                 getdepartamentos();
+            <%if (Rol.equals("Administrador")) {%>
+                Listar_Empresas();
+            <%}%>
                 $("select#departamentoevento", this).change(function() {
                     var index = $(this).val();
                     getciudades(index);
@@ -252,7 +259,7 @@
 
             });
             $(function() {
-                $('#datetimepicker1').datetimepicker({ language: 'es'});
+                $('#datetimepicker1').datetimepicker({language: 'es'});
             });
         </script>
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>

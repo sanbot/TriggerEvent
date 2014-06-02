@@ -738,7 +738,7 @@ public class Usuario {
         String sql = "SELECT u.No_Documento, u.Nombre \n"
                 + "FROM  `tb_usuario` u\n"
                 + "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo And tu.Tipo = 'Empresa' "
-                + "Where u.Estado = 'Aprobado'";
+                + "Where u.Estado = 'Aprobado' ORDER BY u.Nombre";
 
         try {
             /*Se prepara la sentencia sql y se ejecuta posteriormente*/
@@ -758,6 +758,7 @@ public class Usuario {
                 Usuario usu = new Usuario();
                 usu.setCodigo(rs.getString("No_Documento"));
                 usu.setNombre(rs.getString("Nombre"));
+                
                 Datos[rows][0] = usu.getCodigo();
                 Datos[rows][1] = usu.getNombre();
                 rows++;

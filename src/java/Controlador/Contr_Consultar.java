@@ -5,10 +5,7 @@
 package Controlador;
 
 import Modelo.Usuario;
-import Modelo.Tipo_Usuario;
-import Modelo.Seleccion;
 import Modelo.Evento;
-import java.sql.Blob;
 import Modelo.Cls_Satisfaccion;
 
 /**
@@ -17,28 +14,10 @@ import Modelo.Cls_Satisfaccion;
  */
 public class Contr_Consultar {
 
-    /**Se declaran variables con metodo set y get*/
-    String Mensaje;
-
-    public String getMensaje() {
-        return Mensaje;
-    }
-
-    public void setMensaje(String Mensaje) {
-        this.Mensaje = Mensaje;
-    }
-
     /*Metodo para buscar los datos del usuario*/
     public String[] BuscarDatosUsuario(String Codigo) {
         Usuario usu = new Usuario();
         String[] Datos = usu.getDatosUsuario(Codigo);
-        return Datos;
-    }
-
-    /*Buscar los datos de una empresa*/
-    public String[][] BuscarDatosEmpresa() {
-        Usuario usu = new Usuario();
-        String[][] Datos = usu.BuscarDatosEmpresa();
         return Datos;
     }
     
