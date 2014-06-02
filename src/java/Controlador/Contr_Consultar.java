@@ -79,35 +79,11 @@ public class Contr_Consultar {
         return Dato;
     }
 
-    /*Metodo para buscar los datos de los proximos eventos*/
-    //pendiente por poner en ajax
-    public String[][] getBuscarDatosEventosProximos() {
-        Evento eve = new Evento();
-        String[][] Datos = eve.BuscarDatosEventosProximos();
-        return Datos;
-    }
-
-    /*Metodo apra buscar los datos de los eventos destacados*/
-    //pendiente por poner en ajax
-    public String[][] getBuscarDatosEventosDestacados() {
-        Evento eve = new Evento();
-        String[][] Datos = eve.BuscarDatosEventosDestacados();
-        return Datos;
-    }
-
     /*MEtodo para buscar los comentarios aleatorios*/
     //pendiente por poner en ajax
     public String[][] getBuscarComentariosAleatorios() {
         Cls_Satisfaccion sat = new Cls_Satisfaccion();
         String[][] Datos = sat.BuscarComentariosAleatorios();
-        return Datos;
-    }
-
-    /*Metodo para buscar los datos de los eventos comentados*/
-    //pendiente por poner en ajax
-    public String[][] getBuscarDatosEventosComentado() {
-        Evento eve = new Evento();
-        String[][] Datos = eve.BuscarDatosEventosComentado();
         return Datos;
     }
 

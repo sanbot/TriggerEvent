@@ -11,11 +11,8 @@ import Modelo.Departamento;
 import Modelo.Evento;
 import Modelo.Mensajeria;
 import Modelo.Seleccion;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import sun.misc.BASE64Encoder;
-import java.io.ByteArrayOutputStream;
 
 /**
  *
@@ -776,6 +771,72 @@ public class Contr_Help extends HttpServlet {
                     i++;
                 }
                 obj.put("eventos", list);
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("eventos_destacados")) {
+                Evento eve = new Evento();
+                String Datos[][] = eve.BuscarDatosEventosDestacados();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("empresa", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("calificacion", row[5]);
+                    ob.put("hora", row[6]);
+                    ob.put("comentario", row[7]);
+                    ob.put("imagen", row[0] + row[8]);
+                    obj.put(i, ob);
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("eventos_comentados")) {
+                Evento eve = new Evento();
+                String Datos[][] = eve.BuscarDatosEventosComentado();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("empresa", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("comentario", row[5]);
+                    ob.put("hora", row[6]);
+                    ob.put("calificacion", row[7]);
+                    ob.put("imagen", row[0] + row[8]);
+                    obj.put(i, ob);
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("eventos_proximos")) {
+                Evento eve = new Evento();
+                String Datos[][] = eve.BuscarDatosEventosProximos();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("empresa", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("comentario", row[7]);
+                    ob.put("hora", row[5]);
+                    ob.put("calificacion", row[6]);
+                    ob.put("imagen", row[0] + row[8]);
+                    obj.put(i, ob);
+                    i++;
+                }
                 /*Se imprime el resultado*/
                 out.print(obj);
             } else {

@@ -8,9 +8,6 @@
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%
     Contr_Consultar usu = new Contr_Consultar();
-    String[][] ListaEventos = usu.getBuscarDatosEventosProximos();
-    String[][] ListaEventosDestacados = usu.getBuscarDatosEventosDestacados();
-    String[][] ListaEventosComentados = usu.getBuscarDatosEventosComentado();
     String[][] Comentarios = usu.getBuscarComentariosAleatorios();
     if (!Rol.equals("") && !Rol.equals(null)) {
         response.sendRedirect("EventoRecomendado.jsp");
@@ -178,7 +175,7 @@
         <div class="container">
             <br/>
             <div class="row clearfix" >
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
+                <div id="contenido-eventos-destacados" class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
                     <div class="panel panel-primary" id="target-3">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -186,54 +183,9 @@
                             </h3>
                         </div>
                     </div>
-                    <%for (String[] Row : ListaEventosDestacados) {%>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <%=Row[1]%>
-                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a><%}%>
-                            </h3>
-                        </div>
-                        <div class="panel-body" id="target-4">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <center>
-                                        <img src="../Libs/Customs/images/Evento/<%=Row[0] + Row[8]%>" class="img-thumbnail imgevento"/>
-                                    </center>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Creador">Creador: <%=Row[3]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Ciudad">Ciudad: <%=Row[4]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Fecha">Fecha: <%=Row[2]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Hora">Hora: <%=Row[6]%></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer">
-                            <label for="Espacio"> </label>
-                            <p class="pull-right calificacionevento" data-id="<%=Row[0]%>">
-                                <span title="Calificaci&oacute;n" class="glyphicon glyphicon-star"><%if (Row[5] == null) {%>0<%} else {%><%=Row[5]%><%}%></span>
-                                <span title="Comentarios" class="glyphicon glyphicon-comment"><%if (Row[7] == null) {%>0<%} else {%><%=Row[7]%><%}%></span>
-                            </p>
-                        </div>
-                    </div>
-                    <%}%>
+
                 </div>
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
+                <div id="contenido-eventos-comentados"  class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
                     <div class="panel panel-primary" id="target-5">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -241,52 +193,8 @@
                             </h3>
                         </div>
                     </div>
-                    <%for (String[] Row : ListaEventosComentados) {%>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <%=Row[1]%>
-                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close  aligncerar"></span></a><%}%>
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <center><img src="../Libs/Customs/images/Evento/<%=Row[0] + Row[8]%>" class="img-thumbnail imgevento"/></center>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Creador">Creador: <%=Row[3]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Ciudad">Ciudad: <%=Row[4]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Fecha">Fecha: <%=Row[2]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Hora">Hora: <%=Row[6]%></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer">
-                            <label for="Fecha"> </label>
-                            <p class="pull-right calificacionevento" data-id="<%=Row[0]%>">
-                                <span title="Calificaci&oacute;n" class="glyphicon glyphicon-star"><%if (Row[7] == null) {%>0<%} else {%><%=Row[7]%><%}%></span>
-                                <span tile="Comentarios" class="glyphicon glyphicon-comment"><%if (Row[5] == null) {%>0<%} else {%><%=Row[5]%><%}%></span>
-                            </p>
-                        </div>
-                    </div>
-                    <%}%>
                 </div>
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
+                <div id="contenido-eventos-proximos" class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
                     <div class="panel panel-primary" id="target-6">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -294,52 +202,6 @@
                             </h3>
                         </div>
                     </div>
-                    <%for (String[] Row : ListaEventos) {%>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <%=Row[1]%>
-                                <%if (!Rol.equals(null) && !Rol.equals("")) {%><a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=<%=Row[0]%>"><span class="glyphicon glyphicon-log-in close  aligncerar"></span></a><%}%>
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <center>
-                                        <img src="../Libs/Customs/images/Evento/<%=Row[0] + Row[8]%>" class="img-thumbnail imgevento"/>
-                                    </center>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Creador">Creador: <%=Row[3]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Ciudad">Ciudad: <%=Row[4]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Fecha">Fecha: <%=Row[2]%></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Hora">Hora: <%=Row[5]%></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer">
-                            <label for="Espacio"> </label>
-                            <p class="pull-right calificacionevento" data-id="<%=Row[0]%>">
-                                <span title="Calificaci&oacute;n" class="glyphicon glyphicon-star"><%if (Row[6] == null) {%>0<%} else {%><%=Row[6]%><%}%></span>
-                                <span title="Comentarios" class="glyphicon glyphicon-comment"><%if (Row[7] == null) {%>0<%} else {%><%=Row[7]%><%}%></span>
-                            </p>
-                        </div>
-                    </div>
-                    <%}%>
                 </div>
             </div>
         </div>
@@ -495,8 +357,7 @@
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
         <script>
-            new gnMenu(document.getElementById('gn-menu'));
-        </script>
+            new gnMenu(document.getElementById('gn-menu'));</script>
         <!--Pines Notify -->
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <script src="../Libs/Customs/js/guidely.min.js" type="text/javascript"></script>
@@ -509,14 +370,12 @@
                     , title: 'Correo y contraseña'
                     , text: 'Debe diligenciar completa y correctamente los campos que se muestran.'
                 });
-
                 guidely.add({
                     attachTo: '#target-2'
                     , anchor: 'bottom-left'
                     , title: 'Iniciar sesión o limpiar campos'
                     , text: 'Puede, ya sea ingresar al aplicativo o limpiar los campos diligenciados.'
                 });
-
                 guidely.add({
                     attachTo: '#target-3'
                     , anchor: 'bottom-left'
@@ -530,14 +389,12 @@
                         , title: 'Comentarios y/o Calificación'
                         , text: 'En todos los eventos habrán comentarios y/o calificaciones. Recuerde que para visualizarlos debe iniciar sesión.'
                     });
-
                     guidely.add({
                         attachTo: '#target-5'
                         , anchor: 'bottom-left'
                         , title: 'Los más comentados'
                         , text: 'Estos son los eventos más polémicos.'
                     });
-
                     guidely.add({
                         attachTo: '#target-6'
                         , anchor: 'bottom-left'
@@ -558,9 +415,7 @@
                     guidely.init({welcome: true, startTrigger: false});
                     localStorage.setItem("welcome", true);
                 }
-            });
-
-        </script>
+            });</script>
         <script>
             var ValidarCamposinical = function() {
                 var contra = $("#txtPassWordInicio").parsley('validate');
@@ -600,10 +455,70 @@
                     }
                 });
             }
+
+            var eventosdestacados = function(urlservidor, accion, contenidoevento) {
+                $.ajax({
+                    type: 'POST',
+                    url: urlservidor,
+                    data: {"accion": accion},
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+                        var items = [];
+                        $.each(datos, function(key, value) {
+                            items.push('<div class = "panel panel-primary" >');
+                            items.push('<div class = "panel-heading" >');
+                            items.push('<h3 class = "panel-title" >' + value.nombre);
+                            items.push('</h3>');
+                            items.push('</div>');
+                            items.push('<div class = "panel-body" id = "target-4" >');
+                            items.push('<div class = "row" >');
+                            items.push('<div class = "col-md-12" >');
+                            items.push('<center >');
+                            items.push('<img src = "../Libs/Customs/images/Evento/' + value.imagen + '" class = "img-thumbnail imgevento" />');
+                            items.push('</center>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class = "row" >');
+                            items.push('<div class = "col-md-12" >');
+                            items.push('<label for = "Creador" > Creador: ' + value.empresa + ' </label>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class = "row" >');
+                            items.push('<div class = "col-md-12" >');
+                            items.push('<label for = "Ciudad" > Ciudad: ' + value.ciudad + ' </label>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class = "row" >');
+                            items.push('<div class = "col-md-12" >');
+                            items.push('<label for = "Fecha" > Fecha: ' + value.fecha + ' </label>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class = "row" >');
+                            items.push('<div class = "col-md-12" >');
+                            items.push('<label for = "Hora" > Hora: ' + value.hora + ' </label>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class = "panel-footer" >');
+                            items.push('<label for = "Espacio" > </label>');
+                            items.push('<p class = "pull-right calificacionevento" data - id = "' + value.codigo + '" >');
+                            items.push('<span title = "Calificaci&oacute;n" class = "glyphicon glyphicon-star" >');
+                            items.push(value.calificacion == null ? 0 : value.calificacion);
+                            items.push('</span>');
+                            items.push('<span title = "Comentarios" class = "glyphicon glyphicon-comment" >');
+                            items.push(value.comentario == null ? 0 : value.comentario);
+                            items.push('</span>');
+                            items.push('</p>');
+                            items.push('</div>');
+                            items.push('</div>');
+                        });
+                        $("#"+ contenidoevento).append(items.join(""));
+                    }
+                });
+            }
             $("#guia").click(function() {
                 guidely.init({welcome: true, startTrigger: false});
             });
-
             $("#loginingresar").click(function() {
 
                 if (ValidarCamposinical()) {
@@ -629,6 +544,11 @@
                     var url = "/TriggerEvent/View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento + "#titulo-opinion";
                     loginusuario(correo, contrasenia, url);
                 }
+            });
+            $(document).ready(function() {
+                eventosdestacados('/TriggerEvent/Contr_Help',"eventos_destacados","contenido-eventos-destacados" );
+                eventosdestacados('/TriggerEvent/Contr_Help',"eventos_comentados","contenido-eventos-comentados" );
+                eventosdestacados('/TriggerEvent/Contr_Help',"eventos_proximos","contenido-eventos-proximos" );
             });
         </script>
 

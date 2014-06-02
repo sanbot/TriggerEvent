@@ -508,7 +508,7 @@ public class Evento {
                 + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND "
-                + "Fecha >= ? Order by Fecha LIMIT 0,3";
+                + "Fecha >= ? Order by Fecha LIMIT 0,2";
 
         try {
             /*Se crea una variable para capturar la fecha de hoy*/
@@ -579,7 +579,7 @@ public class Evento {
                 + "FROM  `tb_evento` e JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND Fecha >= ? \n"
-                + "Order by Calificacion DESC Limit 0,3 ";
+                + "Order by Calificacion DESC Limit 0,2 ";
 
         try {
             /*Se crea una variable fecha para guardar la fecha del sistema*/
@@ -650,7 +650,7 @@ public class Evento {
                 + "FROM  `tb_evento` e JOIN tb_usuario u on u.No_Documento = e.NIT \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND Fecha >= ? \n"
-                + "Order by Comentarios DESC Limit 0,3 ";
+                + "Order by Comentarios DESC Limit 0,2 ";
 
         try {
             /**
@@ -684,7 +684,7 @@ public class Evento {
                 eve.setCiudad(rs.getString("NombreCiudad"));
                 Datos[rows][0] = eve.getCodigo();
                 Datos[rows][1] = eve.getNombre().toUpperCase();
-                Datos[rows][2] = rs.getTime("Fecha").toString();
+                Datos[rows][2] = rs.getDate("Fecha").toString();
                 Datos[rows][3] = eve.getCreador();
                 Datos[rows][4] = eve.getCiudad();
                 Datos[rows][5] = rs.getString("Comentarios");
