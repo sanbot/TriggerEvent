@@ -855,12 +855,12 @@ public class Usuario {
     }
 
     /*Modificar los datos de un usuario*/
-    public boolean actualizardatosUsuario(String Codigo, String Nombre, String Rol, String Tipo_Documento, String No_Documento, String Telefono, String celular, String correo, String Direccion, String Estado, String Ciudad) {
+    public boolean actualizardatosUsuario(String Codigo, String Nombre, String Rol, String Tipo_Documento, String No_Documento, String Telefono, String celular, String correo, String Direccion, String Ciudad) {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         /*Se crea una sentencia sql en uns tring*/
-        String sql = "UPDATE tb_usuario SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?, Correo= ? , Direccion = ?, Estado = ? ";
+        String sql = "UPDATE tb_usuario SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?, Correo= ? , Direccion = ? ";
         sql += "WHERE Codigo= ? ";
         try {
             /*Se prepara la sentencia, se envian los datos y se ejecuta*/
@@ -874,8 +874,7 @@ public class Usuario {
             pr.setString(7, Ciudad);
             pr.setString(8, correo);
             pr.setString(9, Direccion);
-            pr.setString(10, Estado);
-            pr.setString(11, Codigo);
+            pr.setString(10, Codigo);
             /*Si se ejecuta correctamente se retorna verdadero*/
             int i = pr.executeUpdate();
             if (i == 1) {

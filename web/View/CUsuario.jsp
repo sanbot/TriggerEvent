@@ -1,17 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
 <%
-    Contr_Consultar usu = new Contr_Consultar();
     String codigoUsuario = "";
     if (request.getParameter("Codigo") != null) {
         codigoUsuario = request.getParameter("Codigo");
     } else {
-        response.sendRedirect("ConsultaUsuario.jsp");
-    }
-
-    String[] DatosUsuario = usu.BuscarDatosUsuario(codigoUsuario);
-    if (DatosUsuario[0] == null) {
         response.sendRedirect("ConsultaUsuario.jsp");
     }
 %>
@@ -58,8 +52,8 @@
                     <div class="row perfil-contenido contenido-borde">
 
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                            <center><img src="../Libs/Customs/images/userapplication.png" class="img-perfil"/></center>
-                            <h3 class="nombre-usuario"><%=DatosUsuario[5]%></h3>
+                            <center><img id="imagen_usuario" src="../Libs/Customs/images/userapplication.png" class="img-perfil"/></center>
+                            <h3 id="lblnombreUsuario" class="nombre-usuario"></h3>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 datos-personales">
                             <div class="row primer-dato">
@@ -70,7 +64,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="Tipo_Documento_Usuario"><%=DatosUsuario[3]%></label>
+                                        <label id="lbltipo_Documento" for="Tipo_Documento_Usuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +76,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="No_Documento_Usuario"><%=DatosUsuario[4]%></label>
+                                        <label id="lblno_documento" for="No_Documento_Usuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +88,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="Tipo_USuario_Usuario"><%=DatosUsuario[2]%></label>
+                                        <label id="lbltipo_usuario" for="Tipo_USuario_Usuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +101,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="No_Celular_USuario"><%=DatosUsuario[7]%></label>
+                                        <label id="lblcelular_usuario" for="No_Celular_USuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +114,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="No_Telefono_Usuario"><%=DatosUsuario[6]%></label>
+                                        <label id="lbltelefono_usuario" for="No_Telefono_Usuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +126,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="Correo_Electronico_Usuario"><%=DatosUsuario[8]%></label>
+                                        <label id="lblcorreo_usuario" for="Correo_Electronico_Usuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +138,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="Departamento_USuario"><%=DatosUsuario[13]%></label>
+                                        <label id="lblnombre_departamento_usuario" for="Departamento_USuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +150,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="Ciudad_USuario"><%=DatosUsuario[11]%></label>
+                                        <label id="lblnombre_ciudad_usuario" for="Ciudad_USuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +162,7 @@
                                 </div>
                                 <div class="col-xs-10 col-xs-offset-1 col-sm-5 contenido-dos">
                                     <div class="datos-perfil">
-                                        <label for="Direccion_USuario"><%=DatosUsuario[9]%></label>
+                                        <label id="lbldireccion_usuario" for="Direccion_USuario"></label>
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +200,43 @@
 
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <script type="text/javascript">
+            var datos_usuarios = function() {
+                var idusuario = '<%=codigoUsuario%>';
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Usuarios',
+                    data: {'accion': 'datos_usuario', 'codigo': idusuario},
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+
+                        $.each(datos, function(key, value) {
+                            if (value.codigo != null) {
+                                if (value.tipo == "Empresa") {
+                                    $("#imagen_usuario").attr("src", "../Libs/Customs/images/empresa.png");
+                                }
+                                else {
+                                    $("#imagen_usuario").attr("src", "../Libs/Customs/images/userapplication.png");
+                                }
+                                $('#lblnombreUsuario').html(value.nombre);
+                                $('#lblcelular_usuario').html(value.celular);
+                                $('#lblcorreo_usuario').html(value.correo);
+                                $('#lbldireccion_usuario').html(value.direccion);
+                                $('#lblno_documento').html(value.no_documento);
+                                $('#lblnombre_ciudad_usuario').html(value.nombre_ciudad);
+                                $('#lblnombre_departamento_usuario').html(value.nombre_departamento);
+                                $('#lbltelefono_usuario').html(value.telefono);
+                                $('#lbltipo_Documento').html(value.tipo_documento);
+                                $('#lbltipo_usuario').html(value.tipo);
+                            } else {
+                                window.location.replace("/TriggerEvent/View/ConsultaUsuario.jsp");
+                            }
+                        });
+                    }
+
+                });
+            }
             $(document).ready(function() {
+                datos_usuarios();
                 $('#table1').dataTable({
                     "sPaginationType": "bs_normal"
                             // "sPaginationType": "bs_four_button"

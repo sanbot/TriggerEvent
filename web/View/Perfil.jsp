@@ -61,7 +61,12 @@
                     <div class="row perfil-contenido contenido-borde">
 
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                            <center><img src="../Libs/Customs/images/userapplication.png" class="img-perfil"/></center>
+                            <center>
+                                <%if (Rol.equals("Empresa")) {%>
+                                <img src="../Libs/Customs/images/empresa.png" alt="Perfil Empresa" class="img-perfil"/>
+                                <%} else {%>
+                                <img src="../Libs/Customs/images/userapplication.png" alt="Perfil Usuario" class="img-perfil"/>
+                                <%}%></center>
                             <h3 class="nombre-usuario"><%=Nombre%></h3>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 datos-personales">

@@ -1,9 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%
     String Codigo = (String) session.getAttribute("Codigo");
-    Contr_Consultar usu = new Contr_Consultar();
-    String[] DatosUsuario = usu.BuscarDatosUsuario(Codigo);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +20,7 @@
     </head>
     <body>
         <%
-        if (Rol.equals("Administrador")) {%>
+            if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
         <%
         } else if (Rol.equals("Cliente")) {%>
@@ -34,7 +32,7 @@
         } else {%>
         <%@include file="../WEB-INF/jspf/Menu.jspf" %>    
         <%
-        }%>
+            }%>
         <br/>
         <br/>
         <br/>
@@ -64,7 +62,7 @@
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="Correo">Correo electr&oacute;nico</label>
-                                <input name="Correo" type="email" class="form-control" data-type="email" id="Correo" data-maxlength="100" data-notblank="true" data-required="true" <%if (!Rol.equals("") && !Rol.equals(null)) {%> value="<%=DatosUsuario[8]%>" readonly<%}%>/>
+                                <input name="Correo" type="email" class="form-control" data-type="email" id="Correo" data-maxlength="100" data-notblank="true" data-required="true" <%if (!Rol.equals("") && !Rol.equals(null)) {%> readonly<%}%>/>
                             </div>
                         </div>
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4" id="target-2">
@@ -97,8 +95,7 @@
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4" id="target-4">
                             <div class="form-group">
                                 <label for="Ciudad">Ciudad</label>
-                                <select name="Ciudad" id="ciudadcontactenos" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-                                    <%if (!Rol.equals(null) && !Rol.equals("")) {%><option value='<%=DatosUsuario[11]%>'><%=DatosUsuario[11]%></option><%}%>
+                                <select id="ddlCiudad" name="Ciudad" id="ciudadcontactenos" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                 </select>
                             </div>
                         </div>
@@ -146,7 +143,7 @@
         </script>
         <script type="text/javascript" src="../Libs/Customs/DataTables/js/jquery.dataTables.js" charset="UTF-8"></script>
         <script type="text/javascript" src="../Libs/Customs/DataTables/js/datatables.js" charset="UTF-8"></script>
-        
+
         <script>
             function getdepartamentos() {
                 $.ajax({
@@ -181,10 +178,32 @@
                     }
                 });
             }
+            <%if (!Rol.equals(null) && !Rol.equals("")) {%>
+            var datos_usuarios = function() {
+                var idusuario = '<%=Codigo%>';
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Usuarios',
+                    data: {'accion': 'datos_usuario', 'codigo': idusuario},
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+
+                        $.each(datos, function(key, value) {
+                            if (value.codigo != null) {
+                                $('#Correo').val(value.correo);
+                                $("#ddlCiudad").html('<option value=' + value.nombre_ciudad + '>' + value.nombre_ciudad + '</option>');
+                                $("select#departamentocontactenos").html("<option value=' " + value.nombre_departamento + " '>" + value.nombre_departamento + "</option>");
+                            }
+                        });
+                    }
+
+                });
+            }
+            <%}%>
             $(document).ready(function() {
 
             <%if (!Rol.equals(null) && !Rol.equals("")) {%>
-            $("select#departamentocontactenos").html("<option value=' <%=DatosUsuario[12]%>'><%=DatosUsuario[13]%><\/option>");
+                datos_usuarios();
             <%} else {%>
                 getdepartamentos();
 

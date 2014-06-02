@@ -302,11 +302,10 @@ public class Contr_Usuarios extends HttpServlet {
             celular = request.getParameter("Celular");
             correo = request.getParameter("Correo");
             Direccion = request.getParameter("Direccion");
-            Estado = request.getParameter("Estado");
             Ciudad = request.getParameter("Ciudad");
 
             /*Se ejecuta el metodo para acturalizar los datos del usario en la clase modelo*/
-            b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Estado, Ciudad);
+            b = usu.actualizardatosUsuario(Codigo, Nombre, Rol, Tipo_Documento, No_Documento, Telefono, celular, correo, Direccion, Ciudad);
             if (b) {
 
                 /*Se guarda un mensaje mediante las sesiones
@@ -598,6 +597,33 @@ public class Contr_Usuarios extends HttpServlet {
                 obj.put(i, ob);
                 i++;
             }
+            out.print(obj);
+            out.close();
+        } else if (request.getParameter("accion").equals("datos_usuario")) {
+            Codigo = request.getParameter("codigo");
+            String Datos[] = usu.getDatosUsuario(Codigo);
+            JSONObject obj = new JSONObject();
+            JSONObject ob = new JSONObject();
+
+            ob.put("codigo", Datos[0]);
+            ob.put("codigo_tipo", Datos[1]);
+            ob.put("tipo", Datos[2]);
+            ob.put("tipo_documento", Datos[3]);
+            ob.put("no_documento", Datos[4]);
+            ob.put("nombre", Datos[5]);
+            ob.put("telefono", Datos[6]);
+            ob.put("celular", Datos[7]);
+            ob.put("correo", Datos[8]);
+            ob.put("direccion", Datos[9]);
+            ob.put("estado", Datos[10]);
+            ob.put("nombre_ciudad", Datos[11]);
+            ob.put("codigo_departamento", Datos[12]);
+            ob.put("nombre_departamento", Datos[13]);
+            ob.put("codigo_ciudad", Datos[14]);
+
+            obj.put(1, ob);
+
+            PrintWriter out = response.getWriter();
             out.print(obj);
             out.close();
         } else if (request.getParameter("accion").equals("login_android")) {

@@ -13,13 +13,6 @@ import Modelo.Cls_Satisfaccion;
  * @author santi
  */
 public class Contr_Consultar {
-
-    /*Metodo para buscar los datos del usuario*/
-    public String[] BuscarDatosUsuario(String Codigo) {
-        Usuario usu = new Usuario();
-        String[] Datos = usu.getDatosUsuario(Codigo);
-        return Datos;
-    }
     
     /*MEtodo para obtener la cantidad de usuarios empresa pendiente*/
     public String getCantidadPendientes() {

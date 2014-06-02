@@ -1,10 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
     String Codigo = (String) session.getAttribute("Codigo");
-    Contr_Consultar usu = new Contr_Consultar();
-    String[] DatosUsuario = usu.BuscarDatosUsuario(Codigo);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,13 +61,13 @@
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Tipo_Documento">Tipo de documento</label>
-                                    <input name="Tipo_Documento" type="text" class="form-control" id="Tipo_Documento_MPerfil" value="<%=DatosUsuario[3]%>" readonly/>
+                                    <input name="Tipo_Documento" type="text" class="form-control" id="Tipo_Documento_MPerfil" readonly/>
                                 </div>
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Numero_Documento">N&uacute;mero de documento</label>
-                                    <input name="No_Documento" type="text" class="form-control" id="Numero_Documento_MPerfil" value="<%=DatosUsuario[4]%>" readonly/> 
+                                    <input name="No_Documento" type="text" class="form-control" id="Numero_Documento_MPerfil" readonly/> 
                                 </div>
                             </div>
 
@@ -78,20 +76,20 @@
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Nombre">Nombre de usuario</label>
-                                    <input name="Nombre" type="text" class="form-control" id="Nombre_Documento_MPerfil" value="<%=Nombre%>" readonly/>
+                                    <input name="Nombre" type="text" class="form-control" id="Nombre_Documento_MPerfil" readonly/>
                                 </div>
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Celular">N&uacute;mero de celular</label>
-                                    <input name="Celular" type="text" class="form-control" id="Celular_MPerfil" value="<%=DatosUsuario[7]%>" readonly/>
+                                    <input name="Celular" type="text" class="form-control" id="Celular_MPerfil" readonly/>
                                 </div>
                             </div>
 
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Correo">Correo electr&oacute;nico</label>
-                                    <input name="Correo" type="text" class="form-control" id="Correo_MPerfil" value="<%=DatosUsuario[8]%>" readonly/>
+                                    <input name="Correo" type="text" class="form-control" id="Correo_MPerfil" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -107,14 +105,13 @@
                                 <div class="form-group">
                                     <label for="Ciudad">Ciudad</label>
                                     <select id="ciudadperfil" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
-                                        <option value='<%=DatosUsuario[13]%>'><%=DatosUsuario[11]%></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Tipo">N&uacute;mero de tel&eacute;fono</label>
-                                    <input name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true" value="<%=DatosUsuario[6]%>"/>
+                                    <input id="Telefono_MPerfil" name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true"/>
                                 </div> 
                             </div>
                         </div>
@@ -123,7 +120,7 @@
                                 <div class="form-group">
                                     <label for="Imagen">Direcci&oacute;n</label>
                                     <div class="form-group">
-                                        <input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true" value="<%=DatosUsuario[9]%>"/>
+                                        <input id="Direccion_MPerfil" name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true"/>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +154,7 @@
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
         <script>
-            function getdepartamentos() {
+            function getdepartamentos(id_departamento) {
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Help',
@@ -172,7 +169,7 @@
                         $("select#departamentoperfil").html(opcion.join(""));
                     }
                 }).done(function() {
-                    $("select#departamentoperfil [value='<%=DatosUsuario[12]%>']").prop("selected", true);
+                    $("select#departamentoperfil [value='"+id_departamento+"']").prop("selected", true);
                 });
             }
             function getciudades(index)
@@ -192,25 +189,53 @@
                     }
                 });
             }
-            $(document).ready(function() {
-
-                getdepartamentos();
+            
+            var datos_usuarios = function() {
+                var idusuario = '<%=Codigo%>';
                 $.ajax({
                     type: 'POST',
-                    url: '/TriggerEvent/Contr_Help',
-                    data: {"accion": 'getciudad', "codigodepartamento": '<%=DatosUsuario[12]%>'},
+                    url: '/TriggerEvent/Contr_Usuarios',
+                    data: {'accion': 'datos_usuario', 'codigo': idusuario},
                     success: function(data) {
-                        var opcionciudad = [];
                         var datos = jQuery.parseJSON(data);
 
-                        $.each(datos, function(key, val) {
-                            opcionciudad.push('<option value="' + val.codigo + '">' + val.ciudad + '<\/option>');
+                        $.each(datos, function(key, value) {
+                            if (value.codigo != null) {
+                                $('#Nombre_Documento_MPerfil').val(value.nombre);
+                                $('#Celular_MPerfil').val(value.celular);
+                                $('#Correo_MPerfil').val(value.correo);
+                                $('#Direccion_MPerfil').val(value.direccion);
+                                $('#Numero_Documento_MPerfil').val(value.no_documento);
+                                $('#Telefono_MPerfil').val(value.telefono);
+                                $('#Tipo_Documento_MPerfil').val(value.tipo_documento);
+                                
+                                getdepartamentos(value.codigo_departamento);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/TriggerEvent/Contr_Help',
+                                    data: {"accion": 'getciudad', "codigodepartamento": value.codigo_departamento},
+                                    success: function(data) {
+                                        var opcionciudad = [];
+                                        var datos = jQuery.parseJSON(data);
+                                        $.each(datos, function(key, val) {
+                                            opcionciudad.push('<option value="' + val.codigo + '">' + val.ciudad + '<\/option>');
+                                        });
+                                        $("select#ciudadperfil").html(opcionciudad.join(""));
+                                    }
+                                }).done(function() {
+                                    $("select#ciudadperfil [value='"+value.codigo_ciudad+"']").prop("selected", true);
+                                });
+                            } else {
+                                window.location.replace("/TriggerEvent/View/ConsultaUsuario.jsp");
+                            }
                         });
-                        $("select#ciudadperfil").html(opcionciudad.join(""));
                     }
-                }).done(function() {
-                    $("select#ciudadperfil [value='<%=DatosUsuario[14]%>']").prop("selected", true);
+
                 });
+            }
+            $(document).ready(function() {
+
+                datos_usuarios();
 
                 $("select#departamentoperfil", this).change(function() {
                     var index = $(this).val();
