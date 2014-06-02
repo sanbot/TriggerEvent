@@ -49,21 +49,7 @@ public class Contr_Consultar {
         String[][] Datos = usu.BuscarDatosEmpresa();
         return Datos;
     }
-
-    /*MEtodo apra buscar el blob de la seleccion*/
-    public Blob BuscarImagenes(String Codigo) {
-        Seleccion sel = new Seleccion();
-        Blob Datos = sel.getImagenSeleccion(Codigo);
-        return Datos;
-    }
-
-    /*MEtodo apra buscar el blob del evento*/
-    public Blob BuscarImagenesEvento(String Codigo) {
-        Evento eve = new Evento();
-        Blob Datos = eve.getImagenEvento(Codigo);
-        return Datos;
-    }
-
+    
     /*MEtodo para obtener la cantidad de usuarios empresa pendiente*/
     public String getCantidadPendientes() {
         Usuario usu = new Usuario();
@@ -78,15 +64,6 @@ public class Contr_Consultar {
         int Dato = eve.CantidadEventoPendiente();
         return Dato;
     }
-
-    /*MEtodo para buscar los comentarios aleatorios*/
-    //pendiente por poner en ajax
-    public String[][] getBuscarComentariosAleatorios() {
-        Cls_Satisfaccion sat = new Cls_Satisfaccion();
-        String[][] Datos = sat.BuscarComentariosAleatorios();
-        return Datos;
-    }
-
     /*MEtodo para buscar los datos de un evetno*/
     public String[] getBuscarDatosDetalladosEvento(String CodigoEvento) {
         Evento eve = new Evento();

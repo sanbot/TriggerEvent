@@ -4,11 +4,9 @@
     Author     : Sanser
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%
-    Contr_Consultar usu = new Contr_Consultar();
-    String[][] Comentarios = usu.getBuscarComentariosAleatorios();
     if (!Rol.equals("") && !Rol.equals(null)) {
         response.sendRedirect("EventoRecomendado.jsp");
     }
@@ -215,20 +213,8 @@
                         </div>
                         <!-- /widget-header -->
                         <div class="widget-content">
-                            <ul class="messages_layout">
-                                <%for (String[] Row : Comentarios) {%>
-                                <li class="from_user left">
-                                    <div class="message_wrap"> 
-                                        <span class="arrow"></span>
-                                        <div class="info"> 
-                                            <span class="name">Usuario: <%=Row[0]%>, Evento: <%=Row[1]%></span>
-                                        </div>
-                                        <div class="text"> 
-                                            <%=Row[2]%>
-                                        </div>
-                                    </div>
-                                </li>
-                                <%}%>
+                            <ul id="comentarios-aleatorios"  class="messages_layout">
+
                             </ul>
                         </div>
                         <!-- /widget-content --> 
@@ -455,7 +441,31 @@
                     }
                 });
             }
-
+            var comentariosusuarios = function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "/TriggerEvent/Contr_Satisfaccion",
+                    data: {'accion': 'comentarios_aleatorios'},
+                    success: function(data) {
+                        var datos = jQuery.parseJSON(data);
+                        var items = [];
+                        $.each(datos, function(key, value) {
+                            items.push('<li class="from_user left">');
+                            items.push('<div class="message_wrap"> ');
+                            items.push('<span class="arrow"></span>');
+                            items.push('<div class="info"> ');
+                            items.push('<span class="name">Usuario:' +value.usuario+', Evento: '+value.evento+'</span>');
+                            items.push('</div>');
+                            items.push('<div class="text"> ');
+                            items.push(value.comentario);
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('</li>');
+                        });
+                        $("#comentarios-aleatorios").html(items.join(""));
+                    }
+                });
+            }
             var eventosdestacados = function(urlservidor, accion, contenidoevento) {
                 $.ajax({
                     type: 'POST',
@@ -512,7 +522,7 @@
                             items.push('</div>');
                             items.push('</div>');
                         });
-                        $("#"+ contenidoevento).append(items.join(""));
+                        $("#" + contenidoevento).append(items.join(""));
                     }
                 });
             }
@@ -546,9 +556,10 @@
                 }
             });
             $(document).ready(function() {
-                eventosdestacados('/TriggerEvent/Contr_Help',"eventos_destacados","contenido-eventos-destacados" );
-                eventosdestacados('/TriggerEvent/Contr_Help',"eventos_comentados","contenido-eventos-comentados" );
-                eventosdestacados('/TriggerEvent/Contr_Help',"eventos_proximos","contenido-eventos-proximos" );
+                eventosdestacados('/TriggerEvent/Contr_Help', "eventos_destacados", "contenido-eventos-destacados");
+                eventosdestacados('/TriggerEvent/Contr_Help', "eventos_comentados", "contenido-eventos-comentados");
+                eventosdestacados('/TriggerEvent/Contr_Help', "eventos_proximos", "contenido-eventos-proximos");
+                comentariosusuarios();
             });
         </script>
 

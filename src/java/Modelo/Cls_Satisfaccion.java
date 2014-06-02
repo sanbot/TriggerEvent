@@ -420,7 +420,7 @@ public class Cls_Satisfaccion {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea el string para la consulta*/
-        String sql = "SELECT u.Nombre NombreUsuario, (Select Nombre From tb_evento Where Codigo = sa.Id_Evento) NombreEmpresa, sa.Comentario \n"
+        String sql = "SELECT u.Nombre NombreUsuario, (Select Nombre From tb_evento Where Codigo = sa.Id_Evento) NombreEvento, sa.Comentario \n"
                 + "FROM  `tb_satisfaccion` sa \n"
                 + "JOIN tb_usuario u on u.Codigo = sa.Id_Usuario "
                 + "JOIN tb_evento e on e.Codigo = sa.Id_Evento "
@@ -447,7 +447,7 @@ public class Cls_Satisfaccion {
             /*Se guardan los datos en el array*/
             while (rs.next()) {
                 Datos[rows][0] = rs.getString("NombreUsuario");
-                Datos[rows][1] = rs.getString("NombreEmpresa");
+                Datos[rows][1] = rs.getString("NombreEvento");
                 Datos[rows][2] = rs.getString("Comentario");
                 rows++;
             }

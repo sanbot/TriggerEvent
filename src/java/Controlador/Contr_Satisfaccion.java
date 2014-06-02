@@ -7,11 +7,13 @@ package Controlador;
 
 import Modelo.Cls_Satisfaccion;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -101,7 +103,24 @@ public class Contr_Satisfaccion extends HttpServlet {
                 response.sendRedirect("View/DetalleEvento.jsp?CodigoEvento=" + CodigoEvento);
             }
 
-        } else {
+        } else if (request.getParameter("accion").equals("comentarios_aleatorios")) {
+                String Datos[][] = sat.BuscarComentariosAleatorios();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("usuario", row[0]);
+                    ob.put("evento", row[1]);
+                    ob.put("comentario", row[2]);
+                    obj.put(i, ob);
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                PrintWriter out = response.getWriter();
+                out.print(obj);
+                out.close();
+            }else {
             /*Se redirecciona si no se realizo ninguna peticion*/
             response.sendRedirect("View/ConsultaEvento.jsp");
         }
