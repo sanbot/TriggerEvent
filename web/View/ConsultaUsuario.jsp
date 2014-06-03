@@ -1,10 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministrador.jspf" %>
-<%
-    Contr_Consultar usu = new Contr_Consultar();
-    String Cantidad = usu.getCantidadPendientes();
-%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -34,33 +30,11 @@
                     </ol>
                 </div>
             </div>
-            <div class="row clearfix">
+            <div id="h3_titulo" class="row clearfix">
                 <div class="col-md-12">
                     <h1 class="Center">Registrar y Consultar Usuarios</h1>
                 </div>
             </div>
-            <%if (Cantidad != null && !Cantidad.equals("0")) {%>
-            <div class="row">
-                <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-offset-4 col-md-2">
-                    <div class="form-group">
-                        <a href="CUsuariosPendientes.jsp"class="btn btn-block defecto">Empresas pendientes <span class="badge pull-right animacion-bell"><%=Cantidad%></span></a>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-md-offset-0 col-md-2">
-                    <div class="form-group">
-                        <a href="RUsuario.jsp"class="btn btn-block defecto">Registrar usuario</a>
-                    </div>
-                </div>
-            </div>
-            <%} else {%>
-            <div class="row">
-                <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-offset-4 col-md-4">
-                    <div class="form-group">
-                        <a href="RUsuario.jsp"class="btn btn-block defecto">Registrar usuario</a>
-                    </div>
-                </div>
-            </div>
-            <%}%>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="table-responsive">
@@ -183,8 +157,43 @@
 
                 });
             }
+            var getCantidadEventosPendiente = function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Usuarios',
+                    data: {"accion": 'cantidad_usuario_pendiente'},
+                    success: function(data) {
+                        var eve_cantidad = parseInt(data);
+                        var items = [];
+                        if (eve_cantidad > 0) {
+                            items.push('<div class="row">');
+                            items.push('<div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-2 col-md-offset-4 col-md-2">');
+                            items.push('<div class="form-group">');
+                            items.push('<a href="CUsuariosPendientes.jsp"class="btn btn-block defecto">Empresas pendientes <span class="badge pull-right animacion-bell">' + eve_cantidad + '</span></a>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('<div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-md-offset-0 col-md-2">');
+                            items.push('<div class="form-group">');
+                            items.push('<a href="RUsuario.jsp"class="btn btn-block defecto">Registrar usuario</a>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('</div>');
+                        } else {
+                            items.push('<div class="row">');
+                            items.push('<div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-offset-4 col-md-4">');
+                            items.push('<div class="form-group">');
+                            items.push('<a href="RUsuario.jsp"class="btn btn-block defecto">Registrar usuario</a>');
+                            items.push('</div>');
+                            items.push('</div>');
+                            items.push('</div>');
+                        }
+                        $("#h3_titulo").after(items.join(""));
+                    }
+                });
+            }
             $(document).ready(function() {
                 usuariospendientes();
+                getCantidadEventosPendiente();
             });
         </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

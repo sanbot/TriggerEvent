@@ -839,6 +839,10 @@ public class Contr_Help extends HttpServlet {
                 }
                 /*Se imprime el resultado*/
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("cantidad_evento_pendiente")) {
+                Evento eve = new Evento();
+                 int Dato = eve.CantidadEventoPendiente();
+                 out.print(Dato);
             } else {
                 /*Si no se recibe alguna de las anteriores peticiones se retorna la vista de indece*/
                 response.sendRedirect("View/index.jsp");

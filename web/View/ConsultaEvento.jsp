@@ -1,10 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
-<%
-    Contr_Consultar usu = new Contr_Consultar();
-    int Cantidad = usu.getCantidadEventosPendientes();
-%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -48,11 +44,8 @@
                             <h3 class="panel-title">
                                 Eventos 
                                 <%if (Rol.equals("Administrador")) {%>
-                                <a title="Todos los eventos" href="ConsultaTodosEventos.jsp" class="pull-right"><span class="glyphicon glyphicon-book aligncerar"></span></a>
+                                <a id="link_todos_eventos" title="Todos los eventos" href="ConsultaTodosEventos.jsp" class="pull-right"><span class="glyphicon glyphicon-book aligncerar"></span></a>
                                     <%}%>
-                                    <%if (Cantidad != 0 && Rol.equals("Administrador")) {%>
-                                <a title="Eventos pendientes" href="CEventoPendiente.jsp" class="pull-right" ><span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes"><span class="badge"><%=Cantidad%></span></span>  </a>
-                                        <%}%>
                                 <a title="Ubicaci&oacute;n de eventos del mes" href="UbicacionEventos.jsp" class="pull-right"><span class="glyphicon glyphicon-screenshot aligncerar"></span></a>
                             </h3>
                         </div>
@@ -218,19 +211,40 @@
                         cantidad = parseInt(data);
                     }
                 });
-            };
+            }
+            <%if (Rol.equals("Administrador")) {%>
+            var getCantidadEventosPendiente = function() {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Help',
+                    data: {"accion": 'cantidad_evento_pendiente'},
+                    success: function(data) {
+                        var eve_cantidad = parseInt(data);
+                        if (eve_cantidad > 0) {
+                            var items = [];
+                            items.push('<a title="Eventos pendientes" href="CEventoPendiente.jsp" class="pull-right" >');
+                            items.push('<span class="glyphicon glyphicon-bell aligncerar animacion-bell" title="Eventos pendientes">');
+                            items.push('<span class="badge">' + eve_cantidad + '</span></span>  </a>');
+                            $("#link_todos_eventos").after(items.join(""));
+                        }
+                    }
+                });
+            }
+            <%}%>
             $(document).ready(function() {
                 geteventos("0", "9");
                 totalevento();
+            <%if (Rol.equals("Administrador")) {%> getCantidadEventosPendiente();<%}%>
             });
         </script>
         <script>
             <%if (Rol.equals("Administrador")) {%>
             var mensajeguia = "El ícono a la izquierda le permite conocer la ubicación geográfica de los eventos del mes, mientras que el ícono derecho le permite consultar todos los eventos registrados hasta el momento. Nota: en caso de haber eventos pendientes aparecerá otro ícono junto con un número que indica la cantidad de eventos por aprobación.";
             <%} else {%>
-                var mensajeguia = "El ícono le permite conocer la ubicación geográfica de los eventos del mes.";
+            var mensajeguia = "El ícono le permite conocer la ubicación geográfica de los eventos del mes.";
             <%}%>
-                
+
             $(function() {
 
                 guidely.add({

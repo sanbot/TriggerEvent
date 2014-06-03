@@ -626,6 +626,11 @@ public class Contr_Usuarios extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(obj);
             out.close();
+        } else if (request.getParameter("accion").equals("cantidad_usuario_pendiente")) {
+            PrintWriter out = response.getWriter();
+            String Dato = usu.getCantidadPendientes();
+            out.print(Dato);
+            out.close();
         } else if (request.getParameter("accion").equals("login_android")) {
             //se declaran las variables necesarias y se obtienen los datos
             correo = request.getParameter("correo");

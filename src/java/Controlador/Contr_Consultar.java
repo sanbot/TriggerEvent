@@ -14,20 +14,6 @@ import Modelo.Cls_Satisfaccion;
  */
 public class Contr_Consultar {
     
-    /*MEtodo para obtener la cantidad de usuarios empresa pendiente*/
-    public String getCantidadPendientes() {
-        Usuario usu = new Usuario();
-        String Dato = usu.getCantidadPendientes();
-        return Dato;
-    }
-
-    /*MEtodo para obtener la cantidad de eventos pendientes*/
-    //pendiente por poner en ajax
-    public int getCantidadEventosPendientes() {
-        Evento eve = new Evento();
-        int Dato = eve.CantidadEventoPendiente();
-        return Dato;
-    }
     /*MEtodo para buscar los datos de un evetno*/
     public String[] getBuscarDatosDetalladosEvento(String CodigoEvento) {
         Evento eve = new Evento();
