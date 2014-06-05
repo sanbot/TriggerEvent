@@ -1111,7 +1111,7 @@ public class Seleccion {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en un string*/
-        String sql = "Select Codigo, Nombre, Tipo, to_base64(Imagen) Imagen "
+        String sql = "Select Codigo, Nombre, Tipo, Imagen "
                 + "From  tb_seleccion "
                 + "Where Codigo NOT IN ("
                 + "select Id_Seleccion "
@@ -1204,11 +1204,7 @@ public class Seleccion {
                 Datos[i][0] = rs.getString("Codigo");
                 Datos[i][1] = rs.getString("Nombre");
                 Datos[i][2] = rs.getString("Tipo");
-                //Datos[i][3] = rs.getString("Imagen");
-                Blob imagen = rs.getBlob("Imagen");
-                byte[] imgData = imagen.getBytes(1, (int) imagen.length());
-                
-                 Datos[i][3] = encoder.encode(imgData);
+                Datos[i][3] = rs.getString("Imagen");
                 i++;
             }
             /*Se retorna los datos*/

@@ -11,8 +11,12 @@ import Modelo.Departamento;
 import Modelo.Evento;
 import Modelo.Mensajeria;
 import Modelo.Seleccion;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -578,6 +583,35 @@ public class Contr_Help extends HttpServlet {
                 }
                 /*Se imprime el resultado*/
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("datos_evento_detalle")) {
+                /*Si se realiza la peticion de obtener los datos de la ubicacion de los eventos*/
+                /*Se declaran las variables necesarias*/
+                Evento eve = new Evento();
+                String codigo = request.getParameter("idevento");
+                JSONObject obj = new JSONObject();
+                /*Se obtienen los datos de la ubicacion de los eventos, en el metodo de modelo*/
+                String[] row = eve.BuscarDatosDetalladosEventos(codigo);
+                /*Se encodifican los datos en JSON*/
+                JSONObject ob = new JSONObject();
+
+                ob.put("empresa", row[0]);
+                ob.put("evento", row[1]);
+                ob.put("rango", row[2]);
+                ob.put("codigo_departamento", row[3]);
+                ob.put("nombre_departamento", row[4]);
+                ob.put("codigo_ciudad", row[5]);
+                ob.put("nombre_ciudad", row[6]);
+                ob.put("direccion", row[7]);
+                ob.put("fecha", row[8]);
+                ob.put("descripcion", row[9]);
+                ob.put("hora", row[10]);
+                ob.put("latitud", row[11]);
+                ob.put("longitud", row[12]);
+                ob.put("imagen", codigo + row[13]);
+
+                obj.put(1, ob);
+                /*Se imprime el resultado*/
+                out.print(obj);
             } else if (request.getParameter("accion").equals("ciudades_android")) {
                 /*Si se realiza la peticion de ver todas las ciudades*/
                 /*Se declaran las variables necesarias*/
@@ -627,6 +661,9 @@ public class Contr_Help extends HttpServlet {
                 Seleccion sel = new Seleccion();
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();
+                BufferedImage img;
+
+                String urlimgservidor = this.getServletContext().getRealPath("/Libs/Customs/images/Seleccion");
                 /*Se obtienen los datos de los gustos nuevos, en el metodo de modelo*/
                 String[][] Datos = sel.getGustosNuevosAndroid(Codigo, Cantidad);
                 int i = 0;
@@ -634,10 +671,22 @@ public class Contr_Help extends HttpServlet {
                 for (String row[] : Datos) {
                     JSONObject ob = new JSONObject();
 
+                    img = ImageIO.read(new File(urlimgservidor + "/" + row[0] + row[3]));
+                    String typeimg = row[3].substring(1, row[3].length());
+
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    ImageIO.write(img, typeimg, bos);
+                    byte[] imageBytes = bos.toByteArray();
+
+                    BASE64Encoder encoder = new BASE64Encoder();
+                    String imageSTring = encoder.encode(imageBytes);
+
+                    bos.close();
+
                     ob.put("Codigo", row[0]);
                     ob.put("Nombre", row[1]);
                     ob.put("Tipo", row[2]);
-                    ob.put("Imagen", row[3]);
+                    ob.put("Imagen", imageSTring);
                     list.add(ob);
 
                     i++;
@@ -655,26 +704,46 @@ public class Contr_Help extends HttpServlet {
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();
 
+                BufferedImage img;
+
+                String urlimgservidor = this.getServletContext().getRealPath("/Libs/Customs/images/Seleccion");
+
                 /*Se obtienen los datos de los gustos de un usuario, en el metodo de modelo*/
                 String[][] Datos = sel.getMisGustosAndroid(Codigo, Cantidad);
                 int i = 0;
-                out.print(Datos);
-                /*Se encodifican los datos en JSON*/
-                for (String row[] : Datos) {
 
-                    JSONObject ob = new JSONObject();
+                try {
+                    /*Se encodifican los datos en JSON*/
+                    for (String row[] : Datos) {
 
-                    ob.put("Codigo", row[0]);
-                    ob.put("Nombre", row[1]);
-                    ob.put("Tipo", row[2]);
-                    ob.put("Imagen", row[3]);
-                    list.add(ob);
+                        JSONObject ob = new JSONObject();
 
-                    i++;
+                        img = ImageIO.read(new File(urlimgservidor + "/" + row[0] + row[3]));
+                        String typeimg = row[3].substring(1, row[3].length());
+
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        ImageIO.write(img, typeimg, bos);
+                        byte[] imageBytes = bos.toByteArray();
+
+                        BASE64Encoder encoder = new BASE64Encoder();
+                        String imageSTring = encoder.encode(imageBytes);
+
+                        bos.close();
+
+                        ob.put("Codigo", row[0]);
+                        ob.put("Nombre", row[1]);
+                        ob.put("Tipo", row[2]);
+                        ob.put("Imagen", imageSTring);
+                        list.add(ob);
+
+                        i++;
+                    }
+                    obj.put("gustos", list);
+                    /*Se imprime el resultado*/
+                    out.print(obj);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                obj.put("gustos", list);
-                /*Se imprime el resultado*/
-                out.print(obj);
 
             } else if (request.getParameter("accion").equals("cantidad_gustos_nuevos_android")) {
                 /*Si se realiza la peticion de obtener la cantidad de gustos que puede tener el usuario*/
@@ -754,6 +823,10 @@ public class Contr_Help extends HttpServlet {
                 JSONArray list = new JSONArray();
                 int cantidad = Integer.parseInt(request.getParameter("cantidad"));
                 String codigoUsuario = request.getParameter("codigo");
+
+                BufferedImage img;
+
+                String urlimgservidor = this.getServletContext().getRealPath("/Libs/Customs/images/Evento");
                 /*Se obtienen los datos de los eventos recomendados, en el metodo de modelo*/
                 String[][] Datos = eve.geteventosRecomendadosAndroid(codigoUsuario, cantidad);
                 int i = 0;
@@ -761,8 +834,67 @@ public class Contr_Help extends HttpServlet {
                 for (String row[] : Datos) {
                     JSONObject ob = new JSONObject();
 
+                    img = ImageIO.read(new File(urlimgservidor + "/" + row[0] + row[1]));
+                    String typeimg = row[1].substring(1, row[1].length());
+
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    ImageIO.write(img, typeimg, bos);
+                    byte[] imageBytes = bos.toByteArray();
+
+                    BASE64Encoder encoder = new BASE64Encoder();
+                    String imageSTring = encoder.encode(imageBytes);
+
+                    bos.close();
                     ob.put("Codigo", row[0]);
-                    ob.put("Imagen", row[1]);
+                    ob.put("Imagen", imageSTring);
+                    ob.put("Nombre", row[2]);
+                    ob.put("Fecha", row[3]);
+                    ob.put("NombreCiudad", row[4]);
+                    ob.put("NombreDepto", row[5]);
+                    list.add(ob);
+                    i++;
+                }
+                obj.put("eventos", list);
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("cantidad_eventos_general_android")) {
+                /*Si se realiza la peticion de total de eventos recomendados*/
+                /*Se declaran las variables necesarias*/
+                Evento eve = new Evento();
+                int row = eve.getcantidadeventosGeneralAndroid();
+                /*Se imprime el resultado*/
+                out.println(row);
+            } else if (request.getParameter("accion").equals("eventos_general_android")) {
+                /*Si se realiza la peticion de obtener los datos de los eventos recomendados*/
+                /*Se declaran las variables necesarias*/
+                Evento eve = new Evento();
+                JSONObject obj = new JSONObject();
+                JSONArray list = new JSONArray();
+                int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+
+                BufferedImage img;
+
+                String urlimgservidor = this.getServletContext().getRealPath("/Libs/Customs/images/Evento");
+                /*Se obtienen los datos de los eventos recomendados, en el metodo de modelo*/
+                String[][] Datos = eve.geteventosGeneralAndroid(cantidad);
+                int i = 0;
+                /*Se encodifican los datos en JSON*/
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    img = ImageIO.read(new File(urlimgservidor + "/" + row[0] + row[1]));
+                    String typeimg = row[1].substring(1, row[1].length());
+
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    ImageIO.write(img, typeimg, bos);
+                    byte[] imageBytes = bos.toByteArray();
+
+                    BASE64Encoder encoder = new BASE64Encoder();
+                    String imageSTring = encoder.encode(imageBytes);
+
+                    bos.close();
+                    ob.put("Codigo", row[0]);
+                    ob.put("Imagen", imageSTring);
                     ob.put("Nombre", row[2]);
                     ob.put("Fecha", row[3]);
                     ob.put("NombreCiudad", row[4]);
@@ -841,8 +973,8 @@ public class Contr_Help extends HttpServlet {
                 out.print(obj);
             } else if (request.getParameter("accion").equals("cantidad_evento_pendiente")) {
                 Evento eve = new Evento();
-                 int Dato = eve.CantidadEventoPendiente();
-                 out.print(Dato);
+                int Dato = eve.CantidadEventoPendiente();
+                out.print(Dato);
             } else {
                 /*Si no se recibe alguna de las anteriores peticiones se retorna la vista de indece*/
                 response.sendRedirect("View/index.jsp");

@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-import Modelo.Usuario;
 import Modelo.Evento;
 import Modelo.Cls_Satisfaccion;
 
@@ -13,13 +12,6 @@ import Modelo.Cls_Satisfaccion;
  * @author santi
  */
 public class Contr_Consultar {
-    
-    /*MEtodo para buscar los datos de un evetno*/
-    public String[] getBuscarDatosDetalladosEvento(String CodigoEvento) {
-        Evento eve = new Evento();
-        String[] Datos = eve.BuscarDatosDetalladosEventos(CodigoEvento);
-        return Datos;
-    }
     
     /**Metodo pra buscar los datos de un evento pendiente*/
     public String[] getBuscarDatosDetalladosEventoPendiente(String CodigoEvento) {

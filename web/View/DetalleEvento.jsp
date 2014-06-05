@@ -10,8 +10,6 @@
     } else {
         response.sendRedirect("ConsultarEventos.jsp");
     }
-
-    String Datos[] = usu.getBuscarDatosDetalladosEvento(CodigoEvento);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +58,7 @@
                                 <div class="col-md-12">
                                     <div class="margen-img"> 
                                         <center>
-                                            <img src="../Libs/Customs/images/Evento/<%=CodigoEvento + Datos[13]%>" class="imgevento icon-animated-bell" alt="Nombre de la imagen">
+                                            <img id="img_evento" class="imgevento icon-animated-bell" alt="Nombre de la imagen">
                                         </center>
                                     </div>
                                 </div>    
@@ -69,7 +67,9 @@
                                 <div class="col-md-12">
                                     <h3>
                                         <center>
-                                            <div class="tituloevento"><h3><%=Datos[1]%></h3></div>
+                                            <div class="tituloevento">
+                                                <h3 id="lbl_nombre_evento"></h3>
+                                            </div>
                                         </center>
                                     </h3>
                                 </div>    
@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="col-xs-6 contenido_dos">
                                     <div class="contenido">
-                                        <label for="NombreEmpresa"><%=Datos[0]%></label>
+                                        <label id="lbl_empresa_evento" for="NombreEmpresa"></label>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="col-xs-6 contenido_dos">
                                     <div class="contenido">
-                                        <label for="RangoPreciosEvento"><%=Datos[2]%></label>
+                                        <label id="lbl_rango_evento" for="RangoPreciosEvento"></label>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-xs-6 contenido_dos">
                                     <div class="contenido">
-                                        <label for="DepartamentoEvento"><%=Datos[4]%></label>
+                                        <label id="lbl_departamento_evento" for="DepartamentoEvento"></label>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="col-xs-6 contenido_dos">
                                     <div class="contenido">
-                                        <label for="CiudadEvento"><%=Datos[6]%></label>
+                                        <label id="lbl_ciudad_evento" for="CiudadEvento"></label>
                                     </div>
                                 </div>
                             </div>
@@ -130,8 +130,7 @@
                                 </div>
                                 <div class="col-xs-6 contenido_dos">
                                     <div class="contenido">
-                                        <label for="DireccionEvento">
-                                            <%=Datos[7]%> 
+                                        <label id="lbl_direccion_evento" for="DireccionEvento">
                                             <span title="Ubicaci&oacute;n" id="mostrarubicacion" class="glyphicon glyphicon-screenshot"></span>
                                         </label>
                                     </div>
@@ -140,12 +139,12 @@
                             <div class="row">
                                 <div class="col-xs-6 contenido_uno">
                                     <div class="contenido">
-                                        <label for="Fecha">Fecha:</label>
+                                        <label  for="Fecha">Fecha:</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 contenido_dos">
                                     <div class="contenido">
-                                        <label for="FechaEvento"><%=Datos[8]%></label>
+                                        <label id="lbl_fecha_evento" for="FechaEvento"></label>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +156,7 @@
                                 </div>
                                 <div class="col-xs-6 contenido_dos">
                                     <div class="contenido">
-                                        <label for="HoraEvento"><%=Datos[10]%></label>
+                                        <label id="lbl_hora_evento" for="HoraEvento"></label>
                                     </div>
                                 </div>
                             </div>
@@ -173,8 +172,7 @@
                             <div class="row">
                                 <div class="col-md-12 descripciontamanio descripcion-nombre">
                                     <label for="Descripcion">Descripci&oacute;n:</label>
-                                    <br/>
-                                    <%=Datos[9]%>
+                                    <br id="lbl_descripcion_evento"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -208,7 +206,6 @@
                 </div>
                 <div class="col-xs-1"></div>
             </div>
-
             <br/>
             <%if (Rol.equals("Cliente") || Rol.equals("Administrador")) {
                     if (usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario") && usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
@@ -503,17 +500,47 @@
                     }
                 });
             }
-
-            $(document).ready(function() {
-                llenargrafica();
-                mascomentarios("5", "0");
+            
+            var abrirmodal = function(latitud, longitud, nombre){
                 $("#mostrarubicacion").click(function() {
                     $("#modal-container-361414").modal('show');
-                    var latitud = '<%=Datos[11]%>';
-                    var longitud = '<%=Datos[12]%>';
-                    var nombre = '<%=Datos[1]%>';
                     mostrarmapa(latitud, longitud, nombre);
                 });
+            }
+            
+            var datos_evento_detalle = function(){
+                var idevento = "<%=CodigoEvento%>";
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Help',
+                    data: {'accion':'datos_evento_detalle', 'idevento':idevento},
+                    success: function(data){
+                        var datos = jQuery.parseJSON(data);
+                        $.each(datos, function(key, val){
+                            if(val.evento != null){
+                                $("#img_evento").attr("src", "../Libs/Customs/images/Evento/"+val.imagen);
+                                $("#lbl_nombre_evento").html(val.evento);
+                                $("#lbl_empresa_evento").html(val.empresa);
+                                $("#lbl_rango_evento").html(val.rango);
+                                $("#lbl_departamento_evento").html(val.nombre_departamento);
+                                $("#lbl_ciudad_evento").html(val.nombre_ciudad);
+                                $("#lbl_direccion_evento").prepend(val.direccion);
+                                $("#lbl_fecha_evento").html(val.fecha);
+                                $("#lbl_hora_evento").html(val.hora);
+                                $("#lbl_descripcion_evento").after(val.descripcion);
+                                abrirmodal(val.latitud, val.longitud, val.evento);
+                            }else{
+                                window.location.replace("/TriggerEvent/View/ConsultaEvento.jsp");
+                            }
+                        });
+                    }
+                });
+            }
+            
+            $(document).ready(function() {
+                datos_evento_detalle();
+                llenargrafica();
+                mascomentarios("5", "0");
             });
         </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

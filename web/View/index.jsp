@@ -52,7 +52,7 @@
                 <div class="col-xs-8 col-xs-offset-2 col-md-offset-0 col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <span class="glyphicon glyphicon-lock"></span> Inicio de sesi&oacute;n
+                            <span class="glyphicon glyphicon-lock"></span> Inicio de sesi&oacute;n 
                         </div>
                         <div class="panel-body">
                             <form class="form-horizontal" data-validate="parsley" method="post" action="/TriggerEvent/Contr_Usuarios">

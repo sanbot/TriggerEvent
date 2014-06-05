@@ -520,9 +520,8 @@ public class Evento {
             rs = pr.executeQuery();
 
             int rows = 0;
-             String[][] Datos = null;
-            while(rs.next())
-            {
+            String[][] Datos = null;
+            while (rs.next()) {
                 rows++;
             }
             Datos = new String[rows][9];
@@ -593,8 +592,7 @@ public class Evento {
             int rows = 0;
             /*Se crea un array para guardar los datos posteriormente*/
             String[][] Datos = null;
-            while(rs.next())
-            {
+            while (rs.next()) {
                 rows++;
             }
             Datos = new String[rows][9];
@@ -667,9 +665,8 @@ public class Evento {
 
             int rows = 0;
             /*Se crea un array y se guardan los datos posteriormente*/
-             String[][] Datos = null;
-            while(rs.next())
-            {
+            String[][] Datos = null;
+            while (rs.next()) {
                 rows++;
             }
             Datos = new String[rows][9];
@@ -1448,6 +1445,50 @@ public class Evento {
         return 0;
     }
 
+    /*Metodo apra contar la cantidad de eventos recomendados*/
+    public int getcantidadeventosGeneralAndroid() {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
+        String sqlevento = "SELECT Count(DISTINCT Codigo) Cantidad "
+                + "FROM  `tb_evento` \n"
+                + "Where Estado = 'Aprobado' AND "
+                + "Fecha >= ? "
+                + "ORDER BY Fecha ";
+        try {
+            /*Se guarda la fecha del sistema en un date*/
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se envia los datos a la sentencia y se ejceuta*/
+            pr = conn.prepareStatement(sqlevento);
+            pr.setTimestamp(1, sqlDate);
+            rs = pr.executeQuery();
+            int rows = 0;
+            /*Se guarda el dato en un string*/
+            if (rs.next()) {
+                rows = rs.getInt("Cantidad");
+            }
+            /*Se retorna el entero*/
+            return rows;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*En caso de error se retorna cero*/
+        return 0;
+    }
+
     /*Metodo apra obtener la ubicacion de los eventos*/
     public String[][] getubicacioneventos() {
         /*Se crean variables necesarias*/
@@ -1504,7 +1545,7 @@ public class Evento {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en string*/
-        String sqlevento = "SELECT DISTINCT e.Codigo, to_base64(e.Imagen) Imagen, e.Nombre, e.Fecha, c.Nombre NombreCiudad, d.Nombre NombreDepto\n"
+        String sqlevento = "SELECT DISTINCT e.Codigo, e.Imagen,  e.Nombre, e.Fecha, c.Nombre NombreCiudad, d.Nombre NombreDepto \n"
                 + "FROM  `tb_evento` e \n"
                 + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
@@ -1525,6 +1566,65 @@ public class Evento {
             pr.setTimestamp(1, sqlDate);
             pr.setString(2, codigoUsuario);
             pr.setInt(3, Cantidad);
+            rs = pr.executeQuery();
+            /*Se cuenta la cantidad de resultados para crear un array*/
+            int rows = 0;
+            while (rs.next()) {
+                rows++;
+            }
+            /*Se crea un array y se guardan los datos*/
+            String[][] Datos = new String[rows][6];
+            rs.beforeFirst();
+            rows = 0;
+            while (rs.next()) {
+                Datos[rows][0] = rs.getString("Codigo");
+                Datos[rows][1] = rs.getString("Imagen");
+                Datos[rows][2] = rs.getString("Nombre");
+                Datos[rows][3] = rs.getString("Fecha");
+                Datos[rows][4] = rs.getString("NombreCiudad");
+                Datos[rows][5] = rs.getString("NombreDepto");
+                rows++;
+            }
+            /*Se retornan los datos*/
+            return Datos;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*En caso de error se retorna nulo*/
+        return null;
+    }
+    /*Metodo apra obtener los eventos recomendatos*/
+
+    public String[][] geteventosGeneralAndroid(int Cantidad) {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
+        String sqlevento = "SELECT DISTINCT e.Codigo, e.Imagen, e.Nombre, e.Fecha, c.Nombre NombreCiudad, d.Nombre NombreDepto \n"
+                + "       From tb_evento e\n"
+                + "       JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
+                + "       JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento\n"
+                + "       WHERE e.Fecha >= ? ORDER BY e.Fecha Limit 0,?";
+        try {
+
+            /*Se guarda la fecha en un date*/
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se le envian los datos y se ejecuta*/
+            pr = conn.prepareStatement(sqlevento);
+            pr.setTimestamp(1, sqlDate);
+            pr.setInt(2, Cantidad);
             rs = pr.executeQuery();
             /*Se cuenta la cantidad de resultados para crear un array*/
             int rows = 0;
