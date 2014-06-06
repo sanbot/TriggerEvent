@@ -1,8 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Controlador.Contr_Consultar"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionGeneral.jspf" %>
 <%
-    Contr_Consultar usu = new Contr_Consultar();
     String CodigoEvento = "";
     String CodigoUsuario = (String) session.getAttribute("Codigo");
     if (request.getParameter("CodigoEvento") != null) {
@@ -207,8 +206,6 @@
                 <div class="col-xs-1"></div>
             </div>
             <br/>
-            <%if (Rol.equals("Cliente") || Rol.equals("Administrador")) {
-                    if (usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario") && usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
             <div class="row">
                 <div class="col-xs-1"></div>
                 <div class="col-xs-10">
@@ -222,25 +219,21 @@
                             <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
 
                                 <div class="row">
-                                    <div class="col-xs-10 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-3 col-lg-3">
+                                    <div class="col-xs-10 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-1 col-lg-1"></div>
+                                    <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-5 col-lg-5">
                                         <div class="form-group">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-6 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="Comentario">Opini&oacute;n</label>
-                                            <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,250]"></textarea>
+                                            <label for="ComentarioOpinion">Opini&oacute;n</label>
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-3 col-lg-3">
+                                    <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-4 col-lg-4">
                                         <div class="form-group">
-                                            <label for="Imagen">Puntuaci&oacute;n</label>
-                                            <div id="stars" class="starrr rating" data-rating="3">
+                                            <label for="CalificacionOpinion">Puntuaci&oacute;n</label>
+                                            <div id="puntuacionsatisfaccionevento">
+                                                <div id="stars" class="starrr rating" data-rating="3"></div>
+                                                <span id="countname">Regular</span>
+                                                <input type="hidden" name="Rating" id="count" value="3"/>
                                             </div>
-                                            <span id="countname">Regular</span>
-                                            <input type="hidden" name="Rating" id="count" value="3"/>
                                         </div>
                                     </div>
                                 </div>
@@ -249,7 +242,7 @@
                                     </div>
                                     <div class="col-xs-10 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-6 col-lg-6">
                                         <div class="form-group">
-                                            <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
+                                            <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="btnComentario">Enviar crítica</button>
                                         </div>
                                     </div>
                                     <div class="ccol-xs-10 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-3 col-lg-3">
@@ -266,80 +259,6 @@
                 </div>
                 <div class="col-xs-1"></div>
             </div>
-            <%} else {%>
-            <div class="row">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-10">
-                    <div class="row">
-                        <div class="col-xs-12 opinion-div contenidoborde">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <h3 class="titulo-opinion" id="titulo-opinion"><center>DAR UNA OPINI&Oacute;N</center></h3>
-                                </div>
-                            </div>
-                            <form data-validate="parsley" role="form" method="post" action="/TriggerEvent/Contr_Satisfaccion">
-
-                                <div class="row">
-                                    <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-5 col-lg-5">
-                                        <div class="form-group texto-justificado">
-                                            <label for="Comentario">Opini&oacute;n</label>
-                                            <br/>
-                                            <%if (!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")) {%>
-                                            <%=usu.getComentarioOCalificacion("Comentario", CodigoUsuario, CodigoEvento)%>
-                                            <%} else {%>
-                                            <textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,250]"></textarea>
-                                            <%}%>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-5 col-lg-5">
-                                        <div class="form-group">
-                                            <label for="Imagen">Puntuaci&oacute;n</label>
-                                            <%if (!usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
-                                            <br/>
-                                            <span class="glyphicon glyphicon-star"></span> <%=usu.getComentarioOCalificacion("Calificacion", CodigoUsuario, CodigoEvento)%> puntos de calificaci&oacute;n
-                                            <%} else {%>
-                                            <div id="stars" class="starrr rating" data-rating="3">
-                                            </div>
-                                            <span id="countname">Regular</span>
-                                            <input type="hidden" name="Rating" id="count" value="3"/>
-                                            <%}%>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-1"></div>
-                                </div>
-                                <div class="row contenido-opinion">
-                                    <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-5 col-lg-5">
-                                        <div class="form-group">
-                                            <%if (usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Comentario")) {%>
-                                            <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-right" id="Comentario">Enviar crítica</button>
-                                            <%}%>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-10 col-sm-10 col-xs-offset-1 col-md-offset-0 col-md-5 col-lg-5">
-                                        <div class="form-group">
-                                            <%if (usu.getComprobacionCalificacionYComentario(CodigoEvento, CodigoUsuario, "Calificacion")) {%>
-                                            <button name="RegistrarSatisfaccion" type="submit" class="btn btn-default pull-left" id="Comentario">Enviar crítica</button>
-                                            <%}%>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-1"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="hidden" name="CodigoEvento" value="<%=CodigoEvento%>" />
-                                    </div>
-                                </div>
-                                <div class="col-xs-1"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-1"></div>
-            </div>
-            <%}%>
-            <%}%>
             <br/>
             <div class="row clearfix">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
@@ -500,25 +419,25 @@
                     }
                 });
             }
-            
-            var abrirmodal = function(latitud, longitud, nombre){
+
+            var abrirmodal = function(latitud, longitud, nombre) {
                 $("#mostrarubicacion").click(function() {
                     $("#modal-container-361414").modal('show');
                     mostrarmapa(latitud, longitud, nombre);
                 });
             }
-            
-            var datos_evento_detalle = function(){
+
+            var datos_evento_detalle = function() {
                 var idevento = "<%=CodigoEvento%>";
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Help',
-                    data: {'accion':'datos_evento_detalle', 'idevento':idevento},
-                    success: function(data){
+                    data: {'accion': 'datos_evento_detalle', 'idevento': idevento},
+                    success: function(data) {
                         var datos = jQuery.parseJSON(data);
-                        $.each(datos, function(key, val){
-                            if(val.evento != null){
-                                $("#img_evento").attr("src", "../Libs/Customs/images/Evento/"+val.imagen);
+                        $.each(datos, function(key, val) {
+                            if (val.evento != null) {
+                                $("#img_evento").attr("src", "../Libs/Customs/images/Evento/" + val.imagen);
                                 $("#lbl_nombre_evento").html(val.evento);
                                 $("#lbl_empresa_evento").html(val.empresa);
                                 $("#lbl_rango_evento").html(val.rango);
@@ -529,19 +448,63 @@
                                 $("#lbl_hora_evento").html(val.hora);
                                 $("#lbl_descripcion_evento").after(val.descripcion);
                                 abrirmodal(val.latitud, val.longitud, val.evento);
-                            }else{
+                            } else {
                                 window.location.replace("/TriggerEvent/View/ConsultaEvento.jsp");
                             }
                         });
                     }
                 });
             }
-            
+            <%if (Rol.equals("Cliente") || Rol.equals("Administrador")) {%>
+            var satisfaccion_evento_usuario = function() {
+
+                var idevento = "<%=CodigoEvento%>";
+                var idusuario = "<%=CodigoUsuario%>";
+                var elemento;
+                var cant = 0;
+                $.ajax({
+                    type: 'POST',
+                    url: '/TriggerEvent/Contr_Satisfaccion',
+                    data: {'accion': 'consulta_calificar_evento_android', 'codigoevento': idevento, "codigousuario": idusuario},
+                    success: function(data) {
+                        console.log(data);
+                        if (data == "Comente") {
+                            $("label [for=ComentarioOpinion]").html("hola");
+                        } else {
+                            var datos = jQuery.parseJSON(data);
+                            $.each(datos, function(key, val) {
+                                if (key == "Comentario") {
+                                    if (val == null) {
+                                        elemento = '<textarea name="comentario" class="form-control" rows="4" placeholder="Dejar un comentario es opcional." data-notblank="true" data-rangelength="[10,250]"></textarea>';
+                                        $("label[for=ComentarioOpinion]").after(elemento);
+                                    }
+                                    else {
+                                        $("label[for=ComentarioOpinion]").after("</br>"+val);
+                                        cant ++;
+                                    }
+                                } else {
+                                    if (val != null) {
+                                        $("#puntuacionsatisfaccionevento").remove();
+                                        elemento = '</br><span class="glyphicon glyphicon-star"></span>' + val + ' puntos de calificaci&oacute;n';
+                                        $("label[for=CalificacionOpinion]").after(elemento);
+                                        cant ++;
+                                    }
+                                }
+                            });
+                            if(cant == 2){
+                                $("#btnComentario").remove();
+                            }
+                        }
+                    }
+                });
+            }
+            <%}%>
             $(document).ready(function() {
                 datos_evento_detalle();
                 llenargrafica();
                 mascomentarios("5", "0");
-            });
+            <%if (Rol.equals("Cliente") || Rol.equals("Administrador")) {%>satisfaccion_evento_usuario();<%}%>
+                });
         </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
         <%session.setAttribute("Mensaje", "");%>

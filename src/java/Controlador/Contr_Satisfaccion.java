@@ -154,7 +154,7 @@ public class Contr_Satisfaccion extends HttpServlet {
             String codigoevento = request.getParameter("codigoevento");
             String codigousuario = request.getParameter("codigousuario");
             PrintWriter out = response.getWriter();
-            String[] Datos = sat.consultacalificareventoAndroid(codigoevento, codigousuario);
+            String[] Datos = sat.consultacalificarevento(codigoevento, codigousuario);
             if (Datos == null) {
                 out.print("Comente");
             } else {

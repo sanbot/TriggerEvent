@@ -796,7 +796,7 @@ public class Cls_Satisfaccion {
         return false;
     }
 
-    public String[] consultacalificareventoAndroid(String codigo_Evento, String codigo_Usuario) {
+    public String[] consultacalificarevento(String codigo_Evento, String codigo_Usuario) {
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;

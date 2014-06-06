@@ -16,9 +16,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <meta http-equiv="Expires" content="0" />
-        <meta http-equiv="Pragma" content="no-cache" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Trigger Event</title>
         <meta name="description" content="Eventos musicales" />
         <meta name="keywords" content="Eventos, musical, Trigger Event" />
@@ -454,7 +452,7 @@
                             items.push('<div class="message_wrap"> ');
                             items.push('<span class="arrow"></span>');
                             items.push('<div class="info"> ');
-                            items.push('<span class="name">Usuario:' +value.usuario+', Evento: '+value.evento+'</span>');
+                            items.push('<span class="name">Usuario:' + value.usuario + ', Evento: ' + value.evento + '</span>');
                             items.push('</div>');
                             items.push('<div class="text"> ');
                             items.push(value.comentario);
@@ -511,7 +509,7 @@
                             items.push('</div>');
                             items.push('<div class = "panel-footer" >');
                             items.push('<label for = "Espacio" > </label>');
-                            items.push('<p class = "pull-right calificacionevento" data - id = "' + value.codigo + '" >');
+                            items.push('<p class = "pull-right calificacionevento" data-id="' + value.codigo + '" >');
                             items.push('<span title = "Calificaci&oacute;n" class = "glyphicon glyphicon-star" >');
                             items.push(value.calificacion == null ? 0 : value.calificacion);
                             items.push('</span>');
@@ -524,28 +522,31 @@
                         });
                         $("#" + contenidoevento).append(items.join(""));
                     }
-                });
+                }).done(eventoslistos);
             }
             $("#guia").click(function() {
                 guidely.init({welcome: true, startTrigger: false});
             });
-            $("#loginingresar").click(function() {
+            var eventoslistos = function() {
+                $("#loginingresar").click(function() {
 
-                if (ValidarCamposinical()) {
-                    var correo = $("#txtCorreoInicio1").val();
-                    var contrasenia = $("#txtPassWordInicio").val();
-                    var url = "/TriggerEvent/View/EventoRecomendado.jsp";
-                    loginusuario(correo, contrasenia, url);
-                }
-            });
-            $(".calificacionevento").click(function() {
-                var Id = $(this).data('id');
-                $("#codigoeventomodal").val(Id);
-                $('#Modal-Login').modal('show');
-            });
-            $("#modal-oldive").click(function() {
-                $('#Modal-Login').modal('hide');
-            });
+                    if (ValidarCamposinical()) {
+                        var correo = $("#txtCorreoInicio1").val();
+                        var contrasenia = $("#txtPassWordInicio").val();
+                        var url = "/TriggerEvent/View/EventoRecomendado.jsp";
+                        loginusuario(correo, contrasenia, url);
+                    }
+                });
+                $(".calificacionevento").click(function() {
+                    var Id = $(this).data('id');
+                    $("#codigoeventomodal").val(Id);
+                    $('#Modal-Login').modal('show');
+                });
+                $("#modal-oldive").click(function() {
+                    $('#Modal-Login').modal('hide');
+                });
+            }
+
             $("#btn-login").click(function() {
                 if (ValidarCamposmodal()) {
                     var correo = $("#txtCorreoModal").val();
