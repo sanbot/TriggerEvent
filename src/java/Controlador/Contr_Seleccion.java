@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.Seleccion;
+import Modelo.Cls_Seleccion;
 import java.io.*;
 import java.io.IOException;
 import java.util.Iterator;
@@ -47,7 +47,7 @@ public class Contr_Seleccion extends HttpServlet {
         boolean b;
         try {
             /*Se declaran las variables necesarias*/
-            Seleccion sel = new Seleccion();
+            Cls_Seleccion sel = new Cls_Seleccion();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
             urlsalidaimg = "/media/santiago/Santiago/IMGTE/";

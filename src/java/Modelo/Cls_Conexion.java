@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  * @author santi
  */
-public class cone {
+public class Cls_Conexion {
 
     Connection conn;
 

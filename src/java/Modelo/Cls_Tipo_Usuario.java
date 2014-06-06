@@ -12,12 +12,12 @@ import java.sql.ResultSet;
  *
  * @author santi_000
  */
-public class Tipo_Usuario {
+public class Cls_Tipo_Usuario {
 
     /*Se crean los metodos set y get las varibales y la clase de conexion necesarias*/
-    cone conexion = new cone();
+    Cls_Conexion conexion = new Cls_Conexion();
 
-    public Tipo_Usuario() {
+    public Cls_Tipo_Usuario() {
         Connection conn = conexion.conectar();
     }
 

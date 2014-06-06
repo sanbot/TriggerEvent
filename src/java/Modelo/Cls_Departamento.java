@@ -14,12 +14,12 @@ import java.sql.SQLException;
  *
  * @author santiago
  */
-public class Departamento {
+public class Cls_Departamento {
 
-    /*Se crean las variables necesarias y se instancia la clase cone para la conexion a la base de datos*/
+    /*Se crean las variables necesarias y se instancia la clase Cls_Conexion para la conexion a la base de datos*/
     String Codigo;
     String Nombre;
-    cone conexion = new cone();
+    Cls_Conexion conexion = new Cls_Conexion();
     String Mensaje;
 
     public String getMensaje() {
@@ -30,7 +30,7 @@ public class Departamento {
         this.Mensaje = Mensaje;
     }
 
-    public Departamento() {
+    public Cls_Departamento() {
         Connection conn = conexion.conectar();
     }
 
@@ -156,7 +156,7 @@ public class Departamento {
             rows = 0;
             /*Se guardan los datos*/
             while (rs.next()) {
-                Departamento dep = new Departamento();
+                Cls_Departamento dep = new Cls_Departamento();
                 dep.setCodigo(rs.getString("Codigo"));
                 dep.setNombre(rs.getString("Nombre"));
                 Datos[rows][0] = dep.getCodigo();
@@ -248,7 +248,7 @@ public class Departamento {
             rows = 0;
             /*Se guardan los datos*/
             while (rs.next()) {
-                Departamento dep = new Departamento();
+                Cls_Departamento dep = new Cls_Departamento();
                 dep.setCodigo(rs.getString("Codigo"));
                 dep.setNombre(rs.getString("Nombre"));
                 Datos[rows][0] = dep.getCodigo();

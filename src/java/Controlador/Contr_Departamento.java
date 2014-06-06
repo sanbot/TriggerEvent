@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.Departamento;
+import Modelo.Cls_Departamento;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +35,7 @@ public class Contr_Departamento extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         /*Se declaran las variables necesarias*/
         String Nombre, Codigo, Mensaje, url;
-        Departamento dep = new Departamento();
+        Cls_Departamento dep = new Cls_Departamento();
         /*Varriable para la sesion*/
         HttpSession session = request.getSession(true);
         /*Se evalua cada uno de las posibles peticiones que se le puedan hacer al servidor*/

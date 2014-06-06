@@ -5,12 +5,12 @@
  */
 package Controlador;
 
-import Modelo.Ciudad;
+import Modelo.Cls_Ciudad;
 import Modelo.Cls_Satisfaccion;
-import Modelo.Departamento;
-import Modelo.Evento;
-import Modelo.Mensajeria;
-import Modelo.Seleccion;
+import Modelo.Cls_Departamento;
+import Modelo.Cls_Evento;
+import Modelo.Cls_Mensajeria;
+import Modelo.Cls_Seleccion;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -86,7 +86,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("totalevento")) {
                 /*Si se realiza la peticion de total de eventos*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
 
                 /*Se obtiene el todal de comentarios de un evento, del metodo de modelo*/
                 int row = eve.CantidadRegistroEvento();
@@ -96,7 +96,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("totaleventorecomendado")) {
                 /*Si se realiza la peticion de total de eventos recomendados*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 String codigoUsuario = request.getParameter("idusuario");
                 int row = eve.getcantidadeventosRecomendados(codigoUsuario);
                 /*Se imprime el resultado*/
@@ -104,7 +104,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("getciudad")) {
                 /*Si se realiza la peticion de ver todas las ciudades*/
                 /*Se declaran las variables necesarias*/
-                Ciudad ciu = new Ciudad();
+                Cls_Ciudad ciu = new Cls_Ciudad();
                 JSONObject obj = new JSONObject();
                 /*Se obtiene los datos de la ciudad, del metodo de modelo*/
                 String[][] Datos = ciu.BuscarDatosCiudadTodos(request.getParameter("codigodepartamento"));
@@ -125,7 +125,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("getdepartamentos")) {
                 /*Si se realiza la peticion de ver todos los departamentos*/
                 /*Se declaran las variables necesarias*/
-                Departamento dep = new Departamento();
+                Cls_Departamento dep = new Cls_Departamento();
                 JSONObject obj = new JSONObject();
                 /*Se obtiene los datos de los departamentos, del metodo de modelo*/
                 String[][] Datos = dep.BuscarDatosDepartamentoTodos();
@@ -145,7 +145,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("getciudades")) {
                 /*Si se realiza la peticion de ver todos los datos de la ciudad*/
                 /*Se declaran las variables necesarias*/
-                Ciudad ciu = new Ciudad();
+                Cls_Ciudad ciu = new Cls_Ciudad();
                 JSONObject obj = new JSONObject();
                 /*Se obtiene los datos de la ciudad, del metodo de modelo*/
                 String[][] Datos = ciu.BuscarDatosCiudadTodos();
@@ -167,8 +167,8 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("aprobarevento")) {
                 /*Si se realiza la peticion de aprobar un evento*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
-                Mensajeria sms = new Mensajeria();
+                Cls_Evento eve = new Cls_Evento();
+                Cls_Mensajeria sms = new Cls_Mensajeria();
                 JSONObject obj = new JSONObject();
                 JSONObject ob = new JSONObject();
                 String Codigo = request.getParameter("codigoevento");
@@ -195,7 +195,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("geteventospendientes")) {
                 /*Si se realiza la peticion de obtener los datos de los eventos pendientes*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos del evento, en el metodo de modelo*/
                 String[][] Datos = eve.BuscarDatosPrincipalesEventosPendientes();
@@ -221,7 +221,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de ver todos los eventos de una empresa*/
                 /*Se declaran las variables necesarias*/
                 String nit = request.getParameter("nit");
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos de los eventos de una empresa, en el metodo de modelo*/
                 String[][] Datos = eve.BuscarDatosMisEventos(nit);
@@ -248,7 +248,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de obtener todos los datos de los eventos propios*/
                 /*Se declaran las variables necesarias*/
                 String nit = request.getParameter("nit");
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 String[][] Datos = eve.BuscarDatosTodosEventos();
                 int i = 0;
@@ -273,7 +273,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("agregargusto")) {
                 /*Si se realiza la peticion de agregar un gusto*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 String Codigo = request.getParameter("codigo");
                 String CodigoUsuario = request.getParameter("idusuario");
@@ -292,7 +292,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("removergusto")) {
                 /*Si se realiza la peticion de remover un gusto*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 String Codigo = request.getParameter("codigo");
                 String CodigoUsuario = request.getParameter("idusuario");
@@ -318,7 +318,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de obtener los gustos nuevos*/
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("codigo");
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos de los gustos nuevos, en el metodo de modelo*/
                 String[][] Datos = sel.getGustosNuevos(Codigo);
@@ -341,7 +341,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de obtener los gustos del usuario*/
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("codigo");
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos de los gustos de un usuario, en el metodo de modelo*/
                 String[][] Datos = sel.getMisGustos(Codigo);
@@ -363,7 +363,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("getseleccion")) {
                 /*Si se realiza la peticion de obtener los datos de la seleccion*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos de la seleccion, en el metodo de modelo*/
                 String[][] Datos = sel.getDatosSeleccion();
@@ -387,7 +387,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de obtener la califiacion de un evento*/
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("idevento");
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos de la clasificacion de un evento, en el metodo de modelo*/
                 String Datos[][] = sel.getClasificacionEvento(Codigo);
@@ -409,7 +409,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("getclasificacionnuevos")) {
                 /*Si se realiza la peticion de obtener nuevos datos para la calificacion de un evento*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 String Codigo = request.getParameter("idevento");
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los nuevos datos para la clasficicacion de un evento, en el metodo de modelo*/
@@ -433,7 +433,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de aprobar una seleccion*/
                 /*Se declaran las variables necesarias*/
                 JSONObject obj = new JSONObject();
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 String CodigoSeleccion = request.getParameter("idseleccion");
                 boolean b;
                 /*Se aprueba la seleccion, en el metodo de modelo*/
@@ -448,7 +448,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("desaprobarseleccion")) {
                 /*Si se realiza la peticion de desaprobar una seleccion*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 String CodigoSeleccion = request.getParameter("idseleccion");
                 /*Se verifica que los usuarios no tengan este gustos o ambientes seleccionado, en el metodo de modelo*/
@@ -471,7 +471,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("agregarclasificacion")) {
                 /*Si se realiza la peticion de agregar una clasificacion a un evento*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 String CodigoSeleccion = request.getParameter("idseleccion");
                 String CodigoEvento = request.getParameter("idevento");
@@ -481,7 +481,7 @@ public class Contr_Help extends HttpServlet {
                     /*Se encodifican los datos en JSON*/
                     obj.put("1", "Se agregó el gusto/ambiente a la calificación satisfactoriamente.");
                     if (sel.ComprobarRegistroCompletoUSuario(CodigoEvento)) {
-                        Evento eve = new Evento();
+                        Cls_Evento eve = new Cls_Evento();
                         if (eve.setEstadoPendiente(CodigoEvento)) {
                             /*Se encodifican los datos en JSON*/
                             String mensaje = "Se han cumplido los requisitos mínimos para el registro y el evento está en la lista de espera por aprobación.";
@@ -498,7 +498,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("comprobarregistroevento")) {
                 /*Si se realiza la peticion de comprobar el registro de un evento*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 String CodigoEvento = request.getParameter("idevento");
                 /*Se comprueba el registro de un evento, en el metodo de modelo*/
                 boolean dato = sel.ComprobarRegistroCompletoUSuario(CodigoEvento);
@@ -507,7 +507,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("eventodatosprincipales")) {
                 /*Si se realiza la peticion de obtener todos los datos de los eventos principales*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 int limite = Integer.parseInt(request.getParameter("limite"));
                 int cantidad = Integer.parseInt(request.getParameter("cantidad"));
@@ -536,7 +536,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("eventodatosrecomendados")) {
                 /*Si se realiza la peticion de obtener los datos de los eventos recomendados*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 int limite = Integer.parseInt(request.getParameter("limite"));
                 int cantidad = Integer.parseInt(request.getParameter("cantidad"));
@@ -565,7 +565,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("ubicacioneventos")) {
                 /*Si se realiza la peticion de obtener los datos de la ubicacion de los eventos*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos de la ubicacion de los eventos, en el metodo de modelo*/
                 String[][] Datos = eve.getubicacioneventos();
@@ -586,7 +586,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("datos_evento_detalle")) {
                 /*Si se realiza la peticion de obtener los datos de la ubicacion de los eventos*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 String codigo = request.getParameter("idevento");
                 JSONObject obj = new JSONObject();
                 /*Se obtienen los datos de la ubicacion de los eventos, en el metodo de modelo*/
@@ -613,7 +613,7 @@ public class Contr_Help extends HttpServlet {
                 /*Se imprime el resultado*/
                 out.print(obj);
             } else if (request.getParameter("accion").equals("eventos_destacados")) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 String Datos[][] = eve.BuscarDatosEventosDestacados();
                 JSONObject obj = new JSONObject();
                 int i = 0;
@@ -635,7 +635,7 @@ public class Contr_Help extends HttpServlet {
                 /*Se imprime el resultado*/
                 out.print(obj);
             } else if (request.getParameter("accion").equals("eventos_comentados")) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 String Datos[][] = eve.BuscarDatosEventosComentado();
                 JSONObject obj = new JSONObject();
                 int i = 0;
@@ -657,7 +657,7 @@ public class Contr_Help extends HttpServlet {
                 /*Se imprime el resultado*/
                 out.print(obj);
             } else if (request.getParameter("accion").equals("eventos_proximos")) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 String Datos[][] = eve.BuscarDatosEventosProximos();
                 JSONObject obj = new JSONObject();
                 int i = 0;
@@ -679,13 +679,13 @@ public class Contr_Help extends HttpServlet {
                 /*Se imprime el resultado*/
                 out.print(obj);
             } else if (request.getParameter("accion").equals("cantidad_evento_pendiente")) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 int Dato = eve.CantidadEventoPendiente();
                 out.print(Dato);
             } else if (request.getParameter("accion").equals("ciudades_android")) {
                 /*Si se realiza la peticion de ver todas las ciudades*/
                 /*Se declaran las variables necesarias*/
-                Ciudad ciu = new Ciudad();
+                Cls_Ciudad ciu = new Cls_Ciudad();
                 JSONArray list = new JSONArray();
                 /*Se obtiene los datos de la ciudad, del metodo de modelo*/
                 String[][] Datos = ciu.BuscarDatosCiudadTodos(request.getParameter("codigo_dept"));
@@ -706,7 +706,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("departamentos_android")) {
                 /*Si se realiza la peticion de ver todos los departamentos*/
                 /*Se declaran las variables necesarias*/
-                Departamento dep = new Departamento();
+                Cls_Departamento dep = new Cls_Departamento();
                 JSONArray list = new JSONArray();
                 /*Se obtiene los datos de los departamentos, del metodo de modelo*/
                 String[][] Datos = dep.BuscarDatosDepartamentoAndroid();
@@ -728,7 +728,7 @@ public class Contr_Help extends HttpServlet {
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("codigo");
                 int Cantidad = Integer.parseInt(request.getParameter("cantidad"));
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();
                 BufferedImage img;
@@ -770,7 +770,7 @@ public class Contr_Help extends HttpServlet {
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("codigo");
                 int Cantidad = Integer.parseInt(request.getParameter("cantidad"));
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();
 
@@ -819,7 +819,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de obtener la cantidad de gustos que puede tener el usuario*/
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("codigo");
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 /*Se obtienen los datos de la cantidad de gustos de un usuario, en el método de modelo*/
                 int Datos = sel.CantidadGustosNuevosAndroid(Codigo);
                 /*Se imprime el resultado*/
@@ -828,7 +828,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de obtener la cantidad de gustos del usuario*/
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("codigo");
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 /*Se obtienen los datos de la cantidad de gustos de un usuario, en el método de modelo*/
                 int Datos = sel.CantidadGustosAndroid(Codigo);
                 /*Se imprime el resultado*/
@@ -836,7 +836,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("agregar_gusto_android")) {
                 /*Si se realiza la peticion de agregar un gusto*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 String Mensaje;
                 String Codigo = request.getParameter("codigo");
                 String CodigoUsuario = request.getParameter("codigousuario");
@@ -855,7 +855,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("remover_gusto_android")) {
                 /*Si se realiza la peticion de remover un gusto*/
                 /*Se declaran las variables necesarias*/
-                Seleccion sel = new Seleccion();
+                Cls_Seleccion sel = new Cls_Seleccion();
                 String Mensaje;
                 String Codigo = request.getParameter("codigo");
                 String CodigoUsuario = request.getParameter("codigousuario");
@@ -880,7 +880,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("cantidad_eventos_recomendados_android")) {
                 /*Si se realiza la peticion de total de eventos recomendados*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 String codigoUsuario = request.getParameter("codigo");
                 int row = eve.getcantidadeventosRecomendados(codigoUsuario);
                 /*Se imprime el resultado*/
@@ -888,7 +888,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("eventos_recomendados_android")) {
                 /*Si se realiza la peticion de obtener los datos de los eventos recomendados*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();
                 int cantidad = Integer.parseInt(request.getParameter("cantidad"));
@@ -930,14 +930,14 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("cantidad_eventos_general_android")) {
                 /*Si se realiza la peticion de total de eventos recomendados*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 int row = eve.getcantidadeventosGeneralAndroid();
                 /*Se imprime el resultado*/
                 out.println(row);
             } else if (request.getParameter("accion").equals("eventos_general_android")) {
                 /*Si se realiza la peticion de obtener los datos de los eventos recomendados*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();
                 int cantidad = Integer.parseInt(request.getParameter("cantidad"));
@@ -978,7 +978,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("cantidad_mis_eventos_android")) {
                 /*Si se realiza la peticion de total de eventos recomendados*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 String codigo = request.getParameter("codigo");
                 int row = eve.getcantidadMisEventosAndroid(codigo);
                 /*Se imprime el resultado*/
@@ -988,7 +988,7 @@ public class Contr_Help extends HttpServlet {
                 /*Se declaran las variables necesarias*/
                 String codigo = request.getParameter("codigo");
                 int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();
                 /*Se obtienen los datos de los eventos de una empresa, en el metodo de modelo*/
@@ -1025,7 +1025,7 @@ public class Contr_Help extends HttpServlet {
                 /*Se imprime el resultado*/
                 out.print(obj);
             } else if (request.getParameter("accion").equals("ubicacion_evento_android")) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 JSONObject ob = new JSONObject();
                 String codigo = request.getParameter("codigo");
                 
@@ -1039,7 +1039,7 @@ public class Contr_Help extends HttpServlet {
             } else if (request.getParameter("accion").equals("datos_evento_detalle_android")) {
                 /*Si se realiza la peticion de obtener los datos de la ubicacion de los eventos*/
                 /*Se declaran las variables necesarias*/
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 String codigo = request.getParameter("idevento");
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();

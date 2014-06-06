@@ -5,8 +5,8 @@
  */
 package Controlador;
 
-import Modelo.Evento;
-import Modelo.Mensajeria;
+import Modelo.Cls_Evento;
+import Modelo.Cls_Mensajeria;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -52,8 +52,8 @@ public class Contr_Evento extends HttpServlet {
         boolean b;
         try {
             /*Se declaran las variables necesarias*/
-            Evento eve = new Evento();
-            Mensajeria sms = new Mensajeria();
+            Cls_Evento eve = new Cls_Evento();
+            Cls_Mensajeria sms = new Cls_Mensajeria();
             String Codigo = "", Mensaje = "", Nombre = "", Tipo = "", Imagen = "", url, Peti;
             String urlsalidaimg;
             urlsalidaimg = "/media/santiago/Santiago/IMGTE/";

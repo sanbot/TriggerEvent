@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author ADSI
  */
-public class Evento {
+public class Cls_Evento {
 
     /*Se crean las variables con metodos set y get y se instancian las clases necesarias*/
     String Codigo;
@@ -35,7 +35,7 @@ public class Evento {
     String Creador;
     String Rango;
     Date FechaDate;
-    cone conexion = new cone();
+    Cls_Conexion conexion = new Cls_Conexion();
     String Direccion;
     String Ciudad;
     String Estado;
@@ -186,7 +186,7 @@ public class Evento {
             return true;
         } catch (ParseException ex) {
             /*En caso de error se muestra*/
-            Logger.getLogger(Evento.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cls_Evento.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -384,7 +384,7 @@ public class Evento {
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
                 eve.setFecha(rs.getString("Fecha"));
@@ -458,7 +458,7 @@ public class Evento {
             rows = 0;
             /*Despues de crear el array se guardan los datos*/
             while (rs.next()) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
                 eve.setFecha(rs.getString("Fecha"));
@@ -529,7 +529,7 @@ public class Evento {
             rs.beforeFirst();
             /*Se guardan los datos*/
             while (rs.next()) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
                 eve.setFecha(rs.getString("Fecha"));
@@ -599,7 +599,7 @@ public class Evento {
             rows = 0;
             rs.beforeFirst();
             while (rs.next()) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
                 eve.setFecha(rs.getString("Fecha"));
@@ -673,7 +673,7 @@ public class Evento {
             rows = 0;
             rs.beforeFirst();
             while (rs.next()) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
                 eve.setFecha(rs.getString("Fecha"));
@@ -1000,7 +1000,7 @@ public class Evento {
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
                 eve.setCreador(rs.getString("NombreEmpresa"));
@@ -1076,7 +1076,7 @@ public class Evento {
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
                 eve.setCreador(rs.getString("NombreEmpresa"));
@@ -1145,7 +1145,7 @@ public class Evento {
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
-                Evento eve = new Evento();
+                Cls_Evento eve = new Cls_Evento();
                 eve.setCodigo(rs.getString("Codigo"));
                 eve.setNombre(rs.getString("Nombre"));
                 eve.setCreador(rs.getString("NombreEmpresa"));

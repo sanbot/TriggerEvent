@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import Modelo.Evento;
+import Modelo.Cls_Evento;
 
 /**
  *
@@ -14,7 +14,7 @@ public class Contr_Consultar {
     
     /**Metodo pra buscar los datos de un evento pendiente*/
     public String[] getBuscarDatosDetalladosEventoPendiente(String CodigoEvento) {
-        Evento eve = new Evento();
+        Cls_Evento eve = new Cls_Evento();
         String[] Datos = eve.BuscarDatosDetalladosEventosPendiente(CodigoEvento);
         return Datos;
     }

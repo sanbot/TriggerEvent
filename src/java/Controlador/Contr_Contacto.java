@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import Modelo.Mensajeria;
+import Modelo.Cls_Mensajeria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,7 +38,7 @@ public class Contr_Contacto extends HttpServlet {
         /*Varriable para la sesion*/
         HttpSession session = request.getSession(true);
         /*Clase para realizar mensajes*/
-        Mensajeria msm = new Mensajeria();
+        Cls_Mensajeria msm = new Cls_Mensajeria();
         /*Se evalua cada uno de las posibles peticiones que se le puedan hacer al servidor*/
         if (request.getParameter("Contactenos") != null) {
             /**

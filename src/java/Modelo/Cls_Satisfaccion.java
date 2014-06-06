@@ -73,7 +73,7 @@ public class Cls_Satisfaccion {
         this.Calificacion = Calificacion;
     }
 
-    cone conexion = new cone();
+    Cls_Conexion conexion = new Cls_Conexion();
 
     public Cls_Satisfaccion() {
         Connection conn = conexion.conectar();

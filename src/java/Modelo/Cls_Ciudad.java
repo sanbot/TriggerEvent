@@ -14,14 +14,14 @@ import java.sql.SQLException;
  *
  * @author santiago
  */
-public class Ciudad {
+public class Cls_Ciudad {
     /*Se declaran las variables necesarias para realizar las operaciones de esta clase*/
     String Codigo;
     String Nombre;
     String Departamento;
     String Mensaje;
-    /*Se instancia la clase cone para la conexion a la base de datos*/
-    cone conexion = new cone();
+    /*Se instancia la clase Cls_Conexion para la conexion a la base de datos*/
+    Cls_Conexion conexion = new Cls_Conexion();
 
     /*Se crean los metodos set y get*/
     public String getCodigo() {
@@ -57,7 +57,7 @@ public class Ciudad {
     }
     
     /*conectamos la base de datos en el contructor*/
-    public Ciudad() {
+    public Cls_Ciudad() {
         Connection conn = conexion.conectar();
     }
 
@@ -173,7 +173,7 @@ public class Ciudad {
             String NombreDepar;
             while (rs.next()) {
                 /*Se recorre y se guardan los resultados en el array*/
-                Ciudad ciu = new Ciudad();
+                Cls_Ciudad ciu = new Cls_Ciudad();
                 ciu.setCodigo(rs.getString("Codigo"));
                 ciu.setNombre(rs.getString("Ciudad"));
                 ciu.setDepartamento(rs.getString("Departamento"));

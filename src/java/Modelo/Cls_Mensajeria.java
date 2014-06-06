@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMessage;
  *
  * @author santi
  */
-public class Mensajeria {
+public class Cls_Mensajeria {
 
     private final Properties properties = new Properties();
     private Session sess;

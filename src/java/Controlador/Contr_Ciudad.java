@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.Ciudad;
+import Modelo.Cls_Ciudad;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +37,7 @@ public class Contr_Ciudad extends HttpServlet {
         
         /*Se declaran las variables necesarias*/
         String Nombre, Codigo, Mensaje, url, Departamento;
-        Ciudad ciu = new Ciudad();
+        Cls_Ciudad ciu = new Cls_Ciudad();
         /*Se crea una variable para la sesion*/
         HttpSession session = request.getSession(true);
         /*Se evalua cada una de las posibles peticiones*/

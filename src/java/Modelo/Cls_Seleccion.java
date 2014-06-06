@@ -20,7 +20,7 @@ import sun.misc.BASE64Encoder;
  *
  * @author santiago
  */
-public class Seleccion {
+public class Cls_Seleccion {
 
     /*Se crean las variables necesarias con metodos set y get y se instancia la clase de conexion*/
     String Codigo;
@@ -88,9 +88,9 @@ public class Seleccion {
         this.Imagen = Imagen;
     }
 
-    cone conexion = new cone();
+    Cls_Conexion conexion = new Cls_Conexion();
 
-    public Seleccion() {
+    public Cls_Seleccion() {
         Connection conn = conexion.conectar();
     }
 

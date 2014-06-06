@@ -14,7 +14,7 @@ import java.util.Random;
  *
  * @author santi
  */
-public class Usuario {
+public class Cls_Usuario {
 
     /*Creacion de las variables, instancia de las clases necesarias y metodos set y get*/
     String Celular;
@@ -64,9 +64,9 @@ public class Usuario {
         this.Contrasenia = Contrasenia;
     }
 
-    cone conexion = new cone();
+    Cls_Conexion conexion = new Cls_Conexion();
 
-    public Usuario() {
+    public Cls_Usuario() {
         Connection conn = conexion.conectar();
     }
 
@@ -684,7 +684,7 @@ public class Usuario {
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
-                Usuario usu = new Usuario();
+                Cls_Usuario usu = new Cls_Usuario();
                 usu.setCodigo(rs.getString("Codigo"));
                 usu.setTipo(rs.getString("Tipo"));
                 usu.setTipo_Documento(rs.getString("Tipo_Documento"));
@@ -755,7 +755,7 @@ public class Usuario {
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
-                Usuario usu = new Usuario();
+                Cls_Usuario usu = new Cls_Usuario();
                 usu.setCodigo(rs.getString("No_Documento"));
                 usu.setNombre(rs.getString("Nombre"));
                 
@@ -810,7 +810,7 @@ public class Usuario {
             rs.beforeFirst();
             rows = 0;
             while (rs.next()) {
-                Usuario usu = new Usuario();
+                Cls_Usuario usu = new Cls_Usuario();
                 usu.setCodigo(rs.getString("Codigo"));
                 usu.setTipo(rs.getString("Tipo"));
                 usu.setTipo_Documento(rs.getString("Tipo_Documento"));

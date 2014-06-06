@@ -4,9 +4,9 @@
  */
 package Controlador;
 
-import Modelo.Mensajeria;
-import Modelo.Tipo_Usuario;
-import Modelo.Usuario;
+import Modelo.Cls_Mensajeria;
+import Modelo.Cls_Tipo_Usuario;
+import Modelo.Cls_Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -37,8 +37,8 @@ public class Contr_Usuarios extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         //se instancia las clases necesarias
-        Usuario usu = new Usuario();
-        Mensajeria msm = new Mensajeria();
+        Cls_Usuario usu = new Cls_Usuario();
+        Cls_Mensajeria msm = new Cls_Mensajeria();
         //se declaran las variables necesarias
         String script, Nombre, Codigo, Tipo_Documento, Estado, No_Documento, Telefono, Direccion, correo, celular, url, CodVer, CodigoVerificacion, Ciudad, Departamento;
         String Password, REPassword, Rol, Contrasenia;
@@ -567,7 +567,7 @@ public class Contr_Usuarios extends HttpServlet {
             }
 
         } else if (request.getParameter("accion").equals("tipos_usuarios")) {
-            Tipo_Usuario Tusu = new Tipo_Usuario();
+            Cls_Tipo_Usuario Tusu = new Cls_Tipo_Usuario();
             String[][] Datos = Tusu.BuscarDatosTipoUsuarioTodos();
             /*Se declaran JSON Para imprimir los datos*/
             JSONObject obj = new JSONObject();
