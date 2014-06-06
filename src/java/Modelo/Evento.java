@@ -773,6 +773,76 @@ public class Evento {
         /*Se retorna nulo en caso de error*/
         return null;
     }
+
+    /*Metodo para buscar todos los datos de un evento*/
+    public String[] BuscarDatosDetalleEventoAndroid(String codigoEvento) {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
+        String sql = "SELECT e.Imagen, e.Fecha, e.Nombre NombreEvento, u.Nombre NombreEmpresa, d.Nombre NombreDepartamento, "
+                + "c.Nombre NombreCiudad, e.Direccion, e.Rango_Precios, e.Descripcion, "
+                + "(SELECT Count(Calificacion) Cantidad FROM  `tb_satisfaccion` e Where Calificacion = '5' AND Id_Evento = ?) Cinco, "
+                + "(SELECT Count(Calificacion) Cantidad FROM  `tb_satisfaccion` e Where Calificacion = '4' AND Id_Evento = ?) Cuatro, "
+                + "(SELECT Count(Calificacion) Cantidad FROM  `tb_satisfaccion` e Where Calificacion = '3' AND Id_Evento = ?) Tres, "
+                + "(SELECT Count(Calificacion) Cantidad FROM  `tb_satisfaccion` e Where Calificacion = '2' AND Id_Evento = ?) Dos, "
+                + "(SELECT Count(Calificacion) Cantidad FROM  `tb_satisfaccion` e Where Calificacion = '1' AND Id_Evento = ?) Uno \n"
+                + "FROM tb_evento e \n"
+                + "JOIN tb_usuario u ON e.NIT = u.No_Documento \n"
+                + "JOIN tb_ciudad c ON e.Codigo_Ciudad = c.Codigo \n"
+                + "JOIN tb_departamento d ON c.Codigo_Departamento = d.Codigo \n"
+                + "WHERE e.Codigo = ?";
+
+        try {
+            /*Se prepara la sentenica, se le envian los datos y se ejecuta*/
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigoEvento);
+            pr.setString(2, codigoEvento);
+            pr.setString(3, codigoEvento);
+            pr.setString(4, codigoEvento);
+            pr.setString(5, codigoEvento);
+            pr.setString(6, codigoEvento);
+            rs = pr.executeQuery();
+
+            /*Se crea un array para guardar los datos posteriormente*/
+            String[] Datos = new String[14];
+            rs.beforeFirst();
+
+            while (rs.next()) {
+                Datos[0] = rs.getString("Imagen");
+                Datos[1] = rs.getString("Fecha");
+                Datos[2] = rs.getString("NombreEvento");
+                Datos[3] = rs.getString("NombreEmpresa");
+                Datos[4] = rs.getString("NombreDepartamento");
+                Datos[5] = rs.getString("NombreCiudad");
+                Datos[6] = rs.getString("Direccion");
+                Datos[7] = rs.getString("Rango_Precios");
+                Datos[8] = rs.getString("Descripcion");
+                Datos[9] = rs.getString("Cinco");
+                Datos[10] = rs.getString("Cuatro");
+                Datos[11] = rs.getString("Tres");
+                Datos[12] = rs.getString("Dos");
+                Datos[13] = rs.getString("Uno");
+            }
+            /*Se guardan los datos en un array*/
+            return Datos;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*Se retorna nulo en caso de error*/
+        return null;
+    }
 //    también sirve para eventos incompletos
     /*Metodo para buscar todos los datos de los eventos pendientes e incompletos*/
 
@@ -1663,4 +1733,160 @@ public class Evento {
         return null;
     }
 
+    /**
+     * Metodo para buscar los datos de los eventos que ha creado la empresa
+     */
+    public String[][] BuscarDatosMisEventosAndroid(String codigo, int cantidad) {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
+        String sql = "SELECT DISTINCT e.Codigo, e.Imagen, e.Nombre, e.Fecha, c.Nombre NombreCiudad, d.Nombre NombreDepto \n"
+                + "From tb_evento e \n"
+                + "Join tb_usuario u ON u.No_Documento = e.NIT \n"
+                + "AND u.Codigo = ? \n"
+                + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
+                + "JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento \n"
+                + "WHERE e.Fecha >= ? ORDER BY e.Fecha Limit 0, ?";
+
+        try {
+            /*Se guarda la fecha en una variable tipo date*/
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /**
+             * Se prepara la sentencia, se le envian los datos y se ejecuta
+             */
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+            pr.setTimestamp(2, sqlDate);
+            pr.setInt(3, cantidad);
+            rs = pr.executeQuery();
+
+            /*Se cuenta los registros para luego crear un array*/
+            int rows = 0;
+            while (rs.next()) {
+                rows++;
+            }
+            /*Se crea un array para guardar los datos*/
+            String[][] Datos = new String[rows][6];
+            rs.beforeFirst();
+            rows = 0;
+            while (rs.next()) {
+                Datos[rows][0] = rs.getString("Codigo");
+                Datos[rows][1] = rs.getString("Imagen");
+                Datos[rows][2] = rs.getString("Nombre");
+                Datos[rows][3] = rs.getString("Fecha");
+                Datos[rows][4] = rs.getString("NombreCiudad");
+                Datos[rows][5] = rs.getString("NombreDepto");
+                rows++;
+            }
+            /**
+             * Se retornan los datos
+             */
+            return Datos;
+        } catch (Exception ex) {
+            /**
+             * Se muestra un mensaje en caso de error
+             */
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /**
+         * Se retorna nulo en caso de error
+         */
+        return null;
+    }
+
+    /*Metodo apra contar la cantidad de los eventos de la empresa*/
+    public int getcantidadMisEventosAndroid(String codigo) {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
+        String sqlevento = "SELECT COUNT(DISTINCT e.Codigo) \n"
+                + "From tb_evento e \n"
+                + "Join tb_usuario u ON u.No_Documento = e.NIT \n"
+                + "AND u.Codigo = ? \n"
+                + "WHERE e.Fecha >= ? ";
+        try {
+            /*Se guarda la fecha del sistema en un date*/
+            Date fecha = new Date();
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(fecha.getTime());
+            /*Se prepara la sentencia, se envia los datos a la sentencia y se ejceuta*/
+            pr = conn.prepareStatement(sqlevento);
+            pr.setString(1, codigo);
+            pr.setTimestamp(2, sqlDate);
+            rs = pr.executeQuery();
+            int rows = 0;
+            /*Se guarda el dato en un string*/
+            if (rs.next()) {
+                rows = rs.getInt("Cantidad");
+            }
+            /*Se retorna el entero*/
+            return rows;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*En caso de error se retorna cero*/
+        return 0;
+    }
+    
+    /*Metodo apra obtener la ubicacion de los eventos*/
+    public String[] getUbicacionAndroid(String codigo) {
+        /*Se crean variables necesarias*/
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        /*Se crea una sentencia sql en string*/
+        String sqlevento = "SELECT Latitud, Longitud, Nombre FROM tb_evento where Codigo= ? ";
+        try {
+
+            /*Se prepara la sentencia y se ejecuta*/
+            pr = conn.prepareStatement(sqlevento);
+            pr.setString(1, codigo);
+            rs = pr.executeQuery();
+            String [] Datos = new String[3];
+            if (rs.next()) {
+                Datos[0] = rs.getString("Latitud");
+                Datos[1] = rs.getString("Longitud");
+                Datos[2] = rs.getString("Nombre");
+            }
+            /*Se retornan los datos*/
+            return Datos;
+        } catch (Exception ex) {
+            /*Se muestra un mensaje en caso de error*/
+            ex.printStackTrace();
+        } finally {
+            /*Se cierra todo*/
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*En caso de error se retorna nulo*/
+        return null;
+    }
 }

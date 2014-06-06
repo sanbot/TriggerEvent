@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -131,19 +132,65 @@ public class Contr_Satisfaccion extends HttpServlet {
             ob.put("tres", Datos[2]);
             ob.put("cuatro", Datos[3]);
             ob.put("cinco", Datos[4]);
-            
+
             obj.put(1, ob);
-            
+
             PrintWriter out = response.getWriter();
             out.print(obj);
             out.close();
+        } else if (request.getParameter("accion").equals("registrar_calificacion_evento_android")) {
+            String codigoevento = request.getParameter("codigoevento");
+            String codigousuario = request.getParameter("codigousuario");
+            String comentario = request.getParameter("comentario");
+            String calificacion = request.getParameter("calificacion");
+            String fecha = request.getParameter("fecha");
+
+            sat.registrarSatisfaccionAndroid(codigoevento, codigousuario, fecha, comentario, calificacion);
+            String dato = sat.getMensaje();
+            PrintWriter out = response.getWriter();
+            out.print(dato);
+            out.close();
+        } else if (request.getParameter("accion").equals("consulta_calificar_evento_android")) {
+            String codigoevento = request.getParameter("codigoevento");
+            String codigousuario = request.getParameter("codigousuario");
+            PrintWriter out = response.getWriter();
+            String[] Datos = sat.consultacalificareventoAndroid(codigoevento, codigousuario);
+            if (Datos == null) {
+                out.print("Comente");
+            } else {
+                JSONObject ob = new JSONObject();
+                ob.put("Comentario", Datos[0]);
+                ob.put("Calificacion", Datos[1]);
+                out.print(ob);
+            }
+            out.close();
+
+        } else if (request.getParameter("accion").equals("consultar_comentarios_evento_android")) {
+            String codigoevento = request.getParameter("codigoevento");
+            JSONObject obj = new JSONObject();
+            JSONObject ob = new JSONObject();
+            JSONArray list = new JSONArray();
+            PrintWriter out = response.getWriter();
+
+            String[][] Datos = sat.consultacomentarioseventoAndroid(codigoevento);
+
+            for (String[] row : Datos) {
+                ob.put("Nombre", row[0]);
+                ob.put("Comentario", row[1]);
+                ob.put("Fecha", row[2]);
+                list.add(ob);
+            }
+            obj.put("comentarios", list);
+            out.print(obj);
+            out.close();
+
         } else {
             /*Se redirecciona si no se realizo ninguna peticion*/
             response.sendRedirect("View/ConsultaEvento.jsp");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

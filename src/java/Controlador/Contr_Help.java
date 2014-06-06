@@ -282,7 +282,7 @@ public class Contr_Help extends HttpServlet {
                 b = sel.AddGusto(Codigo, CodigoUsuario);
                 if (b) {
                     /*Se encodifican los datos en JSON*/
-                    obj.put("1", "Se agrego el gusto satisfactoriamente.");
+                    obj.put("1", "Se agregó el gusto satisfactoriamente.");
                 } else {
                     /*Se encodifican los datos en JSON*/
                     obj.put("0", "Ocurrió un error al agregar el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
@@ -612,6 +612,76 @@ public class Contr_Help extends HttpServlet {
                 obj.put(1, ob);
                 /*Se imprime el resultado*/
                 out.print(obj);
+            } else if (request.getParameter("accion").equals("eventos_destacados")) {
+                Evento eve = new Evento();
+                String Datos[][] = eve.BuscarDatosEventosDestacados();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("empresa", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("calificacion", row[5]);
+                    ob.put("hora", row[6]);
+                    ob.put("comentario", row[7]);
+                    ob.put("imagen", row[0] + row[8]);
+                    obj.put(i, ob);
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("eventos_comentados")) {
+                Evento eve = new Evento();
+                String Datos[][] = eve.BuscarDatosEventosComentado();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("empresa", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("comentario", row[5]);
+                    ob.put("hora", row[6]);
+                    ob.put("calificacion", row[7]);
+                    ob.put("imagen", row[0] + row[8]);
+                    obj.put(i, ob);
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("eventos_proximos")) {
+                Evento eve = new Evento();
+                String Datos[][] = eve.BuscarDatosEventosProximos();
+                JSONObject obj = new JSONObject();
+                int i = 0;
+                for (String row[] : Datos) {
+                    JSONObject ob = new JSONObject();
+
+                    ob.put("codigo", row[0]);
+                    ob.put("nombre", row[1]);
+                    ob.put("fecha", row[2]);
+                    ob.put("empresa", row[3]);
+                    ob.put("ciudad", row[4]);
+                    ob.put("comentario", row[7]);
+                    ob.put("hora", row[5]);
+                    ob.put("calificacion", row[6]);
+                    ob.put("imagen", row[0] + row[8]);
+                    obj.put(i, ob);
+                    i++;
+                }
+                /*Se imprime el resultado*/
+                out.print(obj);
+            } else if (request.getParameter("accion").equals("cantidad_evento_pendiente")) {
+                Evento eve = new Evento();
+                int Dato = eve.CantidadEventoPendiente();
+                out.print(Dato);
             } else if (request.getParameter("accion").equals("ciudades_android")) {
                 /*Si se realiza la peticion de ver todas las ciudades*/
                 /*Se declaran las variables necesarias*/
@@ -767,7 +837,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de agregar un gusto*/
                 /*Se declaran las variables necesarias*/
                 Seleccion sel = new Seleccion();
-                JSONObject obj = new JSONObject();
+                String Mensaje;
                 String Codigo = request.getParameter("codigo");
                 String CodigoUsuario = request.getParameter("codigousuario");
                 boolean b;
@@ -775,18 +845,18 @@ public class Contr_Help extends HttpServlet {
                 b = sel.AddGusto(Codigo, CodigoUsuario);
                 if (b) {
                     /*Se encodifican los datos en JSON*/
-                    obj.put("1", "Se agrego el gusto satisfactoriamente.");
+                    Mensaje = "Se agregó el gusto satisfactoriamente.";
                 } else {
                     /*Se encodifican los datos en JSON*/
-                    obj.put("0", "Ocurrió un error al agregar el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
+                    Mensaje = "Ocurrió un error al agregar el gusto de su cuenta. Estamos trabajando para solucionar este problema.";
                 }
                 /*Se imprime el resultado*/
-                out.print(obj);
+                out.print(Mensaje);
             } else if (request.getParameter("accion").equals("remover_gusto_android")) {
                 /*Si se realiza la peticion de remover un gusto*/
                 /*Se declaran las variables necesarias*/
                 Seleccion sel = new Seleccion();
-                JSONObject obj = new JSONObject();
+                String Mensaje;
                 String Codigo = request.getParameter("codigo");
                 String CodigoUsuario = request.getParameter("codigousuario");
                 boolean b;
@@ -797,16 +867,16 @@ public class Contr_Help extends HttpServlet {
                     b = sel.RemoveGusto(Codigo, CodigoUsuario);
                     if (b) {
                         /*Se encodifican los datos en JSON*/
-                        obj.put("1", "Se quitó el gusto de tus gustos existosamente.");
+                        Mensaje = "Se quitó el gusto de tus gustos existosamente.";
                     } else {
                         /*Se encodifican los datos en JSON*/
-                        obj.put("0", "Ocurrió un error al remover el gusto de su cuenta. Estamos trabajando para solucionar este problema.");
+                        Mensaje = "Ocurrió un error al remover el gusto de su cuenta. Estamos trabajando para solucionar este problema.";
                     }
                 } else {
-                    obj.put("0", sel.getMensaje());
+                    Mensaje = sel.getMensaje();
                 }
                 /*Se imprime el resultado*/
-                out.print(obj);
+                out.print(Mensaje);
             } else if (request.getParameter("accion").equals("cantidad_eventos_recomendados_android")) {
                 /*Si se realiza la peticion de total de eventos recomendados*/
                 /*Se declaran las variables necesarias*/
@@ -905,76 +975,109 @@ public class Contr_Help extends HttpServlet {
                 obj.put("eventos", list);
                 /*Se imprime el resultado*/
                 out.print(obj);
-            } else if (request.getParameter("accion").equals("eventos_destacados")) {
+            } else if (request.getParameter("accion").equals("cantidad_mis_eventos_android")) {
+                /*Si se realiza la peticion de total de eventos recomendados*/
+                /*Se declaran las variables necesarias*/
                 Evento eve = new Evento();
-                String Datos[][] = eve.BuscarDatosEventosDestacados();
+                String codigo = request.getParameter("codigo");
+                int row = eve.getcantidadMisEventosAndroid(codigo);
+                /*Se imprime el resultado*/
+                out.println(row);
+            } else if (request.getParameter("accion").equals("mis_eventos_android")) {
+                /*Si se realiza la peticion de ver todos los eventos de una empresa*/
+                /*Se declaran las variables necesarias*/
+                String codigo = request.getParameter("codigo");
+                int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+                Evento eve = new Evento();
                 JSONObject obj = new JSONObject();
+                JSONArray list = new JSONArray();
+                /*Se obtienen los datos de los eventos de una empresa, en el metodo de modelo*/
+                String[][] Datos = eve.BuscarDatosMisEventosAndroid(codigo, cantidad);
                 int i = 0;
+                BufferedImage img;
+
+                String urlimgservidor = this.getServletContext().getRealPath("/Libs/Customs/images/Evento");
+                /*Se encodifican los datos en JSON*/
                 for (String row[] : Datos) {
                     JSONObject ob = new JSONObject();
 
-                    ob.put("codigo", row[0]);
-                    ob.put("nombre", row[1]);
-                    ob.put("fecha", row[2]);
-                    ob.put("empresa", row[3]);
-                    ob.put("ciudad", row[4]);
-                    ob.put("calificacion", row[5]);
-                    ob.put("hora", row[6]);
-                    ob.put("comentario", row[7]);
-                    ob.put("imagen", row[0] + row[8]);
-                    obj.put(i, ob);
-                    i++;
-                }
-                /*Se imprime el resultado*/
-                out.print(obj);
-            } else if (request.getParameter("accion").equals("eventos_comentados")) {
-                Evento eve = new Evento();
-                String Datos[][] = eve.BuscarDatosEventosComentado();
-                JSONObject obj = new JSONObject();
-                int i = 0;
-                for (String row[] : Datos) {
-                    JSONObject ob = new JSONObject();
+                    img = ImageIO.read(new File(urlimgservidor + "/" + row[0] + row[1]));
+                    String typeimg = row[1].substring(1, row[1].length());
 
-                    ob.put("codigo", row[0]);
-                    ob.put("nombre", row[1]);
-                    ob.put("fecha", row[2]);
-                    ob.put("empresa", row[3]);
-                    ob.put("ciudad", row[4]);
-                    ob.put("comentario", row[5]);
-                    ob.put("hora", row[6]);
-                    ob.put("calificacion", row[7]);
-                    ob.put("imagen", row[0] + row[8]);
-                    obj.put(i, ob);
-                    i++;
-                }
-                /*Se imprime el resultado*/
-                out.print(obj);
-            } else if (request.getParameter("accion").equals("eventos_proximos")) {
-                Evento eve = new Evento();
-                String Datos[][] = eve.BuscarDatosEventosProximos();
-                JSONObject obj = new JSONObject();
-                int i = 0;
-                for (String row[] : Datos) {
-                    JSONObject ob = new JSONObject();
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    ImageIO.write(img, typeimg, bos);
+                    byte[] imageBytes = bos.toByteArray();
 
-                    ob.put("codigo", row[0]);
-                    ob.put("nombre", row[1]);
-                    ob.put("fecha", row[2]);
-                    ob.put("empresa", row[3]);
-                    ob.put("ciudad", row[4]);
-                    ob.put("comentario", row[7]);
-                    ob.put("hora", row[5]);
-                    ob.put("calificacion", row[6]);
-                    ob.put("imagen", row[0] + row[8]);
-                    obj.put(i, ob);
+                    BASE64Encoder encoder = new BASE64Encoder();
+                    String imageSTring = encoder.encode(imageBytes);
+
+                    bos.close();
+                    ob.put("Codigo", row[0]);
+                    ob.put("Imagen", imageSTring);
+                    ob.put("Nombre", row[2]);
+                    ob.put("Fecha", row[3]);
+                    ob.put("NombreCiudad", row[4]);
+                    ob.put("NombreDepto", row[5]);
+                    list.add(ob);
                     i++;
                 }
+                obj.put("eventos", list);
                 /*Se imprime el resultado*/
                 out.print(obj);
-            } else if (request.getParameter("accion").equals("cantidad_evento_pendiente")) {
+            } else if (request.getParameter("accion").equals("ubicacion_evento_android")) {
                 Evento eve = new Evento();
-                int Dato = eve.CantidadEventoPendiente();
-                out.print(Dato);
+                JSONObject ob = new JSONObject();
+                String codigo = request.getParameter("codigo");
+                
+                String[] Dato = eve.getUbicacionAndroid(codigo);
+                
+                ob.put("Latitud", Dato[0]);
+                ob.put("Longitud", Dato[1]);
+                ob.put("Nombre", Dato[2]);
+                
+                out.print(ob);
+            } else if (request.getParameter("accion").equals("datos_evento_detalle_android")) {
+                /*Si se realiza la peticion de obtener los datos de la ubicacion de los eventos*/
+                /*Se declaran las variables necesarias*/
+                Evento eve = new Evento();
+                String codigo = request.getParameter("idevento");
+                JSONObject obj = new JSONObject();
+                JSONArray list = new JSONArray();
+                JSONObject ob = new JSONObject();
+                BufferedImage img;
+                String urlimgservidor = this.getServletContext().getRealPath("/Libs/Customs/images/Evento");
+
+                /*Se obtienen los datos de la ubicacion de los eventos, en el metodo de modelo*/
+                String[] row = eve.BuscarDatosDetalleEventoAndroid(codigo);
+
+                img = ImageIO.read(new File(urlimgservidor + "/" + codigo + row[0]));
+                String typeimg = row[0].substring(1, row[0].length());
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ImageIO.write(img, typeimg, bos);
+                byte[] imageBytes = bos.toByteArray();
+
+                BASE64Encoder encoder = new BASE64Encoder();
+                String imageSTring = encoder.encode(imageBytes);
+                /*Se encodifican los datos en JSON*/
+                ob.put("Imagen", imageSTring);
+                ob.put("Fecha", row[1]);
+                ob.put("NombreEvento", row[2]);
+                ob.put("NombreEmpresa", row[3]);
+                ob.put("NombreCiudad", row[5]);
+                ob.put("NombreDepartamento", row[4]);
+                ob.put("Direccion", row[6]);
+                ob.put("Rango_Precios", row[7]);
+                ob.put("Descripcion", row[8]);
+                ob.put("Cinco", row[9]);
+                ob.put("Cuatro", row[10]);
+                ob.put("Tres", row[11]);
+                ob.put("Dos", row[12]);
+                ob.put("Uno", row[13]);
+                list.add(ob);
+                obj.put("eventos", list);
+                /*Se imprime el resultado*/
+                out.print(obj);
             } else {
                 /*Si no se recibe alguna de las anteriores peticiones se retorna la vista de indece*/
                 response.sendRedirect("View/index.jsp");

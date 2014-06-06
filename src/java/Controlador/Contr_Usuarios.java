@@ -637,7 +637,6 @@ public class Contr_Usuarios extends HttpServlet {
             Contrasenia = request.getParameter("contrasenia");
             /*Se declaran JSON Para imprimir los datos*/
             JSONObject obj = new JSONObject();
-            JSONObject ob = new JSONObject();
             /*Se ejecuta el metodo para iniciar sesion de usario en la clase modelo*/
             b = usu.getlogin(correo, Contrasenia);
             if (b) {
@@ -653,6 +652,7 @@ public class Contr_Usuarios extends HttpServlet {
 
                 /*Se encodifica a JSON*/
                 obj.put("Codigo", Codigo);
+                obj.put("Correo", correo);
                 obj.put("Tipo", Rol);
                 obj.put("Tipo_Documento", Tipo_Documento);
                 obj.put("No_Documento", No_Documento);

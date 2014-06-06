@@ -136,6 +136,7 @@ public class Cls_Satisfaccion {
         return false;
     }
     /*Registrar la calificacion a un evento*/
+
     public boolean setRegistrarCalificacionSatisfaccion(String codigoUsuario, String codigoEvento, String Rating) {
         //incializamos los valores necesarios
         /*Se un numero para crar el codigo primario*/
@@ -310,7 +311,7 @@ public class Cls_Satisfaccion {
     /*metodo para contar los registros de satisfaccion*/
     public int CantidadRegistroSatisfaccion() {
         //inicializamos la variables necesarias
-        
+
         /*Se conecta a la base de datos*/
         Connection conn = conexion.conectar();
         /*Se crea las variables de la sentencia preparada y para recorrer los resultados*/
@@ -439,7 +440,7 @@ public class Cls_Satisfaccion {
             while (rs.next()) {
                 rows++;
             }
-            
+
             /*Se crea un array*/
             String[][] Datos = new String[rows][3];
             rs.beforeFirst();
@@ -457,7 +458,9 @@ public class Cls_Satisfaccion {
             ex.printStackTrace();
         } finally {
             try {
-                /**Se cierra todo*/
+                /**
+                 * Se cierra todo
+                 */
                 rs.close();
                 pr.close();
                 conn.close();
@@ -536,7 +539,10 @@ public class Cls_Satisfaccion {
                 + "Where Comentario IS NOT NULL AND Id_Evento = ? Order by Fecha";
 
         try {
-            /**Se prepara la sentencia y ademas se envia los datos para ejecutarla luego*/
+            /**
+             * Se prepara la sentencia y ademas se envia los datos para
+             * ejecutarla luego
+             */
             pr = conn.prepareStatement(sql);
             pr.setString(1, codigoEvento);
 
@@ -591,7 +597,7 @@ public class Cls_Satisfaccion {
             ex.printStackTrace();
         } finally {
             try {
-            /*Se cierra todo*/
+                /*Se cierra todo*/
                 pr.close();
                 conn.close();
             } catch (Exception ex) {
@@ -602,8 +608,8 @@ public class Cls_Satisfaccion {
         this.setMensaje("Ocurruó un problema al buscar el/la " + tipo + " del evento. Estamos trabajando para solucionar este problema.");
         return null;
     }
-    
-     /*Metodo para obtener la califiacion de un evento*/
+
+    /*Metodo para obtener la califiacion de un evento*/
     public int[] getCalificacionEvento(String codigoEvento) {
         /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
@@ -693,6 +699,176 @@ public class Cls_Satisfaccion {
         /**
          * En caso de error se retorna null
          */
+        return null;
+    }
+
+    public boolean registrarSatisfaccionAndroid(String codigo_Evento, String codigo_Usuario, String fecha, String comentario, String calificacion) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT Codigo FROM tb_satisfaccion WHERE Id_Usuario = ? AND Id_Evento = ?";
+        /*Se guarda la fecha del sistema en un date*/
+        Date fechaSis = new Date();
+        java.sql.Timestamp sqlDate = new java.sql.Timestamp(fechaSis.getTime());
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo_Usuario);
+            pr.setString(2, codigo_Evento);
+
+            rs = pr.executeQuery();
+            if (rs.next()) {
+                String queryupdate;
+                if (comentario.equals("")) {
+                    queryupdate = "UPDATE tb_satisfaccion SET Calificacion = ? WHERE Codigo = ?";
+                    pr = conn.prepareStatement(queryupdate);
+                    pr.setString(1, calificacion);
+                    pr.setString(2, rs.getString("Codigo"));
+                } else if (calificacion.equals("0")) {
+                    queryupdate = "UPDATE tb_satisfaccion SET Comentario = ?, Fecha = ? WHERE Codigo = ?";
+                    pr = conn.prepareStatement(queryupdate);
+                    pr.setString(1, comentario);
+                    pr.setTimestamp(2, sqlDate);
+                    pr.setString(3, rs.getString("Codigo"));
+                } else {
+                    queryupdate = "UPDATE tb_satisfaccion SET Calificacion = ?, Comentario = ?, Fecha = ? WHERE Codigo = ?";
+                    pr = conn.prepareStatement(queryupdate);
+                    pr.setString(1, calificacion);
+                    pr.setString(2, comentario);
+                    pr.setTimestamp(3, sqlDate);
+                    pr.setString(4, rs.getString("Codigo"));
+                }
+
+                if (pr.executeUpdate() == 1) {
+                    this.setMensaje("Su comentario fue registrado correctamente");
+                    return true;
+                }
+            } else {
+                int numerocodigo = this.CantidadRegistroSatisfaccion();
+                String codigo = "SAT";
+                codigo += numerocodigo;
+
+                String queryinsert;
+                if (comentario.equals("")) {
+                    queryinsert = "INSERT INTO tb_satisfaccion (Codigo, Id_Evento, Id_Usuario, Calificacion) VALUES (?,?,?,?)";
+                    pr = conn.prepareStatement(queryinsert);
+                    pr.setString(1, codigo);
+                    pr.setString(2, codigo_Evento);
+                    pr.setString(3, codigo_Usuario);
+                    pr.setString(4, calificacion);
+                } else if (calificacion.equals("0")) {
+                    queryinsert = "INSERT INTO tb_satisfaccion (Codigo, Id_Evento, Id_Usuario, Comentario, Fecha) VALUES (?,?,?,?, ?)";
+                    pr = conn.prepareStatement(queryinsert);
+                    pr.setString(1, codigo);
+                    pr.setString(2, codigo_Evento);
+                    pr.setString(3, codigo_Usuario);
+                    pr.setString(4, comentario);
+                    pr.setTimestamp(5, sqlDate);
+                } else {
+                    queryinsert = "INSERT INTO tb_satisfaccion (Codigo, Id_Evento, Id_Usuario, Calificacion, Comentario, Fecha) VALUES (?,?,?,?, ?, ?)";
+                    pr = conn.prepareStatement(queryinsert);
+                    pr.setString(1, codigo);
+                    pr.setString(2, codigo_Evento);
+                    pr.setString(3, codigo_Usuario);
+                    pr.setString(4, calificacion);
+                    pr.setString(5, comentario);
+                    pr.setTimestamp(6, sqlDate);
+                }
+
+                if (pr.executeUpdate() == 1) {
+                    this.setMensaje("Su comentario fue registrado correctamente");
+                    return true;
+                }
+            }
+        } catch (Exception ex) {
+            /*En caso de error se muestra un mensaje*/
+            ex.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        this.setMensaje("Ha ocurrido un error registrando el comentario");
+        return false;
+    }
+
+    public String[] consultacalificareventoAndroid(String codigo_Evento, String codigo_Usuario) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "SELECT Comentario, Calificacion FROM tb_satisfaccion WHERE Id_Evento = ? AND Id_Usuario = ? ";
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo_Evento);
+            pr.setString(2, codigo_Usuario);
+
+            String [] Datos = new String[2];
+            rs = pr.executeQuery();
+            if (rs.next()) {
+                Datos[0] = rs.getString("Comentario");
+                Datos[1] = rs.getString("Calificacion");
+            }
+            return Datos;
+        } catch (Exception ex) {
+            /*En caso de error se muestra un mensaje*/
+            ex.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return null;
+    }
+    /*Metodo para consultar los comentarios de los eventos que se ven en android*/
+    public String[][] consultacomentarioseventoAndroid(String codigo_Evento) {
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String sql = "Select u.Nombre, s.Comentario, s.Fecha "
+                + "From  tb_satisfaccion s "
+                + "Join tb_usuario u ON u.Codigo = s.Id_Usuario "
+                + "Join tb_evento e ON e.Codigo = s.Id_Evento "
+                + "Where s.Id_Evento = ? "
+                + "AND s.Comentario IS NOT NULL "
+                + "ORDER BY e.Fecha ";
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo_Evento);
+            rs = pr.executeQuery();
+            int i = 0;
+            while(rs.next()){
+                i ++;
+            }
+            String [][] Datos = new String[i][3];
+            i = 0;
+            rs.beforeFirst();
+            while (rs.next()) {
+                Datos[i][0] = rs.getString("Nombre");
+                Datos[i][1] = rs.getString("Comentario");
+                Datos[i][2] = rs.getString("Fecha");
+                i++;
+            }
+            return Datos;
+        } catch (Exception ex) {
+            /*En caso de error se muestra un mensaje*/
+            ex.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
         return null;
     }
 }
