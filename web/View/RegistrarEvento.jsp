@@ -270,6 +270,9 @@
             $(function() {
                 $('#datetimepicker1').datetimepicker({language: 'es'});
             });
+            $("input, select, textarea").change(function() {
+                $(this).parsley('validate');
+            });
         </script>
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

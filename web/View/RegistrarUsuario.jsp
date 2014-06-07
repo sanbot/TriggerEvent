@@ -194,10 +194,7 @@
         <script src="../Libs/Customs/js/Parsley.js"></script>    
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
-        <script>
-            new gnMenu(document.getElementById('gn-menu'));
-        </script>
-
+        <script> new gnMenu(document.getElementById('gn-menu'));</script>
         <script>
             function getdepartamentos() {
                 $.ajax({
@@ -276,11 +273,10 @@
                     $("#ddltipodocumento").html(datos.join(""));
                 });
             });
+            $("input, select").change(function() {
+                $(this).parsley('validate');
+            });
         </script>
-        <script>
-            new gnMenu(document.getElementById('gn-menu'));
-        </script>
-
         <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
         <%session.setAttribute("Mensaje", "");%>
