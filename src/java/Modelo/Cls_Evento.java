@@ -221,6 +221,55 @@ public class Cls_Evento {
         return false;
     }
 
+    /*Metodo para validar que no se puede cancelar un evento a un día de realización*/
+    public boolean validar_Cancelar_Evento_Un_Dia(String codigo) {
+
+        Date FechaSistema = new Date();
+
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        Connection conn = conexion.conectar();
+
+        String sql = "Select Fecha From tb_evento Where Codigo = ? ";
+        try {
+            pr = conn.prepareStatement(sql);
+            pr.setString(1, codigo);
+
+            rs = pr.executeQuery();
+            if (rs.next()) {
+                Date fechainicio = rs.getDate("Fecha");
+
+                Calendar cal = Calendar.getInstance();
+                Calendar calendar = Calendar.getInstance();
+                
+                calendar.setTime(FechaSistema); 
+                cal.setTime(fechainicio);
+                
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+                /*Se evelua los dos dias y encaso de ser verdadero se retorna true*/
+                if (cal.getTime().after(calendar.getTime())) {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            /*En caso de error se evalua el porque y se retorna falso*/
+            if (ex.toString().indexOf("uk_nombre_codigociudad_fecha") > 0) {
+                this.setMensaje("No se puede registrar este evento porque existe otro con el mismo nombre, la misma fecha y en la misma ciudad");
+            }
+            return false;
+        } finally {
+            /*Se cierra todo*/
+            try {
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        return false;
+    }
+
     /*MEtodo para registrar un evento*/
     public boolean setRegistrarEvento(String imagen, String nombre, Date fecha, String descripcion, String rango, String creador, String ciudad, String direccion, String latitud, String longitud) {
         /*Se crean variables necesarias*/

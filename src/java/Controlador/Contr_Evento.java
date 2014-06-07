@@ -124,7 +124,7 @@ public class Contr_Evento extends HttpServlet {
                                     File img = new File(eve.getImagen());
                                     /*Se ejecuta el metodo de registrar evento, en la clase modelo
                                      con los datos que se encuentran en la clase*/
-                                    String rangoprecios = eve.getRango() + "-"+ eve.getRangoMaximo();
+                                    String rangoprecios = eve.getRango() + "-" + eve.getRangoMaximo();
                                     b = eve.setRegistrarEvento(eve.getTypeimg(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), rangoprecios, eve.getCreador(), eve.getCiudad(), eve.getDireccion(), eve.getLatitud(), eve.getLongitud());
                                     if (b) {
                                         File imagedb = new File(urlimgservidor + "/" + eve.getCodigo() + eve.getTypeimg());
@@ -166,61 +166,75 @@ public class Contr_Evento extends HttpServlet {
                         }
 
                     } else if (name.equals("DesactivarEvento")) {
-                        /*Se ejecuta el metodo de desaprobar evento, en la clase modelo
-                         con los datos que se encuentran en la clase*/
-                        if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
-                            String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
-                            if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
-                                /*Se guarda un mensaje mediante las sesiones
-                                 y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
-                                session.setAttribute("TipoMensaje", "Dio");
+                        if (eve.validar_Cancelar_Evento_Un_Dia(eve.getCodigo())) {
+                            /*Se ejecuta el metodo de desaprobar evento, en la clase modelo
+                             con los datos que se encuentran en la clase*/
+                            if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
+                                String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
+                                if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
+                                    /*Se guarda un mensaje mediante las sesiones
+                                     y se redirecciona*/
+                                    session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
+                                    session.setAttribute("TipoMensaje", "Dio");
+                                } else {
+                                    /*Se guarda un mensaje mediante las sesiones
+                                     y se redirecciona*/
+                                    session.setAttribute("Mensaje", "Se canceló el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                                    session.setAttribute("TipoMensaje", "NODio");
+                                }
                             } else {
                                 /*Se guarda un mensaje mediante las sesiones
                                  y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se canceló el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                                session.setAttribute("Mensaje", "Ocurrió un error al cancelar el evento. Estamos trabajando para solucionar este problema.");
                                 session.setAttribute("TipoMensaje", "NODio");
                             }
                         } else {
-                            /*Se guarda un mensaje mediante las sesiones
-                             y se redirecciona*/
-                            session.setAttribute("Mensaje", "Ocurrió un error al cancelar el evento. Estamos trabajando para solucionar este problema.");
+                            session.setAttribute("Mensaje", "No se puede cancelar un evento antes de un día de su inicio. Lo lamentamos.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                         response.sendRedirect("View/CEventoPendiente.jsp");
                     } else if (name.equals("DesactivarEventoAdmin")) {
-                        /*Se ejecuta el metodo de desaprobar evento, en la clase modelo
-                         con los datos que se encuentran en la clase(administradir)*/
-                        if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
-                            String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
-                            if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
-                                /*Se guarda un mensaje mediante las sesiones
-                                 y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
-                                session.setAttribute("TipoMensaje", "Dio");
+                        if (eve.validar_Cancelar_Evento_Un_Dia(eve.getCodigo())) {
+                            /*Se ejecuta el metodo de desaprobar evento, en la clase modelo
+                             con los datos que se encuentran en la clase(administradir)*/
+                            if (eve.setDesaprobarEvento(eve.getCodigo(), eve.getMotivo())) {
+                                String[] Datos = eve.BuscarEventoParaMensaje(eve.getCodigo());
+                                if (sms.EnviarMensajeCambioEstadoEvento(Datos, "Desaprobado", eve.getMotivo())) {
+                                    /*Se guarda un mensaje mediante las sesiones
+                                     y se redirecciona*/
+                                    session.setAttribute("Mensaje", "Se desaprobó el evento satisfactoriamente.");
+                                    session.setAttribute("TipoMensaje", "Dio");
+                                } else {
+                                    /*Se guarda un mensaje mediante las sesiones
+                                     y se redirecciona*/
+                                    session.setAttribute("Mensaje", "Se desaprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                                    session.setAttribute("TipoMensaje", "NODio");
+                                }
                             } else {
                                 /*Se guarda un mensaje mediante las sesiones
                                  y se redirecciona*/
-                                session.setAttribute("Mensaje", "Se desaprobó el evento, pero no se logró enviar la notificación al correo electrónico de la empresa.");
+                                session.setAttribute("Mensaje", "Ocurrió un error al desaprobar el evento. Estamos trabajando para solucionar este problema.");
                                 session.setAttribute("TipoMensaje", "NODio");
                             }
                         } else {
-                            /*Se guarda un mensaje mediante las sesiones
-                             y se redirecciona*/
-                            session.setAttribute("Mensaje", "Ocurrió un error al desaprobar el evento. Estamos trabajando para solucionar este problema.");
+                            session.setAttribute("Mensaje", "No se puede cancelar un evento antes de un día de su inicio. Lo lamentamos.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                         response.sendRedirect("View/ConsultaTodosEventos.jsp");
                     } else if (name.equals("DesactivarEventoEmpresa")) {
-                        /*Se ejecuta el metodo de desaprobar evento, en la clase modelo
-                         con los datos que se encuentran en la clase(Empresa)*/
-                        if (eve.setCancelarEvento(eve.getCodigo(), eve.getMotivo())) {
-                            session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
-                            session.setAttribute("TipoMensaje", "Dio");
+                        if (eve.validar_Cancelar_Evento_Un_Dia(eve.getCodigo())) {
+                            /*Se ejecuta el metodo de desaprobar evento, en la clase modelo
+                             con los datos que se encuentran en la clase(Empresa)*/
+                            if (eve.setCancelarEvento(eve.getCodigo(), eve.getMotivo())) {
+                                session.setAttribute("Mensaje", "Se canceló el evento satisfactoriamente.");
+                                session.setAttribute("TipoMensaje", "Dio");
+                            } else {
+                                session.setAttribute("Mensaje", "Ocurrió un error al cancelar el evento. Estamos trabajando para solucionar este problema.");
+                                session.setAttribute("TipoMensaje", "NODio");
+                            }
+
                         } else {
-                            /*Se guarda un mensaje mediante las sesiones
-                             y se redirecciona*/
-                            session.setAttribute("Mensaje", "Ocurrió un error al cancelar el evento. Estamos trabajando para solucionar este problema.");
+                            session.setAttribute("Mensaje", "No se puede cancelar un evento antes de un día de su inicio. Lo lamentamos.");
                             session.setAttribute("TipoMensaje", "NODio");
                         }
                         response.sendRedirect("View/MisEventos.jsp");
