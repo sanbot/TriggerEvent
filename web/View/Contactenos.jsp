@@ -95,7 +95,7 @@
                         <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4" id="target-4">
                             <div class="form-group">
                                 <label for="Ciudad">Ciudad</label>
-                                <select id="ddlCiudad" name="Ciudad" id="ciudadcontactenos" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                <select name="Ciudad" id="ciudadcontactenos" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                 </select>
                             </div>
                         </div>
@@ -199,17 +199,22 @@
 
                 });
             }
+            
             <%}%>
             $(document).ready(function() {
 
             <%if (!Rol.equals(null) && !Rol.equals("")) {%>
                 datos_usuarios();
             <%} else {%>
+                
                 getdepartamentos();
 
                 $("select#departamentocontactenos", this).change(function() {
                     var index = $(this).val();
                     getciudades(index);
+                });
+                $("input, select, textarea").change(function(){
+                    $(this).parsley('validate');
                 });
             <%}%>
 
