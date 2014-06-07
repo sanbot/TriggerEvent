@@ -89,6 +89,9 @@ public class Contr_Evento extends HttpServlet {
                     } else if (name.equals("Rango")) {
                         /*Se guarda el campo en la clase*/
                         eve.setRango(item.getString());
+                    } else if (name.equals("Rangomaximo")) {
+                        /*Se guarda el campo en la clase*/
+                        eve.setRangoMaximo(item.getString());
                     } else if (name.equals("Fecha")) {
                         /*Se guarda el campo en la clase*/
                         eve.setFecha(item.getString());
@@ -121,8 +124,8 @@ public class Contr_Evento extends HttpServlet {
                                     File img = new File(eve.getImagen());
                                     /*Se ejecuta el metodo de registrar evento, en la clase modelo
                                      con los datos que se encuentran en la clase*/
-
-                                    b = eve.setRegistrarEvento(eve.getTypeimg(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), eve.getRango(), eve.getCreador(), eve.getCiudad(), eve.getDireccion(), eve.getLatitud(), eve.getLongitud());
+                                    String rangoprecios = eve.getRango() + "-"+ eve.getRangoMaximo();
+                                    b = eve.setRegistrarEvento(eve.getTypeimg(), eve.getNombre(), eve.getFechaDate(), eve.getDescipcion(), rangoprecios, eve.getCreador(), eve.getCiudad(), eve.getDireccion(), eve.getLatitud(), eve.getLongitud());
                                     if (b) {
                                         File imagedb = new File(urlimgservidor + "/" + eve.getCodigo() + eve.getTypeimg());
                                         img.renameTo(imagedb);

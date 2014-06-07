@@ -203,9 +203,7 @@ public class Contr_Seleccion extends HttpServlet {
                             }
                         }
                     } else {
-                        /**
-                         * Se guarda el url de la imagen en la clase
-                         */
+                        /*Se guarda el url de la imagen en la clase*/
                         sel.setImagen("");
                     }
                 }

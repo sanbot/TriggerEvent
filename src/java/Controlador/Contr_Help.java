@@ -1028,13 +1028,13 @@ public class Contr_Help extends HttpServlet {
                 Cls_Evento eve = new Cls_Evento();
                 JSONObject ob = new JSONObject();
                 String codigo = request.getParameter("codigo");
-                
+
                 String[] Dato = eve.getUbicacionAndroid(codigo);
-                
+
                 ob.put("Latitud", Dato[0]);
                 ob.put("Longitud", Dato[1]);
                 ob.put("Nombre", Dato[2]);
-                
+
                 out.print(ob);
             } else if (request.getParameter("accion").equals("datos_evento_detalle_android")) {
                 /*Si se realiza la peticion de obtener los datos de la ubicacion de los eventos*/

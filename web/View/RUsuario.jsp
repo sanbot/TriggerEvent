@@ -109,6 +109,14 @@
                 <div class="row">
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
+                            <label for="Direccion">Direcci&oacute;n</label>
+                            <div class="form-group">
+                                <input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                        <div class="form-group">
                             <label for="Password">Contrase&ntilde;a</label>
                             <input name="Password" class="form-control" type="password" data-type="contrasenia" data-notblank="true" data-rangelength="[6,30]" data-required="true">
                         </div>
@@ -117,14 +125,6 @@
                         <div class="form-group">
                             <label for="REPassword">Repita la Contrase&ntilde;a</label>
                             <input name="REPassword" class="form-control" type="password" data-type="contrasenia" data-notblank="true" data-rangelength="[6,30]" data-required="true">
-                        </div>
-                    </div>
-                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <label for="Direccion">Direcci&oacute;n</label>
-                            <div class="form-group">
-                                <input name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true">
-                            </div>
                         </div>
                     </div>
                 </div>

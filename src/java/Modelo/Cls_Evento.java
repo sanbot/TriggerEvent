@@ -43,6 +43,15 @@ public class Cls_Evento {
     String Latitud;
     String Longitud;
     String Typeimg;
+    String RangoMaximo;
+
+    public String getRangoMaximo() {
+        return RangoMaximo;
+    }
+
+    public void setRangoMaximo(String RangoMaximo) {
+        this.RangoMaximo = RangoMaximo;
+    }
 
     public String getTypeimg() {
         return Typeimg;
@@ -1850,7 +1859,7 @@ public class Cls_Evento {
         /*En caso de error se retorna cero*/
         return 0;
     }
-    
+
     /*Metodo apra obtener la ubicacion de los eventos*/
     public String[] getUbicacionAndroid(String codigo) {
         /*Se crean variables necesarias*/
@@ -1865,7 +1874,7 @@ public class Cls_Evento {
             pr = conn.prepareStatement(sqlevento);
             pr.setString(1, codigo);
             rs = pr.executeQuery();
-            String [] Datos = new String[3];
+            String[] Datos = new String[3];
             if (rs.next()) {
                 Datos[0] = rs.getString("Latitud");
                 Datos[1] = rs.getString("Longitud");

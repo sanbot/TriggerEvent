@@ -22,11 +22,9 @@
         <script src="../Libs/Customs/js/modernizr.custom.js"></script>
     </head>
     <body>
-        <%
-            if (Rol.equals("Administrador")) {%>
+        <%if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <%
-        } else if (Rol.equals("Cliente")) {%>
+        <%} else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
         <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
@@ -48,7 +46,6 @@
             <div class="row clearfix">
                 <div class="col-xs-12">
                     <h1 class="Center">Registrar evento</h1>
-                    <center><label for="Nota" style="font-size: 12px;"><i>Nota: Aseg&uacute;rese de tener todos los datos correctos antes de registrar el evento. No podr&aacute; modificarlos m&aacute;s adelante. </i></label></center>
                 </div>
             </div>
             <form accept-charset="ISO-8859-1" id="search" data-validate="parsley" enctype="multipart/form-data" method="post" action="/TriggerEvent/Contr_Evento">
@@ -64,14 +61,20 @@
                     </div>
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <label for="Nombre">Nombre</label>
+                            <label for="Nombre">Nombre del evento</label>
                             <input name="Nombre" type="text" class="form-control" id="NombreEvento" data-rangelength="[3,50]" data-notblank="true" data-required="true" />
                         </div>
                     </div>
-                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-2 col-md-offset-0 col-md-2 col-lg-2">
                         <div class="form-group">
-                            <label for="Rango">Rango de precios</label>
-                            <input name="Rango" type="text" class="form-control" id="RangoEvento" placeholder="10000-2000000" data-required="true" data-notblank="true" data-rangelength="[12,13]" />
+                            <label for="Rango">Precio m&iacute;nimo</label>
+                            <input name="Rango" type="text" class="form-control" id="RangoEvento" placeholder="10000" data-type="number" data-required="true" data-notblank="true" data-rangelength="[4,5]" />
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-2 col-md-offset-0 col-md-2 col-lg-2">
+                        <div class="form-group">
+                            <label for="Rango">Precio m&aacute;ximo</label>
+                            <input name="Rangomaximo" type="text" class="form-control" id="RangoEventomaximo" placeholder="5000000" data-type="number" data-required="true" data-notblank="true" data-rangelength="[4,7]" />
                         </div>
                     </div>
                 </div>
@@ -101,7 +104,7 @@
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <label for="Descripcion">Descripci&oacute;n</label>
-                                    <textarea id="DescripcionEvento" name="Descripcion" class="form-control" data-rangelength="[8,500]" rows="4"></textarea>
+                                    <textarea id="DescripcionEvento" name="Descripcion" class="form-control" data-rangelength="[8,500]" data-required="true" data-notblank="true" rows="4"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +126,7 @@
                         </div>
                     </div>
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                        <label for="Direccion">Direcci&oacute;n o lugar</label>
+                        <label for="Direccion">Direcci&oacute;n o nombre del lugar</label>
                         <div class="input-group">
                             <input name="Direccion" class="form-control" data-required="true" data-notblank="true" data-rangelength="[8,100]"/>
                             <a id="PopOverMapa" title="Agregar ubicaci&oacute;n" class="input-group-addon" ><span class="glyphicon glyphicon-screenshot"></span></a>
@@ -140,6 +143,12 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="txtlng" name="Longitud"/>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <center><label for="Nota" style="font-size: 12px;"><i>Nota: Aseg&uacute;rese de tener todos los datos correctos antes de registrar el evento. No podr&aacute; modificarlos m&aacute;s adelante. </i></label></center>
+                        <center><label for="Nota" style="font-size: 12px;"><i>Adem&aacute;s, aseg&uacute;rese agregar la ubicaci&oacute;n, y una direcci&oacute;n o nombre de lugar del evento para poder registrar un evento. </i></label></center>
                     </div>
                 </div>
                 <div id="btn-registrar" class="row">

@@ -70,19 +70,16 @@
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <!--Bootstrap-->
-        <script src="../Libs/Bootstrap/js/jquery-1.10.2.min.js"></script>    
+        <script src="../Libs/Bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="../Libs/Bootstrap/js/bootstrap.min.js"></script>
         <!--Parsley-->
         <script src="../Libs/Customs/js/classie.js"></script>
         <script src="../Libs/Customs/js/gnmenu.js"></script>
-        <script>
-            new gnMenu(document.getElementById('gn-menu'));
-        </script>
         <script src="../Libs/Customs/js/guidely.min.js" type="text/javascript"></script>
-        <script>
-            $("#guia").click(function() {
-                guidely.init({welcome: true, startTrigger: false});
-            });
+        <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
+        <script src="../Libs/Customs/js/View/EventoRecomendado.js" type="text/javascript"></script>
+        <script type="text/javascript">
+
             var eventos = 0;
             var cantidad = 0;
             var estado = "cargando";
@@ -92,86 +89,90 @@
                     url: '/TriggerEvent/Contr_Help',
                     data: {"accion": 'eventodatosrecomendados', "idusuario": '<%=Codigo%>', "limite": limite, "cantidad": cantidad},
                     success: function(data) {
-                        var datos = jQuery.parseJSON(data);
                         var items = [];
-                        var fila = 0;
-                        $.each(datos, function(key, val) {
-                            fila++;
-                            if (fila == 1)
-                            {
+                        if (data != "{}") {
+                            var datos = jQuery.parseJSON(data);
+                            var fila = 0;
+                            $.each(datos, function(key, val) {
+                                fila++;
+                                if (fila == 1)
+                                {
+                                    items.push('<div class="row">');
+                                    items.push('<div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0">');
+                                    items.push('<div class="row">');
+                                }
+                                if (fila === 3) {
+                                    items.push('<div class="soy-un-evento col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">');
+                                } else {
+                                    items.push('<div class="soy-un-evento col-xs-12 col-sm-6 col-sm-offset-0 col-md-4" id="target-2">');
+                                }
+                                items.push('<div class="panel panel-primary">');
+                                items.push('<div class="panel-heading">');
+                                items.push('<h3 class="panel-title">');
+                                items.push(val.nombre);
+                                items.push('<a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=' + val.codigo + '"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a>');
+                                items.push('</h3>');
+                                items.push('</div>');
+                                items.push('<div class="panel-body">');
                                 items.push('<div class="row">');
-                                items.push('<div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0">');
+                                items.push('<div class="col-md-12" id="target-3">');
+                                items.push('<center><img src="../Libs/Customs/images/Evento/' + val.image + '" class="img-thumbnail imgevento"/></center>');
+                                items.push('</div>');
+                                items.push('</div>');
                                 items.push('<div class="row">');
-                            }
-                            if (fila === 3) {
-                                items.push('<div class="soy-un-evento col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4">');
-                            } else {
-                                items.push('<div class="soy-un-evento col-xs-12 col-sm-6 col-sm-offset-0 col-md-4" id="target-2">');
-                            }
-                            items.push('<div class="panel panel-primary">');
-                            items.push('<div class="panel-heading">');
-                            items.push('<h3 class="panel-title">');
-                            items.push(val.nombre);
-                            items.push('<a title="Ver m&aacute;s" href="DetalleEvento.jsp?CodigoEvento=' + val.codigo + '"><span class="glyphicon glyphicon-log-in close aligncerar"></span></a>');
-                            items.push('</h3>');
-                            items.push('</div>');
-                            items.push('<div class="panel-body">');
-                            items.push('<div class="row">');
-                            items.push('<div class="col-md-12" id="target-3">');
-                            items.push('<center><img src="../Libs/Customs/images/Evento/' + val.image + '" class="img-thumbnail imgevento"/></center>');
-                            items.push('</div>');
-                            items.push('</div>');
-                            items.push('<div class="row">');
-                            items.push('<div class="col-md-12">');
-                            items.push('<label for="Creador">Creador: ' + val.creador + '</label>');
-                            items.push('</div>');
-                            items.push('</div>');
-                            items.push('<div class="row">');
-                            items.push('<div class="col-md-12">');
-                            items.push('<label for="Ciudad">Ciudad: ' + val.ciudad + '</label>');
-                            items.push('</div>');
-                            items.push('</div>');
-                            items.push('<div class="row">');
-                            items.push('<div class="col-md-12">');
-                            items.push('<label for="Hora">Hora: ' + val.hora + '</label>');
-                            items.push('</div>');
-                            items.push('</div>');
-                            items.push('<div class="row">');
-                            items.push('<div class="col-md-12">');
-                            items.push('<label for="Fecha">Fecha: ' + val.fecha + '</label>');
-                            items.push('</div>');
-                            items.push('</div>');
-                            items.push('</div>');
-                            items.push('<div class="panel-footer" id="target-4">');
-                            items.push('<label for="Espacio"> </label>');
-                            items.push('<p class="pull-right calificacionevento" data-id="' + val.codigo + '">');
-                            var comentario, calificacion;
-                            val.comentario == null ? comentario = 0 : comentario = val.comentario;
-                            val.calificacion == null ? calificacion = 0 : calificacion = val.calificacion;
-                            items.push('<span title="Calificaci&oacute;n" class="glyphicon glyphicon-star">' + calificacion + '</span>');
-                            items.push('<span title="Comentarios" class="glyphicon glyphicon-comment">' + comentario + '</span>');
-                            items.push('</p>');
-                            items.push('</div>');
-                            items.push('</div>');
-                            items.push('</div>');
+                                items.push('<div class="col-md-12">');
+                                items.push('<label for="Creador">Creador: ' + val.creador + '</label>');
+                                items.push('</div>');
+                                items.push('</div>');
+                                items.push('<div class="row">');
+                                items.push('<div class="col-md-12">');
+                                items.push('<label for="Ciudad">Ciudad: ' + val.ciudad + '</label>');
+                                items.push('</div>');
+                                items.push('</div>');
+                                items.push('<div class="row">');
+                                items.push('<div class="col-md-12">');
+                                items.push('<label for="Hora">Hora: ' + val.hora + '</label>');
+                                items.push('</div>');
+                                items.push('</div>');
+                                items.push('<div class="row">');
+                                items.push('<div class="col-md-12">');
+                                items.push('<label for="Fecha">Fecha: ' + val.fecha + '</label>');
+                                items.push('</div>');
+                                items.push('</div>');
+                                items.push('</div>');
+                                items.push('<div class="panel-footer" id="target-4">');
+                                items.push('<label for="Espacio"> </label>');
+                                items.push('<p class="pull-right calificacionevento" data-id="' + val.codigo + '">');
+                                var comentario, calificacion;
+                                val.comentario == null ? comentario = 0 : comentario = val.comentario;
+                                val.calificacion == null ? calificacion = 0 : calificacion = val.calificacion;
+                                items.push('<span title="Calificaci&oacute;n" class="glyphicon glyphicon-star">' + calificacion + '</span>');
+                                items.push('<span title="Comentarios" class="glyphicon glyphicon-comment">' + comentario + '</span>');
+                                items.push('</p>');
+                                items.push('</div>');
+                                items.push('</div>');
+                                items.push('</div>');
 
-                            if (fila == 3)
+                                if (fila == 3)
+                                {
+                                    fila = 0;
+                                    items.push('</div>');
+                                    items.push('</div>');
+                                    items.push('</div>');
+                                }
+                            });
+                            if (fila < 3 && fila > 0)
                             {
-                                fila = 0;
-                                items.push('</div>');
+                                for (var i = fila; i < 3; i++)
+                                {
+                                    items.push('<div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-4">');
+                                    items.push('</div>');
+                                }
                                 items.push('</div>');
                                 items.push('</div>');
                             }
-                        });
-                        if (fila < 3 && fila > 0)
-                        {
-                            for (var i = fila; i < 3; i++)
-                            {
-                                items.push('<div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-4">');
-                                items.push('</div>');
-                            }
-                            items.push('</div>');
-                            items.push('</div>');
+                        } else {
+                            items.push('<label for="Nota"><i>Nota: no existen eventos recomendados en este momento. Es posible que no tenga ningún gusto o ambiente asociado a su cuenta, o por el contrario, ningún evento cumple con sus gustos musicales</i></label>');
                         }
                         $("#contenido-eventos-recomendados").append(items.join(""));
                     }
@@ -213,41 +214,6 @@
             $(document).ready(function() {
                 geteventos("0", "9");
                 totalevento();
-            });
-        </script>
-
-        <script type="text/javascript" src="../Libs/Customs/js/alertify.js"></script>
-
-        <script>
-            $(function() {
-
-                guidely.add({
-                    attachTo: '#target-1'
-                    , anchor: 'bottom-left'
-                    , title: 'Al iniciar sesión'
-                    , text: 'A continuación se le muestran los eventos recomendados por el sistema dependiendo de los gustos y ambientes agregados.'
-                });
-
-                guidely.add({
-                    attachTo: '#target-2'
-                    , anchor: 'top-right'
-                    , title: 'Ver más'
-                    , text: 'Este ícono le permite profundizar la información de un evento.'
-                });
-
-                guidely.add({
-                    attachTo: '#target-3'
-                    , anchor: 'top-left'
-                    , title: 'Ver más'
-                    , text: 'El panel muestra la información esencial de cada evento.'
-                });
-
-                guidely.add({
-                    attachTo: '#target-4'
-                    , anchor: 'bottom-right'
-                    , title: 'Ver más'
-                    , text: 'Estos íconos le permiten ver los comentarios y la calificación de un evento.'
-                });
             });
         </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

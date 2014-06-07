@@ -230,9 +230,9 @@
                                         <div class="form-group">
                                             <label for="CalificacionOpinion">Puntuaci&oacute;n</label>
                                             <div id="puntuacionsatisfaccionevento">
-                                                <div id="stars" class="starrr rating" data-rating="3"></div>
+                                                <div id="stars" class="starrr rating"></div>
                                                 <span id="countname">Regular</span>
-                                                <input type="hidden" name="Rating" id="count" value="3"/>
+                                                <input type="hidden" name="Rating" id="count" value="0"/>
                                             </div>
                                         </div>
                                     </div>
@@ -479,19 +479,19 @@
                                         $("label[for=ComentarioOpinion]").after(elemento);
                                     }
                                     else {
-                                        $("label[for=ComentarioOpinion]").after("</br>"+val);
-                                        cant ++;
+                                        $("label[for=ComentarioOpinion]").after("</br>" + val);
+                                        cant++;
                                     }
                                 } else {
                                     if (val != null) {
                                         $("#puntuacionsatisfaccionevento").remove();
                                         elemento = '</br><span class="glyphicon glyphicon-star"></span>' + val + ' puntos de calificaci&oacute;n';
                                         $("label[for=CalificacionOpinion]").after(elemento);
-                                        cant ++;
+                                        cant++;
                                     }
                                 }
                             });
-                            if(cant == 2){
+                            if (cant == 2) {
                                 $("#btnComentario").remove();
                             }
                         }
