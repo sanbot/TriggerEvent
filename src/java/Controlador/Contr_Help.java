@@ -947,7 +947,6 @@ public class Contr_Help extends HttpServlet {
                 String urlimgservidor = this.getServletContext().getRealPath("/Libs/Customs/images/Evento");
                 /*Se obtienen los datos de los eventos recomendados, en el metodo de modelo*/
                 String[][] Datos = eve.geteventosGeneralAndroid(cantidad);
-                int i = 0;
                 /*Se encodifican los datos en JSON*/
                 for (String row[] : Datos) {
                     JSONObject ob = new JSONObject();
@@ -970,7 +969,6 @@ public class Contr_Help extends HttpServlet {
                     ob.put("NombreCiudad", row[4]);
                     ob.put("NombreDepto", row[5]);
                     list.add(ob);
-                    i++;
                 }
                 obj.put("eventos", list);
                 /*Se imprime el resultado*/

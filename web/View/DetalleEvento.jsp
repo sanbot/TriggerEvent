@@ -206,7 +206,7 @@
                 <div class="col-xs-1"></div>
             </div>
             <br/>
-            <div class="row">
+            <div class="row" id="contenido-satisfaccion-usuario">
                 <div class="col-xs-1"></div>
                 <div class="col-xs-10">
                     <div class="row">
@@ -503,8 +503,12 @@
                 datos_evento_detalle();
                 llenargrafica();
                 mascomentarios("5", "0");
-            <%if (Rol.equals("Cliente") || Rol.equals("Administrador")) {%>satisfaccion_evento_usuario();<%}%>
-                });
+            <%if (Rol.equals("Cliente") || Rol.equals("Administrador")) {%>
+                satisfaccion_evento_usuario();
+            <%} else {%>
+                $("#contenido-satisfaccion-usuario").remove();
+            <%}%>
+            });
         </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>
         <%session.setAttribute("Mensaje", "");%>

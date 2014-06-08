@@ -57,10 +57,25 @@
                         <div class="row">
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
+                                    <label for="Tipo">Tipo de usuario</label>
+                                    <select name="Tipo" id="Tipos" class="form-control" data-required="true">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
                                     <label for="Nombre">Nombre de usuario</label>
                                     <input name="Nombre" type="text" class="form-control" id="txtnombre_modificar_usuario" data-rangelength="[3,100]" data-notblank="true" data-required="true"/>
                                 </div>
                             </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Nombre">Correo electr&oacute;nico</label>
+                                    <input name="Correo" type="text" class="form-control" id="txtcorreo_modificar_usuario" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Tipo_Documento">Tipo de documento</label>
@@ -71,32 +86,24 @@
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label  for="Nombre">N&uacute;mero de documento</label>
-                                    <input name="No_Documento" type="text" class="form-control" id="txtdocumento_modificar_usuario" data-rangelength="[6,30]" data-notblank="true" data-required="true" readonly/>
+                                    <input name="No_Documento" type="text" class="form-control" id="txtdocumento_modificar_usuario" data-type="number" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label for="Tipo">Tipo de usuario</label>
-                                    <select name="Tipo" id="Tipos" class="form-control" data-required="true">
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Nombre">N&uacute;mero de celular</label>
                                     <input name="Celular" type="text" class="form-control" id="txtcelular_modificar_usuario" placeholder="000 000 0000" data-rangelength="[12,14]" data-type="cellphone" data-notblank="true" data-required="true" readonly />
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Telefono">N&uacute;mero de tel&eacute;fono</label>
                                     <input id="txttelefono_modificar_usuario" name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true">
                                 </div> 
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Departamento">Departamento</label>
@@ -111,20 +118,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Direccion">Direcci&oacute;n</label>
                                     <div class="form-group">
                                         <input id="txtdireccion_modificar_usuario" name="Direccion" class="form-control" type="text" data-notblank="true" data-rangelength="[10,100]" data-required="true" />
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label for="Nombre">Correo electr&oacute;nico</label>
-                                    <input name="Correo" type="text" class="form-control" id="txtcorreo_modificar_usuario" placeholder="example@service.com" data-required="true" data-notblank="true" data-type="email" data-rangelength="[10,100]" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +178,7 @@
                         $("select#departamento_Musuario").html(opcion.join(""));
                     }
                 }).done(function() {
-                    $("select#departamento_Musuario [value='"+id_departamento+"']").prop("selected", true);
+                    $("select#departamento_Musuario [value='" + id_departamento + "']").prop("selected", true);
                 });
             }
             function getciudades(index)
@@ -215,9 +216,23 @@
                                 $('#txtdireccion_modificar_usuario').val(value.direccion);
                                 $('#txtdocumento_modificar_usuario').val(value.no_documento);
                                 $('#txttelefono_modificar_usuario').val(value.telefono);
-                                $('#ddlTipo_Documento').html('<option value="'+value.tipo_documento+'">'+value.tipo_documento+'</option>');
-                                $('#Tipos').html('<option value="'+value.codigo_tipo+'">'+value.tipo+'</option>');
-                                
+                                $('#ddlTipo_Documento').html('<option value="' + value.tipo_documento + '">' + value.tipo_documento + '</option>');
+                                $('#Tipos').html('<option value="' + value.codigo_tipo + '">' + value.tipo + '</option>');
+
+                                var opciones = [];
+                                if (value.codigo_tipo == "Tip2")
+                                {
+                                    opciones.push('<option value="NIT">N&uacute;mero de Identificaci&oacute;n Tributaria</option>');
+                                }
+                                else {
+                                    opciones.push('<option value="Tarjeta de Identidad">Tarjeta de Identidad</option>');
+                                    opciones.push('<option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>');
+                                    opciones.push('<option value="Cédula de Extranjería">C&eacute;dula de Extranjer&iacute;a</option>');
+                                    opciones.push('<option value="Pasaporte">Pasaporte</option>');
+                                }
+                                $('#ddlTipo_Documento').html(opciones.join(""));
+                                $('#ddlTipo_Documento [value="'+value.tipo_documento+'"]').prop("selected", true);
+
                                 getdepartamentos(value.codigo_departamento);
                                 $.ajax({
                                     type: 'POST',
@@ -232,7 +247,7 @@
                                         $("select#ciudad_Musuario").html(opcionciudad.join(""));
                                     }
                                 }).done(function() {
-                                    $("select#ciudad_Musuario [value='"+value.codigo_ciudad+"']").prop("selected", true);
+                                    $("select#ciudad_Musuario [value='" + value.codigo_ciudad + "']").prop("selected", true);
                                 });
                             } else {
                                 window.location.replace("/TriggerEvent/View/ConsultaUsuario.jsp");

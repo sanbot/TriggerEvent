@@ -2,7 +2,7 @@
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionEmpresa.jspf" %>
 <%
-    String nit = (String) session.getAttribute("No_Documento");
+    String nit = (String) session.getAttribute("Codigo");
 %>
 <!DOCTYPE html>
 <html lang="en">

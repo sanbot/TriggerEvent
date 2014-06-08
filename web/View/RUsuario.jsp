@@ -42,7 +42,7 @@
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label id="lblnombreRUsuario" for="Nombre">Nombres y apellidos</label>
-                            <input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,100]" data-notblank="true" data-required="true"/>
+                            <input name="Nombre" type="text" class="form-control" id="nombre" data-rangelength="[3,45]" data-notblank="true" data-required="true"/>
                         </div>
                     </div>
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
@@ -80,7 +80,7 @@
                     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label  for="Nombre">N&uacute;mero de documento</label>
-                            <input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
+                            <input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-type="number" data-notblank="true" data-required="true"/>
                         </div>
                     </div>
                 </div>
@@ -239,6 +239,9 @@
                         datos.push('<option value="NIT">N&uacute;mero de Identificaci&oacute;n Tributaria</option>');
                     }
                     $("#Tipo_DocumentoRUsuario").html(datos.join(""));
+                });
+                $("input, select").change(function() {
+                    $(this).parsley('validate');
                 });
             });
         </script>

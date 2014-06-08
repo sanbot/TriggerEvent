@@ -127,7 +127,7 @@ public class Contr_Usuarios extends HttpServlet {
             } else {
                 /*Se guarda un mensaje mediante las sesiones
                  y se redirecciona*/
-                session.setAttribute("Mensaje", "Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
+                session.setAttribute("Mensaje", usu.getMensaje());
                 session.setAttribute("TipoMensaje", "NODio");
                 url = "View/ModificarPerfil.jsp";
                 response.sendRedirect(url);
@@ -592,7 +592,7 @@ public class Contr_Usuarios extends HttpServlet {
             int i = 0;
             for (String[] rows : Datos) {
                 JSONObject ob = new JSONObject();
-                ob.put("no_documento", rows[0]);
+                ob.put("codigo", rows[0]);
                 ob.put("nombre", rows[1]);
                 obj.put(i, ob);
                 i++;
@@ -677,18 +677,14 @@ public class Contr_Usuarios extends HttpServlet {
             //se declaran las variables necesarias y se obtienen los datos
 
             Rol = request.getParameter("tipo");
-            Tipo_Documento = request.getParameter("tipo_documento");
-            No_Documento = request.getParameter("no_documento");
             Nombre = request.getParameter("nombre");
             Password = request.getParameter("contrasenia");
-            Telefono = request.getParameter("telefono");
             celular = request.getParameter("celular");
             correo = request.getParameter("correo");
-            Direccion = request.getParameter("direccion");
             Ciudad = request.getParameter("ciudad");
 
             /*Se ejecuta el metodo para registrar los datos del usario en la clase modelo*/
-            b = usu.ingresarUsuario(Rol, Tipo_Documento, No_Documento, Nombre, Telefono, celular, correo, Direccion, Password, Ciudad);
+            b = usu.ingresarUsuario(Rol, Nombre, celular, correo, Password, Ciudad);
             if (b) {
                 PrintWriter out = response.getWriter();
                 out.println("Se ha registrado exitosamente");
@@ -782,19 +778,21 @@ public class Contr_Usuarios extends HttpServlet {
         } else if (request.getParameter("accion").equals("modificar_perfil_android")) {
             //se declaran las variables necesarias y se obtienen los datos
             Codigo = request.getParameter("Codigo");
+            Tipo_Documento = request.getParameter("Tipo_Documento");
+            No_Documento = request.getParameter("No_Documento");
             Telefono = request.getParameter("Telefono");
             Direccion = request.getParameter("Direccion");
             Ciudad = request.getParameter("Ciudad");
 
             /*Se ejecuta el metodo actualizar datos de la clase modelo*/
-            b = usu.actualizardatos(Codigo, Telefono, Direccion, Ciudad);
+            b = usu.actualizardatos(Codigo, Telefono, Direccion, Ciudad, Tipo_Documento, No_Documento);
             if (b) {
                 PrintWriter out = response.getWriter();
                 out.println("Sus datos han sido modificados correctamente");
                 out.close();
             } else {
                 PrintWriter out = response.getWriter();
-                out.println("Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
+                out.println(usu.getMensaje());
                 out.close();
             }
         } else {

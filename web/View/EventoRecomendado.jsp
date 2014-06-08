@@ -172,7 +172,7 @@
                                 items.push('</div>');
                             }
                         } else {
-                            items.push('<label for="Nota"><i>Nota: no existen eventos recomendados en este momento. Es posible que no tenga ningún gusto o ambiente asociado a su cuenta, o por el contrario, ningún evento cumple con sus gustos musicales</i></label>');
+                            items.push('<label for="Nota"><i>Nota: no hay eventos recomendados en este momento. Es posible que no tenga ningún gusto o ambiente asociado a su cuenta, o por el contrario, ningún evento cumple con sus gustos musicales.</i></label>');
                         }
                         $("#contenido-eventos-recomendados").append(items.join(""));
                     }

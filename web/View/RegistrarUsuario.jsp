@@ -56,7 +56,7 @@
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label id="lblnombre" for="Nombre">Nombres y apellidos</label>
-                                    <input name="Nombre" type="text" class="form-control" id="txt_nombre_registro_usuario" data-rangelength="[3,100]" data-notblank="true" data-required="true" value="<%=nombre%>" <%if (!nombre.equals("")) {%>readonly<%}%> />
+                                    <input name="Nombre" type="text" class="form-control" id="txt_nombre_registro_usuario" data-rangelength="[3,45]" data-notblank="true" data-required="true" value="<%=nombre%>" <%if (!nombre.equals("")) {%>readonly<%}%> />
                                 </div>
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
@@ -109,7 +109,7 @@
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label  for="Nombre">N&uacute;mero de documento</label>
-                                    <input name="No_Documento" type="text" class="form-control" id="docum" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
+                                    <input name="No_Documento" type="text" class="form-control" id="docum" data-type="number" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
                                 </div>
                             </div>
                         </div>

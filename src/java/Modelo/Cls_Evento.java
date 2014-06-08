@@ -241,10 +241,10 @@ public class Cls_Evento {
 
                 Calendar cal = Calendar.getInstance();
                 Calendar calendar = Calendar.getInstance();
-                
-                calendar.setTime(FechaSistema); 
+
+                calendar.setTime(FechaSistema);
                 cal.setTime(fechainicio);
-                
+
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
 
                 /*Se evelua los dos dias y encaso de ser verdadero se retorna true*/
@@ -283,7 +283,7 @@ public class Cls_Evento {
         this.setCodigo(codigo);
         pr = null;
         /*Se crea una sentencia sql en string*/
-        String sql = "INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, NIT, Codigo_Ciudad, Direccion, Estado, Latitud, Longitud)";
+        String sql = "INSERT INTO tb_evento(Codigo, Imagen, Nombre, Fecha, Descripcion, Rango_Precios, Id_Usuario, Codigo_Ciudad, Direccion, Estado, Latitud, Longitud)";
         sql += "VALUES(?,?,?,?,?,?,?,?,?,?, ?,?)";
 
         try {
@@ -418,7 +418,7 @@ public class Cls_Evento {
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND "
                 + "Fecha >= ? ORDER BY Fecha";
@@ -490,7 +490,7 @@ public class Cls_Evento {
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND "
                 + "Fecha >= ? ORDER BY Fecha LIMIT ?,?";
@@ -563,7 +563,7 @@ public class Cls_Evento {
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND "
                 + "Fecha >= ? Order by Fecha LIMIT 0,2";
@@ -633,7 +633,7 @@ public class Cls_Evento {
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
-                + "FROM  `tb_evento` e JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "FROM  `tb_evento` e JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND Fecha >= ? \n"
                 + "Order by Calificacion DESC Limit 0,2 ";
@@ -703,7 +703,7 @@ public class Cls_Evento {
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, "
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
-                + "FROM  `tb_evento` e JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "FROM  `tb_evento` e JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Aprobado' AND Fecha >= ? \n"
                 + "Order by Comentarios DESC Limit 0,2 ";
@@ -778,7 +778,7 @@ public class Cls_Evento {
                 + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
                 + "e.Latitud, e.Longitud, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento \n"
                 + "Where Fecha >= ? AND e.Codigo = ?";
@@ -847,7 +847,7 @@ public class Cls_Evento {
                 + "(SELECT Count(Calificacion) Cantidad FROM  `tb_satisfaccion` e Where Calificacion = '2' AND Id_Evento = ?) Dos, "
                 + "(SELECT Count(Calificacion) Cantidad FROM  `tb_satisfaccion` e Where Calificacion = '1' AND Id_Evento = ?) Uno \n"
                 + "FROM tb_evento e \n"
-                + "JOIN tb_usuario u ON e.NIT = u.No_Documento \n"
+                + "JOIN tb_usuario u ON e.Id_Usuario = u.Codigo \n"
                 + "JOIN tb_ciudad c ON e.Codigo_Ciudad = c.Codigo \n"
                 + "JOIN tb_departamento d ON c.Codigo_Departamento = d.Codigo \n"
                 + "WHERE e.Codigo = ?";
@@ -915,7 +915,7 @@ public class Cls_Evento {
                 + "c.Codigo CodigoCiudad, c.Nombre NombreCiudad, e.Direccion, e.Fecha, e.Descripcion, "
                 + "e.Motivo, e.Estado, e.Latitud, e.Longitud, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento \n"
                 + "Where Fecha >= ? AND e.Codigo = ?";
@@ -980,7 +980,7 @@ public class Cls_Evento {
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT u.Nombre NombreEmpresa, e.Nombre, e.Direccion, e.Fecha, u.Correo \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "Where e.Codigo = ?";
 
         try {
@@ -1024,7 +1024,7 @@ public class Cls_Evento {
     /**
      * Metodo para buscar los datos de los eventos que ha creado la empresa
      */
-    public String[][] BuscarDatosMisEventos(String nit) {
+    public String[][] BuscarDatosMisEventos(String Id_Usuario) {
         /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
@@ -1032,9 +1032,9 @@ public class Cls_Evento {
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, e.Estado, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
-                + "Where Fecha >= ? AND NIT = ?";
+                + "Where Fecha >= ? AND Id_Usuario = ?";
 
         try {
             /*Se guarda la fecha en una variable tipo date*/
@@ -1045,7 +1045,7 @@ public class Cls_Evento {
              */
             pr = conn.prepareStatement(sql);
             pr.setTimestamp(1, sqlDate);
-            pr.setString(2, nit);
+            pr.setString(2, Id_Usuario);
             rs = pr.executeQuery();
 
             /*Se cuenta los registros para luego crear un array*/
@@ -1111,7 +1111,7 @@ public class Cls_Evento {
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, "
                 + "c.Nombre NombreCiudad, e.Estado, e.Imagen\n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where Fecha >= ? Order by Fecha";
 
@@ -1177,7 +1177,7 @@ public class Cls_Evento {
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT e.Codigo, e.Nombre, e.Fecha, u.Nombre NombreEmpresa, c.Nombre NombreCiudad, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "Where e.Estado = 'Pendiente' AND "
                 + "Fecha >= ?";
@@ -1424,17 +1424,17 @@ public class Cls_Evento {
     }
 
     /*MEtodo para obtener la camtidad de eventos incompletos*/
-    public int getCantidadEventoIncompleto(String NIT) {
+    public int getCantidadEventoIncompleto(String Id_Usuario) {
         /*Se crean variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en string*/
-        String sql = "Select Count(Estado) Cantidad FROM tb_evento Where Estado = 'Incompleto' AND NIT = ?";
+        String sql = "Select Count(Estado) Cantidad FROM tb_evento Where Estado = 'Incompleto' AND Id_Usuario = ?";
         try {
             /*Se prepara la sentencia, se le envia los datos y se ejecuta*/
             pr = conn.prepareStatement(sql);
-            pr.setString(1, NIT);
+            pr.setString(1, Id_Usuario);
             rs = pr.executeQuery();
             if (rs.next()) {
                 return rs.getInt("Cantidad");
@@ -1466,7 +1466,7 @@ public class Cls_Evento {
                 + "(Select Count(Comentario) From tb_satisfaccion Where Id_Evento = e.Codigo) Comentarios, "
                 + "Round((Select Avg(Calificacion) From tb_satisfaccion Where Id_Evento = e.Codigo),2) Calificacion, e.Imagen \n"
                 + "FROM  `tb_evento` e \n"
-                + "JOIN tb_usuario u on u.No_Documento = e.NIT \n"
+                + "JOIN tb_usuario u on u.Codigo = e.Id_Usuario \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "JOIN tb_seleccion_evento se on se.Id_Evento = e.Codigo \n"
                 + "Where e.Estado = 'Aprobado' AND "
@@ -1624,8 +1624,11 @@ public class Cls_Evento {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en string*/
-        String sqlevento = "SELECT Codigo, Nombre, Latitud, Longitud FROM tb_evento\n"
-                + "Where Fecha < last_day(period_add(CURDATE(), 1)) AND Fecha > CURDATE()";
+        String sqlevento = "SELECT Codigo, Nombre, Latitud, Longitud "
+                + "FROM tb_evento "
+                + "Where Fecha < last_day(CURDATE()) "
+                + "AND Estado = 'Aprobado' "
+                + "AND Fecha > CURDATE()";
         try {
 
             /*Se prepara la sentencia y se ejecuta*/
@@ -1743,7 +1746,7 @@ public class Cls_Evento {
                 + "       From tb_evento e\n"
                 + "       JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "       JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento\n"
-                + "       WHERE e.Fecha >= ? ORDER BY e.Fecha Limit 0,?";
+                + "       WHERE e.Fecha >= ? AND e.Estado = 'Aprobado' ORDER BY e.Fecha Limit 0,?";
         try {
 
             /*Se guarda la fecha en un date*/
@@ -1802,7 +1805,7 @@ public class Cls_Evento {
         /*Se crea una sentencia sql en string*/
         String sql = "SELECT DISTINCT e.Codigo, e.Imagen, e.Nombre, e.Fecha, c.Nombre NombreCiudad, d.Nombre NombreDepto \n"
                 + "From tb_evento e \n"
-                + "Join tb_usuario u ON u.No_Documento = e.NIT \n"
+                + "Join tb_usuario u ON u.Codigo = e.Id_Usuario \n"
                 + "AND u.Codigo = ? \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento \n"
@@ -1873,7 +1876,7 @@ public class Cls_Evento {
         /*Se crea una sentencia sql en string*/
         String sqlevento = "SELECT COUNT(DISTINCT e.Codigo) \n"
                 + "From tb_evento e \n"
-                + "Join tb_usuario u ON u.No_Documento = e.NIT \n"
+                + "Join tb_usuario u ON u.Codigo = e.Id_Usuario \n"
                 + "AND u.Codigo = ? \n"
                 + "WHERE e.Fecha >= ? ";
         try {

@@ -376,37 +376,47 @@ public class Cls_Usuario {
         String sql = "UPDATE tb_usuario SET Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?  , Correo= ? , Direccion = ? ";
         sql += "WHERE Codigo=?";
         ResultSet rs = null;
+        String preconsulta = "SELECT Codigo FROM tb_usuario Where No_Documento = ? AND Codigo != ?";
         try {
-            /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
-            pr = conn.prepareStatement(sql);
-            pr.setString(1, Tipo_Documento);
-            pr.setString(2, No_Documento);
-            pr.setString(3, Nombre);
-            pr.setString(4, Telefono);
-            pr.setString(5, Celular);
-            pr.setString(6, Ciudad);
-            pr.setString(7, Correo);
-            pr.setString(8, Direccion);
-            pr.setString(9, Codigo);
-            /*Se ejecuta la consulta*/
-            int i = pr.executeUpdate();
+            pr = conn.prepareStatement(preconsulta);
+            pr.setString(1, No_Documento);
+            pr.setString(2, Codigo);
+            rs = pr.executeQuery();
+            if (rs.next()) {
+                this.setMensaje("Ya existe una cuenta registrada con este número de documento.");
+                return false;
+            } else {
+                /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
+                pr = conn.prepareStatement(sql);
+                pr.setString(1, Tipo_Documento);
+                pr.setString(2, No_Documento);
+                pr.setString(3, Nombre);
+                pr.setString(4, Telefono);
+                pr.setString(5, Celular);
+                pr.setString(6, Ciudad);
+                pr.setString(7, Correo);
+                pr.setString(8, Direccion);
+                pr.setString(9, Codigo);
+                /*Se ejecuta la consulta*/
+                int i = pr.executeUpdate();
 
-            /*Se verifica si la consulta ejecuto correctamente*/
-            if (i == 1) {
-                /*Se traen los datos actualizados del usuario*/
-                pr = conn.prepareStatement("Select c.Nombre NombreCiudad, d.Nombre NombreDepartamento "
-                        + "From tb_ciudad  c "
-                        + "Join tb_departamento d on d.Codigo = c.Codigo_Departamento "
-                        + " Where c.Codigo = ?");
-                pr.setString(1, Ciudad);
-                rs = pr.executeQuery();
-                /*Se guardan los datos en la case*/
-                while (rs.next()) {
-                    this.setCiudad(rs.getString("NombreCiudad"));
-                    this.setDepartamento(rs.getString("NombreDepartamento"));
+                /*Se verifica si la consulta ejecuto correctamente*/
+                if (i == 1) {
+                    /*Se traen los datos actualizados del usuario*/
+                    pr = conn.prepareStatement("Select c.Nombre NombreCiudad, d.Nombre NombreDepartamento "
+                            + "From tb_ciudad  c "
+                            + "Join tb_departamento d on d.Codigo = c.Codigo_Departamento "
+                            + " Where c.Codigo = ?");
+                    pr.setString(1, Ciudad);
+                    rs = pr.executeQuery();
+                    /*Se guardan los datos en la case*/
+                    while (rs.next()) {
+                        this.setCiudad(rs.getString("NombreCiudad"));
+                        this.setDepartamento(rs.getString("NombreDepartamento"));
+                    }
+                    /*Se retorna verdadero si todo funciona*/
+                    return true;
                 }
-                /*Se retorna verdadero si todo funciona*/
-                return true;
             }
         } catch (Exception ex) {
             /*Se muestra un mensaje en caso de error*/
@@ -425,28 +435,40 @@ public class Cls_Usuario {
     }
 
     /*Metodo para actualizar los datos de un usuario*/
-    public boolean actualizardatos(String Codigo, String Telefono, String Direccion, String Ciudad) {
+    public boolean actualizardatos(String Codigo, String Telefono, String Direccion, String Ciudad, String tipo_Documento, String no_Documento) {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
         /*Se crea la sentencia en un string*/
-        String sql = "UPDATE tb_usuario SET Telefono = ?, Codigo_Ciudad = ?, Direccion = ? ";
+        String sql = "UPDATE tb_usuario SET Telefono = ?, Codigo_Ciudad = ?, Direccion = ?, Tipo_Documento = ?, No_Documento = ? ";
         sql += "WHERE Codigo=?";
         ResultSet rs = null;
+        String preconsulta = "SELECT Codigo FROM tb_usuario Where No_Documento = ? AND Codigo != ?";
         try {
-            /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
-            pr = conn.prepareStatement(sql);
-            pr.setString(1, Telefono);
-            pr.setString(2, Ciudad);
-            pr.setString(3, Direccion);
-            pr.setString(4, Codigo);
-            /*Se ejecuta la consulta*/
-            int i = pr.executeUpdate();
+            pr = conn.prepareStatement(preconsulta);
+            pr.setString(1, no_Documento);
+            pr.setString(2, Codigo);
+            rs = pr.executeQuery();
+            if (rs.next()) {
+                this.setMensaje("Ya existe una cuenta registrada con este número de documento.");
+                return false;
+            } else {
+                /*Se prepara la sentencia, se le envian los datos y se ejecuta posteriormente*/
+                pr = conn.prepareStatement(sql);
+                pr.setString(1, Telefono);
+                pr.setString(2, Ciudad);
+                pr.setString(3, Direccion);
+                pr.setString(4, tipo_Documento);
+                pr.setString(5, no_Documento);
+                pr.setString(6, Codigo);
+                /*Se ejecuta la consulta*/
+                int i = pr.executeUpdate();
 
-            /*Se verifica si la consulta ejecuto correctamente*/
-            if (i == 1) {
-                /*Se retorna verdadero si todo funciona*/
-                return true;
+                /*Se verifica si la consulta ejecuto correctamente*/
+                if (i == 1) {
+                    /*Se retorna verdadero si todo funciona*/
+                    return true;
+                }
             }
         } catch (Exception ex) {
             /*Se muestra un mensaje en caso de error*/
@@ -460,6 +482,7 @@ public class Cls_Usuario {
 
             }
         }
+        this.setMensaje("Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
         /*Se retorna false en caso de error*/
         return false;
     }
@@ -603,25 +626,93 @@ public class Cls_Usuario {
         Codi += numerocodigo;
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        ResultSet rs = null;
         /*Se crea la sentencia sql en un string*/
         String sql = "INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Tipo_Documento, No_Documento, Nombre, Contrasenia, Telefono, No_Celular, Codigo_Ciudad, Correo, Direccion, Estado)";
         sql += "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String preconsulta = "SELECT Codigo FROM tb_usuario WHERE No_Documento = ?";
         try {
+            pr = conn.prepareStatement(preconsulta);
+            pr.setString(1, No_Documento);
+            rs = pr.executeQuery();
+            if (rs.next()) {
+                this.setMensaje("Ya existe una cuenta registrada con este número de documento.");
+                return false;
+            } else {
+                /*Se prepara la sentencia, se envian los datos y se ejecuta posteriormente*/
+                pr = conn.prepareStatement(sql);
+                pr.setString(1, Codi);
+                pr.setString(2, Rol);
+                pr.setString(3, Tipo_Documento);
+                pr.setString(4, No_Documento);
+                pr.setString(5, Nombre);
+                pr.setString(6, Password);
+                pr.setString(7, Telefono);
+                pr.setString(8, Celular);
+                pr.setString(9, Ciudad);
+                pr.setString(10, Correo);
+                pr.setString(11, Direccion);
+                pr.setString(12, Est);
 
+                /*En caso de funcionar correctamente se retorna verdadero*/
+                if (pr.executeUpdate() == 1) {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            /*Si hay un error se evalua el motivo*/
+            if (ex.toString().indexOf("Duplicate") > 0) {
+                if (ex.toString().indexOf("No_Documento") > 0) {
+                    this.setMensaje("Ya existe una cuenta registrada con este número de documento.");
+                }
+                if (ex.toString().indexOf(Celular) > 0) {
+                    this.setMensaje("Ya existe una cuenta registrada con este número de celular.");
+                }
+                if (ex.toString().indexOf(Correo) > 0) {
+                    this.setMensaje("Ya existe una cuenta registrada con este correo electrónico.");
+                }
+            }
+
+            /*Se retorna falso e caso de error*/
+            return false;
+        } finally {
+            /*Se cierra todo*/
+            try {
+                pr.close();
+                conn.close();
+            } catch (Exception ex) {
+
+            }
+        }
+        /*Se guarda un mensaje y se retorna falso en caso de error*/
+        this.setMensaje("Ocurrió un problema inesperado al registrar los datos del usuario. Estamos trabajando para solucionar este problema.");
+        return false;
+    }
+
+    /*Metodo para registrar un usuario en Android*/
+    public boolean ingresarUsuario(String Rol, String Nombre, String Celular, String Correo, String Password, String Ciudad) {
+        /*Se crean e instancia las clases y variables necesarias*/
+        String Est = this.getEstadoUsuario(Rol);
+        String Codi = "USU";
+        int numerocodigo = this.CantidadRegistroUsuario();
+        /*Se concatena el codigo para el nuevo registro*/
+        Codi += numerocodigo;
+        Connection conn = conexion.conectar();
+        PreparedStatement pr = null;
+        /*Se crea la sentencia sql en un string*/
+        String sql = "INSERT INTO tb_usuario (Codigo, Codigo_Tipo, Nombre, Contrasenia, No_Celular, Codigo_Ciudad, Correo, Estado)";
+        sql += "VALUES(?,?,?,?,?,?,?,?)";
+        try {
             /*Se prepara la sentencia, se envian los datos y se ejecuta posteriormente*/
             pr = conn.prepareStatement(sql);
             pr.setString(1, Codi);
             pr.setString(2, Rol);
-            pr.setString(3, Tipo_Documento);
-            pr.setString(4, No_Documento);
-            pr.setString(5, Nombre);
-            pr.setString(6, Password);
-            pr.setString(7, Telefono);
-            pr.setString(8, Celular);
-            pr.setString(9, Ciudad);
-            pr.setString(10, Correo);
-            pr.setString(11, Direccion);
-            pr.setString(12, Est);
+            pr.setString(3, Nombre);
+            pr.setString(4, Password);
+            pr.setString(5, Celular);
+            pr.setString(6, Ciudad);
+            pr.setString(7, Correo);
+            pr.setString(8, Est);
 
             /*En caso de funcionar correctamente se retorna verdadero*/
             if (pr.executeUpdate() == 1) {
@@ -735,7 +826,7 @@ public class Cls_Usuario {
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea una sentencia sql en uns tring*/
-        String sql = "SELECT u.No_Documento, u.Nombre \n"
+        String sql = "SELECT u.Codigo, u.Nombre \n"
                 + "FROM  `tb_usuario` u\n"
                 + "JOIN tb_tipo_usuario tu ON u.Codigo_Tipo = tu.Codigo And tu.Tipo = 'Empresa' "
                 + "Where u.Estado = 'Aprobado' ORDER BY u.Nombre";
@@ -756,9 +847,9 @@ public class Cls_Usuario {
             rows = 0;
             while (rs.next()) {
                 Cls_Usuario usu = new Cls_Usuario();
-                usu.setCodigo(rs.getString("No_Documento"));
+                usu.setCodigo(rs.getString("Codigo"));
                 usu.setNombre(rs.getString("Nombre"));
-                
+
                 Datos[rows][0] = usu.getCodigo();
                 Datos[rows][1] = usu.getNombre();
                 rows++;
@@ -859,26 +950,37 @@ public class Cls_Usuario {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
         PreparedStatement pr = null;
+        ResultSet rs = null;
         /*Se crea una sentencia sql en uns tring*/
         String sql = "UPDATE tb_usuario SET Codigo_Tipo = ? ,Tipo_Documento = ?, No_Documento = ?, Nombre = ?, Telefono = ?, No_Celular = ? , Codigo_Ciudad = ?, Correo= ? , Direccion = ? ";
         sql += "WHERE Codigo= ? ";
+        String preconsulta = "SELECT Codigo FROM tb_usuario Where No_Documento = ? AND Codigo != ?";
         try {
-            /*Se prepara la sentencia, se envian los datos y se ejecuta*/
-            pr = conn.prepareStatement(sql);
-            pr.setString(1, Rol);
-            pr.setString(2, Tipo_Documento);
-            pr.setString(3, No_Documento);
-            pr.setString(4, Nombre);
-            pr.setString(5, Telefono);
-            pr.setString(6, celular);
-            pr.setString(7, Ciudad);
-            pr.setString(8, correo);
-            pr.setString(9, Direccion);
-            pr.setString(10, Codigo);
-            /*Si se ejecuta correctamente se retorna verdadero*/
-            int i = pr.executeUpdate();
-            if (i == 1) {
-                return true;
+            pr = conn.prepareStatement(preconsulta);
+            pr.setString(1, No_Documento);
+            pr.setString(2, Codigo);
+            rs = pr.executeQuery();
+            if (rs.next()) {
+                this.setMensaje("Ya existe una cuenta registrada con este número de documento.");
+                return false;
+            } else {
+                /*Se prepara la sentencia, se envian los datos y se ejecuta*/
+                pr = conn.prepareStatement(sql);
+                pr.setString(1, Rol);
+                pr.setString(2, Tipo_Documento);
+                pr.setString(3, No_Documento);
+                pr.setString(4, Nombre);
+                pr.setString(5, Telefono);
+                pr.setString(6, celular);
+                pr.setString(7, Ciudad);
+                pr.setString(8, correo);
+                pr.setString(9, Direccion);
+                pr.setString(10, Codigo);
+                /*Si se ejecuta correctamente se retorna verdadero*/
+                int i = pr.executeUpdate();
+                if (i == 1) {
+                    return true;
+                }
             }
         } catch (Exception ex) {
             /*Se muestra un mensaje en caso de error*/
@@ -892,6 +994,7 @@ public class Cls_Usuario {
 
             }
         }
+        this.setMensaje("Ocurrió un problema inesperado al modificar sus datos. Estamos trabajando para solucionar este problema.");
         /*Se retorna falso en caso de error*/
         return false;
     }

@@ -2,7 +2,7 @@
 <%@include file="../WEB-INF/jspf/VariablesIniciales.jspf" %>
 <%@include file="../WEB-INF/jspf/ValidacionAdministradorEmpresa.jspf" %>
 <%
-    String Codigo = (String) session.getAttribute("No_Documento");
+    String Codigo = (String) session.getAttribute("Codigo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -245,7 +245,7 @@
                         var datos = jQuery.parseJSON(data);
 
                         $.each(datos, function(key, value) {
-                            items.push('<option value="' + value.no_documento + '">' + value.nombre + '</option>');
+                            items.push('<option value="' + value.codigo + '">' + value.nombre + '</option>');
                         });
                         $("#lista_empresas").html(items.join(""));
                     }

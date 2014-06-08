@@ -259,7 +259,9 @@
                 getdepartamentos();
                 $("#contenido-ciudades").html('<tr><td colspan="3"><center><img class="img-loading" src="../Libs/Customs/images/loading.gif" alt="cargando"/></center></td><tr>');
                 getciudades();
-
+                $("input, select").change(function() {
+                    $(this).parsley('validate');
+                });
             });
         </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

@@ -248,7 +248,7 @@
                             items.push('<td>' + val.nombre + '</td>');
                             items.push('<td>' + val.tipo + '</td>');
                             items.push('<td>' + val.estado + '</td>');
-                            items.push('<td><center><a title="Modificar" class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="' + val.codigo + '" data-image="'+val.image+'" data-nombre="' + val.nombre + '" data-tipo="' + val.tipo + '" data-estado="' + val.estado + '"><span class="glyphicon glyphicon-edit"></span><center></td>');
+                            items.push('<td><center><a title="Modificar" class="modal-Modifica" href="#modal-container-Modificar" data-toggle="modal" data-id="' + val.codigo + '" data-image="' + val.image + '" data-nombre="' + val.nombre + '" data-tipo="' + val.tipo + '" data-estado="' + val.estado + '"><span class="glyphicon glyphicon-edit"></span><center></td>');
                             items.push('<td><center><a class="desaprobarseleccion" data-id="' + val.codigo + '" title="Desaprobar"><span class="glyphicon glyphicon-remove"></span></a></center></td>');
                             items.push('<td><center><a class="aprobarseleccion" data-id="' + val.codigo + '" title="Aprobar"><span class="glyphicon glyphicon-ok"></span></a></center></td>');
                             items.push('</tr>');
@@ -337,6 +337,9 @@
             }
             $(document).ready(function() {
                 getseleccion();
+                $("input, select").change(function() {
+                    $(this).parsley('validate');
+                });
             });
         </script>
         <%@include file="../WEB-INF/jspf/NotificacionesyAlertas.jspf" %>

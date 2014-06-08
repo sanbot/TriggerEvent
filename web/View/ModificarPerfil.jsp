@@ -21,11 +21,9 @@
 
     </head>
     <body>
-        <%
-            if (Rol.equals("Administrador")) {%>
+        <%if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
-        <%
-        } else if (Rol.equals("Cliente")) {%>
+        <%} else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
         <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
@@ -60,32 +58,10 @@
                             </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
-                                    <label for="Tipo_Documento">Tipo de documento</label>
-                                    <input name="Tipo_Documento" type="text" class="form-control" id="Tipo_Documento_MPerfil" readonly/>
-                                </div>
-                            </div>
-                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label for="Numero_Documento">N&uacute;mero de documento</label>
-                                    <input name="No_Documento" type="text" class="form-control" id="Numero_Documento_MPerfil" readonly/> 
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                                <div class="form-group">
                                     <label for="Nombre">Nombre de usuario</label>
                                     <input name="Nombre" type="text" class="form-control" id="Nombre_Documento_MPerfil" readonly/>
                                 </div>
                             </div>
-                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label for="Celular">N&uacute;mero de celular</label>
-                                    <input name="Celular" type="text" class="form-control" id="Celular_MPerfil" readonly/>
-                                </div>
-                            </div>
-
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Correo">Correo electr&oacute;nico</label>
@@ -94,6 +70,33 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Tipo_Documento">Tipo de documento</label>
+                                    <select name="Tipo_Documento" id="Tipo_Documento_MPerfil" tabindex="1" data-placeholder="" class="form-control" data-required="true">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Numero_Documento">N&uacute;mero de documento</label>
+                                    <input name="No_Documento" type="text" class="form-control" id="Numero_Documento_MPerfil" data-rangelength="[6,30]" data-type="number" data-notblank="true" data-required="true"/> 
+                                </div>
+                            </div>
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Celular">N&uacute;mero de celular</label>
+                                    <input name="Celular" type="text" class="form-control" id="Celular_MPerfil" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="Tipo">N&uacute;mero de tel&eacute;fono</label>
+                                    <input id="Telefono_MPerfil" name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true"/>
+                                </div> 
+                            </div>
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="Departamento">Departamento</label>
@@ -107,12 +110,6 @@
                                     <select id="ciudadperfil" name="Ciudad" tabindex="1" data-placeholder="" class="form-control" data-required="true">
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label for="Tipo">N&uacute;mero de tel&eacute;fono</label>
-                                    <input id="Telefono_MPerfil" name="Telefono" class="form-control" type="text" placeholder="000 00 00" data-type="phone" data-notblank="true" data-rangelength="[9,9]" data-required="true"/>
-                                </div> 
                             </div>
                         </div>
                         <div class="row">
@@ -169,7 +166,7 @@
                         $("select#departamentoperfil").html(opcion.join(""));
                     }
                 }).done(function() {
-                    $("select#departamentoperfil [value='"+id_departamento+"']").prop("selected", true);
+                    $("select#departamentoperfil [value='" + id_departamento + "']").prop("selected", true);
                 });
             }
             function getciudades(index)
@@ -189,9 +186,10 @@
                     }
                 });
             }
-            
+
             var datos_usuarios = function() {
                 var idusuario = '<%=Codigo%>';
+                var rol = '<%=Rol%>';
                 $.ajax({
                     type: 'POST',
                     url: '/TriggerEvent/Contr_Usuarios',
@@ -206,8 +204,23 @@
                                 $('#Correo_MPerfil').val(value.correo);
                                 $('#Direccion_MPerfil').val(value.direccion);
                                 $('#Numero_Documento_MPerfil').val(value.no_documento);
+                                if(value.no_documento != "Por registrar"){
+                                    $('#Numero_Documento_MPerfil').attr("readonly", true);
+                                }
                                 $('#Telefono_MPerfil').val(value.telefono);
-                                $('#Tipo_Documento_MPerfil').val(value.tipo_documento);
+
+                                var opciones = [];
+                                if (value.tipo_documento == "Por registrar" && rol == 'Cliente')
+                                {
+                                    opciones.push('<option value="Cédula de Ciudadanía">C&eacute;dula de Ciudadan&iacute;a</option>');
+                                    opciones.push('<option value="Tarjeta de Identidad">Tarjeta de Identidad</option>');
+                                    opciones.push('<option value="Cédula de Extranjería">C&eacute;dula de Extranjer&iacute;a</option>');
+                                    opciones.push('<option value="Pasaporte">Pasaporte</option>');
+                                }
+                                else {
+                                    opciones.push('<option value="'+value.tipo_documento+'">'+value.tipo_documento+'</option>');
+                                }
+                                $("#Tipo_Documento_MPerfil").html(opciones.join(""));
                                 
                                 getdepartamentos(value.codigo_departamento);
                                 $.ajax({
@@ -223,7 +236,7 @@
                                         $("select#ciudadperfil").html(opcionciudad.join(""));
                                     }
                                 }).done(function() {
-                                    $("select#ciudadperfil [value='"+value.codigo_ciudad+"']").prop("selected", true);
+                                    $("select#ciudadperfil [value='" + value.codigo_ciudad + "']").prop("selected", true);
                                 });
                             } else {
                                 window.location.replace("/TriggerEvent/View/ConsultaUsuario.jsp");
