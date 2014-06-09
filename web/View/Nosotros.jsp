@@ -16,10 +16,10 @@
     </head>
     <body>
         <%
-        if (Rol.equals("Administrador")) {%>
+            if (Rol.equals("Administrador")) {%>
         <%@include file="../WEB-INF/jspf/MenuAdministrador.jspf" %>
         <%
-    } else if (Rol.equals("Cliente")) {%>
+        } else if (Rol.equals("Cliente")) {%>
         <%@include file="../WEB-INF/jspf/MenuCliente.jspf" %>
         <%} else if (Rol.equals("Empresa")) {%>
         <%@include file="../WEB-INF/jspf/MenuEmpresa.jspf" %>
@@ -44,19 +44,39 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-ms-6 col-lg-6">
+                <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-md-4 col-md-offset-2 col-lg-4">
                     <center>
-                        <img class="img-circle" src="../Libs/Customs/images/Sergio1.jpg" alt="Generic placeholder image">
+                        <img class="img-circle" height="180px" width="180px" src="../Libs/Customs/images/Sergio1.jpg" alt="Generic placeholder image">
                     </center>
                     <h2>Sergio Rivera Ballesteros</h2>
-                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                    <p>
+                        Desarrollador y aprendiz del SENA en lenguajes de programaci&oacute;n Java, con un fuerte v&iacute;nculo hacia el an&aacute;lisis de software. pruebas de certificaci&oacute;n y bases de datos.
+                        <br/>
+                        "El ingl&eacute;s es como la programaci&oacute;n, si no lo practicas, se te olvida"
+                        <br/>
+                        <b>SENA - CESGE</b>
+                        <br/>
+                        Centro de servicios y gesti&oacute;n empresarial
+                        <br/>
+                        <b>Medell&iacute;n, Antioquia - Colombia</b>
+                    </p>
                 </div><!-- /.col-lg-4 -->
-                <div class="col-xs-12 col-sm-12 col-ms-6 col-lg-6">
+                <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-5 col-md-4 col-md-offset-0 col-lg-4">
                     <center>
-                        <img class="img-circle" src="../Libs/Customs/images/Santiago1.jpg"" alt="Generic placeholder image">
+                        <img class="img-circle" src="../Libs/Customs/images/Santiago1.jpg" alt="Generic placeholder image">
                     </center>
                     <h2>Santiago Botero Ru&iacute;z</h2>
-                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+                    <p>
+                        Desarrollador y aprendiz del SENA con conocimento en los lenguajes de programaci&oacute;n como Java, PHP, C#, Javascript y con un fuerte v&iacute;nculo hacia las bases de datos.
+                        <br/>
+                        "jQuery abstrae todo lo duro como incompatibilidades en el DOM, dej&aacute;ndome libre para escribir código bastante b&aacute;sico para lograr lo que necesito."
+                        <br/>
+                        <b>SENA - CESGE</b>
+                        <br/>
+                        Centro de servicios y gesti&oacute;n empresarial
+                        <br/>
+                        <b>Medell&iacute;n, Antioquia - Colombia</b>
+                    </p>
                 </div><!-- /.col-lg-4 -->
             </div>
             <!-- FOOTER -->

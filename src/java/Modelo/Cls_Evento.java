@@ -1686,7 +1686,7 @@ public class Cls_Evento {
                 + "Select Id_Seleccion "
                 + "From tb_seleccion_usuario "
                 + "WHERE Id_Usuario = ? AND Estado = 'Activo') "
-                + "ORDER BY Fecha  Limit 0,?";
+                + "ORDER BY Fecha  Limit ?,5";
         try {
 
             /*Se guarda la fecha en un date*/
@@ -1746,7 +1746,7 @@ public class Cls_Evento {
                 + "       From tb_evento e\n"
                 + "       JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "       JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento\n"
-                + "       WHERE e.Fecha >= ? AND e.Estado = 'Aprobado' ORDER BY e.Fecha Limit 0,?";
+                + "       WHERE e.Fecha >= ? AND e.Estado = 'Aprobado' ORDER BY e.Fecha Limit ?,5";
         try {
 
             /*Se guarda la fecha en un date*/
@@ -1809,7 +1809,7 @@ public class Cls_Evento {
                 + "AND u.Codigo = ? \n"
                 + "JOIN tb_ciudad c on c.Codigo = e.Codigo_Ciudad \n"
                 + "JOIN tb_departamento d on d.Codigo = c.Codigo_Departamento \n"
-                + "WHERE e.Fecha >= ? ORDER BY e.Fecha Limit 0, ?";
+                + "WHERE e.Fecha >= ? ORDER BY e.Fecha Limit ?, 5";
 
         try {
             /*Se guarda la fecha en una variable tipo date*/

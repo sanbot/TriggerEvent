@@ -177,9 +177,9 @@ public class Contr_Seleccion extends HttpServlet {
                         boolean isInMemory = item.isInMemory();
                         long sizeInBytes = item.getSize();
 
-                        if (sizeInBytes > 3145728) {
+                        if (sizeInBytes > 1000000) {
                             /*Se muestra un mensaje en caso de pesar mas de 3 MB*/
-                            session.setAttribute("Mensaje", "El tamaño límite de la imagen es: 3 MB");
+                            session.setAttribute("Mensaje", "El tamaño límite de la imagen es: 1 MB");
                             session.setAttribute("TipoMensaje", "NODio");
                             /*Se redirecciona*/
                             response.sendRedirect("View/ConsultaSeleccion.jsp");

@@ -727,7 +727,7 @@ public class Contr_Help extends HttpServlet {
                 /*Si se realiza la peticion de obtener los gustos nuevos*/
                 /*Se declaran las variables necesarias*/
                 String Codigo = request.getParameter("codigo");
-                int Cantidad = Integer.parseInt(request.getParameter("cantidad"));
+                int Cantidad = Integer.parseInt(request.getParameter("limite"));
                 Cls_Seleccion sel = new Cls_Seleccion();
                 JSONObject obj = new JSONObject();
                 JSONArray list = new JSONArray();

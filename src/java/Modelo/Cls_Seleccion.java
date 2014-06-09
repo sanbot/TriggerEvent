@@ -1119,7 +1119,7 @@ public class Cls_Seleccion {
                 + "Where Id_Usuario = ? And Estado = 'Activo'"
                 + ") "
                 + "AND Estado = 'Aprobado' "
-                + "limit 0, ?";
+                + "limit ?, 5";
         /*Se crea un array para guardar los datos*/
         String[][] Datos = null;
         try {
@@ -1170,7 +1170,6 @@ public class Cls_Seleccion {
     public String[][] getMisGustosAndroid(String codigo, int cantidad) {
         /*Se crean e instancia las clases y variables necesarias*/
         Connection conn = conexion.conectar();
-        BASE64Encoder encoder = new BASE64Encoder();
         PreparedStatement pr = null;
         ResultSet rs = null;
         /*Se crea la sentencia sql en un string*/
@@ -1181,7 +1180,7 @@ public class Cls_Seleccion {
                 + "From tb_seleccion_usuario "
                 + "Where Id_Usuario = ? "
                 + "And Estado = 'Activo') "
-                + "Limit 0, ?";
+                + "Limit ?, 5";
         /*Se crea un array para guardar los datos*/
         String[][] Datos = null;
         try {
