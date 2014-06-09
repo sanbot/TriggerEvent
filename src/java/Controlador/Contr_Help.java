@@ -737,29 +737,33 @@ public class Contr_Help extends HttpServlet {
                 /*Se obtienen los datos de los gustos nuevos, en el metodo de modelo*/
                 String[][] Datos = sel.getGustosNuevosAndroid(Codigo, Cantidad);
                 int i = 0;
-                /*Se encodifican los datos en JSON*/
-                for (String row[] : Datos) {
-                    JSONObject ob = new JSONObject();
+                try {
+                    /*Se encodifican los datos en JSON*/
+                    for (String row[] : Datos) {
+                        JSONObject ob = new JSONObject();
 
-                    img = ImageIO.read(new File(urlimgservidor + "/" + row[0] + row[3]));
-                    String typeimg = row[3].substring(1, row[3].length());
+                        img = ImageIO.read(new File(urlimgservidor + "/" + row[0] + row[3]));
+                        String typeimg = row[3].substring(1, row[3].length());
 
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    ImageIO.write(img, typeimg, bos);
-                    byte[] imageBytes = bos.toByteArray();
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        ImageIO.write(img, typeimg, bos);
+                        byte[] imageBytes = bos.toByteArray();
 
-                    BASE64Encoder encoder = new BASE64Encoder();
-                    String imageSTring = encoder.encode(imageBytes);
+                        BASE64Encoder encoder = new BASE64Encoder();
+                        String imageSTring = encoder.encode(imageBytes);
 
-                    bos.close();
+                        bos.close();
 
-                    ob.put("Codigo", row[0]);
-                    ob.put("Nombre", row[1]);
-                    ob.put("Tipo", row[2]);
-                    ob.put("Imagen", imageSTring);
-                    list.add(ob);
+                        ob.put("Codigo", row[0]);
+                        ob.put("Nombre", row[1]);
+                        ob.put("Tipo", row[2]);
+                        ob.put("Imagen", imageSTring);
+                        list.add(ob);
 
-                    i++;
+                        i++;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 obj.put("gustos", list);
                 /*Se imprime el resultado*/

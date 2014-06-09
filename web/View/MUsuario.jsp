@@ -86,7 +86,7 @@
                             <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label  for="Nombre">N&uacute;mero de documento</label>
-                                    <input name="No_Documento" type="text" class="form-control" id="txtdocumento_modificar_usuario" data-type="number" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
+                                    <input name="No_Documento" type="text" class="form-control" id="txtdocumento_modificar_usuario" data-rangelength="[6,30]" data-notblank="true" data-required="true"/>
                                 </div>
                             </div>
 
@@ -263,6 +263,9 @@
                 $("select#departamento_Musuario", this).change(function() {
                     var index = $(this).val();
                     getciudades(index);
+                });
+                $("input, select").change(function() {
+                    $(this).parsley('validate');
                 });
             });
         </script>

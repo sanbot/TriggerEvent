@@ -191,7 +191,7 @@
                         $.each(datos, function(key, value) {
                             if (value.codigo != null) {
                                 $('#Correo').val(value.correo);
-                                $("#ddlCiudad").html('<option value=' + value.nombre_ciudad + '>' + value.nombre_ciudad + '</option>');
+                                $("select#ciudadcontactenos").html('<option value=' + value.nombre_ciudad + '>' + value.nombre_ciudad + '</option>');
                                 $("select#departamentocontactenos").html("<option value=' " + value.nombre_departamento + " '>" + value.nombre_departamento + "</option>");
                             }
                         });

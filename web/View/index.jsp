@@ -121,7 +121,7 @@
                                         Contrase&ntilde;a
                                     </label>
                                     <div class="col-sm-9" id="target-2">
-                                        <input type="password" class="form-control" id="txtPassWordInicio-sm" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[8,50]">
+                                        <input type="password" class="form-control" id="txtPassWordInicio-sm" name="contrasenia" placeholder="password" data-notblank="true" data-required="true" data-rangelength="[6,30]">
                                     </div>
                                 </div>
                                 <div class="form-group" >
@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="form-group last" >
                                     <div class="col-sm-offset-3 col-sm-9">
-                                        <a id="loginingresar-sm" class="btn btn-success btn-sm" >
+                                        <a id="loginingresarsm" class="btn btn-success btn-sm" >
                                             Ingresar
                                         </a>
                                         <button type="reset" class="btn btn-default btn-sm">

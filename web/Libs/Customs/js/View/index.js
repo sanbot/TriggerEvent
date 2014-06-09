@@ -77,6 +77,15 @@ var ValidarCamposmodal = function() {
     }
     return false;
 }
+var ValidarCamposinicalSM = function() {
+    var contra = $("#txtPassWordInicio-sm").parsley('validate');
+    var corre = $("#txtCorreoInicio1-sm").parsley('validate');
+    if (contra && corre)
+    {
+        return true;
+    }
+    return false;
+}
 var loginusuario = function(correo, contrasenia, url) {
     $.ajax({
         type: 'POST',
@@ -86,7 +95,7 @@ var loginusuario = function(correo, contrasenia, url) {
             var datos = jQuery.parseJSON(data);
             console.log(datos);
             $.each(datos, function(key, val) {
-                if (key =="1")
+                if (key == "1")
                 {
                     window.location.replace(url);
                 }
@@ -187,7 +196,7 @@ $("#guia").click(function() {
     guidely.init({welcome: true, startTrigger: false});
 });
 var eventoslistos = function() {
-    
+
     $(".calificacionevento").click(function() {
         var Id = $(this).data('id');
         $("#codigoeventomodal").val(Id);
@@ -199,18 +208,16 @@ var eventoslistos = function() {
 }
 
 $("#loginingresar").click(function() {
+    if (ValidarCamposinical()) {
+        var correo = $("#txtCorreoInicio1").val();
+        var contrasenia = $("#txtPassWordInicio").val();
+        var url = "/TriggerEvent/View/EventoRecomendado.jsp";
+        loginusuario(correo, contrasenia, url);
+    }
+});
 
-        if (ValidarCamposinical()) {
-            var correo = $("#txtCorreoInicio1").val();
-            var contrasenia = $("#txtPassWordInicio").val();
-            var url = "/TriggerEvent/View/EventoRecomendado.jsp";
-            loginusuario(correo, contrasenia, url);
-        }
-    });
-    
 $("#btn-login").click(function() {
     if (ValidarCamposmodal()) {
-        console.log("hola");
         var correo = $("#txtCorreoModal").val();
         var contrasenia = $("#txtPasswordModal").val();
         var CodigoEvento = $("#codigoeventomodal").val();
@@ -219,9 +226,8 @@ $("#btn-login").click(function() {
     }
 });
 
-$("#loginingresar-sm").click(function() {
-    if (ValidarCamposmodal()) {
-        console.log("hola");
+$("#loginingresarsm").click(function() {
+    if (ValidarCamposinicalSM()) {
         var correo = $("#txtCorreoInicio1-sm").val();
         var contrasenia = $("#txtPassWordInicio-sm").val();
         var url = "/TriggerEvent/View/EventoRecomendado.jsp";
